@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WayPoint
 
-## Getting Started
+*"Every day, we tell students exactly what to study next to maximize their AP score."*
 
-First, run the development server:
+WayPoint is a deterministic study GPS for AP exam prep: a mastery/topic-timer/priority-scoring
+engine drives a daily plan, backed by MCQ/FRQ practice, diagnostics, deterministic explanations,
+a capped AI "explain" fallback, and a weekly coach report. Two UI layers - Professional and
+Gamified - sit on the same backend.
+
+## Stack
+
+- **Frontend**: Next.js (App Router) + TypeScript + Tailwind CSS v4 + shadcn/ui + Clerk
+- **Backend**: FastAPI + Python + Pydantic + SQLModel
+- **Database**: Postgres (Neon-ready)
+- **AI**: Anthropic Claude, strictly for the capped on-demand "explain" feature - question
+  generation is offline/manual, never live
+
+## Quickstart
+
+See [`docs/LOCAL_DEV.md`](docs/LOCAL_DEV.md) for full setup (Docker-free and Docker Compose
+paths). Short version:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# backend
+cd backend && python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements-dev.txt
+cp .env.example .env   # fill in CLERK_SECRET_KEY / ANTHROPIC_API_KEY when available
+alembic upgrade head && python -m scripts.seed
+uvicorn app.main:app --reload --port 8000
+
+# frontend (separate terminal)
+cd frontend && cp .env.example .env.local && npm install && npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Backend API docs: `http://localhost:8000/docs`. Frontend: `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Repo layout
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+waypoint/
+├── frontend/    Next.js App Router client
+├── backend/     FastAPI service, mastery/planner engine, admin API
+├── docs/        local dev + jobs/scheduling docs
+├── docker-compose.yml
+└── .github/workflows/weekly-coach-report.yml
+```
 
-## Learn More
+See [`backend/README.md`](backend/README.md) for the backend's internal structure, and
+[`docs/JOBS.md`](docs/JOBS.md) for how the weekly coach report is scheduled.
 
-To learn more about Next.js, take a look at the following resources:
+## Priority AP subjects
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+AP Calculus AB, AP Biology, AP Psychology, AP US History, AP Chemistry, AP Computer Science A.

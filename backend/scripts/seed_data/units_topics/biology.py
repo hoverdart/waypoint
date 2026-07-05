@@ -1,0 +1,331 @@
+"""AP Biology units and topics, aligned to the College Board Course and Exam
+Description (CED). Weight ranges reflect the CED's official exam weighting
+per unit; topic lists are a representative (not exhaustive) subset of each
+unit's enduring understandings for seed purposes."""
+
+UNITS = [
+    {
+        "name": "Chemistry of Life",
+        "description": "The chemical and physical properties of water, macromolecules, and the building blocks of biological systems.",
+        "ap_weight_min": 8.0,
+        "ap_weight_max": 11.0,
+        "display_order": 1,
+        "topics": [
+            {
+                "name": "Structure of Water and Hydrogen Bonding",
+                "description": "Water's polarity and hydrogen bonding give rise to cohesion, adhesion, and its role as a solvent.",
+                "skill_tags": ["water", "polarity", "hydrogen-bonding"],
+                "display_order": 1,
+            },
+            {
+                "name": "Elements of Life",
+                "description": "Carbon, hydrogen, nitrogen, oxygen, phosphorus, and sulfur form the basis of biological macromolecules.",
+                "skill_tags": ["elements", "bonding"],
+                "display_order": 2,
+            },
+            {
+                "name": "Introduction to Biological Macromolecules",
+                "description": "Carbohydrates, lipids, proteins, and nucleic acids are built from monomers via dehydration synthesis and hydrolysis.",
+                "skill_tags": ["macromolecules", "polymers"],
+                "display_order": 3,
+            },
+            {
+                "name": "Properties of Biological Macromolecules",
+                "description": "The structure of macromolecules, especially proteins, determines their function.",
+                "skill_tags": ["protein-structure", "structure-function"],
+                "display_order": 4,
+            },
+            {
+                "name": "Structure and Function of Enzymes",
+                "description": "Enzymes lower activation energy and are affected by pH, temperature, and substrate concentration.",
+                "skill_tags": ["enzymes", "activation-energy"],
+                "display_order": 5,
+            },
+        ],
+    },
+    {
+        "name": "Cell Structure and Function",
+        "description": "The structure of cells and organelles, membrane transport, and the compartmentalization that supports cellular processes.",
+        "ap_weight_min": 10.0,
+        "ap_weight_max": 13.0,
+        "display_order": 2,
+        "topics": [
+            {
+                "name": "Cell Structure: Subcellular Components",
+                "description": "Prokaryotic and eukaryotic cells contain organelles with specialized structures and functions.",
+                "skill_tags": ["organelles", "prokaryote-eukaryote"],
+                "display_order": 1,
+            },
+            {
+                "name": "Cell Size",
+                "description": "Surface area-to-volume ratio constrains cell size and shape and affects exchange with the environment.",
+                "skill_tags": ["surface-area-to-volume"],
+                "display_order": 2,
+            },
+            {
+                "name": "Plasma Membranes",
+                "description": "The fluid mosaic model describes a selectively permeable membrane composed of phospholipids and proteins.",
+                "skill_tags": ["membrane-structure", "fluid-mosaic"],
+                "display_order": 3,
+            },
+            {
+                "name": "Membrane Permeability and Transport",
+                "description": "Passive transport, active transport, and bulk transport move substances across membranes.",
+                "skill_tags": ["osmosis", "diffusion", "active-transport"],
+                "display_order": 4,
+            },
+            {
+                "name": "Cell Compartmentalization",
+                "description": "Internal membranes create compartments that allow specialized and simultaneous metabolic reactions.",
+                "skill_tags": ["compartmentalization", "endomembrane-system"],
+                "display_order": 5,
+            },
+        ],
+    },
+    {
+        "name": "Cellular Energetics",
+        "description": "How cells capture, store, and use energy through photosynthesis, cellular respiration, and enzyme-driven pathways.",
+        "ap_weight_min": 12.0,
+        "ap_weight_max": 16.0,
+        "display_order": 3,
+        "topics": [
+            {
+                "name": "Coupled Reactions and ATP",
+                "description": "ATP hydrolysis couples exergonic and endergonic reactions to power cellular work.",
+                "skill_tags": ["atp", "coupled-reactions"],
+                "display_order": 1,
+            },
+            {
+                "name": "Cellular Respiration",
+                "description": "Glycolysis, the Krebs cycle, and oxidative phosphorylation extract energy from glucose to produce ATP.",
+                "skill_tags": ["respiration", "glycolysis", "electron-transport-chain"],
+                "display_order": 2,
+            },
+            {
+                "name": "Photosynthesis",
+                "description": "Light-dependent reactions and the Calvin cycle convert light energy into chemical energy stored in sugars.",
+                "skill_tags": ["photosynthesis", "calvin-cycle", "light-reactions"],
+                "display_order": 3,
+            },
+            {
+                "name": "Environmental Effects on Energy Capture and Use",
+                "description": "Light intensity, temperature, and gas concentrations affect rates of photosynthesis and respiration.",
+                "skill_tags": ["rate-of-reaction", "environmental-factors"],
+                "display_order": 4,
+            },
+        ],
+    },
+    {
+        "name": "Cell Communication and Cell Cycle",
+        "description": "Signal transduction pathways and the regulated progression of the cell cycle, including mitosis and its checkpoints.",
+        "ap_weight_min": 10.0,
+        "ap_weight_max": 15.0,
+        "display_order": 4,
+        "topics": [
+            {
+                "name": "Cell Communication",
+                "description": "Cells communicate via local and long-distance signaling using signal transduction pathways.",
+                "skill_tags": ["signal-transduction", "cell-signaling"],
+                "display_order": 1,
+            },
+            {
+                "name": "Introduction to Signal Transduction",
+                "description": "Reception, transduction, and response describe how a cell converts a signal into a cellular change.",
+                "skill_tags": ["signal-transduction", "receptors"],
+                "display_order": 2,
+            },
+            {
+                "name": "Feedback",
+                "description": "Negative and positive feedback loops regulate signal pathways and maintain homeostasis.",
+                "skill_tags": ["feedback-loops", "homeostasis"],
+                "display_order": 3,
+            },
+            {
+                "name": "Cell Cycle",
+                "description": "The cell cycle progresses through G1, S, G2, and M phases under the control of checkpoints.",
+                "skill_tags": ["cell-cycle", "checkpoints"],
+                "display_order": 4,
+            },
+            {
+                "name": "Regulation of Cell Cycle",
+                "description": "Cyclins, CDKs, and checkpoint failures (e.g., in cancer) regulate or disrupt normal cell division.",
+                "skill_tags": ["cell-cycle-regulation", "cancer"],
+                "display_order": 5,
+            },
+        ],
+    },
+    {
+        "name": "Heredity",
+        "description": "Meiosis, chromosomal inheritance, and the patterns by which traits are passed from generation to generation.",
+        "ap_weight_min": 8.0,
+        "ap_weight_max": 11.0,
+        "display_order": 5,
+        "topics": [
+            {
+                "name": "Meiosis",
+                "description": "Meiosis produces haploid gametes through two rounds of division, generating genetic variation.",
+                "skill_tags": ["meiosis", "gametes"],
+                "display_order": 1,
+            },
+            {
+                "name": "Meiosis and Genetic Diversity",
+                "description": "Crossing over and independent assortment during meiosis increase genetic variation among offspring.",
+                "skill_tags": ["crossing-over", "independent-assortment"],
+                "display_order": 2,
+            },
+            {
+                "name": "Mendelian Genetics",
+                "description": "The laws of segregation and independent assortment predict inheritance patterns in monohybrid and dihybrid crosses.",
+                "skill_tags": ["mendelian-genetics", "punnett-squares"],
+                "display_order": 3,
+            },
+            {
+                "name": "Non-Mendelian Genetics",
+                "description": "Incomplete dominance, codominance, sex-linkage, and epistasis produce inheritance patterns beyond simple dominance.",
+                "skill_tags": ["non-mendelian", "sex-linked-traits"],
+                "display_order": 4,
+            },
+            {
+                "name": "Environmental Effects on Phenotype",
+                "description": "Environmental factors can influence the expression of an organism's phenotype.",
+                "skill_tags": ["phenotype", "gene-environment-interaction"],
+                "display_order": 5,
+            },
+        ],
+    },
+    {
+        "name": "Gene Expression and Regulation",
+        "description": "The molecular mechanisms of DNA replication, transcription, translation, mutation, and gene regulation.",
+        "ap_weight_min": 12.0,
+        "ap_weight_max": 16.0,
+        "display_order": 6,
+        "topics": [
+            {
+                "name": "DNA and RNA Structure",
+                "description": "DNA's double-helix structure and RNA's structure enable the storage and transfer of genetic information.",
+                "skill_tags": ["dna-structure", "rna-structure"],
+                "display_order": 1,
+            },
+            {
+                "name": "DNA Replication",
+                "description": "Semiconservative replication uses enzymes like DNA polymerase to accurately copy genetic material.",
+                "skill_tags": ["dna-replication", "semiconservative"],
+                "display_order": 2,
+            },
+            {
+                "name": "Transcription and RNA Processing",
+                "description": "RNA polymerase transcribes DNA into pre-mRNA, which is processed (splicing, capping, tailing) into mature mRNA.",
+                "skill_tags": ["transcription", "rna-splicing"],
+                "display_order": 3,
+            },
+            {
+                "name": "Translation",
+                "description": "Ribosomes translate mRNA codons into polypeptides using tRNA and the genetic code.",
+                "skill_tags": ["translation", "genetic-code"],
+                "display_order": 4,
+            },
+            {
+                "name": "Regulation of Gene Expression",
+                "description": "Operons, transcription factors, and epigenetic modifications regulate when and how much a gene is expressed.",
+                "skill_tags": ["gene-regulation", "operons", "epigenetics"],
+                "display_order": 5,
+            },
+            {
+                "name": "Mutations",
+                "description": "Point mutations, insertions, and deletions can alter protein structure and function, sometimes affecting fitness.",
+                "skill_tags": ["mutations", "frameshift"],
+                "display_order": 6,
+            },
+        ],
+    },
+    {
+        "name": "Natural Selection",
+        "description": "The mechanisms of evolution, including natural selection, genetic drift, and evidence for common ancestry.",
+        "ap_weight_min": 13.0,
+        "ap_weight_max": 20.0,
+        "display_order": 7,
+        "topics": [
+            {
+                "name": "Introduction to Natural Selection",
+                "description": "Natural selection acts on heritable variation to change allele frequencies when environments favor certain traits.",
+                "skill_tags": ["natural-selection", "fitness"],
+                "display_order": 1,
+            },
+            {
+                "name": "Evidence of Evolution",
+                "description": "Fossils, homologous structures, biogeography, and molecular evidence support the theory of evolution.",
+                "skill_tags": ["evolution-evidence", "homologous-structures"],
+                "display_order": 2,
+            },
+            {
+                "name": "Common Ancestry",
+                "description": "Phylogenetic trees and cladograms represent hypothesized evolutionary relationships among species.",
+                "skill_tags": ["phylogeny", "cladograms", "common-ancestry"],
+                "display_order": 3,
+            },
+            {
+                "name": "Continuing Evolution",
+                "description": "Evolution is an ongoing process observable in populations, including antibiotic and pesticide resistance.",
+                "skill_tags": ["ongoing-evolution", "resistance"],
+                "display_order": 4,
+            },
+            {
+                "name": "Population Genetics",
+                "description": "The Hardy-Weinberg equilibrium models allele frequencies in a non-evolving population as a baseline for detecting evolution.",
+                "skill_tags": ["hardy-weinberg", "allele-frequency"],
+                "display_order": 5,
+            },
+            {
+                "name": "Speciation",
+                "description": "Reproductive isolation through geographic, behavioral, or temporal mechanisms can lead to the formation of new species.",
+                "skill_tags": ["speciation", "reproductive-isolation"],
+                "display_order": 6,
+            },
+        ],
+    },
+    {
+        "name": "Ecology",
+        "description": "Interactions among organisms and their environment at the population, community, and ecosystem levels.",
+        "ap_weight_min": 10.0,
+        "ap_weight_max": 15.0,
+        "display_order": 8,
+        "topics": [
+            {
+                "name": "Responses to the Environment",
+                "description": "Organisms respond to environmental stimuli through behavioral and physiological mechanisms to maintain fitness.",
+                "skill_tags": ["behavior", "environmental-response"],
+                "display_order": 1,
+            },
+            {
+                "name": "Energy Flow Through Ecosystems",
+                "description": "Energy flows unidirectionally through trophic levels, with only a fraction transferred at each level.",
+                "skill_tags": ["trophic-levels", "energy-pyramid"],
+                "display_order": 2,
+            },
+            {
+                "name": "Population Ecology",
+                "description": "Population size is influenced by density-dependent and density-independent factors and models like logistic growth.",
+                "skill_tags": ["population-growth", "carrying-capacity"],
+                "display_order": 3,
+            },
+            {
+                "name": "Community Ecology",
+                "description": "Species interactions such as competition, predation, and symbiosis shape community structure.",
+                "skill_tags": ["species-interactions", "symbiosis"],
+                "display_order": 4,
+            },
+            {
+                "name": "Biodiversity",
+                "description": "Biodiversity contributes to ecosystem stability and resilience in the face of disturbance.",
+                "skill_tags": ["biodiversity", "ecosystem-stability"],
+                "display_order": 5,
+            },
+            {
+                "name": "Disruptions to Ecosystems",
+                "description": "Human activity and natural disturbances can disrupt ecosystem dynamics and reduce biodiversity.",
+                "skill_tags": ["ecosystem-disruption", "human-impact"],
+                "display_order": 6,
+            },
+        ],
+    },
+]
