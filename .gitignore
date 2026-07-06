@@ -22,10 +22,17 @@
 /backend/*.egg-info/
 /backend/.pytest_cache/
 /backend/.ruff_cache/
+/backend/.coverage
+/backend/coverage.xml
+/backend/htmlcov/
 
 # --- testing/coverage ---
 /coverage
 .pytest_cache/
+/frontend/coverage/
+/frontend/playwright-report/
+/frontend/test-results/
+/frontend/blob-report/
 
 # --- python (generic) ---
 *.pyc
