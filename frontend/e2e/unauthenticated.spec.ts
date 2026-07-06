@@ -9,16 +9,21 @@ test.describe("Unauthenticated visitors", () => {
     // These render as <a> tags styled as buttons - the shadcn/Base UI build
     // this app uses sets role="button" explicitly on them, so they're queried
     // as buttons rather than links despite being real anchor elements. Scoped
-    // to <main> since the nav header has its own "Log in" link too.
-    const hero = page.getByRole("main");
+    // to the hero region since the nav header has its own "Log in" link, and
+    // the final CTA section also has its own "Get started free" button.
+    const hero = page.getByRole("region", { name: "Hero" });
     await expect(hero.getByRole("button", { name: "Get started free" })).toHaveAttribute("href", "/signup");
     await expect(hero.getByRole("button", { name: "Log in" })).toHaveAttribute("href", "/login");
   });
 
   test("landing page lists the priority AP subjects", async ({ page }) => {
     await page.goto("/");
+    // Scoped to the subject showcase region - subject names also appear as
+    // decorative floating signals and in the hero preview card elsewhere on
+    // the page.
+    const showcase = page.getByRole("region", { name: "Priority AP subjects" });
     for (const subject of ["AP Calculus AB", "AP Biology", "AP Psychology", "AP US History", "AP Chemistry", "AP Computer Science A"]) {
-      await expect(page.getByText(subject, { exact: true })).toBeVisible();
+      await expect(showcase.getByText(subject, { exact: true })).toBeVisible();
     }
   });
 
