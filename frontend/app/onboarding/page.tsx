@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { syncUser, getSubjects } from "@/lib/api";
 import { getServerAuthToken } from "@/lib/auth/getServerAuthToken";
 import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard";
+import { OnboardingLayout } from "@/components/onboarding/OnboardingLayout";
 
 export default async function OnboardingPage() {
   const token = await getServerAuthToken();
@@ -12,8 +13,8 @@ export default async function OnboardingPage() {
   const subjects = await getSubjects();
 
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 py-12">
+    <OnboardingLayout>
       <OnboardingWizard subjects={subjects} />
-    </div>
+    </OnboardingLayout>
   );
 }

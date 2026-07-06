@@ -22,8 +22,8 @@ test.describe("Authenticated golden path", () => {
     await clerk.signIn({ page, emailAddress: testUser.email });
 
     await page.goto("/onboarding");
-    await expect(page.getByText("How do you want WayPoint to feel?")).toBeVisible();
-    await page.getByRole("button", { name: /Professional/ }).click();
+    await expect(page.getByText("Build your AP study path")).toBeVisible();
+    await page.getByRole("radio", { name: /Professional/ }).click();
     await page.getByRole("button", { name: "Continue" }).click();
 
     await expect(page.getByText("Which AP exams are you taking?")).toBeVisible();
