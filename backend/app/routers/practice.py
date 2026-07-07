@@ -113,6 +113,7 @@ def practice_results(
         breakdown.append(
             AnswerBreakdownItem(
                 question_id=question.id,
+                topic_id=question.topic_id,
                 prompt=question.prompt,
                 type=question.type,
                 is_correct=attempt.is_correct,

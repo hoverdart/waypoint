@@ -12,8 +12,10 @@ export default async function SubjectsPage() {
   return (
     <div className="mx-auto w-full max-w-6xl space-y-6 px-4 py-8">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Subjects</h1>
-        <p className="text-muted-foreground">All AP subjects WayPoint currently supports.</p>
+        <h1 className="font-heading text-2xl font-semibold tracking-tight text-navy sm:text-3xl">
+          Your AP courses
+        </h1>
+        <p className="text-muted-foreground">Every subject WayPoint plots a study route for.</p>
       </div>
       <SubjectGrid allSubjects={allSubjects} enrolled={dashboard.subjects} />
     </div>

@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
-import { MasteryBar } from "@/components/shared/MasteryBar";
+import { CardContent } from "@/components/ui/card";
+import { WayPointCard } from "@/components/shared/WayPointCard";
+import { TopicMasteryPill } from "@/components/shared/MasteryPills";
 import { DashboardSubjectSummary, Subject } from "@/lib/api";
 import { DiagnosticStartButton } from "./DiagnosticStartButton";
 
@@ -18,12 +19,12 @@ export function SubjectGrid({
       {allSubjects.map((subject) => {
         const summary = enrolledById.get(subject.id);
         return (
-          <Card key={subject.id} className={summary ? undefined : "opacity-60"}>
-            <CardContent className="space-y-3 pt-6">
-              <div className="flex items-start justify-between">
-                <p className="font-medium">{subject.name}</p>
+          <WayPointCard key={subject.id} className={summary ? undefined : "opacity-60"}>
+            <CardContent className="space-y-3 p-5">
+              <div className="flex items-start justify-between gap-2">
+                <p className="font-heading font-semibold text-navy">{subject.name}</p>
                 {summary && (
-                  <span className="rounded-full bg-primary/10 px-2 py-0.5 text-sm font-semibold text-primary">
+                  <span className="shrink-0 rounded-full bg-blue-soft px-2.5 py-0.5 text-sm font-semibold text-navy">
                     {summary.predicted_ap_score}
                   </span>
                 )}
@@ -32,13 +33,13 @@ export function SubjectGrid({
 
               {summary ? (
                 <>
-                  <MasteryBar score={summary.mastery_score} />
-                  <div className="flex items-center justify-between">
+                  <TopicMasteryPill masteryScore={summary.mastery_score} />
+                  <div className="flex items-center justify-between pt-1">
                     <Link
                       href={`/analytics?subject=${subject.id}`}
-                      className="text-xs text-muted-foreground underline underline-offset-2"
+                      className="text-xs font-medium text-blue underline-offset-2 hover:underline"
                     >
-                      View analytics
+                      View course
                     </Link>
                     <DiagnosticStartButton subjectId={subject.id} />
                   </div>
@@ -49,7 +50,7 @@ export function SubjectGrid({
                 </p>
               )}
             </CardContent>
-          </Card>
+          </WayPointCard>
         );
       })}
     </div>

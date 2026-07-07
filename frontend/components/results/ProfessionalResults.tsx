@@ -1,29 +1,36 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { CardContent } from "@/components/ui/card";
+import { WayPointCard } from "@/components/shared/WayPointCard";
 import { LinkButton } from "@/components/shared/LinkButton";
 import { PracticeResultsResponse } from "@/lib/api";
 import { AnswerBreakdownCard } from "./AnswerBreakdownCard";
 
-export function ProfessionalResults({ results }: { results: PracticeResultsResponse }) {
+export function ProfessionalResults({
+  results,
+  subjectId,
+}: {
+  results: PracticeResultsResponse;
+  subjectId?: number;
+}) {
   const isDiagnostic = results.session_type === "diagnostic";
   const percent = Math.round(results.score * 100);
 
   return (
     <div className="mx-auto w-full max-w-2xl space-y-6 px-4 py-8">
-      <Card>
+      <WayPointCard elevated>
         <CardContent className="space-y-2 pt-6 text-center">
           <p className="text-sm text-muted-foreground">
             {isDiagnostic ? "Baseline established" : "Session complete"}
           </p>
-          <p className="text-4xl font-semibold">
+          <p className="font-heading text-4xl font-semibold text-navy">
             {results.correct_count}/{results.total_questions}
           </p>
           <p className="text-muted-foreground">{percent}% correct</p>
         </CardContent>
-      </Card>
+      </WayPointCard>
 
       <div className="space-y-3">
         {results.breakdown.map((item) => (
-          <AnswerBreakdownCard key={item.question_id} item={item} />
+          <AnswerBreakdownCard key={item.question_id} item={item} subjectId={subjectId} />
         ))}
       </div>
 

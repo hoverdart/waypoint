@@ -79,6 +79,7 @@ class ExplanationRead(BaseModel):
 
 class AnswerBreakdownItem(BaseModel):
     question_id: int
+    topic_id: int
     prompt: str
     type: str
     is_correct: bool

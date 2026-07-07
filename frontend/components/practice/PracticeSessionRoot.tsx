@@ -2,12 +2,13 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { CardContent } from "@/components/ui/card";
+import { WayPointCard } from "@/components/shared/WayPointCard";
+import { WayPointButton } from "@/components/shared/WayPointButton";
 import { ReportQuestionDialog } from "@/components/shared/ReportQuestionDialog";
 import { AnswerInput, Question, submitDiagnostic, submitPractice } from "@/lib/api";
 import { useApiToken } from "@/lib/hooks/useApiToken";
-import { QuestionProgressIndicator } from "./QuestionProgressIndicator";
+import { StudySessionHeader } from "./StudySessionHeader";
 import { McqQuestionForm } from "./McqQuestionForm";
 import { FrqQuestionForm } from "./FrqQuestionForm";
 import { ConfidenceRatingInput } from "./ConfidenceRatingInput";
@@ -29,11 +30,17 @@ export function PracticeSessionRoot({
   sessionType,
   questions,
   planItemId,
+  subjectName,
+  topicName,
+  reason,
 }: {
   sessionId: number;
   sessionType: string;
   questions: Question[];
   planItemId?: number;
+  subjectName?: string;
+  topicName?: string;
+  reason?: string;
 }) {
   const router = useRouter();
   const getToken = useApiToken();
@@ -47,14 +54,14 @@ export function PracticeSessionRoot({
   if (questions.length === 0) {
     return (
       <div className="mx-auto w-full max-w-2xl px-4 py-16 text-center">
-        <Card>
+        <WayPointCard elevated>
           <CardContent className="space-y-2 pt-6">
-            <p className="font-medium">No questions available for this topic yet.</p>
+            <p className="font-medium text-navy">No questions available for this topic yet.</p>
             <p className="text-sm text-muted-foreground">
               Our question bank is still growing here - try a different topic for now.
             </p>
           </CardContent>
-        </Card>
+        </WayPointCard>
       </div>
     );
   }
@@ -110,11 +117,18 @@ export function PracticeSessionRoot({
 
   return (
     <div className="mx-auto w-full max-w-2xl space-y-6 px-4 py-8">
-      <QuestionProgressIndicator current={index + 1} total={questions.length} isDiagnostic={isDiagnostic} />
+      <StudySessionHeader
+        current={index + 1}
+        total={questions.length}
+        isDiagnostic={isDiagnostic}
+        subjectName={subjectName}
+        topicName={topicName}
+        reason={index === 0 ? reason : undefined}
+      />
 
-      <Card>
+      <WayPointCard elevated>
         <CardContent className="space-y-5 pt-6">
-          <p className="whitespace-pre-wrap text-base">{question.prompt}</p>
+          <p className="whitespace-pre-wrap text-base text-navy">{question.prompt}</p>
 
           {question.type === "mcq" ? (
             <McqQuestionForm
@@ -134,23 +148,24 @@ export function PracticeSessionRoot({
             onChange={(rating) => patchCurrentAnswer({ confidence_rating: rating })}
           />
 
-          <div className="flex items-center justify-between border-t pt-4">
+          <div className="flex items-center justify-between border-t border-border/70 pt-4">
             <div className="flex items-center gap-2">
-              <Button
+              <WayPointButton
                 variant="ghost"
                 size="sm"
+                showArrow={false}
                 onClick={() => patchCurrentAnswer({ hints_used: currentAnswer.hints_used + 1 })}
               >
                 Hint used ({currentAnswer.hints_used})
-              </Button>
+              </WayPointButton>
               <ReportQuestionDialog questionId={question.id} />
             </div>
-            <Button disabled={!canAdvance || submitting} onClick={handleNext}>
+            <WayPointButton showArrow={false} disabled={!canAdvance || submitting} onClick={handleNext}>
               {isLast ? (submitting ? "Submitting..." : "Finish") : "Next"}
-            </Button>
+            </WayPointButton>
           </div>
         </CardContent>
-      </Card>
+      </WayPointCard>
     </div>
   );
 }

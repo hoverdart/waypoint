@@ -40,6 +40,6 @@ describe("McqQuestionForm", () => {
   it("highlights the currently selected option", () => {
     render(<McqQuestionForm question={question} selectedOptionId={12} onSelect={() => {}} />);
     const selectedButton = screen.getByText("the limit does not exist").closest("button");
-    expect(selectedButton?.className).toContain("border-primary");
+    expect(selectedButton?.className).toContain("border-blue");
   });
 });

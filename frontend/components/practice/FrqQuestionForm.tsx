@@ -13,6 +13,7 @@ export function FrqQuestionForm({
       onChange={(e) => onChange(e.target.value)}
       rows={8}
       placeholder="Write your response here..."
+      className="rounded-xl border-border/80 focus-visible:ring-blue/50"
     />
   );
 }

@@ -25,7 +25,7 @@ function makeDashboard(overrides: Partial<Dashboard> = {}): Dashboard {
 describe("DashboardView", () => {
   it("renders the professional dashboard when the user's mode is professional", () => {
     render(<DashboardView data={makeDashboard({ user: { ...makeDashboard().user, mode: "professional" } })} />);
-    expect(screen.getByText(/Here's where things stand/i)).toBeInTheDocument();
+    expect(screen.getByText("Let's set up your first AP course")).toBeInTheDocument();
     expect(screen.queryByText(/Level \d/)).not.toBeInTheDocument();
   });
 
@@ -39,7 +39,7 @@ describe("DashboardView", () => {
         })}
       />
     );
-    expect(screen.getByText(/Let's keep the streak alive/i)).toBeInTheDocument();
+    expect(screen.getByText(/Clear today's quest/i)).toBeInTheDocument();
     expect(screen.getByText(/Level 1/)).toBeInTheDocument();
     expect(screen.getByText(/2-day streak/)).toBeInTheDocument();
   });

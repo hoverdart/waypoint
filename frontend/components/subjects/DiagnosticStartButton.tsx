@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { WayPointButton } from "@/components/shared/WayPointButton";
 import { startDiagnostic } from "@/lib/api";
 import { useApiToken } from "@/lib/hooks/useApiToken";
 
@@ -22,8 +22,8 @@ export function DiagnosticStartButton({ subjectId }: { subjectId: number }) {
   }
 
   return (
-    <Button variant="outline" size="sm" disabled={busy} onClick={handleClick}>
+    <WayPointButton variant="secondary" size="sm" showArrow={false} disabled={busy} onClick={handleClick}>
       {busy ? "Starting..." : "Take diagnostic"}
-    </Button>
+    </WayPointButton>
   );
 }

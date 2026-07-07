@@ -34,12 +34,29 @@ export function LogoFull({ className, height = 96 }: { className?: string; heigh
 }
 
 /** Icon mark + live "WayPoint" text - the default lockup for nav bars and
- * anywhere the brand name should stay real, accessible text. */
-export function LogoLockup({ size = 30, className }: { size?: number; className?: string }) {
+ * anywhere the brand name should stay real, accessible text. Pass
+ * `variant="light"` on dark surfaces (the navy header) so the wordmark
+ * stays legible instead of rendering navy-on-navy. */
+export function LogoLockup({
+  size = 30,
+  variant = "dark",
+  className,
+}: {
+  size?: number;
+  variant?: "dark" | "light";
+  className?: string;
+}) {
   return (
     <span className={cn("inline-flex items-center gap-2", className)}>
       <LogoMark size={size} />
-      <span className="text-base font-semibold tracking-tight text-navy">WayPoint</span>
+      <span
+        className={cn(
+          "text-base font-semibold tracking-tight",
+          variant === "light" ? "text-navy-foreground" : "text-navy"
+        )}
+      >
+        WayPoint
+      </span>
     </span>
   );
 }

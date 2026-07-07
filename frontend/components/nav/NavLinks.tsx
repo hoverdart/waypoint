@@ -25,7 +25,9 @@ export function NavLinks() {
             aria-current={isActive ? "page" : undefined}
             className={cn(
               "relative rounded-lg px-3 py-1.5 font-medium transition-colors",
-              isActive ? "text-navy" : "text-muted-foreground hover:bg-blue-soft/60 hover:text-navy"
+              isActive
+                ? "bg-white/10 text-navy-foreground"
+                : "text-navy-foreground/65 hover:bg-white/10 hover:text-navy-foreground"
             )}
           >
             {link.label}

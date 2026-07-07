@@ -1,21 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { WayPointButton } from "@/components/shared/WayPointButton";
+import { WeakSpotBadge } from "@/components/shared/MasteryPills";
+import { AnimatedCheckpoint } from "@/components/shared/AnimatedCheckpoint";
 import { ReasonBadge } from "@/components/shared/ReasonBadge";
-import { DailyPlanItem, startPractice } from "@/lib/api";
-import { useApiToken } from "@/lib/hooks/useApiToken";
-
-const ITEM_TYPE_LABEL: Record<DailyPlanItem["item_type"], string> = {
-  weakness: "Weak spot",
-  review: "Review",
-  calibration: "Calibration",
-  frq: "Free response",
-  challenge: "Challenge",
-};
+import { ITEM_TYPE_LABEL } from "@/lib/planItemLabels";
+import { useStartPlanItem } from "@/lib/hooks/useStartPlanItem";
+import { DailyPlanItem } from "@/lib/api";
+import { cn } from "@/lib/utils";
 
 export function PlanItemCard({
   item,
@@ -28,36 +22,43 @@ export function PlanItemCard({
   onSkip: (itemId: number) => Promise<void>;
   gamified?: boolean;
 }) {
-  const router = useRouter();
-  const getToken = useApiToken();
+  const startPlanItem = useStartPlanItem();
   const [busy, setBusy] = useState(false);
   const isDone = item.status !== "pending";
 
   async function handleStart() {
     setBusy(true);
     try {
-      const session = await startPractice(
-        {
-          subject_id: item.subject_id,
-          topic_id: item.topic_id,
-          session_type: item.item_type === "frq" ? "frq" : "mcq",
-          question_count: item.item_type === "frq" ? 3 : 8,
-        },
-        getToken
-      );
-      router.push(`/practice/session/${session.session_id}?planItemId=${item.id}`);
+      await startPlanItem(item, { planItemId: item.id });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleSkip() {
+    setBusy(true);
+    try {
+      await onSkip(item.id);
     } finally {
       setBusy(false);
     }
   }
 
   return (
-    <Card className={isDone ? "opacity-60" : undefined}>
-      <CardContent className="flex items-center justify-between gap-4 py-4">
-        <div className="space-y-1.5">
-          <div className="flex items-center gap-2">
-            <Badge variant="outline">{ITEM_TYPE_LABEL[item.item_type]}</Badge>
-            <span className="text-sm font-medium">{topicName}</span>
+    <Card className={cn("transition-opacity", isDone && "opacity-60")}>
+      <CardContent className="flex items-center gap-4 py-4">
+        <AnimatedCheckpoint done={item.status === "completed"} />
+
+        <div className="min-w-0 flex-1 space-y-1.5">
+          <div className="flex flex-wrap items-center gap-2">
+            {item.item_type === "weakness" ? (
+              <WeakSpotBadge label={ITEM_TYPE_LABEL[item.item_type]} />
+            ) : (
+              <span className="inline-flex items-center rounded-full bg-blue-soft px-2.5 py-0.5 text-xs font-medium text-navy">
+                {ITEM_TYPE_LABEL[item.item_type]}
+              </span>
+            )}
+            <span className="text-sm font-medium text-navy">{topicName}</span>
             <span className="text-xs text-muted-foreground">
               {gamified ? `+${item.point_cost} XP` : `${item.point_cost} pts`}
             </span>
@@ -67,17 +68,15 @@ export function PlanItemCard({
 
         {!isDone && (
           <div className="flex shrink-0 gap-2">
-            <Button variant="ghost" size="sm" disabled={busy} onClick={() => onSkip(item.id)}>
+            <WayPointButton variant="ghost" size="sm" showArrow={false} disabled={busy} onClick={handleSkip}>
               Skip
-            </Button>
-            <Button size="sm" disabled={busy} onClick={handleStart}>
+            </WayPointButton>
+            <WayPointButton variant="secondary" size="sm" showArrow={false} disabled={busy} onClick={handleStart}>
               Start
-            </Button>
+            </WayPointButton>
           </div>
         )}
-        {isDone && (
-          <span className="shrink-0 text-xs capitalize text-muted-foreground">{item.status}</span>
-        )}
+        {isDone && <span className="shrink-0 text-xs capitalize text-muted-foreground">{item.status}</span>}
       </CardContent>
     </Card>
   );

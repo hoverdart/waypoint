@@ -34,7 +34,9 @@ test.describe("Authenticated golden path", () => {
     await page.getByRole("button", { name: "Start studying" }).click();
 
     await expect(page).toHaveURL(/\/dashboard/);
-    await expect(page.getByText("AP Biology")).toBeVisible();
+    // "AP Biology" appears twice on the dashboard (the ProgressCompass legend
+    // and the CourseReadinessCard tile) - scope to the course card link.
+    await expect(page.getByRole("link", { name: /AP Biology/ })).toBeVisible();
 
     // A daily-plan item is scoped to a single random topic, and this seed
     // data is intentionally demo-scale (a handful of questions spread across

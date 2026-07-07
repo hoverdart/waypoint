@@ -16,10 +16,10 @@ export function SubjectFilterTabs({
           key={subject.subject_id}
           href={`/analytics?subject=${subject.subject_id}`}
           className={cn(
-            "rounded-full px-3 py-1.5 text-sm transition-colors",
+            "rounded-full px-3 py-1.5 text-sm font-medium transition-colors",
             subject.subject_id === activeSubjectId
-              ? "bg-primary text-primary-foreground"
-              : "text-muted-foreground hover:bg-muted"
+              ? "bg-navy text-navy-foreground"
+              : "text-muted-foreground hover:bg-blue-soft/60 hover:text-navy"
           )}
         >
           {subject.subject_name}

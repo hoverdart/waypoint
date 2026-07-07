@@ -26,7 +26,7 @@ describe("ConfidenceRatingInput", () => {
 
   it("visually marks the currently selected level", () => {
     render(<ConfidenceRatingInput value={3} onChange={() => {}} />);
-    expect(screen.getByRole("button", { name: "Fairly sure" }).className).toContain("border-primary");
-    expect(screen.getByRole("button", { name: "Guessed" }).className).not.toContain("border-primary");
+    expect(screen.getByRole("button", { name: "Fairly sure" }).className.split(" ")).toContain("border-blue");
+    expect(screen.getByRole("button", { name: "Guessed" }).className.split(" ")).not.toContain("border-blue");
   });
 });

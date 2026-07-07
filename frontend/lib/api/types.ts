@@ -125,6 +125,7 @@ export interface ExplanationRead {
 
 export interface AnswerBreakdownItem {
   question_id: number;
+  topic_id: number;
   prompt: string;
   type: QuestionType;
   is_correct: boolean;

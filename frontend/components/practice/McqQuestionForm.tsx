@@ -17,12 +17,16 @@ export function McqQuestionForm({
           key={option.id}
           type="button"
           onClick={() => onSelect(option.id)}
+          aria-pressed={selectedOptionId === option.id}
           className={cn(
-            "w-full rounded-lg border p-3 text-left text-sm transition-colors",
-            selectedOptionId === option.id ? "border-primary bg-primary/5" : "hover:bg-muted"
+            "w-full rounded-xl border p-3 text-left text-sm outline-none transition-colors",
+            "focus-visible:ring-3 focus-visible:ring-blue/50",
+            selectedOptionId === option.id
+              ? "border-blue bg-blue-soft/60"
+              : "border-border hover:border-blue/30 hover:bg-blue-soft/30"
           )}
         >
-          <span className="mr-2 font-medium">{option.label}.</span>
+          <span className="mr-2 font-medium text-navy">{option.label}.</span>
           {option.text}
         </button>
       ))}
