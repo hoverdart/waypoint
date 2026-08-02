@@ -1,7 +1,7 @@
 "use client";
 
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { WayPointButton } from "@/components/shared/WayPointButton";
+import { PillButton } from "@/components/kit/PillButton";
 
 /** Visibly present but honestly non-functional - there's no backend support
  * yet for regenerating a plan against a different time budget. Shown with
@@ -13,16 +13,15 @@ export function RegenerateTimeBudgetControl() {
     <Tooltip>
       <TooltipTrigger
         render={
-          <WayPointButton
+          <PillButton
             variant="secondary"
             size="sm"
-            showArrow={false}
             aria-disabled="true"
             className="cursor-not-allowed opacity-60"
             onClick={(e) => e.preventDefault()}
           >
             Regenerate for less time
-          </WayPointButton>
+          </PillButton>
         }
       />
       <TooltipContent>Adjusting today&apos;s plan for a shorter session isn&apos;t available yet.</TooltipContent>

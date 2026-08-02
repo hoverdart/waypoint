@@ -1,7 +1,11 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { DashboardView } from "./DashboardView";
 import { Dashboard } from "@/lib/api";
+
+vi.mock("@/lib/hooks/useStartPlanItem", () => ({
+  useStartPlanItem: () => vi.fn(),
+}));
 
 function makeDashboard(overrides: Partial<Dashboard> = {}): Dashboard {
   return {
@@ -25,7 +29,7 @@ function makeDashboard(overrides: Partial<Dashboard> = {}): Dashboard {
 describe("DashboardView", () => {
   it("renders the professional dashboard when the user's mode is professional", () => {
     render(<DashboardView data={makeDashboard({ user: { ...makeDashboard().user, mode: "professional" } })} />);
-    expect(screen.getByText("Let's set up your first AP course")).toBeInTheDocument();
+    expect(screen.getByText("Welcome back, Ada")).toBeInTheDocument();
     expect(screen.queryByText(/Level \d/)).not.toBeInTheDocument();
   });
 
@@ -39,7 +43,7 @@ describe("DashboardView", () => {
         })}
       />
     );
-    expect(screen.getByText(/Clear today's quest/i)).toBeInTheDocument();
+    expect(screen.getByText("Let's keep the streak alive.")).toBeInTheDocument();
     expect(screen.getByText(/Level 1/)).toBeInTheDocument();
     expect(screen.getByText(/2-day streak/)).toBeInTheDocument();
   });
