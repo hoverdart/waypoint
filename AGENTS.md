@@ -8,6 +8,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 - Create or update tests for every feature change. Run the relevant tests and ensure they pass before pushing. If they fail, determine whether the platform or the test is wrong and fix the appropriate one.
 - Keep changes within the part of the platform being worked on: frontend changes stay in `frontend/`, backend changes stay in `backend/`. If a request requires changes across multiple subfolders or platform areas, notify the user before proceeding.
+- When work is explicitly scoped to one platform area, do not modify the other area. Coordinate any necessary cross-area contract changes with the developer working there.
+- Maintain a root-level `CONTEXT.md` that records the current implementation context and completed changes. If it does not exist, create it before implementation; if it exists, update it as work progresses, including affected area, notable decisions, and verification performed.
 - Reuse existing components and patterns. Create a new component only when it is genuinely necessary; prioritize scalability, functionality, and simplicity.
 - Keep changes focused. After each implemented feature, provide a concise diff summary: files changed, feature delivered, limitations, and any relevant next steps.
 - When a feature request is unclear, ask clarifying questions before implementing. Do not make assumptions unless the user explicitly authorizes them or later context answers the question. Outline the intended approach in the chat so developers can confirm it before work begins.
