@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { WayPointButton } from "@/components/shared/WayPointButton";
+import { PillButton } from "@/components/kit/PillButton";
 import { DashboardSubjectSummary, generateDailyPlan } from "@/lib/api";
 import { useApiToken } from "@/lib/hooks/useApiToken";
 
@@ -22,8 +22,8 @@ export function GenerateTodayPlanButton({ subjects }: { subjects: DashboardSubje
   }
 
   return (
-    <WayPointButton showArrow={false} disabled={busy || subjects.length === 0} onClick={handleGenerate}>
+    <PillButton disabled={busy || subjects.length === 0} onClick={handleGenerate}>
       {busy ? "Building your plan..." : "Generate today's plan"}
-    </WayPointButton>
+    </PillButton>
   );
 }

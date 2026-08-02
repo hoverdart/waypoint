@@ -2,13 +2,14 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { CardContent } from "@/components/ui/card";
-import { WayPointCard } from "@/components/shared/WayPointCard";
-import { WayPointButton } from "@/components/shared/WayPointButton";
+import { Inbox } from "lucide-react";
+import { Surface } from "@/components/kit/Surface";
+import { PillButton } from "@/components/kit/PillButton";
+import { EmptyState } from "@/components/kit/EmptyState";
 import { ReportQuestionDialog } from "@/components/shared/ReportQuestionDialog";
 import { AnswerInput, Question, submitDiagnostic, submitPractice } from "@/lib/api";
 import { useApiToken } from "@/lib/hooks/useApiToken";
-import { StudySessionHeader } from "./StudySessionHeader";
+import { QuestionProgressIndicator } from "./QuestionProgressIndicator";
 import { McqQuestionForm } from "./McqQuestionForm";
 import { FrqQuestionForm } from "./FrqQuestionForm";
 import { ConfidenceRatingInput } from "./ConfidenceRatingInput";
@@ -53,15 +54,12 @@ export function PracticeSessionRoot({
 
   if (questions.length === 0) {
     return (
-      <div className="mx-auto w-full max-w-2xl px-4 py-16 text-center">
-        <WayPointCard elevated>
-          <CardContent className="space-y-2 pt-6">
-            <p className="font-medium text-navy">No questions available for this topic yet.</p>
-            <p className="text-sm text-muted-foreground">
-              Our question bank is still growing here - try a different topic for now.
-            </p>
-          </CardContent>
-        </WayPointCard>
+      <div className="mx-auto w-full max-w-2xl px-6 py-16">
+        <EmptyState
+          icon={<Inbox className="size-5" aria-hidden="true" />}
+          title="No questions available for this topic yet."
+          description="Our question bank is still growing here - try a different topic for now."
+        />
       </div>
     );
   }
@@ -116,56 +114,56 @@ export function PracticeSessionRoot({
   }
 
   return (
-    <div className="mx-auto w-full max-w-2xl space-y-6 px-4 py-8">
-      <StudySessionHeader
-        current={index + 1}
-        total={questions.length}
-        isDiagnostic={isDiagnostic}
-        subjectName={subjectName}
-        topicName={topicName}
-        reason={index === 0 ? reason : undefined}
-      />
-
-      <WayPointCard elevated>
-        <CardContent className="space-y-5 pt-6">
-          <p className="whitespace-pre-wrap text-base text-navy">{question.prompt}</p>
-
-          {question.type === "mcq" ? (
-            <McqQuestionForm
-              question={question}
-              selectedOptionId={currentAnswer.selected_option_id}
-              onSelect={(optionId) => patchCurrentAnswer({ selected_option_id: optionId })}
-            />
-          ) : (
-            <FrqQuestionForm
-              value={currentAnswer.free_response_text}
-              onChange={(text) => patchCurrentAnswer({ free_response_text: text })}
-            />
+    <div className="mx-auto w-full max-w-2xl space-y-7 px-6 py-10 sm:py-12">
+      {(subjectName || topicName || (index === 0 && reason)) && (
+        <div className="space-y-1">
+          {(subjectName || topicName) && (
+            <p className="text-sm font-medium text-ink">
+              {[subjectName, topicName].filter(Boolean).join(" · ")}
+            </p>
           )}
+          {index === 0 && reason && <p className="text-sm text-muted-foreground">{reason}</p>}
+        </div>
+      )}
+      <QuestionProgressIndicator current={index + 1} total={questions.length} isDiagnostic={isDiagnostic} />
 
-          <ConfidenceRatingInput
-            value={currentAnswer.confidence_rating}
-            onChange={(rating) => patchCurrentAnswer({ confidence_rating: rating })}
+      <Surface className="space-y-7 p-6 sm:p-8">
+        <p className="text-lg leading-relaxed whitespace-pre-wrap text-ink">{question.prompt}</p>
+
+        {question.type === "mcq" ? (
+          <McqQuestionForm
+            question={question}
+            selectedOptionId={currentAnswer.selected_option_id}
+            onSelect={(optionId) => patchCurrentAnswer({ selected_option_id: optionId })}
           />
+        ) : (
+          <FrqQuestionForm
+            value={currentAnswer.free_response_text}
+            onChange={(text) => patchCurrentAnswer({ free_response_text: text })}
+          />
+        )}
 
-          <div className="flex items-center justify-between border-t border-border/70 pt-4">
-            <div className="flex items-center gap-2">
-              <WayPointButton
-                variant="ghost"
-                size="sm"
-                showArrow={false}
-                onClick={() => patchCurrentAnswer({ hints_used: currentAnswer.hints_used + 1 })}
-              >
-                Hint used ({currentAnswer.hints_used})
-              </WayPointButton>
-              <ReportQuestionDialog questionId={question.id} />
-            </div>
-            <WayPointButton showArrow={false} disabled={!canAdvance || submitting} onClick={handleNext}>
-              {isLast ? (submitting ? "Submitting..." : "Finish") : "Next"}
-            </WayPointButton>
+        <ConfidenceRatingInput
+          value={currentAnswer.confidence_rating}
+          onChange={(rating) => patchCurrentAnswer({ confidence_rating: rating })}
+        />
+
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/70 pt-5">
+          <div className="flex items-center gap-1">
+            <PillButton
+              variant="ghost"
+              size="sm"
+              onClick={() => patchCurrentAnswer({ hints_used: currentAnswer.hints_used + 1 })}
+            >
+              Hint used ({currentAnswer.hints_used})
+            </PillButton>
+            <ReportQuestionDialog questionId={question.id} />
           </div>
-        </CardContent>
-      </WayPointCard>
+          <PillButton disabled={!canAdvance || submitting} onClick={handleNext}>
+            {isLast ? (submitting ? "Submitting..." : "Finish") : "Next"}
+          </PillButton>
+        </div>
+      </Surface>
     </div>
   );
 }

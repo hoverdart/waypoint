@@ -14,7 +14,7 @@ export default async function DailyPlanPage() {
   );
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-8">
+    <div className="mx-auto w-full max-w-4xl px-6 py-10">
       <DailyPlanView
         plans={plans}
         subjectDetails={subjectDetails}

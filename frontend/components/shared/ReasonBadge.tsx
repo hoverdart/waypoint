@@ -1,11 +1,11 @@
-import { Badge } from "@/components/ui/badge";
+import { Chip } from "@/components/kit/Pills";
 
 /** Renders the planner's plain-English "reason" string consistently everywhere
  * it appears (daily plan, practice session, results). */
 export function ReasonBadge({ reason }: { reason: string }) {
   return (
-    <Badge variant="secondary" className="font-normal">
+    <Chip tone="neutral" className="font-normal">
       {reason}
-    </Badge>
+    </Chip>
   );
 }

@@ -1,45 +1,39 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Surface } from "@/components/kit/Surface";
 import { WeeklyCoachReport } from "@/lib/api";
 
 export function WeeklyCoachReportCard({ report }: { report: WeeklyCoachReport | null }) {
   if (!report) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Weekly coach report</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm text-muted-foreground">
-            Your first report lands after your first full week of practice.
-          </p>
-        </CardContent>
-      </Card>
+      <Surface className="flex h-full flex-col gap-2 p-6 sm:p-7">
+        <h2 className="font-display text-lg text-ink">Weekly coach report</h2>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          Your first report lands after your first full week of practice.
+        </p>
+      </Surface>
     );
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Weekly coach report</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        <p className="text-sm">{report.summary}</p>
+    <Surface className="flex h-full flex-col gap-4 p-6 sm:p-7">
+      <h2 className="font-display text-lg text-ink">Weekly coach report</h2>
+      <div className="space-y-3">
+        <p className="text-sm leading-relaxed text-ink">{report.summary}</p>
         {report.biggest_win && (
-          <p className="text-sm">
-            <span className="font-medium text-emerald-600">Biggest win: </span>
+          <p className="text-sm leading-relaxed text-ink">
+            <span className="font-medium text-accent-green">Biggest win: </span>
             {report.biggest_win}
           </p>
         )}
         {report.biggest_weakness && (
-          <p className="text-sm">
-            <span className="font-medium text-amber-600">Focus area: </span>
+          <p className="text-sm leading-relaxed text-ink">
+            <span className="font-medium text-accent-amber">Focus area: </span>
             {report.biggest_weakness}
           </p>
         )}
         {report.projected_score_note && (
-          <p className="text-sm text-muted-foreground">{report.projected_score_note}</p>
+          <p className="text-sm leading-relaxed text-muted-foreground">{report.projected_score_note}</p>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </Surface>
   );
 }

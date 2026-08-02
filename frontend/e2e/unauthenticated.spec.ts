@@ -6,14 +6,14 @@ test.describe("Unauthenticated visitors", () => {
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
       "Every day, we tell you exactly what to study next"
     );
-    // These render as <a> tags styled as buttons - the shadcn/Base UI build
-    // this app uses sets role="button" explicitly on them, so they're queried
-    // as buttons rather than links despite being real anchor elements. Scoped
-    // to the hero region since the nav header has its own "Log in" link, and
-    // the final CTA section also has its own "Get started free" button.
+    // The design-system PillLink is a plain Next <Link>, so these are real
+    // links with the default link role - unlike the old Base UI button-styled
+    // anchors, which set role="button" explicitly. Scoped to the hero region
+    // since the nav header has its own "Log in" link and the final CTA section
+    // has its own "Get started free" link.
     const hero = page.getByRole("region", { name: "Hero" });
-    await expect(hero.getByRole("button", { name: "Get started free" })).toHaveAttribute("href", "/signup");
-    await expect(hero.getByRole("button", { name: "Log in" })).toHaveAttribute("href", "/login");
+    await expect(hero.getByRole("link", { name: "Get started free" })).toHaveAttribute("href", "/signup");
+    await expect(hero.getByRole("link", { name: "Log in" })).toHaveAttribute("href", "/login");
   });
 
   test("landing page lists the priority AP subjects", async ({ page }) => {

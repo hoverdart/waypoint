@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { CardContent } from "@/components/ui/card";
-import { WayPointCard } from "@/components/shared/WayPointCard";
-import { TopicMasteryPill } from "@/components/shared/MasteryPills";
+import { Surface } from "@/components/kit/Surface";
+import { Chip } from "@/components/kit/Pills";
+import { PillLink } from "@/components/kit/PillButton";
+import { MasteryBar } from "@/components/shared/MasteryBar";
 import { DashboardSubjectSummary, Subject } from "@/lib/api";
 import { DiagnosticStartButton } from "./DiagnosticStartButton";
 
@@ -19,38 +19,39 @@ export function SubjectGrid({
       {allSubjects.map((subject) => {
         const summary = enrolledById.get(subject.id);
         return (
-          <WayPointCard key={subject.id} className={summary ? undefined : "opacity-60"}>
-            <CardContent className="space-y-3 p-5">
-              <div className="flex items-start justify-between gap-2">
-                <p className="font-heading font-semibold text-navy">{subject.name}</p>
-                {summary && (
-                  <span className="shrink-0 rounded-full bg-blue-soft px-2.5 py-0.5 text-sm font-semibold text-navy">
-                    {summary.predicted_ap_score}
-                  </span>
-                )}
-              </div>
-              <p className="text-xs text-muted-foreground">{subject.description}</p>
-
-              {summary ? (
-                <>
-                  <TopicMasteryPill masteryScore={summary.mastery_score} />
-                  <div className="flex items-center justify-between pt-1">
-                    <Link
-                      href={`/analytics?subject=${subject.id}`}
-                      className="text-xs font-medium text-blue underline-offset-2 hover:underline"
-                    >
-                      View course
-                    </Link>
-                    <DiagnosticStartButton subjectId={subject.id} />
-                  </div>
-                </>
-              ) : (
-                <p className="text-xs text-muted-foreground">
-                  Not added yet - visit onboarding to add this subject.
-                </p>
+          // Not-yet-added subjects drop the card fill instead of fading out:
+          // they read as de-emphasised without dimming their text.
+          <Surface
+            key={subject.id}
+            tone={summary ? "default" : "quiet"}
+            className="flex h-full flex-col gap-4 p-6"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <p className="font-display text-base leading-snug text-ink">{subject.name}</p>
+              {summary && (
+                <Chip tone="blue" className="shrink-0 font-semibold tabular-nums">
+                  {summary.predicted_ap_score}
+                </Chip>
               )}
-            </CardContent>
-          </WayPointCard>
+            </div>
+            <p className="text-sm leading-relaxed text-muted-foreground">{subject.description}</p>
+
+            {summary ? (
+              <div className="mt-auto space-y-4 pt-1">
+                <MasteryBar score={summary.mastery_score} />
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <PillLink href={`/analytics?subject=${subject.id}`} variant="ghost" size="sm">
+                    View analytics
+                  </PillLink>
+                  <DiagnosticStartButton subjectId={subject.id} />
+                </div>
+              </div>
+            ) : (
+              <p className="mt-auto text-xs text-muted-foreground">
+                Not added yet - visit onboarding to add this subject.
+              </p>
+            )}
+          </Surface>
         );
       })}
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { PillButton } from "@/components/kit/PillButton";
 import {
   Dialog,
   DialogContent,
@@ -55,22 +55,22 @@ export function ReportQuestionDialog({ questionId }: { questionId: number }) {
         if (!next) setSubmitted(false);
       }}
     >
-      <DialogTrigger render={<Button variant="ghost" size="sm" />}>Report question</DialogTrigger>
+      <DialogTrigger render={<PillButton variant="ghost" size="sm" />}>Report question</DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Report this question</DialogTitle>
+          <DialogTitle className="font-display text-lg text-ink">Report this question</DialogTitle>
         </DialogHeader>
         {submitted ? (
-          <p className="text-sm text-muted-foreground">Thanks - our team will take a look.</p>
+          <p className="text-sm leading-relaxed text-muted-foreground">Thanks - our team will take a look.</p>
         ) : (
           <div className="space-y-4">
-            <div className="space-y-1.5">
-              <Label>Reason</Label>
+            <div className="space-y-2">
+              <Label className="text-ink">Reason</Label>
               <Select value={reason} onValueChange={(value) => value && setReason(value)}>
-                <SelectTrigger>
+                <SelectTrigger className="rounded-xl border-border">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="rounded-2xl">
                   {REASONS.map((r) => (
                     <SelectItem key={r.value} value={r.value}>
                       {r.label}
@@ -79,17 +79,22 @@ export function ReportQuestionDialog({ questionId }: { questionId: number }) {
                 </SelectContent>
               </Select>
             </div>
-            <div className="space-y-1.5">
-              <Label>Details (optional)</Label>
-              <Textarea value={details} onChange={(e) => setDetails(e.target.value)} rows={3} />
+            <div className="space-y-2">
+              <Label className="text-ink">Details (optional)</Label>
+              <Textarea
+                value={details}
+                onChange={(e) => setDetails(e.target.value)}
+                rows={3}
+                className="rounded-xl border-border px-3.5 py-2.5 leading-relaxed text-ink focus-visible:border-blue focus-visible:ring-blue/40"
+              />
             </div>
           </div>
         )}
         <DialogFooter>
           {!submitted && (
-            <Button disabled={submitting} onClick={handleSubmit}>
+            <PillButton disabled={submitting} onClick={handleSubmit}>
               Submit report
-            </Button>
+            </PillButton>
           )}
         </DialogFooter>
       </DialogContent>

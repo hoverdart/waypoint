@@ -6,9 +6,10 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Compass, Sparkles } from "lucide-react";
 import { ApiError, OnboardingSubjectInput, Subject, UserMode, submitOnboarding } from "@/lib/api";
 import { useApiToken } from "@/lib/hooks/useApiToken";
-import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Surface } from "@/components/kit/Surface";
+import { PageHeader } from "@/components/kit/PageHeader";
 import { cn } from "@/lib/utils";
 import { OnboardingProgress, type OnboardingStep } from "./OnboardingProgress";
 import { ModeSelectionCard } from "./ModeSelectionCard";
@@ -19,6 +20,12 @@ import { PrimaryButton, SecondaryButton } from "./OnboardingButtons";
 
 const STUDY_TIME_PRESETS = [10, 20, 45, 60];
 const TARGET_SCORES = [3, 4, 5];
+
+// Every toggle in the wizard - subject, target score, study minutes - is the
+// same pill, so the selected/unselected treatment lives in one place.
+const TOGGLE = "rounded-full border text-sm font-medium outline-none transition-colors focus-visible:ring-3 focus-visible:ring-blue/40";
+const TOGGLE_ON = "border-blue bg-blue-soft/60 text-ink";
+const TOGGLE_OFF = "border-border/70 bg-card text-ink-soft hover:border-blue/40 hover:bg-blue-soft/40";
 
 type Step = OnboardingStep;
 
@@ -96,17 +103,14 @@ export function OnboardingWizard({ subjects }: { subjects: Subject[] }) {
       initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: reduceMotion ? 0 : 0.5, ease: "easeOut" }}
-      className="space-y-6"
+      className="space-y-8"
     >
       <OnboardingProgress step={step} />
 
-      <div className="space-y-1.5 text-center sm:text-left">
-        <h1 className="font-heading text-2xl font-semibold tracking-tight text-navy sm:text-3xl">{hero.title}</h1>
-        <p className="text-sm text-muted-foreground sm:text-base">{hero.body}</p>
-      </div>
+      <PageHeader title={hero.title} sub={hero.body} />
 
-      <Card className="rounded-3xl border-border/80 py-0 shadow-[0_20px_60px_-30px_var(--navy)]">
-        <CardContent className="space-y-6 p-5 sm:p-7">
+      <Surface tone="raised">
+        <div className="space-y-7 p-5 sm:p-7">
           <AnimatePresence mode="wait">
             <motion.div
               key={step}
@@ -129,7 +133,7 @@ export function OnboardingWizard({ subjects }: { subjects: Subject[] }) {
                         <div className="flex items-center gap-3">
                           <MiniMasteryRing value={72} />
                           <div className="space-y-1">
-                            <p className="text-xs font-medium text-navy">Exam Readiness</p>
+                            <p className="text-xs font-semibold text-ink">Exam Readiness</p>
                             <p className="text-xs text-muted-foreground">Weak Topics: 3</p>
                             <p className="text-xs text-muted-foreground">Next Review: Unit 4 FRQ</p>
                           </div>
@@ -159,11 +163,9 @@ export function OnboardingWizard({ subjects }: { subjects: Subject[] }) {
                       aria-pressed={selectedIds.includes(subject.id)}
                       onClick={() => toggleSubject(subject.id)}
                       className={cn(
-                        "rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors outline-none",
-                        "focus-visible:ring-3 focus-visible:ring-blue/50",
-                        selectedIds.includes(subject.id)
-                          ? "border-blue bg-blue text-blue-foreground"
-                          : "border-border hover:border-blue/40 hover:bg-blue-soft/50"
+                        TOGGLE,
+                        "px-4 py-2",
+                        selectedIds.includes(subject.id) ? TOGGLE_ON : TOGGLE_OFF
                       )}
                     >
                       {subject.name}
@@ -178,10 +180,10 @@ export function OnboardingWizard({ subjects }: { subjects: Subject[] }) {
                     const subject = subjects.find((s) => s.id === id);
                     const draft = drafts[id] ?? defaultDraft();
                     return (
-                      <div key={id} className="space-y-3 rounded-2xl border border-border/80 bg-muted/40 p-4">
-                        <p className="font-semibold text-navy">{subject?.name}</p>
+                      <div key={id} className="space-y-4 rounded-2xl border border-border/60 bg-muted/40 p-5">
+                        <p className="font-display text-base text-ink">{subject?.name}</p>
 
-                        <div className="grid gap-3 sm:grid-cols-2">
+                        <div className="grid gap-4 sm:grid-cols-2">
                           <div className="space-y-1.5">
                             <Label>Target score</Label>
                             <div className="flex gap-2">
@@ -192,11 +194,9 @@ export function OnboardingWizard({ subjects }: { subjects: Subject[] }) {
                                   aria-pressed={draft.target_score === score}
                                   onClick={() => updateDraft(id, { target_score: score })}
                                   className={cn(
-                                    "size-9 rounded-full border text-sm font-medium outline-none transition-colors",
-                                    "focus-visible:ring-3 focus-visible:ring-blue/50",
-                                    draft.target_score === score
-                                      ? "border-blue bg-blue text-blue-foreground"
-                                      : "border-border hover:border-blue/40 hover:bg-blue-soft/50"
+                                    TOGGLE,
+                                    "size-10 tabular-nums",
+                                    draft.target_score === score ? TOGGLE_ON : TOGGLE_OFF
                                   )}
                                 >
                                   {score}
@@ -226,11 +226,9 @@ export function OnboardingWizard({ subjects }: { subjects: Subject[] }) {
                                 aria-pressed={draft.study_minutes_per_day === minutes}
                                 onClick={() => updateDraft(id, { study_minutes_per_day: minutes })}
                                 className={cn(
-                                  "rounded-full border px-3.5 py-1.5 text-sm font-medium outline-none transition-colors",
-                                  "focus-visible:ring-3 focus-visible:ring-blue/50",
-                                  draft.study_minutes_per_day === minutes
-                                    ? "border-blue bg-blue text-blue-foreground"
-                                    : "border-border hover:border-blue/40 hover:bg-blue-soft/50"
+                                  TOGGLE,
+                                  "px-4 py-2",
+                                  draft.study_minutes_per_day === minutes ? TOGGLE_ON : TOGGLE_OFF
                                 )}
                               >
                                 {minutes} min
@@ -247,12 +245,10 @@ export function OnboardingWizard({ subjects }: { subjects: Subject[] }) {
           </AnimatePresence>
 
           {error && (
-            <p className="rounded-xl border border-destructive/20 bg-destructive/5 p-3 text-sm text-destructive">
-              {error}
-            </p>
+            <p className="rounded-2xl bg-destructive/10 p-4 text-sm text-destructive">{error}</p>
           )}
 
-          <div className="flex items-center justify-between border-t border-border/70 pt-5">
+          <div className="flex items-center justify-between border-t border-border/60 pt-6">
             <SecondaryButton
               disabled={step === "mode"}
               onClick={() => setStep(step === "details" ? "subjects" : "mode")}
@@ -274,8 +270,8 @@ export function OnboardingWizard({ subjects }: { subjects: Subject[] }) {
               </PrimaryButton>
             )}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </Surface>
     </motion.div>
   );
 }

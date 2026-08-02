@@ -1,8 +1,9 @@
 import { redirect } from "next/navigation";
+import { LineChart } from "lucide-react";
 import { ApiError, getDashboard, getLatestWeeklyReport, getSubjectMastery } from "@/lib/api";
 import { getServerAuthToken } from "@/lib/auth/getServerAuthToken";
 import { AnalyticsView } from "@/components/analytics/AnalyticsView";
-import { Card, CardContent } from "@/components/ui/card";
+import { EmptyState } from "@/components/kit/EmptyState";
 
 export default async function AnalyticsPage({
   searchParams,
@@ -17,12 +18,11 @@ export default async function AnalyticsPage({
 
   if (dashboard.subjects.length === 0) {
     return (
-      <div className="mx-auto w-full max-w-3xl px-4 py-8">
-        <Card>
-          <CardContent className="pt-6 text-center text-muted-foreground">
-            Add a subject via onboarding to see analytics here.
-          </CardContent>
-        </Card>
+      <div className="mx-auto w-full max-w-6xl px-6 py-10">
+        <EmptyState
+          icon={<LineChart className="size-5" />}
+          title="Add a subject via onboarding to see analytics here."
+        />
       </div>
     );
   }
@@ -38,7 +38,7 @@ export default async function AnalyticsPage({
   ]);
 
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-8">
+    <div className="mx-auto w-full max-w-6xl px-6 py-10">
       <AnalyticsView
         enrolledSubjects={dashboard.subjects}
         activeSubjectId={activeSubjectId}

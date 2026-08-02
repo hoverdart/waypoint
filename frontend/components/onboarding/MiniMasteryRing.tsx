@@ -27,7 +27,7 @@ export function MiniMasteryRing({ value = 72, size = 56 }: { value?: number; siz
           transition={reduceMotion ? { duration: 0 } : { duration: 1, ease: "easeOut", delay: 0.3 }}
         />
       </svg>
-      <div className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-navy">
+      <div className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-ink tabular-nums">
         {value}%
       </div>
     </div>

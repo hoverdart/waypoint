@@ -8,23 +8,29 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  /* Was `var(--font-sans)` - a self-reference to a variable nothing ever
-     defined, so it silently fell through to the browser's UA default
-     (Times) instead of the loaded Geist Sans. */
+  /* Geist Sans for UI/body text; Plus Jakarta Sans for display headings -
+     a geometric humanist sans, chosen over the previous serif because this
+     design language is built on big, tight, bold sans display type. */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-fraunces);
+  --font-display: var(--font-jakarta);
+
   /* WayPoint brand - sourced from the logo's compass/road mark */
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
   --color-navy: var(--navy);
   --color-navy-foreground: var(--navy-foreground);
   --color-navy-soft: var(--navy-soft);
   --color-blue: var(--blue);
   --color-blue-foreground: var(--blue-foreground);
   --color-blue-soft: var(--blue-soft);
+  --color-blue-pale: var(--blue-pale);
   --color-accent-violet: var(--accent-violet);
+  --color-accent-violet-pale: var(--accent-violet-pale);
   --color-accent-amber: var(--accent-amber);
   --color-accent-green: var(--accent-green);
   --color-accent-coral: var(--accent-coral);
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -54,6 +60,7 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -61,38 +68,56 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  /* The signature card radius of this design language. */
+  --radius-surface: 1.75rem;
+
+  /* Shadows are deliberately near-invisible - depth comes from the tinted
+     background behind white surfaces, not from drop shadows. */
+  --shadow-hairline: 0 1px 2px oklch(0.24 0.02 265 / 0.05);
+  --shadow-lift: 0 2px 4px oklch(0.24 0.02 265 / 0.04), 0 12px 32px -12px oklch(0.24 0.02 265 / 0.1);
+  --shadow-float: 0 1px 2px oklch(0.24 0.02 265 / 0.06), 0 8px 30px -8px oklch(0.24 0.02 265 / 0.14);
 }
 
 :root {
-  /* WayPoint brand primitives, pulled from the logo's navy/blue compass mark */
-  --navy: oklch(0.24 0.06 259);
-  --navy-soft: oklch(0.32 0.07 259);
-  --navy-foreground: oklch(0.99 0.006 90);
-  --blue: oklch(0.55 0.19 259);
-  --blue-foreground: oklch(0.99 0.01 259);
-  --blue-soft: oklch(0.94 0.035 259);
-  --accent-violet: oklch(0.56 0.14 305);
-  --accent-amber: oklch(0.78 0.14 75);
+  /* Ink is a near-black with a faint blue cast - never pure #000, which
+     reads harsh against the warm-tinted surfaces. */
+  --ink: oklch(0.25 0.018 265);
+  --ink-soft: oklch(0.45 0.02 265);
+
+  --navy: oklch(0.25 0.018 265);
+  --navy-soft: oklch(0.34 0.05 265);
+  --navy-foreground: oklch(0.99 0.003 265);
+  --blue: oklch(0.55 0.19 265);
+  --blue-foreground: oklch(0.99 0.01 265);
+  --blue-soft: oklch(0.94 0.035 265);
+  --blue-pale: oklch(0.9 0.055 272);
+  --accent-violet: oklch(0.56 0.16 300);
+  --accent-violet-pale: oklch(0.9 0.06 300);
+  --accent-amber: oklch(0.8 0.14 80);
   --accent-green: oklch(0.62 0.13 152);
   --accent-coral: oklch(0.66 0.16 25);
 
-  --background: oklch(0.98 0.008 80);
-  --foreground: var(--navy);
-  --card: oklch(1 0 0.4);
-  --card-foreground: var(--navy);
+  /* The two lobes of the radial aura that washes the top of every page. */
+  --aura-1: oklch(0.82 0.09 272);
+  --aura-2: oklch(0.84 0.08 305);
+
+  --background: oklch(0.985 0.004 270);
+  --foreground: var(--ink);
+  --card: oklch(0.996 0.002 270);
+  --card-foreground: var(--ink);
   --popover: oklch(1 0 0);
-  --popover-foreground: var(--navy);
-  --primary: var(--navy);
-  --primary-foreground: var(--navy-foreground);
-  --secondary: oklch(0.955 0.012 259);
-  --secondary-foreground: var(--navy);
-  --muted: oklch(0.955 0.01 75);
-  --muted-foreground: oklch(0.48 0.025 259);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: oklch(0.99 0.003 265);
+  --secondary: oklch(0.96 0.008 270);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.962 0.006 270);
+  --muted-foreground: oklch(0.53 0.022 265);
   --accent: var(--blue-soft);
-  --accent-foreground: var(--navy);
+  --accent-foreground: var(--ink);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.9 0.014 259);
-  --input: oklch(0.9 0.014 259);
+  --border: oklch(0.91 0.008 270);
+  --input: oklch(0.91 0.008 270);
   --ring: var(--blue);
   --chart-1: var(--blue);
   --chart-2: var(--accent-violet);
@@ -111,40 +136,48 @@
 }
 
 .dark {
-  --navy: oklch(0.24 0.06 259);
-  --navy-soft: oklch(0.34 0.07 259);
-  --navy-foreground: oklch(0.99 0.006 90);
-  --blue: oklch(0.66 0.17 259);
-  --blue-foreground: oklch(0.16 0.03 259);
-  --blue-soft: oklch(0.28 0.05 259);
-  --accent-violet: oklch(0.66 0.13 305);
-  --accent-amber: oklch(0.78 0.14 75);
-  --accent-green: oklch(0.68 0.13 152);
-  --accent-coral: oklch(0.7 0.15 25);
+  --ink: oklch(0.97 0.006 270);
+  --ink-soft: oklch(0.75 0.02 265);
 
-  --background: oklch(0.16 0.02 259);
-  --foreground: oklch(0.96 0.01 90);
-  --card: oklch(0.2 0.025 259);
-  --card-foreground: oklch(0.96 0.01 90);
-  --popover: oklch(0.2 0.025 259);
-  --popover-foreground: oklch(0.96 0.01 90);
-  --primary: var(--blue);
-  --primary-foreground: var(--blue-foreground);
-  --secondary: oklch(0.27 0.03 259);
-  --secondary-foreground: oklch(0.96 0.01 90);
-  --muted: oklch(0.24 0.025 259);
-  --muted-foreground: oklch(0.68 0.02 259);
+  --navy: oklch(0.97 0.006 270);
+  --navy-soft: oklch(0.4 0.06 265);
+  --navy-foreground: oklch(0.16 0.02 265);
+  --blue: oklch(0.7 0.16 265);
+  --blue-foreground: oklch(0.16 0.03 265);
+  --blue-soft: oklch(0.28 0.06 265);
+  --blue-pale: oklch(0.35 0.08 272);
+  --accent-violet: oklch(0.72 0.14 300);
+  --accent-violet-pale: oklch(0.36 0.08 300);
+  --accent-amber: oklch(0.82 0.14 80);
+  --accent-green: oklch(0.7 0.13 152);
+  --accent-coral: oklch(0.72 0.15 25);
+
+  --aura-1: oklch(0.42 0.13 272);
+  --aura-2: oklch(0.4 0.12 305);
+
+  --background: oklch(0.15 0.014 270);
+  --foreground: var(--ink);
+  --card: oklch(0.19 0.018 270);
+  --card-foreground: var(--ink);
+  --popover: oklch(0.19 0.018 270);
+  --popover-foreground: var(--ink);
+  --primary: oklch(0.97 0.006 270);
+  --primary-foreground: oklch(0.16 0.02 265);
+  --secondary: oklch(0.25 0.02 270);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.23 0.018 270);
+  --muted-foreground: oklch(0.71 0.02 265);
   --accent: var(--blue-soft);
-  --accent-foreground: oklch(0.96 0.01 90);
+  --accent-foreground: var(--ink);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 15%);
+  --border: oklch(1 0 0 / 11%);
+  --input: oklch(1 0 0 / 14%);
   --ring: var(--blue);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --chart-1: var(--blue);
+  --chart-2: var(--accent-violet);
+  --chart-3: var(--accent-amber);
+  --chart-4: var(--accent-green);
+  --chart-5: var(--accent-coral);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -164,5 +197,76 @@
   }
   html {
     @apply font-sans;
+    /* Anchor links and programmatic scrolls glide instead of jumping. */
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  /* Display type is set tight and heavy - the single most defining
+     characteristic of this visual language. */
+  .font-display {
+    font-family: var(--font-display), var(--font-geist-sans), sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+}
+
+@utility aura {
+  /* Two radial lobes seeded above the top edge, fading out well before
+     they reach the fold - the page's ambient light source. */
+  background-image:
+    radial-gradient(90% 70% at 20% -12%, var(--aura-1) 0%, transparent 60%),
+    radial-gradient(85% 70% at 82% -14%, var(--aura-2) 0%, transparent 62%);
+}
+
+@utility grain {
+  /* Fine fractal noise keeps large flat washes from banding and gives the
+     background a papery texture at low opacity. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+}
+
+@utility text-balance-display {
+  text-wrap: balance;
+}
+
+/* A marker stroke that sits behind the lower part of the glyphs. Unlike the
+   former padded inline background, this never changes a headline's line box
+   or collides with the line above/below when the phrase wraps. */
+.highlight-marker {
+  background-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 38%,
+    color-mix(in oklab, var(--highlight-color) 72%, transparent) 38%,
+    color-mix(in oklab, var(--highlight-color) 72%, transparent) 94%,
+    transparent 94%
+  );
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.highlight-marker--animate {
+  animation: highlight-marker-reveal 560ms 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes highlight-marker-reveal {
+  from {
+    background-size: 0% 100%;
+  }
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .highlight-marker--animate {
+    animation: none;
   }
 }
