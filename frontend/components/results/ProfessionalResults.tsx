@@ -1,5 +1,6 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { LinkButton } from "@/components/shared/LinkButton";
+import { Surface } from "@/components/kit/Surface";
+import { PillLink } from "@/components/kit/PillButton";
+import { Eyebrow } from "@/components/kit/Typography";
 import { PracticeResultsResponse } from "@/lib/api";
 import { AnswerBreakdownCard } from "./AnswerBreakdownCard";
 
@@ -8,18 +9,14 @@ export function ProfessionalResults({ results }: { results: PracticeResultsRespo
   const percent = Math.round(results.score * 100);
 
   return (
-    <div className="mx-auto w-full max-w-2xl space-y-6 px-4 py-8">
-      <Card>
-        <CardContent className="space-y-2 pt-6 text-center">
-          <p className="text-sm text-muted-foreground">
-            {isDiagnostic ? "Baseline established" : "Session complete"}
-          </p>
-          <p className="text-4xl font-semibold">
-            {results.correct_count}/{results.total_questions}
-          </p>
-          <p className="text-muted-foreground">{percent}% correct</p>
-        </CardContent>
-      </Card>
+    <div className="mx-auto w-full max-w-2xl space-y-8 px-6 py-12">
+      <Surface tone="raised" className="px-6 py-10 text-center sm:py-12">
+        <Eyebrow>{isDiagnostic ? "Baseline established" : "Session complete"}</Eyebrow>
+        <p className="font-display mt-4 text-5xl text-ink tabular-nums sm:text-6xl">
+          {results.correct_count}/{results.total_questions}
+        </p>
+        <p className="mt-3 text-base text-muted-foreground">{percent}% correct</p>
+      </Surface>
 
       <div className="space-y-3">
         {results.breakdown.map((item) => (
@@ -27,11 +24,13 @@ export function ProfessionalResults({ results }: { results: PracticeResultsRespo
         ))}
       </div>
 
-      <div className="flex justify-center gap-3">
-        <LinkButton href="/dashboard" variant="outline">
+      <div className="flex flex-wrap justify-center gap-3">
+        <PillLink href="/dashboard" variant="secondary">
           Back to dashboard
-        </LinkButton>
-        <LinkButton href="/daily-plan">Go to daily plan</LinkButton>
+        </PillLink>
+        <PillLink href="/daily-plan" arrow>
+          Go to daily plan
+        </PillLink>
       </div>
     </div>
   );

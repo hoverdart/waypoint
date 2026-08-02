@@ -1,43 +1,45 @@
 import Link from "next/link";
 import { Show, UserButton } from "@clerk/nextjs";
-import { LinkButton } from "@/components/shared/LinkButton";
 import { LogoLockup } from "@/components/brand/Logo";
 import { NavLinks } from "@/components/nav/NavLinks";
+import { HeaderShell } from "@/components/nav/HeaderShell";
+import { PillLink } from "@/components/kit/PillButton";
 
-export async function SiteHeader() {
+export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <Link href="/" className="transition-opacity hover:opacity-80">
-          <LogoLockup />
-        </Link>
+    <HeaderShell>
+      <Link href="/" className="shrink-0 transition-opacity hover:opacity-70">
+        <LogoLockup />
+      </Link>
 
+      <Show when="signed-in">
+        <NavLinks />
+      </Show>
+
+      <div className="flex shrink-0 items-center gap-2">
         <Show when="signed-in">
-          <NavLinks />
+          <Link
+            href="/settings"
+            className="hidden rounded-full px-3 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:bg-ink/5 hover:text-ink sm:block"
+          >
+            Settings
+          </Link>
+          <span className="flex items-center">
+            <UserButton />
+          </span>
         </Show>
-
-        <div className="flex items-center gap-3">
-          <Show when="signed-in">
-            <Link
-              href="/settings"
-              className="rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-blue-soft/60 hover:text-navy"
-            >
-              Settings
-            </Link>
-            <span className="rounded-full ring-2 ring-blue-soft">
-              <UserButton />
-            </span>
-          </Show>
-          <Show when="signed-out">
-            <LinkButton variant="ghost" href="/login">
-              Log in
-            </LinkButton>
-            <LinkButton href="/signup" className="bg-navy text-navy-foreground hover:bg-navy-soft">
-              Sign up
-            </LinkButton>
-          </Show>
-        </div>
+        <Show when="signed-out">
+          <Link
+            href="/login"
+            className="rounded-full px-3 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:bg-ink/5 hover:text-ink"
+          >
+            Log in
+          </Link>
+          <PillLink href="/signup" size="sm" arrow>
+            Get started
+          </PillLink>
+        </Show>
       </div>
-    </header>
+    </HeaderShell>
   );
 }

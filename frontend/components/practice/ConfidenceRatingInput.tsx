@@ -15,22 +15,29 @@ export function ConfidenceRatingInput({
   onChange: (rating: number) => void;
 }) {
   return (
-    <div className="space-y-1.5">
-      <p className="text-xs text-muted-foreground">How confident are you?</p>
-      <div className="flex gap-2">
-        {LEVELS.map((level) => (
-          <button
-            key={level.value}
-            type="button"
-            onClick={() => onChange(level.value)}
-            className={cn(
-              "rounded-full border px-2.5 py-1 text-xs transition-colors",
-              value === level.value ? "border-primary bg-primary text-primary-foreground" : "hover:bg-muted"
-            )}
-          >
-            {level.label}
-          </button>
-        ))}
+    <div className="space-y-2.5">
+      <p className="text-xs font-medium text-muted-foreground">How confident are you?</p>
+      <div className="flex flex-wrap gap-2">
+        {LEVELS.map((level) => {
+          const isSelected = value === level.value;
+          return (
+            <button
+              key={level.value}
+              type="button"
+              aria-pressed={isSelected}
+              onClick={() => onChange(level.value)}
+              className={cn(
+                "rounded-full border px-3.5 py-1.5 text-xs font-medium",
+                "outline-none transition-all duration-200 focus-visible:ring-3 focus-visible:ring-blue/40",
+                isSelected
+                  ? "border-blue bg-blue-soft/60 text-blue"
+                  : "border-border bg-card text-ink-soft hover:border-ink/15 hover:bg-muted"
+              )}
+            >
+              {level.label}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

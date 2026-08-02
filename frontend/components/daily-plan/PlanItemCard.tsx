@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Surface } from "@/components/kit/Surface";
+import { PillButton } from "@/components/kit/PillButton";
+import { Chip } from "@/components/kit/Pills";
 import { ReasonBadge } from "@/components/shared/ReasonBadge";
 import { DailyPlanItem, startPractice } from "@/lib/api";
 import { useApiToken } from "@/lib/hooks/useApiToken";
+import { cn } from "@/lib/utils";
 
 const ITEM_TYPE_LABEL: Record<DailyPlanItem["item_type"], string> = {
   weakness: "Weak spot",
@@ -15,6 +16,16 @@ const ITEM_TYPE_LABEL: Record<DailyPlanItem["item_type"], string> = {
   calibration: "Calibration",
   frq: "Free response",
   challenge: "Challenge",
+};
+
+/** Tone-codes the item type so a plan reads at a glance: red-ish for the
+ * things that need work, cooler tones for upkeep. */
+const ITEM_TYPE_TONE: Record<DailyPlanItem["item_type"], "coral" | "blue" | "violet" | "amber" | "green"> = {
+  weakness: "coral",
+  review: "blue",
+  calibration: "violet",
+  frq: "amber",
+  challenge: "green",
 };
 
 export function PlanItemCard({
@@ -52,33 +63,39 @@ export function PlanItemCard({
   }
 
   return (
-    <Card className={isDone ? "opacity-60" : undefined}>
-      <CardContent className="flex items-center justify-between gap-4 py-4">
-        <div className="space-y-1.5">
-          <div className="flex items-center gap-2">
-            <Badge variant="outline">{ITEM_TYPE_LABEL[item.item_type]}</Badge>
-            <span className="text-sm font-medium">{topicName}</span>
-            <span className="text-xs text-muted-foreground">
-              {gamified ? `+${item.point_cost} XP` : `${item.point_cost} pts`}
-            </span>
-          </div>
-          <ReasonBadge reason={item.reason} />
+    <Surface
+      tone={isDone ? "quiet" : "default"}
+      className={cn(
+        "flex flex-wrap items-center justify-between gap-4 p-5 sm:px-6",
+        isDone && "opacity-70"
+      )}
+    >
+      <div className="min-w-0 space-y-2.5">
+        <div className="flex flex-wrap items-center gap-2.5">
+          <Chip tone={ITEM_TYPE_TONE[item.item_type]}>{ITEM_TYPE_LABEL[item.item_type]}</Chip>
+          <span className="text-sm font-medium text-ink">{topicName}</span>
+          <span className="text-xs text-muted-foreground tabular-nums">
+            {gamified ? `+${item.point_cost} XP` : `${item.point_cost} pts`}
+          </span>
         </div>
+        <ReasonBadge reason={item.reason} />
+      </div>
 
-        {!isDone && (
-          <div className="flex shrink-0 gap-2">
-            <Button variant="ghost" size="sm" disabled={busy} onClick={() => onSkip(item.id)}>
-              Skip
-            </Button>
-            <Button size="sm" disabled={busy} onClick={handleStart}>
-              Start
-            </Button>
-          </div>
-        )}
-        {isDone && (
-          <span className="shrink-0 text-xs capitalize text-muted-foreground">{item.status}</span>
-        )}
-      </CardContent>
-    </Card>
+      {!isDone && (
+        <div className="flex shrink-0 items-center gap-2">
+          <PillButton variant="ghost" size="sm" disabled={busy} onClick={() => onSkip(item.id)}>
+            Skip
+          </PillButton>
+          <PillButton size="sm" disabled={busy} onClick={handleStart}>
+            Start
+          </PillButton>
+        </div>
+      )}
+      {isDone && (
+        <Chip tone={item.status === "completed" ? "green" : "neutral"} dot className="shrink-0 capitalize">
+          {item.status}
+        </Chip>
+      )}
+    </Surface>
   );
 }

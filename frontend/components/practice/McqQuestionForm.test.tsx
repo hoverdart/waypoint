@@ -37,9 +37,12 @@ describe("McqQuestionForm", () => {
     expect(onSelect).toHaveBeenCalledWith(11);
   });
 
-  it("highlights the currently selected option", () => {
+  // Asserted through aria-pressed rather than a class name: that's the part
+  // of "marked as selected" that's actually contractual, and it survives a
+  // restyle of the selected-state colours.
+  it("marks the currently selected option as pressed", () => {
     render(<McqQuestionForm question={question} selectedOptionId={12} onSelect={() => {}} />);
-    const selectedButton = screen.getByText("the limit does not exist").closest("button");
-    expect(selectedButton?.className).toContain("border-primary");
+    expect(screen.getByText("the limit does not exist").closest("button")).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByText("0").closest("button")).toHaveAttribute("aria-pressed", "false");
   });
 });

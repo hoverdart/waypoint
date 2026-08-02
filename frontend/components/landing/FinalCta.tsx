@@ -1,41 +1,33 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { LogoMark } from "@/components/brand/Logo";
-import { LinkButton } from "@/components/shared/LinkButton";
+import { Surface } from "@/components/kit/Surface";
+import { PillLink } from "@/components/kit/PillButton";
+import { Reveal } from "@/components/motion/Reveal";
+import { Highlight } from "@/components/kit/Typography";
 
 export function FinalCta() {
-  const reduceMotion = useReducedMotion();
-
   return (
-    <section className="px-4 pb-20">
-      <motion.div
-        initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: reduceMotion ? 0 : 0.5 }}
-        className="relative mx-auto flex w-full max-w-5xl flex-col items-center gap-5 overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-navy to-navy-soft px-6 py-16 text-center"
-      >
-        <div className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-blue/25 blur-3xl" aria-hidden="true" />
-        <LogoMark size={40} className="ring-white/20" />
-        <h2 className="font-heading max-w-xl text-2xl font-semibold tracking-tight text-navy-foreground sm:text-3xl">
-          Stop guessing what to study. Start following your path.
-        </h2>
-        <p className="max-w-md text-navy-foreground/70">
-          Free to start - WayPoint builds your first study path in under two minutes.
-        </p>
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <LinkButton
-            href="/signup"
-            size="lg"
-            className="group/cta rounded-full bg-blue px-5 text-blue-foreground shadow-lg shadow-blue/20 hover:bg-blue/90"
-          >
-            Get started free
-            <ArrowRight className="size-4 transition-transform duration-200 group-hover/cta:translate-x-0.5" aria-hidden="true" />
-          </LinkButton>
-        </div>
-      </motion.div>
+    <section aria-label="Get started" className="px-6 pb-24 sm:pb-28">
+      <Reveal>
+        <Surface tone="raised" className="relative mx-auto w-full max-w-5xl overflow-hidden px-6 py-20 text-center">
+          {/* The aura, echoed inside the card so the page's last beat feels
+              like its first. */}
+          <div className="aura pointer-events-none absolute inset-x-0 top-0 h-56 opacity-60" aria-hidden="true" />
+
+          <div className="relative">
+            <h2 className="font-display text-balance-display mx-auto max-w-2xl text-3xl text-ink sm:text-4xl md:text-5xl">
+              Know what to study <Highlight>tomorrow morning</Highlight>.
+            </h2>
+            <p className="mx-auto mt-5 max-w-md text-base text-muted-foreground">
+              WayPoint builds your first study path in under two minutes.
+            </p>
+            <div className="mt-9 flex justify-center">
+              <PillLink href="/signup" size="lg" arrow>
+                Get started free
+              </PillLink>
+            </div>
+            <p className="mt-5 text-xs text-muted-foreground">Free while we&apos;re in beta · No credit card</p>
+          </div>
+        </Surface>
+      </Reveal>
     </section>
   );
 }

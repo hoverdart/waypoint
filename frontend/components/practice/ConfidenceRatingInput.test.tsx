@@ -24,9 +24,12 @@ describe("ConfidenceRatingInput", () => {
     expect(onChange).toHaveBeenCalledWith(1);
   });
 
-  it("visually marks the currently selected level", () => {
+  // Asserted through aria-pressed rather than a class name: that's the part
+  // of "marked as selected" that's actually contractual, and it survives a
+  // restyle of the selected-state colours.
+  it("marks the currently selected level as pressed", () => {
     render(<ConfidenceRatingInput value={3} onChange={() => {}} />);
-    expect(screen.getByRole("button", { name: "Fairly sure" }).className).toContain("border-primary");
-    expect(screen.getByRole("button", { name: "Guessed" }).className).not.toContain("border-primary");
+    expect(screen.getByRole("button", { name: "Fairly sure" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("button", { name: "Guessed" })).toHaveAttribute("aria-pressed", "false");
   });
 });

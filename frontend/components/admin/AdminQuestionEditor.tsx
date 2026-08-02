@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PillButton } from "@/components/kit/PillButton";
+import { Surface } from "@/components/kit/Surface";
+import { Chip } from "@/components/kit/Pills";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { AdminQuestionDetail, updateAdminQuestion, updateQuestionStatus } from "@/lib/api";
 import { useApiToken } from "@/lib/hooks/useApiToken";
 
@@ -48,16 +48,14 @@ export function AdminQuestionEditor({ question }: { question: AdminQuestionDetai
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold tracking-tight">Question #{question.id}</h1>
-        <Badge>{question.validation_status}</Badge>
+      <div className="flex items-center justify-between gap-4">
+        <h1 className="font-display text-3xl text-ink">Question #{question.id}</h1>
+        <Chip tone="blue">{question.validation_status}</Chip>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Content</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <Surface className="p-6">
+        <h2 className="font-display mb-5 text-lg text-ink">Content</h2>
+        <div className="space-y-4">
           <div className="space-y-1.5">
             <Label>Prompt</Label>
             <Textarea value={prompt} onChange={(e) => setPrompt(e.target.value)} rows={4} />
@@ -72,7 +70,7 @@ export function AdminQuestionEditor({ question }: { question: AdminQuestionDetai
               <Label>Options</Label>
               <ul className="space-y-1 text-sm">
                 {question.options.map((opt) => (
-                  <li key={opt.label} className={opt.is_correct ? "font-medium text-primary" : ""}>
+                  <li key={opt.label} className={opt.is_correct ? "font-medium text-blue" : "text-ink-soft"}>
                     {opt.label}. {opt.text}
                   </li>
                 ))}
@@ -80,39 +78,40 @@ export function AdminQuestionEditor({ question }: { question: AdminQuestionDetai
             </div>
           )}
 
-          <Button disabled={saving} onClick={handleSave}>
+          <PillButton disabled={saving} onClick={handleSave}>
             {saving ? "Saving..." : "Save changes"}
-          </Button>
-        </CardContent>
-      </Card>
+          </PillButton>
+        </div>
+      </Surface>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Validation status</CardTitle>
-        </CardHeader>
-        <CardContent className="flex gap-2">
+      <Surface className="p-6">
+        <h2 className="font-display mb-5 text-lg text-ink">Validation status</h2>
+        <div className="flex flex-wrap gap-2">
           {STATUS_TRANSITIONS[question.validation_status].map((status) => (
-            <Button key={status} variant="outline" disabled={statusChanging} onClick={() => handleStatusChange(status)}>
+            <PillButton
+              key={status}
+              variant="secondary"
+              disabled={statusChanging}
+              onClick={() => handleStatusChange(status)}
+            >
               Mark {status.replace("_", " ")}
-            </Button>
+            </PillButton>
           ))}
-        </CardContent>
-      </Card>
+        </div>
+      </Surface>
 
       {question.reports.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Student reports ({question.reports.length})</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
+        <Surface className="p-6">
+          <h2 className="font-display mb-5 text-lg text-ink">Student reports ({question.reports.length})</h2>
+          <div className="space-y-2">
             {question.reports.map((report) => (
-              <div key={report.id} className="rounded-md border p-3 text-sm">
-                <p className="font-medium">{report.reason}</p>
+              <div key={report.id} className="rounded-2xl border border-border/60 p-4 text-sm">
+                <p className="font-medium text-ink">{report.reason}</p>
                 {report.details && <p className="text-muted-foreground">{report.details}</p>}
               </div>
             ))}
-          </CardContent>
-        </Card>
+          </div>
+        </Surface>
       )}
     </div>
   );

@@ -46,11 +46,12 @@ export function ModeSelectionCard({
       whileTap={reduceMotion ? undefined : { y: -1 }}
       transition={{ type: "spring", stiffness: 400, damping: 28 }}
       className={cn(
-        "group relative flex w-full flex-col gap-4 rounded-3xl border bg-card p-6 text-left shadow-sm outline-none transition-colors",
-        "focus-visible:ring-3 focus-visible:ring-blue/50",
-        selected
-          ? "border-blue/60 shadow-[0_0_0_1px_var(--blue),0_16px_40px_-16px_var(--blue)]"
-          : "border-border hover:border-blue/30 hover:shadow-md"
+        // Transform is left to framer (whileHover/whileTap), so only the paint
+        // properties get a CSS transition here.
+        "relative flex w-full flex-col gap-4 rounded-surface border p-6 text-left shadow-hairline outline-none",
+        "transition-[color,background-color,border-color,box-shadow] duration-300",
+        "focus-visible:ring-3 focus-visible:ring-blue/40",
+        selected ? "border-blue bg-blue-soft/60" : "border-border/70 bg-card hover:border-blue/30 hover:shadow-lift"
       )}
     >
       {selected && (
@@ -58,7 +59,7 @@ export function ModeSelectionCard({
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", stiffness: 500, damping: 22 }}
-          className="absolute -top-2.5 -right-2.5 flex size-7 items-center justify-center rounded-full bg-blue text-blue-foreground shadow-sm"
+          className="absolute -top-2.5 -right-2.5 flex size-7 items-center justify-center rounded-full bg-blue text-blue-foreground shadow-hairline"
         >
           <Check className="size-4" strokeWidth={3} aria-hidden="true" />
           <span className="sr-only">Selected</span>
@@ -68,20 +69,18 @@ export function ModeSelectionCard({
       <div className="flex items-center gap-3">
         <span
           className={cn(
-            "flex size-10 shrink-0 items-center justify-center rounded-xl transition-colors",
-            selected ? "bg-blue text-blue-foreground" : "bg-blue-soft text-navy"
+            "flex size-10 shrink-0 items-center justify-center rounded-full transition-colors",
+            selected ? "bg-blue text-blue-foreground" : "bg-blue-soft text-blue"
           )}
         >
           <Icon className="size-5" aria-hidden="true" />
         </span>
-        <div>
-          <p className="font-heading text-base font-semibold text-navy">{title}</p>
-        </div>
+        <p className="font-display text-lg text-ink">{title}</p>
       </div>
 
       <p className="text-sm leading-relaxed text-muted-foreground">{description}</p>
 
-      <div className="rounded-2xl border border-border/70 bg-muted/50 p-4">{preview}</div>
+      <div className="rounded-2xl border border-border/60 bg-card p-4">{preview}</div>
     </motion.button>
   );
 }

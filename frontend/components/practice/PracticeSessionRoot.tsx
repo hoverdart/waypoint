@@ -2,8 +2,10 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Inbox } from "lucide-react";
+import { Surface } from "@/components/kit/Surface";
+import { PillButton } from "@/components/kit/PillButton";
+import { EmptyState } from "@/components/kit/EmptyState";
 import { ReportQuestionDialog } from "@/components/shared/ReportQuestionDialog";
 import { AnswerInput, Question, submitDiagnostic, submitPractice } from "@/lib/api";
 import { useApiToken } from "@/lib/hooks/useApiToken";
@@ -46,15 +48,12 @@ export function PracticeSessionRoot({
 
   if (questions.length === 0) {
     return (
-      <div className="mx-auto w-full max-w-2xl px-4 py-16 text-center">
-        <Card>
-          <CardContent className="space-y-2 pt-6">
-            <p className="font-medium">No questions available for this topic yet.</p>
-            <p className="text-sm text-muted-foreground">
-              Our question bank is still growing here - try a different topic for now.
-            </p>
-          </CardContent>
-        </Card>
+      <div className="mx-auto w-full max-w-2xl px-6 py-16">
+        <EmptyState
+          icon={<Inbox className="size-5" aria-hidden="true" />}
+          title="No questions available for this topic yet."
+          description="Our question bank is still growing here - try a different topic for now."
+        />
       </div>
     );
   }
@@ -109,48 +108,46 @@ export function PracticeSessionRoot({
   }
 
   return (
-    <div className="mx-auto w-full max-w-2xl space-y-6 px-4 py-8">
+    <div className="mx-auto w-full max-w-2xl space-y-7 px-6 py-10 sm:py-12">
       <QuestionProgressIndicator current={index + 1} total={questions.length} isDiagnostic={isDiagnostic} />
 
-      <Card>
-        <CardContent className="space-y-5 pt-6">
-          <p className="whitespace-pre-wrap text-base">{question.prompt}</p>
+      <Surface className="space-y-7 p-6 sm:p-8">
+        <p className="text-lg leading-relaxed whitespace-pre-wrap text-ink">{question.prompt}</p>
 
-          {question.type === "mcq" ? (
-            <McqQuestionForm
-              question={question}
-              selectedOptionId={currentAnswer.selected_option_id}
-              onSelect={(optionId) => patchCurrentAnswer({ selected_option_id: optionId })}
-            />
-          ) : (
-            <FrqQuestionForm
-              value={currentAnswer.free_response_text}
-              onChange={(text) => patchCurrentAnswer({ free_response_text: text })}
-            />
-          )}
-
-          <ConfidenceRatingInput
-            value={currentAnswer.confidence_rating}
-            onChange={(rating) => patchCurrentAnswer({ confidence_rating: rating })}
+        {question.type === "mcq" ? (
+          <McqQuestionForm
+            question={question}
+            selectedOptionId={currentAnswer.selected_option_id}
+            onSelect={(optionId) => patchCurrentAnswer({ selected_option_id: optionId })}
           />
+        ) : (
+          <FrqQuestionForm
+            value={currentAnswer.free_response_text}
+            onChange={(text) => patchCurrentAnswer({ free_response_text: text })}
+          />
+        )}
 
-          <div className="flex items-center justify-between border-t pt-4">
-            <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => patchCurrentAnswer({ hints_used: currentAnswer.hints_used + 1 })}
-              >
-                Hint used ({currentAnswer.hints_used})
-              </Button>
-              <ReportQuestionDialog questionId={question.id} />
-            </div>
-            <Button disabled={!canAdvance || submitting} onClick={handleNext}>
-              {isLast ? (submitting ? "Submitting..." : "Finish") : "Next"}
-            </Button>
+        <ConfidenceRatingInput
+          value={currentAnswer.confidence_rating}
+          onChange={(rating) => patchCurrentAnswer({ confidence_rating: rating })}
+        />
+
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/70 pt-5">
+          <div className="flex items-center gap-1">
+            <PillButton
+              variant="ghost"
+              size="sm"
+              onClick={() => patchCurrentAnswer({ hints_used: currentAnswer.hints_used + 1 })}
+            >
+              Hint used ({currentAnswer.hints_used})
+            </PillButton>
+            <ReportQuestionDialog questionId={question.id} />
           </div>
-        </CardContent>
-      </Card>
+          <PillButton disabled={!canAdvance || submitting} onClick={handleNext}>
+            {isLast ? (submitting ? "Submitting..." : "Finish") : "Next"}
+          </PillButton>
+        </div>
+      </Surface>
     </div>
   );
 }

@@ -20,10 +20,10 @@ export function OnboardingProgress({ step }: { step: OnboardingStep }) {
     <div>
       {/* Compact mobile version */}
       <div className="sm:hidden">
-        <p className="mb-2 text-xs font-medium text-muted-foreground">
+        <p className="mb-2.5 text-xs font-semibold tracking-[0.14em] text-blue uppercase">
           Step {currentIndex + 1} of {STEPS.length} · {STEPS[currentIndex].label}
         </p>
-        <div className="h-1.5 w-full overflow-hidden rounded-full bg-secondary">
+        <div className="h-1 w-full overflow-hidden rounded-full bg-muted">
           <motion.div
             className="h-full rounded-full bg-blue"
             initial={false}
@@ -43,10 +43,10 @@ export function OnboardingProgress({ step }: { step: OnboardingStep }) {
               <div className="flex flex-col items-center gap-1.5">
                 <span
                   className={cn(
-                    "flex size-7 items-center justify-center rounded-full border-2 text-xs font-semibold transition-colors",
+                    "flex size-7 items-center justify-center rounded-full border text-xs font-semibold transition-colors",
                     isComplete && "border-blue bg-blue text-blue-foreground",
-                    isActive && "border-blue bg-background text-blue",
-                    !isComplete && !isActive && "border-border bg-background text-muted-foreground"
+                    isActive && "border-blue bg-blue-soft/60 text-blue",
+                    !isComplete && !isActive && "border-border bg-card text-muted-foreground"
                   )}
                   aria-current={isActive ? "step" : undefined}
                 >
@@ -54,15 +54,15 @@ export function OnboardingProgress({ step }: { step: OnboardingStep }) {
                 </span>
                 <span
                   className={cn(
-                    "text-xs font-medium whitespace-nowrap",
-                    isActive || isComplete ? "text-navy" : "text-muted-foreground"
+                    "text-[0.7rem] font-semibold tracking-[0.1em] whitespace-nowrap uppercase transition-colors",
+                    isActive || isComplete ? "text-ink" : "text-muted-foreground"
                   )}
                 >
                   {s.label}
                 </span>
               </div>
               {i < STEPS.length - 1 && (
-                <div className="mx-2 mb-4 h-0.5 flex-1 overflow-hidden rounded-full bg-border">
+                <div className="mx-3 mb-4 h-px flex-1 overflow-hidden rounded-full bg-border">
                   <motion.div
                     className="h-full rounded-full bg-blue"
                     initial={false}

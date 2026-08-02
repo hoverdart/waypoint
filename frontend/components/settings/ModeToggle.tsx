@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Surface } from "@/components/kit/Surface";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { UserMode, updateMe } from "@/lib/api";
@@ -27,11 +27,9 @@ export function ModeToggle({ initialMode }: { initialMode: UserMode }) {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Mode</CardTitle>
-      </CardHeader>
-      <CardContent className="flex items-center justify-between">
+    <Surface className="space-y-4 p-6">
+      <h2 className="font-display text-lg text-ink">Mode</h2>
+      <div className="flex items-center justify-between gap-4">
         <div>
           <Label htmlFor="mode-switch">Gamified mode</Label>
           <p className="text-sm text-muted-foreground">
@@ -39,7 +37,7 @@ export function ModeToggle({ initialMode }: { initialMode: UserMode }) {
           </p>
         </div>
         <Switch id="mode-switch" checked={mode === "gamified"} disabled={saving} onCheckedChange={handleToggle} />
-      </CardContent>
-    </Card>
+      </div>
+    </Surface>
   );
 }

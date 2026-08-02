@@ -1,5 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Sparkles } from "lucide-react";
 import { DailyPlan, DashboardSubjectSummary, SubjectDetail } from "@/lib/api";
+import { PageHeader } from "@/components/kit/PageHeader";
+import { Chip } from "@/components/kit/Pills";
+import { EmptyState } from "@/components/kit/EmptyState";
 import { PlanItemList } from "./PlanItemList";
 import { GenerateTodayPlanButton } from "./GenerateTodayPlanButton";
 import { buildTopicNameMap } from "./topicNames";
@@ -20,43 +23,44 @@ export function GamifiedDailyPlan({
   const subjectNameById = Object.fromEntries(subjectDetails.map((s) => [s.id, s.name]));
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Today&apos;s quest</h1>
-          <p className="text-muted-foreground">Clear your plan to bank XP and keep the streak going.</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <StreakBadge days={streakDays} />
-          {plans.length > 0 && <GenerateTodayPlanButton subjects={enrolledSubjects} />}
-        </div>
-      </div>
+    <div className="space-y-10">
+      <PageHeader
+        title="Today's quest"
+        sub="Clear your plan to bank XP and keep the streak going."
+        actions={
+          <>
+            <StreakBadge days={streakDays} />
+            {plans.length > 0 && <GenerateTodayPlanButton subjects={enrolledSubjects} />}
+          </>
+        }
+      />
 
       {plans.length === 0 ? (
-        <Card>
-          <CardContent className="flex flex-col items-center gap-4 py-12 text-center">
-            <p className="text-muted-foreground">No plan generated yet for today.</p>
-            <GenerateTodayPlanButton subjects={enrolledSubjects} />
-          </CardContent>
-        </Card>
+        <EmptyState
+          icon={<Sparkles className="size-5" aria-hidden="true" />}
+          title="No plan generated yet for today."
+          action={<GenerateTodayPlanButton subjects={enrolledSubjects} />}
+        />
       ) : (
-        plans.map((plan) => {
-          const subjectId = plan.items[0]?.subject_id;
-          const availableXp = plan.items
-            .filter((i) => i.status === "pending")
-            .reduce((sum, i) => sum + i.point_cost, 0);
-          return (
-            <Card key={plan.id}>
-              <CardHeader>
-                <CardTitle>{subjectId ? subjectNameById[subjectId] : "Plan"}</CardTitle>
-                <p className="text-sm text-muted-foreground">+{availableXp} XP available today</p>
-              </CardHeader>
-              <CardContent>
+        <div className="space-y-10">
+          {plans.map((plan) => {
+            const subjectId = plan.items[0]?.subject_id;
+            const availableXp = plan.items
+              .filter((i) => i.status === "pending")
+              .reduce((sum, i) => sum + i.point_cost, 0);
+            return (
+              <section key={plan.id} className="space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <h2 className="font-display text-xl text-ink sm:text-2xl">
+                    {subjectId ? subjectNameById[subjectId] : "Plan"}
+                  </h2>
+                  <Chip tone="violet">{`+${availableXp} XP available today`}</Chip>
+                </div>
                 <PlanItemList items={plan.items} topicNames={topicNames} gamified />
-              </CardContent>
-            </Card>
-          );
-        })
+              </section>
+            );
+          })}
+        </div>
       )}
     </div>
   );

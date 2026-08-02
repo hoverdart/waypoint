@@ -9,7 +9,7 @@ export default async function DashboardPage() {
 
   const data = await getDashboard(token);
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-8">
+    <div className="mx-auto w-full max-w-6xl px-6 py-10">
       <DashboardView data={data} />
     </div>
   );

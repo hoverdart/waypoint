@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
+import { PillButton } from "@/components/kit/PillButton";
 import { ApiError, ExplainAction, explainQuestion, getAiUsage } from "@/lib/api";
 import { useApiToken } from "@/lib/hooks/useApiToken";
 
@@ -67,10 +67,12 @@ export function ExplainButton({
   return (
     <div className="space-y-2">
       <DropdownMenu>
-        <DropdownMenuTrigger render={<Button variant="outline" size="sm" disabled={usageExhausted || loading} />}>
+        <DropdownMenuTrigger
+          render={<PillButton variant="secondary" size="sm" disabled={usageExhausted || loading} />}
+        >
           {loading ? "Thinking..." : "Explain with AI"}
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
+        <DropdownMenuContent className="rounded-2xl">
           {ACTIONS.map((action) => (
             <DropdownMenuItem key={action.value} onClick={() => handleAction(action.value)}>
               {action.label}
@@ -78,7 +80,9 @@ export function ExplainButton({
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-      {explanation && <p className="rounded-md bg-muted p-3 text-sm">{explanation}</p>}
+      {explanation && (
+        <p className="rounded-2xl bg-blue-soft/50 p-4 text-sm leading-relaxed text-ink">{explanation}</p>
+      )}
     </div>
   );
 }
