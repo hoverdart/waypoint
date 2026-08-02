@@ -14,6 +14,10 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-jakarta);
+  /* A few retained functional components still use the original heading
+     utility. Keep it as an alias so every heading uses the current display
+     face instead of falling through to a browser default. */
+  --font-heading: var(--font-jakarta);
 
   /* WayPoint brand - sourced from the logo's compass/road mark */
   --color-ink: var(--ink);
@@ -237,6 +241,17 @@
    former padded inline background, this never changes a headline's line box
    or collides with the line above/below when the phrase wraps. */
 .highlight-marker {
+  /* Fallback first: browsers without color-mix still receive a visible
+     marker stroke. Supporting browsers replace it with the softer blend
+     below. */
+  background-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 38%,
+    var(--highlight-color) 38%,
+    var(--highlight-color) 94%,
+    transparent 94%
+  );
   background-image: linear-gradient(
     180deg,
     transparent 0%,
