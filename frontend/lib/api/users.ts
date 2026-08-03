@@ -4,6 +4,7 @@ import { User, UserMode } from "./types";
 export interface UserUpdateRequest {
   mode?: UserMode;
   display_name?: string | null;
+  grade_level?: number | null;
 }
 
 export function getCurrentUser(token: TokenSource): Promise<User> {

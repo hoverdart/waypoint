@@ -3,8 +3,9 @@
 import { ReactNode, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useSafeReducedMotion } from "@/components/motion/useSafeReducedMotion";
-import { PillLink } from "@/components/kit/PillButton";
+import { pillClass, PillLink } from "@/components/kit/PillButton";
 import { Highlight } from "@/components/kit/Typography";
+import { AnimatedLoginLink } from "@/components/auth/AnimatedLoginLink";
 
 /** Landing hero. As you scroll away, the whole block eases out and drifts
  * up rather than simply sliding off - the page's first signal that motion
@@ -80,9 +81,9 @@ export function Hero({ visual }: { visual: ReactNode }) {
             <PillLink href="/signup" size="lg" arrow>
               Get started free
             </PillLink>
-            <PillLink href="/login" size="lg" variant="secondary">
+            <AnimatedLoginLink className={pillClass("secondary", "lg")}>
               Log in
-            </PillLink>
+            </AnimatedLoginLink>
           </motion.div>
 
           <motion.p

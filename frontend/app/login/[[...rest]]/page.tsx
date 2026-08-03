@@ -1,9 +1,10 @@
-import { SignIn } from "@clerk/nextjs";
+import { LoginScreen } from "@/components/auth/LoginScreen";
 
-export default function LoginPage() {
-  return (
-    <div className="flex flex-1 items-center justify-center py-16">
-      <SignIn path="/login" routing="path" signUpUrl="/signup" fallbackRedirectUrl="/onboarding" />
-    </div>
-  );
+function safeReturnTo(value: string | undefined): string {
+  return value && value.startsWith("/") && !value.startsWith("//") && !value.startsWith("/\\") ? value : "/dashboard";
+}
+
+export default async function LoginPage({ searchParams }: { searchParams: Promise<{ redirect_url?: string }> }) {
+  const { redirect_url: redirectUrl } = await searchParams;
+  return <LoginScreen returnTo={safeReturnTo(redirectUrl)} />;
 }

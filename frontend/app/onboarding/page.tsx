@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { syncUser, getSubjects } from "@/lib/api";
+import { getOnboardingState, getSubjects, syncUser } from "@/lib/api";
 import { getServerAuthToken } from "@/lib/auth/getServerAuthToken";
 import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard";
 import { OnboardingLayout } from "@/components/onboarding/OnboardingLayout";
@@ -10,11 +10,12 @@ export default async function OnboardingPage() {
 
   // Idempotent: safe to call every time a user lands here.
   await syncUser(token);
-  const subjects = await getSubjects();
+  const [subjects, initialState] = await Promise.all([getSubjects(), getOnboardingState(token)]);
+  if (initialState.onboarding_step === "complete") redirect("/dashboard");
 
   return (
     <OnboardingLayout>
-      <OnboardingWizard subjects={subjects} />
+      <OnboardingWizard subjects={subjects} initialState={initialState} />
     </OnboardingLayout>
   );
 }

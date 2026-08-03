@@ -4,6 +4,7 @@ import { LogoLockup } from "@/components/brand/Logo";
 import { NavLinks } from "@/components/nav/NavLinks";
 import { HeaderShell } from "@/components/nav/HeaderShell";
 import { PillLink } from "@/components/kit/PillButton";
+import { AnimatedLoginLink } from "@/components/auth/AnimatedLoginLink";
 
 export function SiteHeader() {
   return (
@@ -29,12 +30,11 @@ export function SiteHeader() {
           </span>
         </Show>
         <Show when="signed-out">
-          <Link
-            href="/login"
+          <AnimatedLoginLink
             className="rounded-full px-3 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:bg-ink/5 hover:text-ink"
           >
             Log in
-          </Link>
+          </AnimatedLoginLink>
           <PillLink href="/signup" size="sm" arrow>
             Get started
           </PillLink>

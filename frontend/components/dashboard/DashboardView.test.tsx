@@ -14,6 +14,7 @@ function makeDashboard(overrides: Partial<Dashboard> = {}): Dashboard {
       auth_provider_id: "user_1",
       email: "student@example.com",
       display_name: "Ada",
+      grade_level: 11,
       mode: "professional",
     },
     subjects: [],
@@ -30,6 +31,7 @@ describe("DashboardView", () => {
   it("renders the professional dashboard when the user's mode is professional", () => {
     render(<DashboardView data={makeDashboard({ user: { ...makeDashboard().user, mode: "professional" } })} />);
     expect(screen.getByText("Welcome back, Ada")).toBeInTheDocument();
+    expect(screen.getByText(/Grade 11/)).toBeInTheDocument();
     expect(screen.queryByText(/Level \d/)).not.toBeInTheDocument();
   });
 
@@ -43,7 +45,7 @@ describe("DashboardView", () => {
         })}
       />
     );
-    expect(screen.getByText("Let's keep the streak alive.")).toBeInTheDocument();
+    expect(screen.getByText(/Let.s keep the streak alive/)).toBeInTheDocument();
     expect(screen.getByText(/Level 1/)).toBeInTheDocument();
     expect(screen.getByText(/2-day streak/)).toBeInTheDocument();
   });

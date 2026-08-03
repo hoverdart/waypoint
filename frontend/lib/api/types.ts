@@ -1,10 +1,17 @@
 export type UserMode = "professional" | "gamified";
+export type OnboardingStep = "profile" | "courses" | "diagnostic" | "tour" | "complete";
+export type DiagnosticStatus = "pending" | "skipped";
 
 export interface User {
   id: number;
   auth_provider_id: string;
   email: string;
   display_name: string | null;
+  /** Absent only while talking to a pre-onboarding backend during rollout. */
+  grade_level?: number | null;
+  /** Missing metadata represents a legacy account, which retains access. */
+  onboarding_step?: OnboardingStep;
+  diagnostic_status?: DiagnosticStatus;
   mode: UserMode;
 }
 

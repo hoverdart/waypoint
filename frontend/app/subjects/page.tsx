@@ -4,12 +4,14 @@ import { getServerAuthToken } from "@/lib/auth/getServerAuthToken";
 import { PageHeader } from "@/components/kit/PageHeader";
 import { Reveal } from "@/components/motion/Reveal";
 import { SubjectGrid } from "@/components/subjects/SubjectGrid";
+import { requireCompletedOnboarding } from "@/lib/auth/requireCompletedOnboarding";
 
 export default async function SubjectsPage() {
   const token = await getServerAuthToken();
   if (!token) redirect("/login");
 
   const [allSubjects, dashboard] = await Promise.all([getSubjects(), getDashboard(token)]);
+  requireCompletedOnboarding(dashboard.user);
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-10 px-6 py-10">

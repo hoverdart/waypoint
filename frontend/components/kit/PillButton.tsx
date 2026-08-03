@@ -23,7 +23,7 @@ const SIZE: Record<Size, string> = {
  * native <button>/<a> rather than the Base UI shadcn Button - that one
  * carries its own radius/size/variant system that has to be fought at every
  * call site to reach this shape. */
-function pillClass(variant: Variant, size: Size, className?: string) {
+export function pillClass(variant: Variant, size: Size, className?: string) {
   return cn(
     "group/pill inline-flex shrink-0 items-center justify-center rounded-full font-medium whitespace-nowrap",
     "outline-none transition-all duration-200 focus-visible:ring-3 focus-visible:ring-blue/40",

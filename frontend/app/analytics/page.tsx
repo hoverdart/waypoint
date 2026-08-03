@@ -4,6 +4,7 @@ import { ApiError, getDashboard, getLatestWeeklyReport, getSubjectMastery } from
 import { getServerAuthToken } from "@/lib/auth/getServerAuthToken";
 import { AnalyticsView } from "@/components/analytics/AnalyticsView";
 import { EmptyState } from "@/components/kit/EmptyState";
+import { requireCompletedOnboarding } from "@/lib/auth/requireCompletedOnboarding";
 
 export default async function AnalyticsPage({
   searchParams,
@@ -15,6 +16,7 @@ export default async function AnalyticsPage({
 
   const { subject } = await searchParams;
   const dashboard = await getDashboard(token);
+  requireCompletedOnboarding(dashboard.user);
 
   if (dashboard.subjects.length === 0) {
     return (

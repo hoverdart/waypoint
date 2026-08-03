@@ -5,9 +5,10 @@ import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const STEPS = [
-  { key: "mode", label: "Study Style" },
-  { key: "subjects", label: "AP Classes" },
-  { key: "details", label: "Plan Details" },
+  { key: "profile", label: "About you" },
+  { key: "courses", label: "AP goals" },
+  { key: "diagnostic", label: "Baseline" },
+  { key: "tour", label: "Your WayPoint" },
 ] as const;
 
 export type OnboardingStep = (typeof STEPS)[number]["key"];

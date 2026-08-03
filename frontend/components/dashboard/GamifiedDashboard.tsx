@@ -12,11 +12,12 @@ import { XpBar } from "@/components/gamification/XpBar";
 import { AchievementBadgeGrid } from "@/components/gamification/AchievementBadgeGrid";
 
 export function GamifiedDashboard({ data, topicNames }: { data: Dashboard; topicNames: Record<number, string> }) {
+  const context = data.user.grade_level ? `Grade ${data.user.grade_level} · Let’s keep the streak alive.` : "Let’s keep the streak alive.";
   return (
     <div className="space-y-10">
       <PageHeader
         title={`Welcome back${data.user.display_name ? `, ${data.user.display_name}` : ""}`}
-        sub="Let's keep the streak alive."
+        sub={context}
         actions={<StreakBadge days={data.streak_days} />}
       />
 

@@ -2,19 +2,24 @@ import { redirect } from "next/navigation";
 import { getDashboard } from "@/lib/api";
 import { getServerAuthToken } from "@/lib/auth/getServerAuthToken";
 import { ModeToggle } from "@/components/settings/ModeToggle";
+import { ProfileSettings } from "@/components/settings/ProfileSettings";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { requireCompletedOnboarding } from "@/lib/auth/requireCompletedOnboarding";
 
 export default async function SettingsPage() {
   const token = await getServerAuthToken();
   if (!token) redirect("/login");
 
   const dashboard = await getDashboard(token);
+  requireCompletedOnboarding(dashboard.user);
 
   return (
     <div className="mx-auto w-full max-w-2xl space-y-6 px-4 py-8">
       <h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
 
       <ModeToggle initialMode={dashboard.user.mode} />
+
+      <ProfileSettings initialName={dashboard.user.display_name} initialGrade={dashboard.user.grade_level} />
 
       <Card>
         <CardHeader>
@@ -34,11 +39,7 @@ export default async function SettingsPage() {
         </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground">
-            To add subjects or change your daily study time, revisit{" "}
-            <a href="/onboarding" className="underline underline-offset-2">
-              onboarding
-            </a>
-            .
+            Your AP goals were set during onboarding. Course changes will be available here soon.
           </p>
         </CardContent>
       </Card>

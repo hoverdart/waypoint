@@ -8,11 +8,12 @@ import { TodaysPlanSummaryCard } from "./TodaysPlanSummaryCard";
 import { WeeklyCoachReportCard } from "./WeeklyCoachReportCard";
 
 export function ProfessionalDashboard({ data, topicNames }: { data: Dashboard; topicNames: Record<number, string> }) {
+  const context = data.user.grade_level ? `Grade ${data.user.grade_level} · Here’s where things stand across your subjects.` : "Here’s where things stand across your subjects.";
   return (
     <div className="space-y-10">
       <PageHeader
         title={`Welcome back${data.user.display_name ? `, ${data.user.display_name}` : ""}`}
-        sub="Here's where things stand across your subjects."
+        sub={context}
       />
 
       {data.subjects.length === 0 ? (

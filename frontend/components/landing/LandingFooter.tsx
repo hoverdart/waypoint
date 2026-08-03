@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LogoLockup } from "@/components/brand/Logo";
+import { AnimatedLoginLink } from "@/components/auth/AnimatedLoginLink";
 
 const LINKS = [
   { href: "/login", label: "Log in" },
@@ -17,10 +18,10 @@ export function LandingFooter() {
         <div className="h-px w-full max-w-xs bg-border" />
 
         <nav className="flex flex-wrap justify-center gap-5 text-sm text-muted-foreground">
-          {LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="transition-colors hover:text-ink">
-              {link.label}
-            </Link>
+          {LINKS.map((link) => link.href === "/login" ? (
+            <AnimatedLoginLink key={link.href} className="transition-colors hover:text-ink">{link.label}</AnimatedLoginLink>
+          ) : (
+            <Link key={link.href} href={link.href} className="transition-colors hover:text-ink">{link.label}</Link>
           ))}
         </nav>
 

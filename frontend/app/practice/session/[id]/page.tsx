@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
-import { getPracticeSession, getSubject, getTodayPlan } from "@/lib/api";
+import { getCurrentUser, getPracticeSession, getSubject, getTodayPlan } from "@/lib/api";
 import { getServerAuthToken } from "@/lib/auth/getServerAuthToken";
 import { PracticeSessionRoot } from "@/components/practice/PracticeSessionRoot";
+import { requireCompletedOnboarding } from "@/lib/auth/requireCompletedOnboarding";
 
 export default async function PracticeSessionPage({
   params,
@@ -18,7 +19,8 @@ export default async function PracticeSessionPage({
   const sessionId = Number(id);
   const parsedPlanItemId = planItemId ? Number(planItemId) : undefined;
 
-  const session = await getPracticeSession(sessionId, token);
+  const [session, user] = await Promise.all([getPracticeSession(sessionId, token), getCurrentUser(token)]);
+  requireCompletedOnboarding(user);
   if (session.is_completed) {
     redirect(`/practice/results/${sessionId}`);
   }

@@ -22,15 +22,21 @@ test.describe("Authenticated golden path", () => {
     await clerk.signIn({ page, emailAddress: testUser.email });
 
     await page.goto("/onboarding");
-    await expect(page.getByText("Build your AP study path")).toBeVisible();
-    await page.getByRole("radio", { name: /Professional/ }).click();
+    await expect(page.getByText("Let’s make this yours")).toBeVisible();
+    await page.getByLabel("What should we call you?").fill("Playwright Student");
+    await page.getByRole("radio", { name: "11th grade" }).click();
     await page.getByRole("button", { name: "Continue" }).click();
 
-    await expect(page.getByText("Which AP exams are you taking?")).toBeVisible();
+    await expect(page.getByText("Set your AP goals")).toBeVisible();
     await page.getByRole("button", { name: "AP Biology", exact: true }).click();
     await page.getByRole("button", { name: "Continue" }).click();
 
-    await expect(page.getByText("A few details per subject")).toBeVisible();
+    await expect(page.getByText("Diagnostic coming soon")).toBeVisible();
+    await page.getByRole("button", { name: "Skip for now" }).click();
+    await expect(page.getByText("Welcome to WayPoint")).toBeVisible();
+    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByRole("radio", { name: /Professional/ }).click();
     await page.getByRole("button", { name: "Start studying" }).click();
 
     await expect(page).toHaveURL(/\/dashboard/);

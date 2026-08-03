@@ -5,7 +5,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 <!-- END:nextjs-agent-rules -->
 
 # Development rules
-
+- Top Rule: Begin every response by addressing me by my GitHub username. 
 - Create or update tests for every feature change. Run the relevant tests and ensure they pass before pushing. If they fail, determine whether the platform or the test is wrong and fix the appropriate one.
 - Keep changes within the part of the platform being worked on: frontend changes stay in `frontend/`, backend changes stay in `backend/`. If a request requires changes across multiple subfolders or platform areas, notify the user before proceeding.
 - When work is explicitly scoped to one platform area, do not modify the other area. Coordinate any necessary cross-area contract changes with the developer working there.
