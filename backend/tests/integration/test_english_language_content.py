@@ -78,7 +78,7 @@ def test_candidate_course_seeds_idempotently_and_supports_essay_review(client, d
     seed_subject(db_session, subject_data)
     assert {q.id for q in db_session.exec(select(Question)).all()} == ids
     assert {q.id for q in db_session.exec(select(QuestionOption)).all()} == option_ids
-    assert len(ids) == 48
+    assert len(ids) == 93
     subject = db_session.exec(select(Subject).where(Subject.ap_exam_code == 'english-language')).one()
     user = make_user(db_session)
     headers = auth_header(user.auth_provider_id)
@@ -93,3 +93,21 @@ def test_candidate_course_seeds_idempotently_and_supports_essay_review(client, d
         saved = client.put(f'/practice/{sid}/questions/{row["question_id"]}/self-review', headers=headers, json={'points': [1, 3, 0]})
         assert saved.status_code == 200 and saved.json()['total'] == 4
     assert len(client.get(f'/practice/{sid}/results', headers=headers).json()['breakdown']) == 3
+
+
+def test_second_form_adds_independent_stimuli_and_valid_curriculum_mappings():
+    from scripts.seed_data.questions.english_language.form_b_reading import QUESTIONS as reading
+    from scripts.seed_data.questions.english_language.form_b_writing import QUESTIONS as writing
+    original_groups = {tag for q in READING + WRITING for tag in q['skill_tags'] if tag.startswith('stimulus:')}
+    new_groups = {tag for q in reading + writing for tag in q['skill_tags'] if tag.startswith('stimulus:')}
+    assert not original_groups & new_groups
+    assert len(new_groups) == 5
+    assert len(reading) == 24 and len(writing) == 21
+    topics = {(u['name'], t['name']) for u in UNITS for t in u['topics']}
+    for q in reading + writing:
+        assert (q['unit_name'], q['topic_name']) in topics
+        assert len(q['prompt'].split()) > 200
+        assert len({e['explanation'] for e in q['explanations']}) == 4
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+    assert len({q['prompt'] for q in READING + WRITING + reading + writing}) == 90

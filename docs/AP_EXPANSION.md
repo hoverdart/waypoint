@@ -44,8 +44,9 @@ checks must never claim to provide it.
 ## Current English Language work
 
 - Nine-unit progression with 22 framework skill codes and 49 unit/skill topics.
-- First 45-question MCQ form: three reading sets (24 questions) and two revision sets
-  (21 questions), five independent original passages, levels 2–4, individual rationales.
+- Two independent 45-question MCQ forms: each has three reading sets (24 questions)
+  and two revision sets (21 questions), for 90 questions across ten original passages,
+  levels 2–4, and individual rationales.
 - First three essays: synthesis (six sources, including data and a concept diagram),
   rhetorical analysis, and argument; models and six-point rubric reflection.
 - Durable, owned rubric review implemented in backend and frontend. Mixed-session
