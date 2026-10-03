@@ -45,5 +45,5 @@ topic has practice content; this is an original bank, not a collection of offici
   the tested runtime used local processes rather than a container deployment.
 - GitHub browser tests require repository Clerk test secrets. They are currently skipped
   in CI; the same browser suite passed locally against real Clerk and PostgreSQL.
-- CI run 37160971101 passed backend tests, dependency audits, frontend checks, and build.
-  The final audit changes are verified locally and will receive their own CI run on push.
+- Final application commit `06974c4` passed backend tests, dependency audits, frontend
+  checks, and production build in [CI run 37161349117](https://github.com/hoverdart/waypoint/actions/runs/37161349117).
