@@ -81,3 +81,10 @@
 - New migration 20261003_active_curriculum adds Unit.is_active. Apply `alembic upgrade head` before `python -m scripts.seed`. Reseeding reparents recognized legacy topics and preserves their IDs, attempts, session history, and mastery; unused legacy units are archived. New practice, diagnostics, plans, and mastery summaries exclude archived units. Existing sessions remain accessible and submittable.
 - Verification: 170 backend tests pass on PostgreSQL (waypoint_test_v2 at localhost:55432). A fresh database passed actual Alembic upgrade/downgrade/upgrade and two seed runs. Migration regression tests cover historical attempt preservation and archived-session completion.
 - Daily-budget milestone 5cad0f7 is pushed. Unified branch remains codex/ap-prep-app; public push authorization is explicit and persistent. User's AGENTS.md modification remains excluded.
+
+## 2026-10-03 — Valid study-session creation
+
+- Backend practice creation now checks active course/unit/topic relationships and rejects empty selections before inserting a session. Invalid or archived scopes cannot create unusable history entries.
+- Diagnostics retain weighted unit allocation and preferred difficulty, then fill sparse quotas from remaining approved questions without duplicates. Zero-weight curricula use available questions; empty curricula return a useful error.
+- Added 10 regression cases for empty selections, invalid scopes, sparse unit/difficulty fallback, and zero weights. Full backend suite: 180 passing tests.
+- Curriculum milestone 6ec1f42 is pushed. Next verification work: real Clerk authenticated browser flow using isolated ports and a seeded local database.

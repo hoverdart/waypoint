@@ -8,6 +8,8 @@ import random
 
 from sqlmodel import Session, select
 
+from app.core.exceptions import DomainError
+from app.services.practice.scope import validate_practice_scope
 from app.models.practice import PracticeSession
 from app.models.question import Question
 from app.models.subject import Unit
@@ -40,6 +42,9 @@ def build_diagnostic_session(
     total_questions: int,
     rng: random.Random | None = None,
 ) -> tuple[PracticeSession, list[Question]]:
+    validate_practice_scope(db, subject_id)
+    if not 1 <= total_questions <= 60:
+        raise DomainError("Diagnostic question count must be between 1 and 60")
     rng = rng or random.Random()
     units = list(db.exec(select(Unit).where(Unit.subject_id == subject_id, Unit.is_active == True)).all())
     allocation = allocate_questions_per_unit(
@@ -47,25 +52,27 @@ def build_diagnostic_session(
     )
 
     selected_questions: list[Question] = []
+    remaining: list[Question] = []
     for unit in units:
+        candidates = list(db.exec(select(Question).where(
+            Question.subject_id == subject_id,
+            Question.unit_id == unit.id,
+            Question.is_active == True,  # noqa: E712
+            Question.validation_status == "approved",
+        )).all())
+        rng.shuffle(candidates)
+        # Stable ordering retains randomness within each difficulty group.
+        candidates.sort(key=lambda q: q.difficulty not in PREFERRED_DIFFICULTIES)
         count = allocation.get(unit.id, 0)
-        if count == 0:
-            continue
-        candidates = list(
-            db.exec(
-                select(Question).where(
-                    Question.unit_id == unit.id,
-                    Question.is_active == True,  # noqa: E712
-                    Question.validation_status == "approved",
-                )
-            ).all()
-        )
-        if not candidates:
-            continue
-        preferred = [q for q in candidates if q.difficulty in PREFERRED_DIFFICULTIES]
-        pool = preferred if preferred else candidates
-        rng.shuffle(pool)
-        selected_questions.extend(pool[:count])
+        selected_questions.extend(candidates[:count])
+        remaining.extend(candidates[count:])
+
+    # Sparse units must not shorten a diagnostic when other units have content.
+    rng.shuffle(remaining)
+    remaining.sort(key=lambda q: q.difficulty not in PREFERRED_DIFFICULTIES)
+    selected_questions.extend(remaining[:total_questions - len(selected_questions)])
+    if not selected_questions:
+        raise DomainError("No approved questions are available for this diagnostic yet.")
 
     session = PracticeSession(
         user_id=user_id,

@@ -12,6 +12,7 @@ from sqlmodel import Session, select
 from app.core.exceptions import DomainError, NotFoundError
 from app.models.planner import DailyPlan, DailyPlanItem
 from app.services.practice.validation import validate_submission
+from app.services.practice.scope import validate_practice_scope
 from app.models.practice import PracticeSession, QuestionAttempt
 from app.models.question import Question
 from app.models.subject import Unit
@@ -37,6 +38,9 @@ def start_practice_session(
     question_count: int = DEFAULT_QUESTION_COUNT,
     rng: random.Random | None = None,
 ) -> tuple[PracticeSession, list[Question]]:
+    validate_practice_scope(db, subject_id, unit_id, topic_id)
+    if session_type not in ("mcq", "frq", "timed") or not 1 <= question_count <= 60:
+        raise DomainError("Invalid practice type or question count")
     rng = rng or random.Random()
 
     query = select(Question).join(Unit, Question.unit_id == Unit.id).where(
@@ -55,6 +59,8 @@ def start_practice_session(
     candidates = list(db.exec(query).all())
     rng.shuffle(candidates)
     selected = candidates[:question_count]
+    if not selected:
+        raise DomainError("No approved questions are available for this selection. Try another topic or question type.")
 
     session = PracticeSession(
         user_id=user_id,
