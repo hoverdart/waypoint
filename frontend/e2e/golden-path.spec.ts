@@ -85,6 +85,9 @@ test.describe("Authenticated golden path", () => {
     await page.goto("/daily-plan");
     await expect(page.getByText("completed", { exact: true }).first()).toBeVisible();
     await page.goto("/settings");
+    await page.getByRole("button", { name: "Manage account", exact: true }).click();
+    await expect(page.locator(".cl-userProfile-root")).toBeVisible();
+    await page.reload();
     const minutes = page.getByLabel("Daily minutes for AP Biology");
     await minutes.fill("35");
     await page.getByRole("button", { name: "Save course preferences" }).click();
@@ -118,6 +121,11 @@ test.describe("Authenticated golden path", () => {
     expect(navBounds!.y).toBeGreaterThan(750);
     expect(navBounds!.y + navBounds!.height).toBeLessThanOrEqual(844);
     await page.screenshot({ path: testInfo.outputPath("dashboard-mobile.png"), fullPage: true });
+    await page.getByRole("link", { name: "Account", exact: true }).click();
+    await page.getByRole("button", { name: "Sign out", exact: true }).click();
+    await expect(page).toHaveURL(/\/$/);
+    await page.goto("/dashboard");
+    await expect(page).toHaveURL(/\/login/);
     expect(serverErrors).toEqual([]);
   });
 });

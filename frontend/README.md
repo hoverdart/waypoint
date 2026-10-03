@@ -4,7 +4,8 @@ Next.js App Router, TypeScript, Tailwind, shadcn, and Clerk. See
 [local setup](../docs/LOCAL_DEV.md) for the full frontend/backend workflow.
 
 ```sh
-npm install
+nvm use  # Node 24, matching CI
+npm ci
 npm run dev
 ```
 
@@ -20,6 +21,7 @@ npm test
 npm run lint
 npx tsc --noEmit
 npm run build
+npm audit --omit=dev
 ```
 
 Browser tests run production builds on dedicated ports 3109 (frontend) and

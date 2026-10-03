@@ -37,12 +37,12 @@ Backend API docs: `http://localhost:8000/docs`. Frontend: `http://localhost:3000
 ## Testing & CI/CD
 
 ```bash
-cd backend && pytest                    # 137 tests, ~92% coverage
-cd frontend && npm test                 # 46 unit/component tests (Vitest)
+cd backend && pytest                    # PostgreSQL integration and unit tests
+cd frontend && npm test                 # unit/component tests (Vitest)
 cd frontend && npm run test:e2e         # Playwright E2E (see docs/TESTING.md for setup)
 ```
 
-Every push/PR runs the full suite via [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
+Pushes to main, master, and codex/ap-prep-app, plus PRs targeting main/master, run the suite via [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
 The E2E job needs two repo secrets (`E2E_CLERK_PUBLISHABLE_KEY`, `E2E_CLERK_SECRET_KEY`) to run -
 see [`docs/TESTING.md`](docs/TESTING.md) for the full breakdown of what each job does and how to
 enable it.

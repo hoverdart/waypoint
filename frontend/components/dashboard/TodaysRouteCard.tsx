@@ -26,6 +26,7 @@ export function TodaysRouteCard({
 }) {
   const startPlanItem = useStartPlanItem();
   const [starting, setStarting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   if (!plan) {
     return (
@@ -48,8 +49,11 @@ export function TodaysRouteCard({
   async function handleStartRoute() {
     if (!nextItem) return;
     setStarting(true);
+    setError(null);
     try {
       await startPlanItem(nextItem, { planItemId: nextItem.id });
+    } catch {
+      setError("Could not start this task. Please try again.");
     } finally {
       setStarting(false);
     }
@@ -67,6 +71,7 @@ export function TodaysRouteCard({
           </p>
         </div>
 
+        {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
         {pending.length > 0 ? (
           <>
             <ul className="space-y-2">

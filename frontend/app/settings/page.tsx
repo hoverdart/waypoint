@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getDashboard, getSubjects, getMySubjects } from "@/lib/api";
 import { getServerAuthToken } from "@/lib/auth/getServerAuthToken";
+import { AccountActions } from "@/components/settings/AccountActions";
 import { SubjectPreferences } from "@/components/settings/SubjectPreferences";
 import { ModeToggle } from "@/components/settings/ModeToggle";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,16 +18,16 @@ export default async function SettingsPage() {
 
       <ModeToggle initialMode={dashboard.user.mode} />
 
-      <Card>
+      <Card id="account">
         <CardHeader>
           <CardTitle>Account</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground">
             {!dashboard.user.email.endsWith("@unknown.local") && <span className="block mb-2">{dashboard.user.email}</span>}
-            Manage sign-in details and security from the account menu in the
-            top-right corner.
+            Manage your profile, sign-in details, and account security.
           </p>
+          <AccountActions />
         </CardContent>
       </Card>
 

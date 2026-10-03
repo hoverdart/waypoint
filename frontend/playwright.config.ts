@@ -47,7 +47,7 @@ export default defineConfig({
       stdout: "pipe",
     },
     {
-      command: `./.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port ${backendPort}`,
+      command: `${isCI ? "python" : "./.venv/bin/python"} -m uvicorn app.main:app --host 127.0.0.1 --port ${backendPort}`,
       cwd: path.resolve(__dirname, "../backend"),
       url: `${backendUrl}/health`,
       env: { CORS_ALLOWED_ORIGINS: JSON.stringify([frontendUrl]) },

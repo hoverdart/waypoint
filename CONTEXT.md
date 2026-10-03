@@ -114,3 +114,15 @@
 - Verification: 199 backend tests and 69 frontend tests pass, with ESLint/TypeScript passing. Seven real-auth browser tests pass, including preference persistence, removal, history access, and restoration; final production build, Settings screenshot review, and link assertions also pass. Internal fallback email identifiers are hidden from the account section.
 
 - Final account-menu audit remains: screenshots do not clearly show Clerk UserButton in the header; verify sign-out/account management is visibly accessible and test it before completion.
+
+## 2026-10-03 — Account access, action recovery, and CI audit
+
+- Replaced reliance on the header avatar with a visible Account link on desktop/mobile. Settings exposes Clerk profile/security management and explicit sign-out, with a retry state for failed sign-out. Real browser tests verify the profile modal and protected-route rejection after signing out.
+- Plan Start/Skip actions and both dashboard plan cards now catch failures and offer retry feedback. PlanItemCard reuses the existing shared practice-launch hook. 75 frontend tests pass; account browser suite passes all 7 cases.
+- CI audit found no runs for this branch because push triggers only covered main/master. Added codex/ap-prep-app to triggers. Playwright uses system Python in CI, preserving local virtualenv usage. Root README testing statements updated to match triggers and avoid stale test counts. Clean dependency installation verification underway before the next push.
+
+- Clean-install audit: original lockfile failed npm ci because emnapi dependency entries were inconsistent. Repaired the lockfile, declared Node 24 (matching CI), and clean-installed successfully. Fresh-install tests/lint/types and all 7 browser tests passed on locked Next 16.2.12.
+- Production npm audit then reported known critical Next advisories and transitive issues. Compatible security updates are in progress; shadcn CLI moved to devDependencies. Do not push the dependency milestone until install/build/tests/browser/audit checks are complete.
+- Remaining admin audit: question editing deletes/recreates option rows, which can violate historical attempt references; schemas also lack bounded/consistent question validation. Address historical option preservation/versioning and validation before the goal is complete.
+
+- Dependency remediation: regenerated the lockfile with current npm after an npm 11.6 optional-dependency inconsistency, then verified standard npm ci under Node 24. Raised Next.js minimum to ^16.3.8, aligned eslint-config-next, and refreshed compatible dependencies. Production npm audit reports 0 vulnerabilities. Added a CI production-audit gate. Current clean-install unit tests: 75 pass; lint and TypeScript pass after moving practice timer initialization into an effect. Matching Playwright Chromium v1243 installed; all 7 final browser tests and production build pass on Next 16.3.8.

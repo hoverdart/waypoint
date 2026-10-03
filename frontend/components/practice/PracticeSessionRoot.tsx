@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Inbox } from "lucide-react";
 import { Surface } from "@/components/kit/Surface";
@@ -63,7 +63,8 @@ export function PracticeSessionRoot({
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(initialAnswers.length > 0);
   const requestInFlight = useRef(false);
-  const questionStartedAt = useRef(Date.now());
+  const questionStartedAt = useRef(0);
+  useEffect(() => { questionStartedAt.current = Date.now(); }, []);
 
   if (questions.length === 0) {
     return (

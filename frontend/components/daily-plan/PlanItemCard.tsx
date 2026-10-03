@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Surface } from "@/components/kit/Surface";
 import { PillButton } from "@/components/kit/PillButton";
 import { Chip } from "@/components/kit/Pills";
 import { ReasonBadge } from "@/components/shared/ReasonBadge";
-import { DailyPlanItem, startPractice } from "@/lib/api";
-import { useApiToken } from "@/lib/hooks/useApiToken";
+import { DailyPlanItem } from "@/lib/api";
+import { useStartPlanItem } from "@/lib/hooks/useStartPlanItem";
 import { cn } from "@/lib/utils";
 
 const ITEM_TYPE_LABEL: Record<DailyPlanItem["item_type"], string> = {
@@ -39,24 +38,18 @@ export function PlanItemCard({
   onSkip: (itemId: number) => Promise<void>;
   gamified?: boolean;
 }) {
-  const router = useRouter();
-  const getToken = useApiToken();
+  const startPlanItem = useStartPlanItem();
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const isDone = item.status !== "pending";
 
-  async function handleStart() {
+  async function runAction(action: () => Promise<unknown>) {
     setBusy(true);
+    setError(null);
     try {
-      const session = await startPractice(
-        {
-          subject_id: item.subject_id,
-          topic_id: item.topic_id,
-          session_type: item.item_type === "frq" ? "frq" : "mcq",
-          question_count: item.item_type === "frq" ? 3 : 8,
-        },
-        getToken
-      );
-      router.push(`/practice/session/${session.session_id}?planItemId=${item.id}`);
+      await action();
+    } catch {
+      setError("Could not update this task. Please try again.");
     } finally {
       setBusy(false);
     }
@@ -83,14 +76,15 @@ export function PlanItemCard({
 
       {!isDone && (
         <div className="flex shrink-0 items-center gap-2">
-          <PillButton variant="ghost" size="sm" disabled={busy} onClick={() => onSkip(item.id)}>
+          <PillButton variant="ghost" size="sm" disabled={busy} onClick={() => void runAction(() => onSkip(item.id))}>
             Skip
           </PillButton>
-          <PillButton size="sm" disabled={busy} onClick={handleStart}>
+          <PillButton size="sm" disabled={busy} onClick={() => void runAction(() => startPlanItem(item, { planItemId: item.id }))}>
             Start
           </PillButton>
         </div>
       )}
+      {error && <p role="alert" className="w-full text-sm text-destructive">{error}</p>}
       {isDone && (
         <Chip tone={item.status === "completed" ? "green" : "neutral"} dot className="shrink-0 capitalize">
           {item.status}

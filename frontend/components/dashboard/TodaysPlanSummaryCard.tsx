@@ -18,14 +18,18 @@ export function TodaysPlanSummaryCard({
 }) {
   const startPlanItem = useStartPlanItem();
   const [starting, setStarting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const pending = plan?.items.filter((i) => i.status === "pending") ?? [];
   const nextItem = pending[0];
 
   async function handleStart() {
     if (!nextItem) return;
     setStarting(true);
+    setError(null);
     try {
       await startPlanItem(nextItem, { planItemId: nextItem.id });
+    } catch {
+      setError("Could not start this task. Please try again.");
     } finally {
       setStarting(false);
     }
@@ -56,6 +60,7 @@ export function TodaysPlanSummaryCard({
           {pending.length > 3 && <li className="text-xs text-muted-foreground">+{pending.length - 3} more items</li>}
         </ul>
       )}
+      {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
       <div className="mt-auto">
         {nextItem ? (
           <div className="flex flex-wrap gap-2">
