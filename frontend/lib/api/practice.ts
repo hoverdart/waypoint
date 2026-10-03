@@ -7,6 +7,7 @@ import {
   PracticeStartResponse,
   PracticeSubmitResponse,
   QuestionType,
+  SelfReview,
 } from "./types";
 
 export interface PracticeStartRequest {
@@ -50,5 +51,11 @@ export function savePracticeDraft(sessionId: number, answers: AnswerInput[], cur
   return apiFetch<void>(`/practice/${sessionId}/draft`, {
     method: "PATCH", token,
     body: { answers, current_index: currentIndex, daily_plan_item_id: dailyPlanItemId ?? null },
+  });
+}
+
+export function saveSelfReview(sessionId: number, questionId: number, points: number[], token: TokenSource): Promise<SelfReview> {
+  return apiFetch<SelfReview>(`/practice/${sessionId}/questions/${questionId}/self-review`, {
+    method: "PUT", token, body: { points },
   });
 }

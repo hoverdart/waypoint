@@ -102,6 +102,8 @@ export interface PracticeStartResponse {
 }
 
 export interface PracticeHistoryItem {
+  graded_count?: number;
+  self_review_count?: number;
   session_id: number;
   subject_id: number;
   subject_name: string;
@@ -139,20 +141,28 @@ export interface ExplanationRead {
   misconception_tag: string | null;
 }
 
+export interface SelfReview {
+  points: number[];
+  total: number;
+  reviewed_at: string;
+}
+
 export interface AnswerBreakdownItem {
+  scoring_method?: "automatic" | "keyword" | "self_review";
+  self_review?: SelfReview | null;
   question_id: number;
   topic_id: number;
   prompt: string;
   type: QuestionType;
-  is_correct: boolean;
-  score: number;
+  is_correct: boolean | null;
+  score: number | null;
   max_score: number;
   correct_answer: string;
   selected_option_id: number | null;
   free_response_text: string | null;
   explanations: ExplanationRead[];
   options?: { id: number; label: string; text: string }[];
-  rubric?: { point: string; points: number }[];
+  rubric?: { point: string; points: number; levels?: string[] }[];
 }
 
 export interface Badge {
@@ -163,6 +173,8 @@ export interface Badge {
 }
 
 export interface PracticeResultsResponse {
+  graded_count?: number;
+  self_review_count?: number;
   session_id: number;
   session_type: string;
   correct_count: number;

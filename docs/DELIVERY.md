@@ -47,3 +47,9 @@ topic has practice content; this is an original bank, not a collection of offici
   in CI; the same browser suite passed locally against real Clerk and PostgreSQL.
 - Final application commit `06974c4` passed backend tests, dependency audits, frontend
   checks, and production build in [CI run 37161349117](https://github.com/hoverdart/waypoint/actions/runs/37161349117).
+
+## Expanded scope after this delivery
+
+The user subsequently requested comprehensive coverage of every AP course in
+participation order. That work is **in progress**, not completed by this six-course
+foundation audit. See [AP_EXPANSION.md](AP_EXPANSION.md) and the latest CONTEXT.md entries.

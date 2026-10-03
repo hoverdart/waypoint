@@ -18,6 +18,7 @@ from app.models.question import Question
 from app.models.subject import Unit
 from app.services.practice.mastery_sync import apply_session_attempts_to_mastery
 from app.services.practice.scoring import score_frq_attempt, score_mcq_attempt
+from app.services.practice.self_review import requires_self_review
 from app.services.practice.types import AnswerSubmission
 from app.services.mastery.topic_mastery import AttemptSignal
 from app.services.xp.badge_service import evaluate_and_award_badges
@@ -106,10 +107,15 @@ def submit_practice_session(
 
     attempts_by_topic: dict[int, list[AttemptSignal]] = {}
     correct_count = 0
+    self_review_ids = []
 
     for ans in answers:
         question = db.get(Question, ans.question_id)
-        if question.type == "mcq":
+        if requires_self_review(question):
+            self_review_ids.append(question.id)
+            is_correct, score = False, 0.0
+            max_score = sum(c["points"] for c in question.rubric_json["checklist"])
+        elif question.type == "mcq":
             is_correct, score, max_score = score_mcq_attempt(db, question, ans.selected_option_id)
         else:
             is_correct, score, max_score = score_frq_attempt(question, ans.free_response_text)
@@ -132,6 +138,8 @@ def submit_practice_session(
         )
         if is_correct:
             correct_count += 1
+        if requires_self_review(question):
+            continue  # An ungraded essay is neither a mastery hit nor a miss.
         attempts_by_topic.setdefault(question.topic_id, []).append(
             AttemptSignal(
                 is_correct=is_correct,
@@ -143,11 +151,14 @@ def submit_practice_session(
 
     session.completed_at = now
     session.correct_count = correct_count
-    session.score = correct_count / session.total_questions if session.total_questions else 0.0
+    graded_count = session.total_questions - len(self_review_ids)
+    session.score = correct_count / graded_count if graded_count else 0.0
+    session.session_metadata = {**session.session_metadata, "self_review_question_ids": self_review_ids, "graded_count": graded_count}
     db.add(session)
     db.flush()
 
-    apply_session_attempts_to_mastery(db, session.user_id, session.subject_id, attempts_by_topic, now)
+    if attempts_by_topic:
+        apply_session_attempts_to_mastery(db, session.user_id, session.subject_id, attempts_by_topic, now)
 
     xp_earned = XP_BASE_AWARD + correct_count * XP_PER_CORRECT_ANSWER
     award_xp(

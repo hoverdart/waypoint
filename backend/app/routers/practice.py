@@ -14,6 +14,8 @@ from app.models.user import User
 from app.schemas.gamification import BadgeRead
 from app.schemas.practice import (
     AnswerBreakdownItem,
+    SelfReviewRequest,
+    SelfReviewRead,
     PracticeDraftRequest,
     PracticeHistoryItem,
     ExplanationRead,
@@ -26,6 +28,7 @@ from app.schemas.practice import (
     PracticeSubmitRequest,
     PracticeSubmitResponse,
 )
+from app.services.practice.self_review import requires_self_review, save_self_review
 from app.services.practice.question_presentation import questions_to_reads
 from app.services.practice.session_service import (
     get_results,
@@ -81,6 +84,8 @@ def list_practice_sessions(
         session_id=s.id, subject_id=s.subject_id, subject_name=name,
         session_type=s.session_type, started_at=s.started_at, completed_at=s.completed_at,
         total_questions=s.total_questions, correct_count=s.correct_count, score=s.score,
+        graded_count=s.session_metadata.get("graded_count", s.total_questions),
+        self_review_count=len(s.session_metadata.get("self_review_question_ids", [])),
         answered_count=s.total_questions if s.completed_at else sum(a.get("selected_option_id") is not None or bool((a.get("free_response_text") or "").strip()) for a in s.session_metadata.get("draft_answers", [])),
     ) for s, name in rows]
 
@@ -172,12 +177,14 @@ def practice_results(
         ).all()
         breakdown.append(
             AnswerBreakdownItem(
+                scoring_method="self_review" if requires_self_review(question) else "keyword" if question.type == "frq" else "automatic",
+                self_review=session.session_metadata.get("self_reviews", {}).get(str(question.id)),
                 question_id=question.id,
                 topic_id=question.topic_id,
                 prompt=question.prompt,
                 type=question.type,
-                is_correct=attempt.is_correct,
-                score=attempt.score,
+                is_correct=None if requires_self_review(question) else attempt.is_correct,
+                score=None if requires_self_review(question) else attempt.score,
                 max_score=attempt.max_score,
                 correct_answer=question.correct_answer,
                 selected_option_id=attempt.selected_option_id,
@@ -186,7 +193,7 @@ def practice_results(
                 options=[QuestionOptionRead.model_validate(o) for o in db.exec(
                     select(QuestionOption).where(QuestionOption.question_id == question.id).order_by(QuestionOption.label)
                 ).all()],
-                rubric=[RubricCriterionRead(point=c.get("point", ""), points=c.get("points", 0))
+                rubric=[RubricCriterionRead(point=c.get("point", ""), points=c.get("points", 0), levels=c.get("levels", []))
                         for c in (question.rubric_json or {}).get("checklist", [])],
             )
         )
@@ -198,6 +205,8 @@ def practice_results(
     ]
 
     return PracticeResultsResponse(
+        graded_count=session.session_metadata.get("graded_count", session.total_questions),
+        self_review_count=len(session.session_metadata.get("self_review_question_ids", [])),
         session_id=session.id,
         session_type=session.session_type,
         correct_count=session.correct_count,
@@ -207,3 +216,13 @@ def practice_results(
         xp_earned=session.session_metadata.get("xp_earned", 0),
         newly_earned_badges=newly_earned_badges,
     )
+
+
+@router.put("/practice/{session_id}/questions/{question_id}/self-review", response_model=SelfReviewRead)
+def review_response(
+    session_id: int, question_id: int, payload: SelfReviewRequest,
+    db: Session = Depends(get_db), user: User = Depends(get_current_user),
+) -> SelfReviewRead:
+    review = save_self_review(db, user.id, session_id, question_id, payload.points)
+    db.commit()
+    return SelfReviewRead(**review)

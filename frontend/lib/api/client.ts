@@ -15,7 +15,7 @@ export class ApiError extends Error {
 export type TokenSource = string | null | undefined | (() => Promise<string | null>);
 
 interface ApiFetchOptions {
-  method?: "GET" | "POST" | "PATCH" | "DELETE";
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: unknown;
   token?: TokenSource;
   searchParams?: Record<string, string | number | boolean | undefined>;

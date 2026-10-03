@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 
 from app.schemas.gamification import BadgeRead
 
@@ -55,6 +55,8 @@ class PracticeDraftRequest(BaseModel):
 
 
 class PracticeHistoryItem(BaseModel):
+    graded_count: int | None = None
+    self_review_count: int = 0
     session_id: int
     subject_id: int
     subject_name: str
@@ -102,18 +104,31 @@ class ExplanationRead(BaseModel):
     misconception_tag: str | None
 
 
+class SelfReviewRequest(BaseModel):
+    points: list[StrictInt] = Field(min_length=1, max_length=20)
+
+
+class SelfReviewRead(BaseModel):
+    points: list[int]
+    total: int
+    reviewed_at: datetime
+
+
 class RubricCriterionRead(BaseModel):
+    levels: list[str] = []
     point: str
     points: float
 
 
 class AnswerBreakdownItem(BaseModel):
+    scoring_method: Literal["automatic", "keyword", "self_review"] = "automatic"
+    self_review: SelfReviewRead | None = None
     question_id: int
     topic_id: int
     prompt: str
     type: str
-    is_correct: bool
-    score: float
+    is_correct: bool | None
+    score: float | None
     max_score: float
     correct_answer: str
     selected_option_id: int | None
@@ -124,6 +139,8 @@ class AnswerBreakdownItem(BaseModel):
 
 
 class PracticeResultsResponse(BaseModel):
+    graded_count: int | None = None
+    self_review_count: int = 0
     session_id: int
     session_type: str
     correct_count: int

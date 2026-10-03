@@ -18,6 +18,13 @@ function makeResults(overrides: Partial<PracticeResultsResponse> = {}): Practice
 }
 
 describe("ResultsView", () => {
+  it.each(["professional", "gamified"] as const)("does not present ungraded essays as failed answers in %s mode", mode => {
+    render(<ResultsView mode={mode} results={makeResults({ session_type: "frq", total_questions: 3, correct_count: 0, graded_count: 0, self_review_count: 3, score: 0 })} />);
+    expect(screen.getByText("Time to reflect")).toBeVisible();
+    expect(screen.queryByText(/0% correct/)).not.toBeInTheDocument();
+    expect(screen.getByText(/excluded from automatic accuracy/)).toBeVisible();
+  });
+
   it("shows the plain score summary with no XP or badges in professional mode", () => {
     render(<ResultsView results={makeResults()} mode="professional" />);
     expect(screen.getByText("Session complete")).toBeInTheDocument();

@@ -101,4 +101,4 @@ def test_frq_results_include_student_response_model_and_criteria(client, db_sess
     result = client.get(f"/practice/{session_id}/results", headers=headers).json()["breakdown"][0]
     assert result["free_response_text"] == "Energy transfers."
     assert result["correct_answer"] == "model answer"
-    assert result["rubric"] == [{"point": "Explain energy transfer", "points": 2}]
+    assert result["rubric"] == [{"point": "Explain energy transfer", "points": 2, "levels": []}]

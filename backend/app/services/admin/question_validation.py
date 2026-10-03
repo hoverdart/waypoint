@@ -19,6 +19,9 @@ def validate_question_content(data: AdminQuestionCreate) -> None:
     else:
         if data.options:
             raise DomainError("Free-response questions cannot have answer options")
+        method = (data.rubric_json or {}).get("scoring_method", "keyword")
+        if method not in ("keyword", "self_review"):
+            raise DomainError("Unsupported rubric scoring method")
         checklist = (data.rubric_json or {}).get("checklist")
         if not isinstance(checklist, list) or not 1 <= len(checklist) <= 20:
             raise DomainError("Free-response questions need a rubric with 1–20 criteria")
@@ -30,6 +33,11 @@ def validate_question_content(data: AdminQuestionCreate) -> None:
                 raise DomainError("Rubric criteria need a short description")
             if type(points) is not int or not 1 <= points <= 20:
                 raise DomainError("Rubric points must be integers between 1 and 20")
+            levels = criterion.get("levels", [])
+            if method == "self_review":
+                if not isinstance(levels, list) or len(levels) != points + 1 or any(not isinstance(level, str) or not level.strip() or len(level) > 2000 for level in levels):
+                    raise DomainError("Self-review rubrics need a description for every score level")
+                continue
             if not isinstance(keywords, list) or not 1 <= len(keywords) <= 30 or any(not isinstance(k, str) or not k.strip() or len(k) > 200 for k in keywords):
                 raise DomainError("Rubric criteria need 1–30 nonempty keywords")
     if any(e.option_label is not None and e.option_label not in labels for e in data.explanations):
