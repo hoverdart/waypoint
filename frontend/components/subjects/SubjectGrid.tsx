@@ -50,7 +50,7 @@ export function SubjectGrid({
               </div>
             ) : (
               <p className="mt-auto text-xs text-muted-foreground">
-                Not added yet - visit onboarding to add this subject.
+                Not on your study list yet. <a href="/settings" className="underline underline-offset-2">Add it in Settings</a>.
               </p>
             )}
           </Surface>

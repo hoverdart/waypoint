@@ -1,5 +1,6 @@
 import { apiFetch, TokenSource } from "./client";
-import { User, UserMode } from "./types";
+import { User, UserMode, UserSubject } from "./types";
+import { OnboardingSubjectInput } from "./onboarding";
 
 export interface UserUpdateRequest {
   mode?: UserMode;
@@ -12,4 +13,12 @@ export function getCurrentUser(token: TokenSource): Promise<User> {
 
 export function updateMe(payload: UserUpdateRequest, token: TokenSource): Promise<User> {
   return apiFetch<User>("/users/me", { method: "PATCH", body: payload, token });
+}
+
+export function getMySubjects(token: TokenSource): Promise<UserSubject[]> {
+  return apiFetch("/users/me/subjects", { token });
+}
+
+export function saveMySubjects(subjects: OnboardingSubjectInput[], token: TokenSource): Promise<UserSubject[]> {
+  return apiFetch("/users/me/subjects", { method: "PATCH", body: { subjects }, token });
 }

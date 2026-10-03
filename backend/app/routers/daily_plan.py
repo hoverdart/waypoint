@@ -14,6 +14,7 @@ from app.schemas.daily_plan import (
     GeneratePlanRequest,
 )
 from app.services.planner.daily_plan_generator import generate_daily_plan
+from app.services.planner.plan_queries import visible_today_plans
 
 router = APIRouter(tags=["daily-plan"])
 
@@ -46,9 +47,7 @@ def generate_plan(
 def get_today_plan(
     db: Session = Depends(get_db), user: User = Depends(get_current_user)
 ) -> list[DailyPlanResponse]:
-    plans = db.exec(
-        select(DailyPlan).where(DailyPlan.user_id == user.id, DailyPlan.plan_date == date.today())
-    ).all()
+    plans = visible_today_plans(db, user.id)
     return [_to_response(db, plan) for plan in plans]
 
 

@@ -105,3 +105,12 @@
 - Next settings work confirmed from source: settings currently redirects course/time changes to onboarding; onboarding accepts unbounded mode/time/score inputs and cannot remove courses. Implement validated course preferences in-place while preserving history.
 
 - Mobile visual QA caught fixed navigation inside a backdrop-filter ancestor, positioning it across the header. Moved it outside HeaderShell; the browser test verifies its bottom-of-viewport bounds. Result feedback now uses only the selected option's or general explanation's misconception, never another option's tag.
+
+## 2026-10-03 — Editable course preferences
+
+- Settings now edits course enrollment, target score, exam date, and daily study minutes directly. Saves have pending, success, and retry states. Removing a course deactivates its enrollment without deleting attempts, mastery, or plans; restoring it reuses the same enrollment ID. New plans use the saved study time; today's time can still be adjusted on the plan page.
+- Added private GET/PATCH /users/me/subjects and a shared locked enrollment service used by onboarding. Validation bounds score (1–5), daily minutes (5–180), course count, unique course IDs, and active-catalog membership. Mode accepts only professional/gamified, and profile display names are bounded.
+- Today's plan and dashboard exclude deactivated enrollments while retaining their saved plans. ModeToggle restores its previous state on failed saves. Course catalog directs students to Settings.
+- Verification: 199 backend tests and 69 frontend tests pass, with ESLint/TypeScript passing. Seven real-auth browser tests pass, including preference persistence, removal, history access, and restoration; final production build, Settings screenshot review, and link assertions also pass. Internal fallback email identifiers are hidden from the account section.
+
+- Final account-menu audit remains: screenshots do not clearly show Clerk UserButton in the header; verify sign-out/account management is visibly accessible and test it before completion.

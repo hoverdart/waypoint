@@ -1,5 +1,3 @@
-from datetime import date
-
 from fastapi import APIRouter, Depends
 from sqlmodel import Session, select
 
@@ -8,12 +6,13 @@ from app.dependencies import get_current_user
 from app.models.coach import WeeklyCoachReport
 from app.models.gamification import Badge, UserBadge
 from app.models.mastery import SubjectMastery
-from app.models.planner import DailyPlan, DailyPlanItem
+from app.models.planner import DailyPlanItem
 from app.models.subject import Subject, UserSubject
 from app.models.user import User
 from app.schemas.daily_plan import DailyPlanItemRead, DailyPlanResponse
 from app.schemas.dashboard import DashboardResponse, DashboardSubjectSummary
 from app.schemas.gamification import BadgeRead
+from app.services.planner.plan_queries import visible_today_plans
 from app.services.xp.streak_service import get_current_streak
 from app.services.xp.xp_service import get_total_xp
 
@@ -41,9 +40,8 @@ def get_dashboard(db: Session = Depends(get_db), user: User = Depends(get_curren
             )
         )
 
-    today_plan_row = db.exec(
-        select(DailyPlan).where(DailyPlan.user_id == user.id, DailyPlan.plan_date == date.today())
-    ).first()
+    visible_plans = visible_today_plans(db, user.id)
+    today_plan_row = visible_plans[0] if visible_plans else None
     today_plan = None
     if today_plan_row is not None:
         items = db.exec(
