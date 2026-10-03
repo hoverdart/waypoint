@@ -134,3 +134,11 @@
 - Tests: 206 backend tests and 78 frontend tests pass, including completed/in-flight session preservation, invalid-edit atomicity, archived reseeding, and editor failure recovery. ESLint and TypeScript pass.
 - CI run 37160361778 passed frontend checks/build but failed backend tests because an unconstrained newer SQLModel release changed datetime handling. Pinned SQLModel 0.0.39 to match the existing schema rather than silently changing storage semantics.
 - Backend dependency audit found cryptography 48.0.1 advisories constrained by Clerk SDK 6. Upgraded Clerk backend SDK to 7 and cryptography to >=50,<51. Added a backend audit gate to CI. Final backend dependency audit reports no known vulnerabilities; all 7 real Clerk/PostgreSQL browser tests and production frontend build pass with Clerk backend SDK 7.
+
+## 2026-10-03 — Completion audit
+
+- Recorded requirement-by-requirement evidence and verification boundaries in docs/DELIVERY.md. Confirmed 279 questions (250 MCQ, 29 FRQ), 264 topics, 43 units across six subjects.
+- CI run 37160971101 is successful: backend tests/audit, frontend checks/audit, and production build pass. CI browser job skips without repository Clerk secrets; real local Clerk/PostgreSQL browser verification covers the same flows.
+- Final audit fixes: invalid/unavailable analytics course parameters fall back to an enrolled course; empty-state directions point to Settings. Added security headers following OWASP HTTP Headers guidance (https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html). Extended browser checks to gamified mode and 390px analytics. All 7 browser tests and production build pass.
+- Scheduler secret comparison uses compare_digest. Its 4 integration tests pass. Docker Compose validates Postgres binding to 127.0.0.1; local setup no longer creates a superuser role. Production docs specify ENVIRONMENT=production and HTTPS. 78 frontend tests and ESLint pass.
+- Final push/CI confirmation pending before marking the goal complete. No requested deployment is outstanding.

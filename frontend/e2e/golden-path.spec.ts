@@ -108,6 +108,13 @@ test.describe("Authenticated golden path", () => {
     await page.getByRole("checkbox", { name: "AP Biology", exact: true }).check();
     await page.getByRole("button", { name: "Save course preferences" }).click();
     await expect(page.getByRole("status")).toContainText("Course preferences saved");
+    await page.getByRole("switch", { name: "Gamified mode" }).check();
+    await expect(page.getByRole("switch", { name: "Gamified mode" })).toBeEnabled();
+    await page.goto("/dashboard");
+    await expect(page.getByText("Let's keep the streak alive.")).toBeVisible();
+    await page.goto("/analytics?subject=not-a-number");
+    await expect(page.getByRole("heading", { name: "Analytics", exact: true })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Mastery by unit - AP Biology" })).toBeVisible();
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/dashboard");
@@ -121,6 +128,9 @@ test.describe("Authenticated golden path", () => {
     expect(navBounds!.y).toBeGreaterThan(750);
     expect(navBounds!.y + navBounds!.height).toBeLessThanOrEqual(844);
     await page.screenshot({ path: testInfo.outputPath("dashboard-mobile.png"), fullPage: true });
+    await page.goto("/analytics?subject=999999");
+    await expect(page.getByRole("heading", { name: "Topic breakdown" })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
     await page.getByRole("link", { name: "Account", exact: true }).click();
     await page.getByRole("button", { name: "Sign out", exact: true }).click();
     await expect(page).toHaveURL(/\/$/);

@@ -27,7 +27,7 @@ export function GamifiedDashboard({ data, topicNames }: { data: Dashboard; topic
       {data.subjects.length === 0 ? (
         <EmptyState
           icon={<Compass className="size-5" aria-hidden="true" />}
-          title="You haven't added any subjects yet - visit onboarding to get started."
+          title="You haven't added any subjects yet - add a course in Settings to get started."
         />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

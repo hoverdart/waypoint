@@ -2,7 +2,9 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Unauthenticated visitors", () => {
   test("landing page states the core promise and links to signup/login", async ({ page }) => {
-    await page.goto("/");
+    const response = await page.goto("/");
+    expect(response?.headers()["x-content-type-options"]).toBe("nosniff");
+    expect(response?.headers()["content-security-policy"]).toContain("frame-ancestors 'none'");
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
       "Big ambitions."
     );

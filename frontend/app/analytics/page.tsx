@@ -21,13 +21,14 @@ export default async function AnalyticsPage({
       <div className="mx-auto w-full max-w-6xl px-6 py-10">
         <EmptyState
           icon={<LineChart className="size-5" />}
-          title="Add a subject via onboarding to see analytics here."
+          title="Add a course in Settings to see analytics here."
         />
       </div>
     );
   }
 
-  const activeSubjectId = subject ? Number(subject) : dashboard.subjects[0].subject_id;
+  const activeSubjectId = dashboard.subjects.find(course => course.subject_id === Number(subject))?.subject_id
+    ?? dashboard.subjects[0].subject_id;
 
   const [mastery, weeklyReport] = await Promise.all([
     getSubjectMastery(activeSubjectId, token),

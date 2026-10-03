@@ -3,6 +3,8 @@ cron-job.org), guarded by a shared secret. GitHub Actions runs the same job
 via scripts/weekly_coach_job.py directly instead - see docs/JOBS.md.
 """
 
+from hmac import compare_digest
+
 from fastapi import APIRouter, Depends, Header, HTTPException, status
 from sqlmodel import Session
 
@@ -19,7 +21,7 @@ def trigger_weekly_coach_report(
     db: Session = Depends(get_db),
     settings: Settings = Depends(get_settings),
 ) -> dict:
-    if not settings.jobs_trigger_secret or x_jobs_secret != settings.jobs_trigger_secret:
+    if not settings.jobs_trigger_secret or not compare_digest((x_jobs_secret or "").encode(), settings.jobs_trigger_secret.encode()):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or missing job trigger secret"
         )

@@ -29,7 +29,7 @@ alembic upgrade head && python -m scripts.seed
 uvicorn app.main:app --reload --port 8000
 
 # frontend (separate terminal)
-cd frontend && cp .env.example .env.local && npm install && npm run dev
+cd frontend && nvm use && cp .env.example .env.local && npm ci && npm run dev
 ```
 
 Backend API docs: `http://localhost:8000/docs`. Frontend: `http://localhost:3000`.
@@ -78,4 +78,6 @@ need to be told that explicitly:
 - **Backend + Postgres**: Vercel doesn't run long-lived Python/Postgres services - deploy
   `backend/` to something that does (Railway, Fly.io, Render, a plain VM via the included
   `docker-compose.yml`) and point the frontend's `NEXT_PUBLIC_API_BASE_URL` at it. Set
-  `CORS_ALLOWED_ORIGINS` on the backend to your deployed frontend's real origin.
+  `CORS_ALLOWED_ORIGINS` on the backend to your deployed frontend's real origin and
+  `ENVIRONMENT=production` so unexpected errors return generic responses. Serve both
+  services over HTTPS. Apply `alembic upgrade head` before running the seed command.

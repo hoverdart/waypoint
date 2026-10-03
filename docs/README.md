@@ -23,7 +23,7 @@ The normal request path is: Next.js page/component → `frontend/lib/api` → Fa
 You need Node 24, Python 3.12, and PostgreSQL 16. Create two databases once:
 
 ```bash
-createuser -s waypoint
+createuser waypoint
 psql postgres -c "ALTER USER waypoint WITH PASSWORD 'waypoint';"
 createdb -O waypoint waypoint_dev
 createdb -O waypoint waypoint_test
