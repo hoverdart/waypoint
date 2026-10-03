@@ -73,7 +73,7 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
   /* The signature card radius of this design language. */
-  --radius-surface: 1.75rem;
+  --radius-surface: 0.6rem;
 
   /* Shadows are deliberately near-invisible - depth comes from the tinted
      background behind white surfaces, not from drop shadows. */
@@ -83,6 +83,9 @@
 }
 
 :root {
+  --font-geist-sans: "Avenir Next", "Segoe UI", Arial, sans-serif;
+  --font-geist-mono: "SFMono-Regular", Consolas, monospace;
+  --font-jakarta: "Avenir Next", "Segoe UI", Arial, sans-serif;
   /* Ink is a near-black with a faint blue cast - never pure #000, which
      reads harsh against the warm-tinted surfaces. */
   --ink: oklch(0.25 0.018 265);
@@ -285,3 +288,41 @@
     animation: none;
   }
 }
+
+/* A study notebook: warm paper, forest ink, and small vermilion accents. */
+:root {
+  --background: #f7f5ef;
+  --foreground: #203c34;
+  --ink: #203c34;
+  --ink-soft: #53655d;
+  --navy: #203c34;
+  --navy-foreground: #fffdf8;
+  --blue: #2c6654;
+  --blue-foreground: #fffdf8;
+  --blue-soft: #e7eee5;
+  --blue-pale: #dce7d8;
+  --card: #fffdf8;
+  --card-foreground: #203c34;
+  --primary: #203c34;
+  --primary-foreground: #fffdf8;
+  --muted: #eeece4;
+  --muted-foreground: #697168;
+  --border: #dcded2;
+  --input: #d0d5c8;
+  --ring: #2c6654;
+  --accent: #e7eee5;
+  --accent-foreground: #203c34;
+  --accent-violet: #91613f;
+  --accent-violet-pale: #eee3d4;
+  --accent-coral: #b24a32;
+  --accent-amber: #ba822c;
+}
+
+.editorial-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 1.03;
+}
+
+::selection { background: #dce7d8; color: #203c34; }

@@ -36,6 +36,8 @@ export function SubjectGrid({
             </div>
             <p className="text-sm leading-relaxed text-muted-foreground">{subject.description}</p>
 
+            <PillLink href={`/subjects/${subject.id}`} variant="secondary" size="sm" arrow>Open course</PillLink>
+
             {summary ? (
               <div className="mt-auto space-y-4 pt-1">
                 <MasteryBar score={summary.mastery_score} />

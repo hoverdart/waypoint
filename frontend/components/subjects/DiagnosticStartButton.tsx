@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PillButton } from "@/components/kit/PillButton";
@@ -16,6 +17,8 @@ export function DiagnosticStartButton({ subjectId }: { subjectId: number }) {
     try {
       const session = await startDiagnostic(subjectId, getToken);
       router.push(`/practice/session/${session.session_id}`);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not start the diagnostic. Try again.");
     } finally {
       setBusy(false);
     }

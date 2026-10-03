@@ -14,6 +14,7 @@ export function SiteHeader() {
 
       <Show when="signed-in">
         <NavLinks />
+        <NavLinks mobile />
       </Show>
 
       <div className="flex shrink-0 items-center gap-2">

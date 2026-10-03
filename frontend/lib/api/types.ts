@@ -101,11 +101,27 @@ export interface PracticeStartResponse {
   questions: Question[];
 }
 
+export interface PracticeHistoryItem {
+  session_id: number;
+  subject_id: number;
+  subject_name: string;
+  session_type: string;
+  started_at: string;
+  completed_at: string | null;
+  total_questions: number;
+  correct_count: number;
+  score: number;
+  answered_count: number;
+}
+
 export interface PracticeSessionDetail {
   session_id: number;
   session_type: string;
   subject_id: number;
   is_completed: boolean;
+  draft_answers: AnswerInput[];
+  current_index: number;
+  daily_plan_item_id: number | null;
   questions: Question[];
 }
 

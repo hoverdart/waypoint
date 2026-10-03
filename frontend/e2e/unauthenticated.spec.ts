@@ -4,7 +4,7 @@ test.describe("Unauthenticated visitors", () => {
   test("landing page states the core promise and links to signup/login", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
-      "Every day, we tell you exactly what to study next"
+      "Big ambitions."
     );
     // The design-system PillLink is a plain Next <Link>, so these are real
     // links with the default link role - unlike the old Base UI button-styled
@@ -12,8 +12,8 @@ test.describe("Unauthenticated visitors", () => {
     // since the nav header has its own "Log in" link and the final CTA section
     // has its own "Get started free" link.
     const hero = page.getByRole("region", { name: "Hero" });
-    await expect(hero.getByRole("link", { name: "Get started free" })).toHaveAttribute("href", "/signup");
-    await expect(hero.getByRole("link", { name: "Log in" })).toHaveAttribute("href", "/login");
+    await expect(hero.getByRole("link", { name: "Find your starting point" })).toHaveAttribute("href", "/signup");
+    await expect(hero.getByRole("link", { name: "Explore the courses" })).toHaveAttribute("href", "#courses");
   });
 
   test("landing page lists the priority AP subjects", async ({ page }) => {

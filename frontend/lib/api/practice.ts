@@ -2,6 +2,7 @@ import { apiFetch, TokenSource } from "./client";
 import {
   AnswerInput,
   PracticeResultsResponse,
+  PracticeHistoryItem,
   PracticeSessionDetail,
   PracticeStartResponse,
   PracticeSubmitResponse,
@@ -39,4 +40,15 @@ export function getPracticeResults(sessionId: number, token: TokenSource): Promi
 
 export function getPracticeSession(sessionId: number, token: TokenSource): Promise<PracticeSessionDetail> {
   return apiFetch<PracticeSessionDetail>(`/practice/${sessionId}`, { token });
+}
+
+export function getPracticeHistory(token: TokenSource, offset = 0): Promise<PracticeHistoryItem[]> {
+  return apiFetch<PracticeHistoryItem[]>("/practice", { token, searchParams: { offset, limit: 30 } });
+}
+
+export function savePracticeDraft(sessionId: number, answers: AnswerInput[], currentIndex: number, token: TokenSource, dailyPlanItemId?: number): Promise<void> {
+  return apiFetch<void>(`/practice/${sessionId}/draft`, {
+    method: "PATCH", token,
+    body: { answers, current_index: currentIndex, daily_plan_item_id: dailyPlanItemId ?? null },
+  });
 }

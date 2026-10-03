@@ -35,7 +35,7 @@ const STEPS: ScrollStep[] = [
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
-      <Hero visual={<PlanMock />} />
+      <Hero />
 
       <BentoGrid />
 

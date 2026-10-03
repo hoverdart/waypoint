@@ -49,10 +49,13 @@ export default async function PracticeSessionPage({
 
   return (
     <PracticeSessionRoot
+      key={session.session_id}
       sessionId={session.session_id}
+      initialAnswers={session.draft_answers}
+      initialIndex={session.current_index}
       sessionType={session.session_type}
       questions={session.questions}
-      planItemId={parsedPlanItemId}
+      planItemId={parsedPlanItemId ?? session.daily_plan_item_id ?? undefined}
       subjectName={subjectName}
       topicName={topicName}
       reason={reason}
