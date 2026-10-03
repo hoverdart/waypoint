@@ -844,3 +844,9 @@ QUESTIONS = [
         },
     },
 ]
+
+# Offline-authored additions complete the topic coverage of the original bank.
+from scripts.seed_data.questions.calculus_ab_expansion import build_questions
+from scripts.seed_data.units_topics.calculus_ab import UNITS
+
+QUESTIONS.extend(build_questions(UNITS))
