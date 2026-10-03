@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from app.schemas.practice import AnswerInput, QuestionRead
 
@@ -14,7 +14,7 @@ class DiagnosticStartResponse(BaseModel):
 
 
 class DiagnosticSubmitRequest(BaseModel):
-    answers: list[AnswerInput]
+    answers: list[AnswerInput] = Field(min_length=1, max_length=60)
 
 
 class DiagnosticSubmitResponse(BaseModel):

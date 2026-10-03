@@ -17,6 +17,7 @@ from app.services.mastery.topic_mastery import AttemptSignal
 from app.services.practice.mastery_sync import apply_session_attempts_to_mastery
 from app.services.practice.scoring import score_frq_attempt, score_mcq_attempt
 from app.services.practice.types import AnswerSubmission
+from app.services.practice.validation import validate_submission
 from app.services.xp.badge_service import evaluate_and_award_badges
 from app.services.xp.xp_service import award_xp
 
@@ -38,7 +39,7 @@ def score_diagnostic(
     now: datetime | None = None,
 ) -> PracticeSession:
     now = now or datetime.now(timezone.utc)
-    session = db.get(PracticeSession, session_id)
+    session = validate_submission(db, session_id, answers, diagnostic=True)
 
     attempts_by_topic: dict[int, list[AttemptSignal]] = {}
     correct_count = 0

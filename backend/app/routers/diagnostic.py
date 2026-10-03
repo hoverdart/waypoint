@@ -5,6 +5,8 @@ from app.config import Settings, get_settings
 from app.db.session import get_db
 from app.dependencies import get_current_user
 from app.models.user import User
+from app.models.practice import PracticeSession
+from app.core.exceptions import NotFoundError
 from app.schemas.diagnostic import (
     DiagnosticStartRequest,
     DiagnosticStartResponse,
@@ -43,6 +45,9 @@ def submit_diagnostic(
     db: Session = Depends(get_db),
     user: User = Depends(get_current_user),
 ) -> DiagnosticSubmitResponse:
+    owned = db.get(PracticeSession, session_id)
+    if owned is None or owned.user_id != user.id:
+        raise NotFoundError("Session not found")
     answers = [AnswerSubmission(**a.model_dump()) for a in payload.answers]
     session = score_diagnostic(db, session_id, answers)
     db.commit()

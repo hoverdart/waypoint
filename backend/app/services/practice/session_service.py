@@ -9,7 +9,9 @@ from datetime import datetime, timezone
 
 from sqlmodel import Session, select
 
-from app.models.planner import DailyPlanItem
+from app.core.exceptions import DomainError, NotFoundError
+from app.models.planner import DailyPlan, DailyPlanItem
+from app.services.practice.validation import validate_submission
 from app.models.practice import PracticeSession, QuestionAttempt
 from app.models.question import Question
 from app.services.practice.mastery_sync import apply_session_attempts_to_mastery
@@ -84,7 +86,15 @@ def submit_practice_session(
     now: datetime | None = None,
 ) -> PracticeSession:
     now = now or datetime.now(timezone.utc)
-    session = db.get(PracticeSession, session_id)
+    session = validate_submission(db, session_id, answers, diagnostic=False)
+    item = None
+    if daily_plan_item_id is not None:
+        item = db.get(DailyPlanItem, daily_plan_item_id)
+        plan = db.get(DailyPlan, item.daily_plan_id) if item else None
+        if plan is None or plan.user_id != session.user_id:
+            raise NotFoundError("Plan item not found")
+        if item.subject_id != session.subject_id or item.topic_id != session.topic_id:
+            raise DomainError("Plan item does not match this practice session")
 
     attempts_by_topic: dict[int, list[AttemptSignal]] = {}
     correct_count = 0
@@ -149,11 +159,9 @@ def submit_practice_session(
     }
     db.add(session)
 
-    if daily_plan_item_id is not None:
-        item = db.get(DailyPlanItem, daily_plan_item_id)
-        if item is not None:
-            item.status = "completed"
-            db.add(item)
+    if item is not None:
+        item.status = "completed"
+        db.add(item)
 
     return session
 

@@ -1,15 +1,21 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlmodel import Session, select
 
 from app.db.session import get_db
 from app.dependencies import get_current_user
 from app.models.gamification import Badge
-from app.models.practice import QuestionAttempt
+from app.models.practice import PracticeSession, QuestionAttempt
+from app.models.subject import Subject
+from app.models.planner import DailyPlan, DailyPlanItem
+from app.core.exceptions import DomainError, NotFoundError
+from app.services.practice.validation import validate_submission
 from app.models.question import Question, QuestionExplanation
 from app.models.user import User
 from app.schemas.gamification import BadgeRead
 from app.schemas.practice import (
     AnswerBreakdownItem,
+    PracticeDraftRequest,
+    PracticeHistoryItem,
     ExplanationRead,
     PracticeResultsResponse,
     PracticeSessionDetailResponse,
@@ -57,6 +63,53 @@ def _owned_session_or_404(db: Session, session_id: int, user: User):
     return session
 
 
+@router.get("/practice", response_model=list[PracticeHistoryItem])
+def list_practice_sessions(
+    db: Session = Depends(get_db), user: User = Depends(get_current_user),
+    limit: int = Query(default=30, ge=1, le=100), offset: int = Query(default=0, ge=0),
+) -> list[PracticeHistoryItem]:
+    rows = db.exec(
+        select(PracticeSession, Subject.name)
+        .join(Subject, Subject.id == PracticeSession.subject_id)
+        .where(PracticeSession.user_id == user.id)
+        .order_by(PracticeSession.started_at.desc(), PracticeSession.id.desc())
+        .offset(offset).limit(limit)
+    ).all()
+    return [PracticeHistoryItem(
+        session_id=s.id, subject_id=s.subject_id, subject_name=name,
+        session_type=s.session_type, started_at=s.started_at, completed_at=s.completed_at,
+        total_questions=s.total_questions, correct_count=s.correct_count, score=s.score,
+        answered_count=s.total_questions if s.completed_at else sum(a.get("selected_option_id") is not None or bool((a.get("free_response_text") or "").strip()) for a in s.session_metadata.get("draft_answers", [])),
+    ) for s, name in rows]
+
+
+@router.patch("/practice/{session_id}/draft", status_code=204)
+def save_practice_draft(
+    session_id: int, payload: PracticeDraftRequest,
+    db: Session = Depends(get_db), user: User = Depends(get_current_user),
+) -> None:
+    owned = _owned_session_or_404(db, session_id, user)
+    session = validate_submission(
+        db, session_id, [AnswerSubmission(**a.model_dump()) for a in payload.answers],
+        diagnostic=owned.session_type == "diagnostic", partial=True,
+    )
+    if payload.current_index >= session.total_questions:
+        raise DomainError("Question index is outside this session")
+    if payload.daily_plan_item_id is not None:
+        item = db.get(DailyPlanItem, payload.daily_plan_item_id)
+        plan = db.get(DailyPlan, item.daily_plan_id) if item else None
+        if plan is None or plan.user_id != user.id:
+            raise NotFoundError("Plan item not found")
+        if item.subject_id != session.subject_id or item.topic_id != session.topic_id:
+            raise DomainError("Plan item does not match this practice session")
+    session.session_metadata = {
+        **session.session_metadata, "draft_answers": [a.model_dump() for a in payload.answers],
+        "current_index": payload.current_index, "daily_plan_item_id": payload.daily_plan_item_id,
+    }
+    db.add(session)
+    db.commit()
+
+
 @router.get("/practice/{session_id}", response_model=PracticeSessionDetailResponse)
 def get_practice_session(
     session_id: int, db: Session = Depends(get_db), user: User = Depends(get_current_user)
@@ -72,6 +125,9 @@ def get_practice_session(
         subject_id=session.subject_id,
         is_completed=session.completed_at is not None,
         questions=questions_to_reads(db, questions),
+        draft_answers=session.session_metadata.get("draft_answers", []),
+        current_index=session.session_metadata.get("current_index", 0),
+        daily_plan_item_id=session.session_metadata.get("daily_plan_item_id"),
     )
 
 

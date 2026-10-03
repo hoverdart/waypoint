@@ -27,7 +27,7 @@ def score_mcq_attempt(
     if selected_option_id is None:
         return False, 0.0, 1.0
     option = db.get(QuestionOption, selected_option_id)
-    is_correct = bool(option and option.is_correct)
+    is_correct = bool(option and option.question_id == question.id and option.is_correct)
     return is_correct, (1.0 if is_correct else 0.0), 1.0
 
 

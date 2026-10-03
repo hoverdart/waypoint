@@ -50,7 +50,8 @@ def test_score_diagnostic_initializes_mastery_for_all_topics(db_session):
     from app.models.practice import PracticeSession
 
     session = PracticeSession(
-        user_id=user.id, subject_id=subject.id, session_type="diagnostic", total_questions=1
+        user_id=user.id, subject_id=subject.id, session_type="diagnostic", total_questions=1,
+        session_metadata={"question_ids": [question.id]}
     )
     db_session.add(session)
     db_session.flush()

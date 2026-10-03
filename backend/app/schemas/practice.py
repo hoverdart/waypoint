@@ -1,16 +1,19 @@
-from pydantic import BaseModel, ConfigDict
+from datetime import datetime
+from typing import Literal
+
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.schemas.gamification import BadgeRead
 
 
 class AnswerInput(BaseModel):
-    question_id: int
+    question_id: int = Field(gt=0)
     selected_option_id: int | None = None
-    free_response_text: str | None = None
-    time_seconds: int = 0
-    hints_used: int = 0
+    free_response_text: str | None = Field(default=None, max_length=20000)
+    time_seconds: int = Field(default=0, ge=0, le=86400)
+    hints_used: int = Field(default=0, ge=0, le=100)
     explanation_opened: bool = False
-    confidence_rating: int | None = None
+    confidence_rating: int | None = Field(default=None, ge=1, le=5)
 
 
 class QuestionOptionRead(BaseModel):
@@ -40,14 +43,36 @@ class PracticeSessionDetailResponse(BaseModel):
     subject_id: int
     is_completed: bool
     questions: list[QuestionRead]
+    draft_answers: list[AnswerInput] = []
+    current_index: int = 0
+    daily_plan_item_id: int | None = None
+
+
+class PracticeDraftRequest(BaseModel):
+    answers: list[AnswerInput] = Field(default_factory=list, max_length=60)
+    current_index: int = Field(default=0, ge=0, le=59)
+    daily_plan_item_id: int | None = Field(default=None, gt=0)
+
+
+class PracticeHistoryItem(BaseModel):
+    session_id: int
+    subject_id: int
+    subject_name: str
+    session_type: str
+    started_at: datetime
+    completed_at: datetime | None
+    total_questions: int
+    correct_count: int
+    score: float
+    answered_count: int
 
 
 class PracticeStartRequest(BaseModel):
     subject_id: int
     unit_id: int | None = None
     topic_id: int | None = None
-    session_type: str = "mcq"
-    question_count: int = 12
+    session_type: Literal["mcq", "frq", "timed"] = "mcq"
+    question_count: int = Field(default=12, ge=1, le=60)
 
 
 class PracticeStartResponse(BaseModel):
@@ -57,7 +82,7 @@ class PracticeStartResponse(BaseModel):
 
 
 class PracticeSubmitRequest(BaseModel):
-    answers: list[AnswerInput]
+    answers: list[AnswerInput] = Field(min_length=1, max_length=60)
     daily_plan_item_id: int | None = None
 
 
