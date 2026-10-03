@@ -815,3 +815,6 @@ QUESTIONS = [
         },
     },
 ]
+
+from scripts.seed_data.questions.biology_expansion import QUESTIONS as ADDITIONAL_QUESTIONS
+QUESTIONS.extend(ADDITIONAL_QUESTIONS)

@@ -58,3 +58,10 @@
 - Replaced oversized pinned landing sections and scroll-hidden content with compact static editorial sections and six linked course cards. Desktop (1440px) and mobile (390px) screenshots inspected: no horizontal overflow (document width 390), desktop total height 2852px, mobile 4683px. Landing responds HTTP 200 and has title WayPoint. Screenshots at /tmp/waypoint-landing-desktop.png and /tmp/waypoint-landing-mobile.png.
 - Latest frontend checks: 60 tests, TypeScript, ESLint, and production build pass for the landing refinement. Browser auth check redirects to Clerk-hosted /sign-in because local .env omits redirect paths. Added explicit /login and /signup to ClerkProvider and middleware; rebuild/browser recheck pending for that final adjustment.
 - Explicit local auth-route adjustment verified: production build succeeds; 60 frontend tests and ESLint pass; Chromium assertions confirm /dashboard redirects to localhost:3108/login, the actual Clerk login form renders, and all six landing course headings are visible. Current production preview handle 59956.
+
+## 2026-10-03 — Biology, Chemistry, and U.S. History coverage
+
+- Added 34 original offline-authored explained MCQs (Biology 13, Chemistry 11, U.S. History 10), covering every formerly empty topic in those seeded courses. Counts: Calculus 50, Biology 44, Chemistry 39, U.S. History 37, Psychology 30, CSA 28; total 228.
+- Extracted the shared question-record builder used by the new question banks. All generated additions retain source=generated and contain deterministic answer explanations; no runtime question generation.
+- Added coverage assertions and all-six-subject idempotent database seed/reseed verification preserving question and option IDs. All 160 backend tests pass against PostgreSQL.
+- Next functional issue found: daily-plan regeneration control is a disabled placeholder, repeated generation duplicates today's plans, and planner candidates may lack approved questions. Address these together with bounded budget input, stable existing completed work, and regression tests.

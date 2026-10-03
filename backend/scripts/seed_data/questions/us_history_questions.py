@@ -677,3 +677,6 @@ QUESTIONS = [
         "rubric_json": None,
     },
 ]
+
+from scripts.seed_data.questions.us_history_expansion import QUESTIONS as ADDITIONAL_QUESTIONS
+QUESTIONS.extend(ADDITIONAL_QUESTIONS)

@@ -723,3 +723,6 @@ QUESTIONS = [
         },
     },
 ]
+
+from scripts.seed_data.questions.chemistry_expansion import QUESTIONS as ADDITIONAL_QUESTIONS
+QUESTIONS.extend(ADDITIONAL_QUESTIONS)

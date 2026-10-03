@@ -1,5 +1,7 @@
 import importlib
 
+import pytest
+
 from sqlmodel import select
 
 from app.models.question import Question, QuestionOption
@@ -51,3 +53,24 @@ def test_expanded_calculus_seed_is_idempotent(db_session):
     assert {q.id for q in db_session.exec(select(Question)).all()} == first_questions
     assert {o.id for o in db_session.exec(select(QuestionOption)).all()} == first_options
     assert len(first_questions) == 50
+
+
+@pytest.mark.parametrize("module,count", [("biology", 44), ("chemistry", 39), ("us_history", 37)])
+def test_expanded_science_and_history_cover_every_topic(module, count):
+    units = importlib.import_module(f"scripts.seed_data.units_topics.{module}").UNITS
+    questions = importlib.import_module(f"scripts.seed_data.questions.{module}_questions").QUESTIONS
+    topics = {(u['name'], t['name']) for u in units for t in u['topics']}
+    assert topics <= {(q['unit_name'], q['topic_name']) for q in questions}
+    assert len(questions) == count
+
+
+def test_all_six_subjects_seed_and_reseed_without_changing_ids(db_session):
+    for subject in SUBJECTS:
+        seed_subject(db_session, subject)
+    question_ids = {q.id for q in db_session.exec(select(Question)).all()}
+    option_ids = {o.id for o in db_session.exec(select(QuestionOption)).all()}
+    for subject in SUBJECTS:
+        seed_subject(db_session, subject)
+    assert {q.id for q in db_session.exec(select(Question)).all()} == question_ids
+    assert {o.id for o in db_session.exec(select(QuestionOption)).all()} == option_ids
+    assert len(question_ids) == 228
