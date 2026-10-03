@@ -23,8 +23,8 @@ router = APIRouter(prefix="/admin/questions", tags=["admin"])
 def list_questions(
     subject_id: int | None = None,
     validation_status: str | None = None,
-    limit: int = Query(default=50, le=200),
-    offset: int = 0,
+    limit: int = Query(default=50, ge=1, le=200),
+    offset: int = Query(default=0, ge=0),
     db: Session = Depends(get_db),
     _admin: User = Depends(require_admin),
 ):

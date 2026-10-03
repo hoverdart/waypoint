@@ -126,3 +126,11 @@
 - Remaining admin audit: question editing deletes/recreates option rows, which can violate historical attempt references; schemas also lack bounded/consistent question validation. Address historical option preservation/versioning and validation before the goal is complete.
 
 - Dependency remediation: regenerated the lockfile with current npm after an npm 11.6 optional-dependency inconsistency, then verified standard npm ci under Node 24. Raised Next.js minimum to ^16.3.8, aligned eslint-config-next, and refreshed compatible dependencies. Production npm audit reports 0 vulnerabilities. Added a CI production-audit gate. Current clean-install unit tests: 75 pass; lint and TypeScript pass after moving practice timer initialization into an effect. Matching Playwright Chromium v1243 installed; all 7 final browser tests and production build pass on Next 16.3.8.
+
+## 2026-10-03 — Immutable question revisions and backend dependency security
+
+- Question edits now create a new draft revision and archive the prior question. Prior prompts, options, explanations, attempts, and in-flight sessions stay unchanged. Archived versions cannot be edited or approved again, and reseeding respects their inactive state. Admin editor navigates to the new revision, edits option text/answer keys consistently, and handles errors.
+- Validated question scope, type, difficulty, answer-key/option consistency, unique labels, explanation references, and bounded FRQ criteria. Approval requires explanation coverage. Admin pagination is bounded.
+- Tests: 206 backend tests and 78 frontend tests pass, including completed/in-flight session preservation, invalid-edit atomicity, archived reseeding, and editor failure recovery. ESLint and TypeScript pass.
+- CI run 37160361778 passed frontend checks/build but failed backend tests because an unconstrained newer SQLModel release changed datetime handling. Pinned SQLModel 0.0.39 to match the existing schema rather than silently changing storage semantics.
+- Backend dependency audit found cryptography 48.0.1 advisories constrained by Clerk SDK 6. Upgraded Clerk backend SDK to 7 and cryptography to >=50,<51. Added a backend audit gate to CI. Final backend dependency audit reports no known vulnerabilities; all 7 real Clerk/PostgreSQL browser tests and production frontend build pass with Clerk backend SDK 7.

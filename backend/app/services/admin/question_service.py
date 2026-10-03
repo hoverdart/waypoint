@@ -1,6 +1,8 @@
 from sqlmodel import Session, select
 
-from app.core.exceptions import ConflictError, NotFoundError
+from app.core.exceptions import ConflictError, NotFoundError, DomainError
+from app.services.admin.question_validation import validate_question_content
+from app.services.practice.scope import validate_practice_scope
 from app.models.question import Question, QuestionExplanation, QuestionOption
 from app.models.reports import QuestionReport
 from app.schemas.admin import AdminExplanationInput, AdminQuestionCreate, AdminQuestionOptionInput, AdminQuestionUpdate
@@ -74,6 +76,8 @@ def _replace_options_and_explanations(
 
 
 def create_question(db: Session, data: AdminQuestionCreate) -> Question:
+    validate_practice_scope(db, data.subject_id, data.unit_id, data.topic_id)
+    validate_question_content(data)
     question = Question(
         subject_id=data.subject_id,
         unit_id=data.unit_id,
@@ -94,16 +98,37 @@ def create_question(db: Session, data: AdminQuestionCreate) -> Question:
     return question
 
 
+def _content(db: Session, question: Question) -> dict:
+    options = list(db.exec(select(QuestionOption).where(QuestionOption.question_id == question.id)).all())
+    labels = {o.id: o.label for o in options}
+    return {
+        **{key: getattr(question, key) for key in AdminQuestionCreate.model_fields if hasattr(question, key)},
+        "options": [AdminQuestionOptionInput(label=o.label, text=o.text, is_correct=o.is_correct) for o in options],
+        "explanations": [AdminExplanationInput(option_label=labels.get(e.option_id), explanation=e.explanation, misconception_tag=e.misconception_tag)
+                         for e in db.exec(select(QuestionExplanation).where(QuestionExplanation.question_id == question.id)).all()],
+    }
+
+
 def update_question(db: Session, question_id: int, data: AdminQuestionUpdate) -> Question:
-    question = get_question(db, question_id)
-    for key, value in data.model_dump(exclude_unset=True, exclude={"options", "explanations"}).items():
-        setattr(question, key, value)
-    question.version += 1
+    question = db.exec(select(Question).where(Question.id == question_id).with_for_update()).first()
+    if question is None:
+        raise NotFoundError("Question not found")
+    if not question.is_active:
+        raise ConflictError("This question is archived. Edit its current version instead.")
+    content = _content(db, question)
+    content.update(data.model_dump(exclude_unset=True))
+    content["validation_status"] = "draft"
+    try:
+        validated = AdminQuestionCreate.model_validate(content)
+    except ValueError as exc:
+        raise DomainError("Question content contains invalid or null fields") from exc
+    replacement = create_question(db, validated)
+    replacement.version = question.version + 1
+    question.is_active = False
     db.add(question)
+    db.add(replacement)
     db.flush()
-    if data.options is not None:
-        _replace_options_and_explanations(db, question, data.options, data.explanations or [])
-    return question
+    return replacement
 
 
 def transition_validation_status(db: Session, question_id: int, new_status: str) -> Question:
@@ -114,6 +139,10 @@ def transition_validation_status(db: Session, question_id: int, new_status: str)
         raise ConflictError(
             f"Cannot transition question from '{question.validation_status}' to '{new_status}'"
         )
+    if new_status == "approved":
+        if not question.is_active:
+            raise ConflictError("Archived question versions cannot be approved")
+        validate_question_content(AdminQuestionCreate.model_validate({**_content(db, question), "validation_status": "approved"}))
     question.validation_status = new_status
     db.add(question)
     return question

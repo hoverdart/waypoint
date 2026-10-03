@@ -1,43 +1,45 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict
+from typing import Literal
+
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.schemas.reports import QuestionReportRead
 
 
 class AdminQuestionOptionInput(BaseModel):
-    label: str
-    text: str
+    label: str = Field(min_length=1, max_length=5)
+    text: str = Field(min_length=1, max_length=5000)
     is_correct: bool
 
 
 class AdminExplanationInput(BaseModel):
     option_label: str | None = None
-    explanation: str
+    explanation: str = Field(min_length=1, max_length=20000)
     misconception_tag: str | None = None
 
 
 class AdminQuestionCreate(BaseModel):
-    subject_id: int
-    unit_id: int
-    topic_id: int
-    type: str
-    difficulty: int
-    prompt: str
-    correct_answer: str
+    subject_id: int = Field(gt=0)
+    unit_id: int = Field(gt=0)
+    topic_id: int = Field(gt=0)
+    type: Literal["mcq", "frq"]
+    difficulty: int = Field(ge=1, le=5)
+    prompt: str = Field(min_length=1, max_length=20000)
+    correct_answer: str = Field(min_length=1, max_length=20000)
     rubric_json: dict | None = None
     skill_tags: list[str] = []
     misconception_tags: list[str] = []
-    source: str = "human_written"
-    validation_status: str = "draft"
+    source: Literal["human_written", "generated", "imported"] = "human_written"
+    validation_status: Literal["draft", "approved", "needs_review", "rejected"] = "draft"
     options: list[AdminQuestionOptionInput] = []
     explanations: list[AdminExplanationInput] = []
 
 
 class AdminQuestionUpdate(BaseModel):
-    prompt: str | None = None
-    correct_answer: str | None = None
-    difficulty: int | None = None
+    prompt: str | None = Field(default=None, min_length=1, max_length=20000)
+    correct_answer: str | None = Field(default=None, min_length=1, max_length=20000)
+    difficulty: int | None = Field(default=None, ge=1, le=5)
     rubric_json: dict | None = None
     skill_tags: list[str] | None = None
     misconception_tags: list[str] | None = None
@@ -73,7 +75,7 @@ class AdminQuestionDetailRead(AdminQuestionRead):
 
 
 class QuestionStatusUpdateRequest(BaseModel):
-    status: str
+    status: Literal["draft", "approved", "needs_review", "rejected"]
 
 
 class AdminUnitCreate(BaseModel):

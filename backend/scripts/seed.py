@@ -96,6 +96,9 @@ def upsert_question(db: Session, subject_id: int, unit_id: int, topic_id: int, d
         select(Question).where(Question.topic_id == topic_id, Question.prompt == data["prompt"])
     ).first()
 
+    if existing is not None and not existing.is_active:
+        return existing  # Respect archived/admin-replaced content on reseeding.
+
     fields = dict(
         subject_id=subject_id,
         unit_id=unit_id,
