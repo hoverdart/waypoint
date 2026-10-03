@@ -73,3 +73,11 @@
 - Candidates require approved active questions. FRQ-only topics receive FRQ tasks; short budgets can select a smaller MCQ review instead of yielding an empty plan. Plan status updates after item changes and practice completion. Response includes course ID even for an empty plan; time and status inputs are bounded.
 - Verification: 165 backend tests, 62 frontend tests, and TypeScript pass. An ESLint unescaped-apostrophe error was corrected; lint rerun and production build pending. User's existing AGENTS.md change remains untouched.
 - Daily-budget milestone final checks: ESLint and production build pass. Content expansion c89e65c was pushed successfully. Daily budget changes are ready to commit and push on the same branch.
+
+## 2026-10-03 — Current Psychology and CSA curricula
+
+- Reorganized Psychology into five current units and CSA into four, following College Board course pages and course-at-a-glance PDFs: https://apcentral.collegeboard.org/courses/ap-psychology and https://apcentral.collegeboard.org/courses/ap-computer-science-a. Topic labels are WayPoint study subdivisions.
+- Added 54 explained original MCQs. Active bank: 279 questions across six subjects and 264 study topics, with at least one question per topic. Psychology has 59 questions; CSA has 50. Generated content is labeled accordingly and still benefits from educator review.
+- New migration 20261003_active_curriculum adds Unit.is_active. Apply `alembic upgrade head` before `python -m scripts.seed`. Reseeding reparents recognized legacy topics and preserves their IDs, attempts, session history, and mastery; unused legacy units are archived. New practice, diagnostics, plans, and mastery summaries exclude archived units. Existing sessions remain accessible and submittable.
+- Verification: 170 backend tests pass on PostgreSQL (waypoint_test_v2 at localhost:55432). A fresh database passed actual Alembic upgrade/downgrade/upgrade and two seed runs. Migration regression tests cover historical attempt preservation and archived-session completion.
+- Daily-budget milestone 5cad0f7 is pushed. Unified branch remains codex/ap-prep-app; public push authorization is explicit and persistent. User's AGENTS.md modification remains excluded.

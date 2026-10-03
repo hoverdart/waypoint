@@ -73,4 +73,13 @@ def test_all_six_subjects_seed_and_reseed_without_changing_ids(db_session):
         seed_subject(db_session, subject)
     assert {q.id for q in db_session.exec(select(Question)).all()} == question_ids
     assert {o.id for o in db_session.exec(select(QuestionOption)).all()} == option_ids
-    assert len(question_ids) == 228
+    assert len(question_ids) == 279
+
+
+@pytest.mark.parametrize("module,unit_count,question_count", [("psychology", 5, 59), ("computer_science_a", 4, 50)])
+def test_revised_curricula_cover_every_topic(module, unit_count, question_count):
+    units = importlib.import_module(f"scripts.seed_data.units_topics.{module}").UNITS
+    questions = importlib.import_module(f"scripts.seed_data.questions.{module}_questions").QUESTIONS
+    assert len(units) == unit_count
+    assert len(questions) == question_count
+    assert {t['name'] for u in units for t in u['topics']} <= {q['topic_name'] for q in questions}

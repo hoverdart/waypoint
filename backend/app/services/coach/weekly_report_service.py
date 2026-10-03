@@ -81,7 +81,7 @@ def _gather_topic_snapshots(
     snapshots = []
     for subject_id in subject_ids:
         subject = db.get(Subject, subject_id)
-        units = db.exec(select(Unit).where(Unit.subject_id == subject_id)).all()
+        units = db.exec(select(Unit).where(Unit.subject_id == subject_id, Unit.is_active == True)).all()
         for unit in units:
             ap_weight_midpoint = (unit.ap_weight_min + unit.ap_weight_max) / 2.0
             topics = db.exec(select(Topic).where(Topic.unit_id == unit.id)).all()

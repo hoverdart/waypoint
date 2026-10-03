@@ -41,7 +41,7 @@ def build_diagnostic_session(
     rng: random.Random | None = None,
 ) -> tuple[PracticeSession, list[Question]]:
     rng = rng or random.Random()
-    units = list(db.exec(select(Unit).where(Unit.subject_id == subject_id)).all())
+    units = list(db.exec(select(Unit).where(Unit.subject_id == subject_id, Unit.is_active == True)).all())
     allocation = allocate_questions_per_unit(
         [(u.id, (u.ap_weight_min + u.ap_weight_max) / 2.0) for u in units], total_questions
     )

@@ -21,7 +21,7 @@ def get_subject_mastery(
 
     subject_mastery = db.get(SubjectMastery, (user.id, subject_id))
     units = list(
-        db.exec(select(Unit).where(Unit.subject_id == subject_id).order_by(Unit.display_order)).all()
+        db.exec(select(Unit).where(Unit.subject_id == subject_id, Unit.is_active == True).order_by(Unit.display_order)).all()
     )
 
     unit_reads = []

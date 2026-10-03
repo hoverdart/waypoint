@@ -88,7 +88,7 @@ def score_diagnostic(
     apply_session_attempts_to_mastery(db, session.user_id, session.subject_id, attempts_by_topic, now)
 
     all_topics = db.exec(
-        select(Topic).join(Unit, Topic.unit_id == Unit.id).where(Unit.subject_id == session.subject_id)
+        select(Topic).join(Unit, Topic.unit_id == Unit.id).where(Unit.subject_id == session.subject_id, Unit.is_active == True)
     ).all()
     for topic in all_topics:
         if topic.id in touched_topic_ids:

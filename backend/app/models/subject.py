@@ -24,6 +24,7 @@ class Unit(SQLModel, table=True):
     subject_id: int = Field(foreign_key="subjects.id", index=True)
     name: str
     description: str | None = None
+    is_active: bool = Field(default=True, sa_column=Column(sa.Boolean, nullable=False, server_default=sa.true()))
     ap_weight_min: float = Field(default=0.0)
     ap_weight_max: float = Field(default=0.0)
     display_order: int = Field(default=0)

@@ -757,3 +757,9 @@ QUESTIONS = [
         },
     },
 ]
+
+from scripts.seed_data.units_topics.psychology import TOPIC_UNIT_MAP
+QUESTIONS = [{**question, 'unit_name': TOPIC_UNIT_MAP[question['topic_name']]} for question in QUESTIONS]
+
+from scripts.seed_data.questions.psychology_expansion import QUESTIONS as ADDITIONAL_QUESTIONS
+QUESTIONS.extend(ADDITIONAL_QUESTIONS)

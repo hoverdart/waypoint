@@ -5,7 +5,7 @@ Description (Java-based). Topic names follow the CED's topic list where
 known. Weights across all units sum to roughly 100%.
 """
 
-UNITS = [
+LEGACY_UNITS = [
     {
         "name": "Primitive Types",
         "description": "Introduces variables, primitive data types, expressions, and how Java evaluates and casts numeric values.",
@@ -343,3 +343,42 @@ UNITS = [
         ],
     },
 ]
+
+# Current four-unit framework (effective fall 2025), verified 2026-10-03.
+# Study subdivisions preserve old topic identities where the content remains relevant.
+from scripts.seed_data.units_topics.reorganize import reorganize
+
+CURRICULUM_SOURCE = "https://apcentral.collegeboard.org/courses/ap-computer-science-a"
+LEGACY_UNIT_NAMES = {unit['name'] for unit in LEGACY_UNITS}
+UNITS = reorganize(
+    LEGACY_UNITS,
+    [
+        ("Using Objects and Methods", "Read and write Java expressions and method calls, using objects and library documentation.", 15, 25),
+        ("Selection and Iteration", "Develop and trace decisions, loops, and string-processing algorithms.", 25, 35),
+        ("Class Creation", "Design classes with clear responsibilities, constructors, methods, and controlled access to state.", 10, 18),
+        ("Data Collections", "Process arrays, lists, files, and data sets; reason about searching, sorting, recursion, and responsible data use.", 30, 40),
+    ],
+    {
+        "Primitive Types": "Using Objects and Methods", "Using Objects": "Using Objects and Methods",
+        "Boolean Expressions and if Statements": "Selection and Iteration", "Iteration": "Selection and Iteration",
+        "Writing Classes": "Class Creation", "Array": "Data Collections", "ArrayList": "Data Collections",
+        "2D Array": "Data Collections", "Recursion": "Data Collections",
+        # Inheritance is archived, not included in current exam practice.
+    },
+    {"Documentation with Comments": "Using Objects and Methods", "Wrapper Classes and Autoboxing": "Data Collections"},
+    [
+        ("Using Objects and Methods", "Algorithms and Compilers", "Distinguish an algorithm, Java source code, compilation, and program execution.", ["algorithms", "compilation"]),
+        ("Using Objects and Methods", "APIs and Method Signatures", "Use method documentation to select valid calls, argument types, and returned values.", ["api", "methods"]),
+        ("Using Objects and Methods", "Math Class Methods", "Apply numeric library methods and construct random values in a specified range.", ["math", "random"]),
+        ("Selection and Iteration", "Informal Run-Time Analysis", "Compare the number of operations performed by different loop structures.", ["runtime", "algorithms"]),
+        ("Class Creation", "Abstraction and Responsible Program Design", "Design clear interfaces and assess how program choices affect users.", ["abstraction", "ethics"]),
+        ("Class Creation", "Passing Object References", "Trace mutation and reassignment of reference parameters.", ["references", "methods"]),
+        ("Class Creation", "The this Keyword", "Distinguish an instance field from a parameter or local variable of the same name.", ["scope", "this"]),
+        ("Data Collections", "Data Ethics and Privacy", "Evaluate consent, data minimization, bias, and privacy in data collection.", ["ethics", "privacy"]),
+        ("Data Collections", "Using Data Sets", "Identify sampling and data-quality limitations before drawing conclusions.", ["data", "bias"]),
+        ("Data Collections", "Using Text Files", "Read and process a sequence of values from a text file using Java library classes.", ["files", "scanner"]),
+        ("Data Collections", "Searching Algorithms", "Trace linear and binary search and state the conditions required by each.", ["search", "algorithms"]),
+        ("Data Collections", "Sorting Algorithms", "Trace common sorts and reason about their intermediate states.", ["sorting", "algorithms"]),
+    ],
+)
+TOPIC_UNIT_MAP = {topic['name']: unit['name'] for unit in UNITS for topic in unit['topics']}

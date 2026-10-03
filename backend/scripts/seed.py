@@ -19,6 +19,9 @@ from app.db.session import engine
 from app.models.gamification import Badge
 from app.models.question import Question, QuestionExplanation, QuestionOption
 from app.models.subject import Subject, Topic, Unit
+from app.models.mastery import TopicMastery
+from app.models.planner import DailyPlanItem
+from app.models.practice import PracticeSession
 from scripts.seed_data.badges import BADGES
 from scripts.seed_data.subjects import SUBJECTS
 
@@ -61,10 +64,23 @@ def upsert_unit(db: Session, subject_id: int, data: dict) -> Unit:
     return unit
 
 
-def upsert_topic(db: Session, unit_id: int, data: dict) -> Topic:
+def upsert_topic(db: Session, unit_id: int, data: dict, legacy_unit_ids: set[int] | None = None) -> Topic:
     topic = db.exec(
         select(Topic).where(Topic.unit_id == unit_id, Topic.name == data["name"])
     ).first()
+    if topic is None and legacy_unit_ids:
+        matches = db.exec(select(Topic).where(Topic.unit_id.in_(legacy_unit_ids), Topic.name == data["name"])).all()
+        if len(matches) > 1:
+            raise ValueError(f"Ambiguous legacy topic: {data['name']}")
+        if matches:
+            topic = matches[0]
+            topic.unit_id = unit_id
+            # Topic IDs anchor attempts/mastery. Move the topic rather than
+            # duplicating it and repair denormalized curriculum references.
+            for model in (Question, DailyPlanItem, PracticeSession):
+                for record in db.exec(select(model).where(model.topic_id == topic.id)).all():
+                    record.unit_id = unit_id
+                    db.add(record)
     if topic is None:
         topic = Topic(unit_id=unit_id, **data)
         db.add(topic)
@@ -159,17 +175,27 @@ def seed_subject(db: Session, subject_data: dict) -> None:
     units_module = importlib.import_module(f"scripts.seed_data.{units_module_name}")
     questions_module = importlib.import_module(f"scripts.seed_data.{questions_module_name}")
 
+    legacy_names = getattr(units_module, "LEGACY_UNIT_NAMES", set())
+    legacy_units = db.exec(select(Unit).where(Unit.subject_id == subject.id, Unit.name.in_(legacy_names))).all() if legacy_names else []
+    legacy_unit_ids = {unit.id for unit in legacy_units}
     unit_by_name: dict[str, Unit] = {}
     topic_by_key: dict[tuple[str, str], Topic] = {}
 
     for unit_data in units_module.UNITS:
         topics_data = unit_data.get("topics", [])
         unit_fields = {k: v for k, v in unit_data.items() if k != "topics"}
+        unit_fields["is_active"] = True
         unit = upsert_unit(db, subject.id, unit_fields)
         unit_by_name[unit.name] = unit
         for topic_data in topics_data:
-            topic = upsert_topic(db, unit.id, topic_data)
+            topic = upsert_topic(db, unit.id, topic_data, legacy_unit_ids)
             topic_by_key[(unit.name, topic.name)] = topic
+
+    for old_unit in legacy_units:
+        if old_unit.name not in unit_by_name:
+            old_unit.is_active = False
+            db.add(old_unit)
+    db.flush()
 
     question_count = 0
     for q_data in questions_module.QUESTIONS:
@@ -186,6 +212,20 @@ def seed_subject(db: Session, subject_data: dict) -> None:
             continue
         upsert_question(db, subject.id, unit.id, topic.id, q_data)
         question_count += 1
+
+    if legacy_units:
+        # Recalculate current rollups from preserved topic evidence. Archived
+        # unit mastery remains available for historical records, but is not
+        # part of the current exam readiness calculation.
+        from app.services.mastery.unit_mastery import recompute_unit_mastery
+        from app.services.mastery.subject_mastery import recompute_subject_mastery
+        users = set(db.exec(select(TopicMastery.user_id).join(Topic, TopicMastery.topic_id == Topic.id)
+                            .join(Unit, Topic.unit_id == Unit.id).where(Unit.subject_id == subject.id)).all())
+        for user_id in users:
+            for unit in unit_by_name.values():
+                recompute_unit_mastery(db, user_id, unit.id)
+            db.flush()
+            recompute_subject_mastery(db, user_id, subject.id)
 
     print(
         f"  {subject.name}: {len(unit_by_name)} units, {len(topic_by_key)} topics, "

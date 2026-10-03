@@ -24,7 +24,7 @@ def get_subject(subject_id: int, db: Session = Depends(get_db)) -> SubjectDetail
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Subject not found")
 
     units = list(
-        db.exec(select(Unit).where(Unit.subject_id == subject_id).order_by(Unit.display_order)).all()
+        db.exec(select(Unit).where(Unit.subject_id == subject_id, Unit.is_active == True).order_by(Unit.display_order)).all()
     )
     unit_reads = []
     for unit in units:

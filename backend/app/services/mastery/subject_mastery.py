@@ -57,7 +57,7 @@ def predict_ap_score(mastery_score: float, confidence_score: float) -> int:
 
 
 def recompute_subject_mastery(db: Session, user_id: int, subject_id: int) -> SubjectMastery:
-    units = db.exec(select(Unit).where(Unit.subject_id == subject_id)).all()
+    units = db.exec(select(Unit).where(Unit.subject_id == subject_id, Unit.is_active == True)).all()
     unit_ids = [u.id for u in units]
     ums_by_unit = {
         um.unit_id: um

@@ -1,4 +1,4 @@
-UNITS = [
+LEGACY_UNITS = [
     {
         "name": "Scientific Foundations of Psychology",
         "description": "Introduces psychology as a science, its history and major perspectives, and the research methods and ethical standards used to study behavior and mental processes.",
@@ -375,3 +375,45 @@ UNITS = [
         ],
     },
 ]
+
+# Current five-unit framework, verified against College Board on 2026-10-03.
+# Topic labels are WayPoint's own study subdivisions, not an official CED copy.
+from scripts.seed_data.units_topics.reorganize import reorganize
+
+CURRICULUM_SOURCE = "https://apcentral.collegeboard.org/courses/ap-psychology"
+LEGACY_UNIT_NAMES = {unit['name'] for unit in LEGACY_UNITS}
+UNITS = reorganize(
+    LEGACY_UNITS,
+    [
+        ("Biological Bases of Behavior", "Connect genes, neural systems, sleep, and sensation to behavior, using scientific reasoning.", 15, 25),
+        ("Cognition", "Investigate perception, memory, thinking, and evidence about mental processes.", 15, 25),
+        ("Development and Learning", "Trace physical, cognitive, and social development and explain how experience changes behavior.", 15, 25),
+        ("Social Psychology and Personality", "Examine social influence, individual differences, motivation, and emotion.", 15, 25),
+        ("Mental and Physical Health", "Apply psychological science to well-being, stress, disorders, and treatment.", 15, 25),
+    ],
+    {
+        "Scientific Foundations of Psychology": "Biological Bases of Behavior",
+        "Biological Bases of Behavior": "Biological Bases of Behavior",
+        "Sensation and Perception": "Biological Bases of Behavior",
+        "Learning": "Development and Learning",
+        "Cognitive Psychology": "Cognition",
+        "Developmental Psychology": "Development and Learning",
+        "Motivation, Emotion, and Personality": "Social Psychology and Personality",
+        "Clinical Psychology": "Mental and Physical Health",
+        "Social Psychology": "Social Psychology and Personality",
+    },
+    {
+        "Principles of Perception": "Cognition", "Visual Perception": "Cognition",
+        "Statistical Analysis in Psychology": "Cognition", "Stress and Coping": "Mental and Physical Health",
+    },
+    [
+        ("Biological Bases of Behavior", "Sleep and Circadian Rhythms", "Relate biological rhythms and stages of sleep to cognition and behavior.", ["sleep", "biological-rhythms"]),
+        ("Cognition", "Forgetting and Memory Distortion", "Distinguish interference, retrieval failure, and reconstruction of remembered events.", ["memory", "interference"]),
+        ("Development and Learning", "Physical Development Across the Lifespan", "Explain how maturation and experience interact across the lifespan.", ["development", "maturation"]),
+        ("Development and Learning", "Communication and Language Development", "Distinguish language components and patterns of language acquisition.", ["language", "development"]),
+        ("Mental and Physical Health", "Health Psychology", "Connect behavior, social context, and stress responses to physical health.", ["health", "biopsychosocial"]),
+        ("Mental and Physical Health", "Positive Psychology", "Evaluate research on strengths, well-being, and supportive relationships.", ["well-being", "research-evaluation"]),
+        ("Cognition", "Evidence-Based Psychological Arguments", "Use study designs, numerical results, and psychological concepts to support a qualified claim.", ["argumentation", "data-interpretation"]),
+    ],
+)
+TOPIC_UNIT_MAP = {topic['name']: unit['name'] for unit in UNITS for topic in unit['topics']}

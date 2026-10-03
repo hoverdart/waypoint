@@ -14,6 +14,7 @@ from app.models.planner import DailyPlan, DailyPlanItem
 from app.services.practice.validation import validate_submission
 from app.models.practice import PracticeSession, QuestionAttempt
 from app.models.question import Question
+from app.models.subject import Unit
 from app.services.practice.mastery_sync import apply_session_attempts_to_mastery
 from app.services.practice.scoring import score_frq_attempt, score_mcq_attempt
 from app.services.practice.types import AnswerSubmission
@@ -38,7 +39,8 @@ def start_practice_session(
 ) -> tuple[PracticeSession, list[Question]]:
     rng = rng or random.Random()
 
-    query = select(Question).where(
+    query = select(Question).join(Unit, Question.unit_id == Unit.id).where(
+        Unit.is_active == True,
         Question.subject_id == subject_id,
         Question.is_active == True,  # noqa: E712
         Question.validation_status == "approved",

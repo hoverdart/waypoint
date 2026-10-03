@@ -164,7 +164,7 @@ def select_plan_items(
 
 def _build_candidates(db: Session, subject_id: int, user_id: int) -> list[TopicCandidate]:
     rows = db.exec(
-        select(Topic, Unit).join(Unit, Topic.unit_id == Unit.id).where(Unit.subject_id == subject_id)
+        select(Topic, Unit).join(Unit, Topic.unit_id == Unit.id).where(Unit.subject_id == subject_id, Unit.is_active == True)
     ).all()
     topic_ids = [topic.id for topic, _ in rows]
 
