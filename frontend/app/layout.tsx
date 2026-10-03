@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={{ theme: shadcn }}>
+    <ClerkProvider signInUrl="/login" signUpUrl="/signup" appearance={{ theme: shadcn }}>
       <html
         lang="en"
         className="h-full antialiased"
