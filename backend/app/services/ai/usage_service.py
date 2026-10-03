@@ -9,6 +9,7 @@ from datetime import datetime, timedelta, timezone
 from sqlmodel import Session, select
 
 from app.models.ai import AIUsage
+from app.models.user import User
 
 WEEK_LENGTH_DAYS = 7
 
@@ -24,6 +25,9 @@ def period_bounds(now: datetime) -> tuple[datetime, datetime]:
 def get_or_create_current_period(
     db: Session, user_id: int, max_allowed: int, now: datetime | None = None
 ) -> AIUsage:
+    # Serialize both first-period creation and cap-check/provider/increment.
+    # The transaction retains this lock until the caller commits or rolls back.
+    db.exec(select(User).where(User.id == user_id).with_for_update()).one()
     now = now or datetime.now(timezone.utc)
     period_start, period_end = period_bounds(now)
 
@@ -32,7 +36,7 @@ def get_or_create_current_period(
             AIUsage.user_id == user_id,
             AIUsage.period_start == period_start,
             AIUsage.period_end == period_end,
-        )
+        ).execution_options(populate_existing=True)
     ).first()
     if usage is None:
         usage = AIUsage(

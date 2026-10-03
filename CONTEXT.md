@@ -88,3 +88,11 @@
 - Diagnostics retain weighted unit allocation and preferred difficulty, then fill sparse quotas from remaining approved questions without duplicates. Zero-weight curricula use available questions; empty curricula return a useful error.
 - Added 10 regression cases for empty selections, invalid scopes, sparse unit/difficulty fallback, and zero weights. Full backend suite: 180 passing tests.
 - Curriculum milestone 6ec1f42 is pushed. Next verification work: real Clerk authenticated browser flow using isolated ports and a seeded local database.
+
+## 2026-10-03 — Real authenticated browser verification and concurrency fix
+
+- Playwright now starts dedicated frontend/backend ports 3109/8109 (overridable), loads local credentials without printing values, sets the matching API URL/CORS origin, and refuses accidental reuse of unrelated servers. Expanded golden path covers real Clerk onboarding, a 20-question diagnostic, course practice, Save & exit/reload recovery, results, and daily-plan task completion. It asserts no server-error responses.
+- The first browser run exposed simultaneous AI allowance creation failures from result cards. Serialized allowance creation and cap-check/increment by locking the user row until commit. A real six-connection concurrency test verifies exactly one allowance row and no cap overrun.
+- Clerk now verifies authorized token origins against CORS_ALLOWED_ORIGINS, rejects malformed identities, and does not expose SDK exception details. Guidance checked: https://clerk.com/articles/how-to-add-authentication-to-a-python-backend. Configure exact frontend origins in every environment.
+- Verification: 186 backend tests, 62 frontend tests, production build, and all 7 Playwright tests pass with real Clerk and PostgreSQL. Temporary Clerk users are removed by test teardown; their study records live only in the disposable database waypoint_migration_test. Final ESLint and TypeScript rechecks also pass.
+- Added frontend verification instructions and updated backend content/auth setup documentation. Remaining work includes richer result feedback, remaining action error states/settings, AI question-access validation, signed-in mobile QA, and final production readiness audit.

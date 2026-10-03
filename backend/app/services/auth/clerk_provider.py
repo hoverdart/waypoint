@@ -30,17 +30,22 @@ class ClerkAuthProvider:
         # clerk_backend_api reads this via `request.headers.get('Authorization')`
         # (exact case) - a lowercase key here would silently miss on a plain dict.
         request = _HeaderRequest({"Authorization": authorization_header})
-        options = AuthenticateRequestOptions(secret_key=self._settings.clerk_secret_key)
+        options = AuthenticateRequestOptions(
+            secret_key=self._settings.clerk_secret_key,
+            authorized_parties=self._settings.cors_allowed_origins,
+        )
 
         try:
             state = authenticate_request(request, options)
         except Exception as exc:  # clerk_backend_api raises on malformed tokens
-            raise AuthError(f"Token verification failed: {exc}") from exc
+            raise AuthError("Token verification failed") from exc
 
         if not state.is_signed_in or not state.payload:
-            raise AuthError(state.message or "Invalid or expired session token")
+            raise AuthError("Invalid or expired session token")
 
         payload = state.payload
+        if not isinstance(payload.get("sub"), str) or not payload["sub"]:
+            raise AuthError("Invalid session identity")
         return AuthIdentity(
             provider_user_id=payload["sub"],
             email=payload.get("email"),

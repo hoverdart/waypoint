@@ -52,7 +52,7 @@ def test_verify_token_returns_identity_from_payload(provider):
 def test_verify_token_rejects_when_not_signed_in(provider):
     not_signed_in_state = SimpleNamespace(is_signed_in=False, payload=None, message="Session expired")
     with patch("app.services.auth.clerk_provider.authenticate_request", return_value=not_signed_in_state):
-        with pytest.raises(AuthError, match="Session expired"):
+        with pytest.raises(AuthError, match="Invalid or expired session token"):
             provider.verify_token("Bearer expired.jwt.token")
 
 
@@ -60,3 +60,26 @@ def test_verify_token_wraps_sdk_exceptions_in_autherror(provider):
     with patch("app.services.auth.clerk_provider.authenticate_request", side_effect=ValueError("malformed JWT")):
         with pytest.raises(AuthError, match="Token verification failed"):
             provider.verify_token("Bearer not-a-real-jwt")
+
+
+def test_verification_restricts_token_origin():
+    provider = ClerkAuthProvider(Settings(cors_allowed_origins=["https://study.example.com"]))
+    state = SimpleNamespace(is_signed_in=True, payload={"sub": "user_123"})
+    with patch("app.services.auth.clerk_provider.authenticate_request", return_value=state) as verify:
+        provider.verify_token("Bearer token")
+    assert verify.call_args.args[1].authorized_parties == ["https://study.example.com"]
+
+
+def test_sdk_failure_details_are_not_exposed(provider):
+    with patch("app.services.auth.clerk_provider.authenticate_request", side_effect=ValueError("sensitive transport detail")):
+        with pytest.raises(AuthError) as error:
+            provider.verify_token("Bearer token")
+    assert str(error.value) == "Token verification failed"
+
+
+@pytest.mark.parametrize("payload", [{"name": "Missing ID"}, {"sub": 123}, {"sub": ""}])
+def test_malformed_session_identity_is_rejected(provider, payload):
+    state = SimpleNamespace(is_signed_in=True, payload=payload)
+    with patch("app.services.auth.clerk_provider.authenticate_request", return_value=state):
+        with pytest.raises(AuthError, match="Invalid session identity"):
+            provider.verify_token("Bearer token")

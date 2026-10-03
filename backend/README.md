@@ -17,11 +17,23 @@ cp .env.example .env
 # then fill in DATABASE_URL, CLERK_SECRET_KEY, ANTHROPIC_API_KEY, etc.
 
 alembic upgrade head
-python -m scripts.seed          # seeds the 6 priority AP subjects + demo question bank
+python -m scripts.seed          # seeds 6 AP subjects, 264 study topics, and 279 original questions
 uvicorn app.main:app --reload --port 8000
 ```
 
 Visit `http://localhost:8000/docs` for interactive API docs.
+
+Set `CORS_ALLOWED_ORIGINS` to the exact frontend origins, for example
+`["http://localhost:3000"]` locally or `["https://study.example.com"]` in production.
+The same allowlist validates the origin (`azp`) of Clerk session tokens. Wildcards
+are not suitable. The frontend and backend must use keys from the same Clerk instance.
+Anthropic is optional; checked-in explanations and regular practice work without it.
+
+Always migrate before reseeding. The current curriculum migration archives legacy
+Psychology/CSA units while retaining historical attempts and reusing topic IDs.
+The question bank provides initial topic coverage, not a full set of official exam
+papers. Generated questions need ongoing educator review; free-response scoring
+uses a keyword checklist and is not an official AP grade.
 
 ## Tests
 

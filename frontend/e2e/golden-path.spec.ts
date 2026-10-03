@@ -18,6 +18,10 @@ test.describe("Authenticated golden path", () => {
   });
 
   test("onboarding -> dashboard -> daily plan -> practice -> results", async ({ page }) => {
+    const serverErrors: string[] = [];
+    page.on("response", response => {
+      if (response.status() >= 500) serverErrors.push(`${response.status()} ${new URL(response.url()).pathname}`);
+    });
     await page.goto("/");
     await clerk.signIn({ page, emailAddress: testUser.email });
 
@@ -38,11 +42,6 @@ test.describe("Authenticated golden path", () => {
     // and the CourseReadinessCard tile) - scope to the course card link.
     await expect(page.getByRole("link", { name: /AP Biology/ })).toBeVisible();
 
-    // A daily-plan item is scoped to a single random topic, and this seed
-    // data is intentionally demo-scale (a handful of questions spread across
-    // many topics) - so a lot of individual topics have zero questions. The
-    // diagnostic pulls from across the whole subject instead, which is far
-    // more robust for this exact reason.
     await page.goto("/daily-plan");
     const generateButton = page.getByRole("button", { name: "Generate today's plan" });
     if (await generateButton.isVisible()) {
@@ -58,6 +57,32 @@ test.describe("Authenticated golden path", () => {
 
     await expect(page).toHaveURL(/\/practice\/results\/\d+/);
     await expect(page.getByText("Baseline established")).toBeVisible();
+
+    await page.goto("/subjects");
+    await page.getByText("AP Biology", { exact: true }).locator("../..").getByRole("link", { name: "Open course" }).click();
+    await expect(page.getByRole("region", { name: "Course curriculum" })).toBeVisible();
+    await page.getByLabel("Session length").selectOption("5");
+    await page.getByRole("button", { name: "Practice the whole course" }).click();
+    await expect(page).toHaveURL(/\/practice\/session\/\d+/);
+    const practiceUrl = page.url();
+    const firstAnswer = page.locator("main button").filter({ hasText: /^[A-D]\./ }).first();
+    const answerText = await firstAnswer.textContent();
+    await firstAnswer.click();
+    await page.getByRole("button", { name: "Save & exit" }).click();
+    await expect(page).toHaveURL(/\/practice$/);
+    await page.goto(practiceUrl);
+    await expect(page.getByRole("button", { pressed: true }).filter({ hasText: answerText! })).toBeVisible();
+    await answerEntirePracticeSession(page);
+    await expect(page).toHaveURL(/\/practice\/results\/\d+/);
+
+    await page.goto("/daily-plan");
+    await page.getByRole("button", { name: "Start", exact: true }).first().click();
+    await expect(page).toHaveURL(/planItemId=/);
+    await answerEntirePracticeSession(page);
+    await expect(page).toHaveURL(/\/practice\/results\/\d+/);
+    await page.goto("/daily-plan");
+    await expect(page.getByText("completed", { exact: true }).first()).toBeVisible();
+    expect(serverErrors).toEqual([]);
   });
 });
 
@@ -65,6 +90,8 @@ test.describe("Authenticated golden path", () => {
  * answering every question in the session until the final "Finish" click. */
 async function answerEntirePracticeSession(page: Page) {
   for (let guard = 0; guard < 25; guard++) {
+    const progress = page.getByRole("progressbar");
+    const current = Number(await progress.getAttribute("aria-valuenow"));
     const textarea = page.getByPlaceholder("Write your response here...");
     if (await textarea.isVisible().catch(() => false)) {
       await textarea.fill("This is a placeholder free-response answer for E2E testing.");
@@ -76,6 +103,7 @@ async function answerEntirePracticeSession(page: Page) {
     const label = await nextOrFinish.textContent();
     await nextOrFinish.click();
     if (label === "Finish") return;
+    await expect(progress).toHaveAttribute("aria-valuenow", String(current + 1));
   }
   throw new Error("Practice session did not finish within the expected number of questions");
 }
