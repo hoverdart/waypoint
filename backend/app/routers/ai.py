@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlmodel import Session
+from sqlmodel import Session, select
 
 from app.config import Settings, get_settings
 from app.db.session import get_db
 from app.dependencies import get_ai_provider, get_current_user
 from app.models.question import Question, QuestionOption
+from app.models.practice import PracticeSession, QuestionAttempt
 from app.models.user import User
 from app.schemas.ai import AIExplainRequest, AIExplainResponse, AIUsageResponse
 from app.services.ai.explain_service import AICapExceededError, request_explanation
@@ -28,17 +29,35 @@ def explain(
     ai_provider: AIProvider = Depends(get_ai_provider),
 ) -> AIExplainResponse:
     question = db.get(Question, payload.question_id)
-    if question is None:
+    attempt = db.exec(
+        select(QuestionAttempt).join(PracticeSession, QuestionAttempt.session_id == PracticeSession.id).where(
+            QuestionAttempt.question_id == payload.question_id,
+            QuestionAttempt.user_id == user.id,
+            PracticeSession.user_id == user.id,
+            PracticeSession.completed_at.is_not(None),
+        )
+    ).first()
+    if question is None or attempt is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Question not found")
 
     student_answer = payload.free_response_text
     if payload.selected_option_id is not None:
         option = db.get(QuestionOption, payload.selected_option_id)
-        student_answer = option.text if option else None
+        if option is None or option.question_id != question.id:
+            raise HTTPException(status_code=400, detail="Answer option does not belong to this question")
+        student_answer = option.text
+
+    correct_answer = question.correct_answer
+    if question.type == "mcq":
+        correct_option = db.exec(select(QuestionOption).where(
+            QuestionOption.question_id == question.id, QuestionOption.is_correct == True,
+        )).first()
+        if correct_option:
+            correct_answer = f"{correct_option.label}. {correct_option.text}"
 
     context = ExplainContext(
         question_prompt=question.prompt,
-        correct_answer=question.correct_answer,
+        correct_answer=correct_answer,
         student_answer=student_answer,
         action=payload.action,
         compare_topic=payload.compare_topic,

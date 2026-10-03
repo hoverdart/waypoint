@@ -12,20 +12,26 @@ import { useStartPlanItem } from "@/lib/hooks/useStartPlanItem";
 export function AnswerBreakdownCard({ item, subjectId }: { item: AnswerBreakdownItem; subjectId?: number }) {
   const startPlanItem = useStartPlanItem();
   const [startingAnother, setStartingAnother] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const selectedOption = item.options?.find(option => option.id === item.selected_option_id);
+  const correctOption = item.options?.find(option => option.label === item.correct_answer);
   const selectedExplanation = item.explanations.find((e) => e.option_id === item.selected_option_id);
   const generalExplanation = item.explanations.find((e) => e.option_id === null);
   const misconception =
-    selectedExplanation?.misconception_tag ?? item.explanations.find((explanation) => explanation.misconception_tag)?.misconception_tag;
+    selectedExplanation?.misconception_tag ?? generalExplanation?.misconception_tag;
 
   async function handleTryAnother() {
     if (!subjectId) return;
     setStartingAnother(true);
+    setError(null);
     try {
       await startPlanItem({
         subject_id: subjectId,
         topic_id: item.topic_id,
         item_type: item.type === "frq" ? "frq" : undefined,
       });
+    } catch {
+      setError("Could not start another question. Please try again.");
     } finally {
       setStartingAnother(false);
     }
@@ -34,17 +40,23 @@ export function AnswerBreakdownCard({ item, subjectId }: { item: AnswerBreakdown
   return (
     <Surface className="space-y-4 p-5 sm:p-6">
       <div className="flex items-start justify-between gap-4">
-        <p className="text-sm leading-relaxed text-ink">{item.prompt}</p>
+        <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink">{item.prompt}</p>
         <Chip tone={item.is_correct ? "green" : "coral"} dot className="shrink-0">
-          {item.is_correct ? "Correct" : "Incorrect"}
+          {item.type === "frq" ? "Checklist feedback" : item.is_correct ? "Correct" : "Incorrect"}
         </Chip>
       </div>
 
-      <p className="text-sm text-muted-foreground">
-        Correct answer: <span className="font-medium text-ink">{item.correct_answer}</span>
-        {" · "}
-        {item.score}/{item.max_score} pts
-      </p>
+      <div className="space-y-3 text-sm">
+        <div><p className="text-xs font-semibold text-muted-foreground">Your answer</p><p className="mt-1 whitespace-pre-wrap text-ink">{item.type === "frq" ? item.free_response_text || "No response" : selectedOption ? `${selectedOption.label}. ${selectedOption.text}` : "No answer recorded"}</p></div>
+        <div><p className="text-xs font-semibold text-muted-foreground">{item.type === "frq" ? "Model response" : "Correct answer"}</p><p className="mt-1 whitespace-pre-wrap text-ink">{correctOption ? `${correctOption.label}. ${correctOption.text}` : item.correct_answer}</p></div>
+        <p className="text-muted-foreground">{item.score}/{item.max_score} pts</p>
+        {item.type === "frq" && <div className="border-t border-border pt-3">
+          <p className="font-medium">Review your reasoning</p>
+          <ul className="mt-2 list-disc space-y-2 pl-5">{item.rubric?.map((criterion, index) => <li key={index}>{criterion.point} <span className="text-muted-foreground">({criterion.points} pts)</span></li>)}</ul>
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">The automated score checks keywords, not the quality of your reasoning. Compare your work with each criterion and the model response. This is practice feedback, not an official AP grade.</p>
+        </div>}
+      </div>
+      {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
 
       {(generalExplanation || selectedExplanation || misconception) && (
         <div className="space-y-3 rounded-2xl bg-blue-soft/50 p-4 text-sm leading-relaxed text-ink">

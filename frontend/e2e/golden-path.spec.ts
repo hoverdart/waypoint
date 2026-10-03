@@ -17,7 +17,7 @@ test.describe("Authenticated golden path", () => {
     await testUser?.remove();
   });
 
-  test("onboarding -> dashboard -> daily plan -> practice -> results", async ({ page }) => {
+  test("onboarding -> dashboard -> daily plan -> practice -> results", async ({ page }, testInfo) => {
     const serverErrors: string[] = [];
     page.on("response", response => {
       if (response.status() >= 500) serverErrors.push(`${response.status()} ${new URL(response.url()).pathname}`);
@@ -57,6 +57,8 @@ test.describe("Authenticated golden path", () => {
 
     await expect(page).toHaveURL(/\/practice\/results\/\d+/);
     await expect(page.getByText("Baseline established")).toBeVisible();
+    await expect(page.getByText("Your answer", { exact: true }).first()).toBeVisible();
+    await page.screenshot({ path: testInfo.outputPath("results-desktop.png"), fullPage: true });
 
     await page.goto("/subjects");
     await page.getByText("AP Biology", { exact: true }).locator("../..").getByRole("link", { name: "Open course" }).click();
@@ -82,6 +84,19 @@ test.describe("Authenticated golden path", () => {
     await expect(page).toHaveURL(/\/practice\/results\/\d+/);
     await page.goto("/daily-plan");
     await expect(page.getByText("completed", { exact: true }).first()).toBeVisible();
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/dashboard");
+    await expect(page.getByRole("link", { name: /AP Biology/ })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+    await expect(page.getByRole("heading", { name: /Welcome back/ })).toBeVisible();
+    await page.evaluate(() => window.scrollTo(0, 0));
+    const mobileNav = page.getByRole("navigation", { name: "Mobile navigation" });
+    await expect(mobileNav).toBeVisible();
+    const navBounds = await mobileNav.boundingBox();
+    expect(navBounds!.y).toBeGreaterThan(750);
+    expect(navBounds!.y + navBounds!.height).toBeLessThanOrEqual(844);
+    await page.screenshot({ path: testInfo.outputPath("dashboard-mobile.png"), fullPage: true });
     expect(serverErrors).toEqual([]);
   });
 });

@@ -7,6 +7,7 @@ import { PillLink } from "@/components/kit/PillButton";
 
 export function SiteHeader() {
   return (
+    <>
     <HeaderShell>
       <Link href="/" className="shrink-0 transition-opacity hover:opacity-70">
         <LogoLockup />
@@ -14,7 +15,6 @@ export function SiteHeader() {
 
       <Show when="signed-in">
         <NavLinks />
-        <NavLinks mobile />
       </Show>
 
       <div className="flex shrink-0 items-center gap-2">
@@ -42,5 +42,7 @@ export function SiteHeader() {
         </Show>
       </div>
     </HeaderShell>
+    <Show when="signed-in"><NavLinks mobile /></Show>
+    </>
   );
 }

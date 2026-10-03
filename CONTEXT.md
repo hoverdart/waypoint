@@ -96,3 +96,12 @@
 - Clerk now verifies authorized token origins against CORS_ALLOWED_ORIGINS, rejects malformed identities, and does not expose SDK exception details. Guidance checked: https://clerk.com/articles/how-to-add-authentication-to-a-python-backend. Configure exact frontend origins in every environment.
 - Verification: 186 backend tests, 62 frontend tests, production build, and all 7 Playwright tests pass with real Clerk and PostgreSQL. Temporary Clerk users are removed by test teardown; their study records live only in the disposable database waypoint_migration_test. Final ESLint and TypeScript rechecks also pass.
 - Added frontend verification instructions and updated backend content/auth setup documentation. Remaining work includes richer result feedback, remaining action error states/settings, AI question-access validation, signed-in mobile QA, and final production readiness audit.
+
+## 2026-10-03 — Owned AI explanations and useful result feedback
+
+- AI explanations require an owned completed question attempt, blocking unseen/draft question access through arbitrary IDs. Foreign options are rejected; input text is bounded. MCQ explanation context now contains the full answer text rather than only its letter.
+- Completed results return option text and FRQ rubric criteria; unfinished results return 409. Frontend displays the student's answer, full correct answer/model response, rubric criteria, and an explicit keyword-scoring limitation. Similar-question launch errors are recoverable.
+- Verification: 191 backend tests, 66 frontend tests, ESLint, TypeScript, production build, and 7 real Clerk/PostgreSQL browser tests pass. Browser checks cover result feedback and a 390px signed-in dashboard with no horizontal overflow.
+- Next settings work confirmed from source: settings currently redirects course/time changes to onboarding; onboarding accepts unbounded mode/time/score inputs and cannot remove courses. Implement validated course preferences in-place while preserving history.
+
+- Mobile visual QA caught fixed navigation inside a backdrop-filter ancestor, positioning it across the header. Moved it outside HeaderShell; the browser test verifies its bottom-of-viewport bounds. Result feedback now uses only the selected option's or general explanation's misconception, never another option's tag.

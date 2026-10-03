@@ -1,16 +1,16 @@
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from app.services.ai.provider import ExplainAction
 
 
 class AIExplainRequest(BaseModel):
-    question_id: int
+    question_id: int = Field(gt=0)
     action: ExplainAction
-    selected_option_id: int | None = None
-    free_response_text: str | None = None
-    compare_topic: str | None = None
+    selected_option_id: int | None = Field(default=None, gt=0)
+    free_response_text: str | None = Field(default=None, max_length=20000)
+    compare_topic: str | None = Field(default=None, max_length=300)
 
 
 class AIExplainResponse(BaseModel):

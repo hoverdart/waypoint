@@ -102,6 +102,11 @@ class ExplanationRead(BaseModel):
     misconception_tag: str | None
 
 
+class RubricCriterionRead(BaseModel):
+    point: str
+    points: float
+
+
 class AnswerBreakdownItem(BaseModel):
     question_id: int
     topic_id: int
@@ -114,6 +119,8 @@ class AnswerBreakdownItem(BaseModel):
     selected_option_id: int | None
     free_response_text: str | None
     explanations: list[ExplanationRead] = []
+    options: list[QuestionOptionRead] = []
+    rubric: list[RubricCriterionRead] = []
 
 
 class PracticeResultsResponse(BaseModel):

@@ -151,6 +151,8 @@ export interface AnswerBreakdownItem {
   selected_option_id: number | null;
   free_response_text: string | null;
   explanations: ExplanationRead[];
+  options?: { id: number; label: string; text: string }[];
+  rubric?: { point: string; points: number }[];
 }
 
 export interface Badge {

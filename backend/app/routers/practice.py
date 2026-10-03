@@ -9,7 +9,7 @@ from app.models.subject import Subject
 from app.models.planner import DailyPlan, DailyPlanItem
 from app.core.exceptions import DomainError, NotFoundError
 from app.services.practice.validation import validate_submission
-from app.models.question import Question, QuestionExplanation
+from app.models.question import Question, QuestionExplanation, QuestionOption
 from app.models.user import User
 from app.schemas.gamification import BadgeRead
 from app.schemas.practice import (
@@ -17,6 +17,8 @@ from app.schemas.practice import (
     PracticeDraftRequest,
     PracticeHistoryItem,
     ExplanationRead,
+    QuestionOptionRead,
+    RubricCriterionRead,
     PracticeResultsResponse,
     PracticeSessionDetailResponse,
     PracticeStartRequest,
@@ -159,7 +161,9 @@ def practice_results(
 ) -> PracticeResultsResponse:
     session = _owned_session_or_404(db, session_id, user)
 
-    attempts = db.exec(select(QuestionAttempt).where(QuestionAttempt.session_id == session_id)).all()
+    if session.completed_at is None:
+        raise HTTPException(status_code=409, detail="Finish this session before viewing results")
+    attempts = db.exec(select(QuestionAttempt).where(QuestionAttempt.session_id == session_id).order_by(QuestionAttempt.id)).all()
     breakdown = []
     for attempt in attempts:
         question = db.get(Question, attempt.question_id)
@@ -179,6 +183,11 @@ def practice_results(
                 selected_option_id=attempt.selected_option_id,
                 free_response_text=attempt.free_response_text,
                 explanations=[ExplanationRead.model_validate(e) for e in explanations],
+                options=[QuestionOptionRead.model_validate(o) for o in db.exec(
+                    select(QuestionOption).where(QuestionOption.question_id == question.id).order_by(QuestionOption.label)
+                ).all()],
+                rubric=[RubricCriterionRead(point=c.get("point", ""), points=c.get("points", 0))
+                        for c in (question.rubric_json or {}).get("checklist", [])],
             )
         )
 
