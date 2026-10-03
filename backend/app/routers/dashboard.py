@@ -53,6 +53,7 @@ def get_dashboard(db: Session = Depends(get_db), user: User = Depends(get_curren
             id=today_plan_row.id,
             plan_date=today_plan_row.plan_date,
             point_budget=today_plan_row.point_budget,
+            subject_id=today_plan_row.generated_reason.get("subject_id"),
             status=today_plan_row.status,
             items=[DailyPlanItemRead.model_validate(i) for i in items],
         )

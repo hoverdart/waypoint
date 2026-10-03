@@ -34,7 +34,7 @@ export function GamifiedDailyPlan({
             <StreakBadge days={streakDays} />
             {plans.length > 0 && (
               <>
-                <RegenerateTimeBudgetControl />
+                <RegenerateTimeBudgetControl subjects={enrolledSubjects} />
                 <GenerateTodayPlanButton subjects={enrolledSubjects} />
               </>
             )}
@@ -51,7 +51,7 @@ export function GamifiedDailyPlan({
       ) : (
         <div className="space-y-10">
           {plans.map((plan) => {
-            const subjectId = plan.items[0]?.subject_id;
+            const subjectId = plan.subject_id ?? plan.items[0]?.subject_id;
             const availableXp = plan.items
               .filter((i) => i.status === "pending")
               .reduce((sum, i) => sum + i.point_cost, 0);

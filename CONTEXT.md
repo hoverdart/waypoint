@@ -65,3 +65,11 @@
 - Extracted the shared question-record builder used by the new question banks. All generated additions retain source=generated and contain deterministic answer explanations; no runtime question generation.
 - Added coverage assertions and all-six-subject idempotent database seed/reseed verification preserving question and option IDs. All 160 backend tests pass against PostgreSQL.
 - Next functional issue found: daily-plan regeneration control is a disabled placeholder, repeated generation duplicates today's plans, and planner candidates may lack approved questions. Address these together with bounded budget input, stable existing completed work, and regression tests.
+
+## 2026-10-03 — Functional daily time budgets
+
+- Replaced the disabled time-budget placeholder with a per-course 5/10/20/30/45/60-minute control, pending state, successful-update message, and recoverable failure state.
+- Planner now serializes generation per student and reuses an existing course/day plan, preventing duplicate plans from repeated clicks. Explicit time changes preserve completed work and all item IDs, marking unselected pending items skipped so already-started sessions remain valid. Completed and skipped topics stay out of the regenerated work for that day.
+- Candidates require approved active questions. FRQ-only topics receive FRQ tasks; short budgets can select a smaller MCQ review instead of yielding an empty plan. Plan status updates after item changes and practice completion. Response includes course ID even for an empty plan; time and status inputs are bounded.
+- Verification: 165 backend tests, 62 frontend tests, and TypeScript pass. An ESLint unescaped-apostrophe error was corrected; lint rerun and production build pending. User's existing AGENTS.md change remains untouched.
+- Daily-budget milestone final checks: ESLint and production build pass. Content expansion c89e65c was pushed successfully. Daily budget changes are ready to commit and push on the same branch.

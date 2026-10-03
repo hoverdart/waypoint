@@ -1,6 +1,7 @@
 from datetime import date
+from typing import Literal
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class DailyPlanItemRead(BaseModel):
@@ -23,6 +24,7 @@ class DailyPlanRead(BaseModel):
     id: int
     plan_date: date
     point_budget: int
+    subject_id: int | None = None
     status: str
 
 
@@ -31,8 +33,9 @@ class DailyPlanResponse(DailyPlanRead):
 
 
 class GeneratePlanRequest(BaseModel):
-    subject_id: int
+    subject_id: int = Field(gt=0)
+    study_minutes: int | None = Field(default=None, ge=5, le=180)
 
 
 class DailyPlanItemUpdateRequest(BaseModel):
-    status: str
+    status: Literal["pending", "completed", "skipped"]

@@ -24,6 +24,7 @@ def _to_response(db: Session, plan: DailyPlan) -> DailyPlanResponse:
         id=plan.id,
         plan_date=plan.plan_date,
         point_budget=plan.point_budget,
+        subject_id=plan.generated_reason.get("subject_id"),
         status=plan.status,
         items=[DailyPlanItemRead.model_validate(i) for i in items],
     )
@@ -34,7 +35,7 @@ def generate_plan(
     payload: GeneratePlanRequest, db: Session = Depends(get_db), user: User = Depends(get_current_user)
 ) -> DailyPlanResponse:
     plan = generate_daily_plan(
-        db, user_id=user.id, subject_id=payload.subject_id, plan_date=date.today()
+        db, user_id=user.id, subject_id=payload.subject_id, plan_date=date.today(), study_minutes=payload.study_minutes
     )
     db.commit()
     db.refresh(plan)
@@ -67,6 +68,9 @@ def update_plan_item(
 
     item.status = payload.status
     db.add(item)
+    db.flush()
+    from app.services.planner.plan_status import update_plan_status
+    update_plan_status(db, plan)
     db.commit()
     db.refresh(plan)
     return _to_response(db, plan)

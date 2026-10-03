@@ -1,30 +1,43 @@
 "use client";
 
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { DashboardSubjectSummary, generateDailyPlan } from "@/lib/api";
+import { useApiToken } from "@/lib/hooks/useApiToken";
 import { PillButton } from "@/components/kit/PillButton";
 
-/** Visibly present but honestly non-functional - there's no backend support
- * yet for regenerating a plan against a different time budget. Shown with
- * an explanatory tooltip rather than hidden, per the redesign brief's
- * "regenerate for less time" ask. Uses aria-disabled (not the native
- * `disabled` attribute) so it stays hoverable/focusable for the tooltip. */
-export function RegenerateTimeBudgetControl() {
-  return (
-    <Tooltip>
-      <TooltipTrigger
-        render={
-          <PillButton
-            variant="secondary"
-            size="sm"
-            aria-disabled="true"
-            className="cursor-not-allowed opacity-60"
-            onClick={(e) => e.preventDefault()}
-          >
-            Regenerate for less time
-          </PillButton>
-        }
-      />
-      <TooltipContent>Adjusting today&apos;s plan for a shorter session isn&apos;t available yet.</TooltipContent>
-    </Tooltip>
-  );
+export function RegenerateTimeBudgetControl({ subjects }: { subjects: DashboardSubjectSummary[] }) {
+  const router = useRouter();
+  const token = useApiToken();
+  const [subjectId, setSubjectId] = useState(subjects[0]?.subject_id ?? 0);
+  const [minutes, setMinutes] = useState(10);
+  const [open, setOpen] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  async function regenerate() {
+    setBusy(true);
+    setError(null);
+    setMessage(null);
+    try {
+      await generateDailyPlan(subjectId, token, minutes);
+      setMessage("Plan updated. Your completed work is preserved.");
+      router.refresh();
+    } catch {
+      setError("Couldn't update your plan. Please try again.");
+    } finally { setBusy(false); }
+  }
+
+  return <div className="relative">
+    <PillButton variant="secondary" size="sm" aria-expanded={open} disabled={!subjects.length} onClick={() => setOpen(!open)}>Adjust today&apos;s time</PillButton>
+    {open && <div className="absolute left-0 z-20 sm:right-0 sm:left-auto mt-3 w-72 space-y-4 rounded-md border border-border bg-card p-5 shadow-lift">
+      <p className="text-sm leading-relaxed text-muted-foreground">Set today’s total time for one course. Finished work stays; extra pending tasks are marked skipped.</p>
+      <label className="block text-sm">Course<select value={subjectId} onChange={e => setSubjectId(Number(e.target.value))} disabled={busy} className="mt-1 w-full rounded border border-input bg-background p-2">{subjects.map(subject => <option key={subject.subject_id} value={subject.subject_id}>{subject.subject_name}</option>)}</select></label>
+      <label className="block text-sm">Time today<select value={minutes} onChange={e => setMinutes(Number(e.target.value))} disabled={busy} className="mt-1 w-full rounded border border-input bg-background p-2">{[5, 10, 20, 30, 45, 60].map(value => <option key={value} value={value}>{value} minutes</option>)}</select></label>
+      <PillButton disabled={busy} onClick={() => void regenerate()}>{busy ? "Updating…" : "Update this course"}</PillButton>
+      {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+      {message && <p role="status" className="text-sm text-blue">{message}</p>}
+    </div>}
+  </div>;
 }

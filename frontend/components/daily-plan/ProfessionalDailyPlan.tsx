@@ -29,7 +29,7 @@ export function ProfessionalDailyPlan({
         actions={
           plans.length > 0 ? (
             <>
-              <RegenerateTimeBudgetControl />
+              <RegenerateTimeBudgetControl subjects={enrolledSubjects} />
               <GenerateTodayPlanButton subjects={enrolledSubjects} />
             </>
           ) : undefined
@@ -45,7 +45,7 @@ export function ProfessionalDailyPlan({
       ) : (
         <div className="space-y-10">
           {plans.map((plan) => {
-            const subjectId = plan.items[0]?.subject_id;
+            const subjectId = plan.subject_id ?? plan.items[0]?.subject_id;
             const examDate = subjectId ? examDateBySubjectId[subjectId] : null;
             return (
               <section key={plan.id} className="space-y-4">

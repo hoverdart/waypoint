@@ -162,6 +162,9 @@ def submit_practice_session(
     if item is not None:
         item.status = "completed"
         db.add(item)
+        db.flush()
+        from app.services.planner.plan_status import update_plan_status
+        update_plan_status(db, db.get(DailyPlan, item.daily_plan_id))
 
     return session
 

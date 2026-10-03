@@ -83,6 +83,10 @@ def test_generate_daily_plan_end_to_end(db_session):
     db_session.add_all(topics)
     db_session.flush()
 
+    from tests.factories import make_mcq_question
+    for topic in topics:
+        make_mcq_question(db_session, subject.id, unit.id, topic.id)
+
     # One topic is already well-known; the rest are untouched.
     db_session.add(
         TopicMastery(

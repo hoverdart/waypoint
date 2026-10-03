@@ -1,10 +1,10 @@
 import { apiFetch, TokenSource } from "./client";
 import { DailyPlan, PlanItemStatus } from "./types";
 
-export function generateDailyPlan(subjectId: number, token: TokenSource): Promise<DailyPlan> {
+export function generateDailyPlan(subjectId: number, token: TokenSource, studyMinutes?: number): Promise<DailyPlan> {
   return apiFetch<DailyPlan>("/daily-plan/generate", {
     method: "POST",
-    body: { subject_id: subjectId },
+    body: { subject_id: subjectId, ...(studyMinutes !== undefined ? { study_minutes: studyMinutes } : {}) },
     token,
   });
 }

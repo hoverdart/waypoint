@@ -188,6 +188,7 @@ export interface DailyPlanItem {
 
 export interface DailyPlan {
   id: number;
+  subject_id?: number | null;
   plan_date: string;
   point_budget: number;
   status: string;
