@@ -425,3 +425,10 @@
 - Public-domain language and historical context checked against https://www.loc.gov/exhibits/creating-the-united-states/peaceful-transition.html and the Library of Congress Jefferson collections. Questions distinguish conciliatory rhetoric from proof of unanimity and ask for evidence of institutional continuity during partisan succession.
 - U.S. History now has 133 questions across 60 topics; normal seed totals are 573 questions across 336 topics. Remaining Period 4 topic mapping/depth, non-text evidence, later periods, and history FRQ workflows remain outstanding. Overall goal remains active.
 - Affected areas: backend content/curriculum/tests and docs. All 289 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.
+
+### Expansion milestone 36 — Actionable topic depth audit
+
+- Previous goal turn classified as progress: early-republic questions were tested and pushed. Expanded the existing content audit with ordered per-topic question counts, curriculum codes, difficulty levels, stimulus-group counts, question types, and explicit depth-gap flags. Added reporting of questions assigned to nonexistent curriculum topics.
+- Ran the audit against the current history bank: 133 questions, 60 topics, 37 topics below three questions and 37 lacking difficulty variety. Four legacy Period 4 topics still lack explicit CED mappings. These findings confirm the bank is not comprehensive and identify concrete work beyond aggregate counts.
+- Added fixture-based tests for ordering, absent metadata, unmapped questions, shared stimuli, and depth flags plus a live-bank consistency test. All 291 backend tests pass. Affected areas: backend audit tooling/tests and this context; no frontend or content-count changes.
+- Next: fill missing Period 4 framework areas and deepen legacy topics, then later periods and representative FRQ/exam support. Overall goal remains active.

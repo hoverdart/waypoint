@@ -17,7 +17,27 @@ def audit_bank(units, questions):
     by_topic_difficulty = {topic: {q['difficulty'] for q in questions if (q['unit_name'], q['topic_name']) == topic} for topic in topics}
     stimuli = {tag for q in questions for tag in q.get('skill_tags', []) if tag.startswith('stimulus:')}
     formats = Counter(tag.removeprefix('format:') for q in questions for tag in q.get('skill_tags', []) if tag.startswith('format:'))
+    topic_details = []
+    for unit in units:
+        for topic in sorted(unit['topics'], key=lambda t: t.get('display_order', 0)):
+            key = (unit['name'], topic['name'])
+            entries = [q for q in questions if (q['unit_name'], q['topic_name']) == key]
+            topic_details.append({
+                'unit': key[0], 'topic': key[1],
+                'curriculum_codes': sorted(t.removeprefix('ced:') for t in topic.get('skill_tags', []) if t.startswith('ced:')),
+                'questions': len(entries),
+                'difficulty_levels': sorted(by_topic_difficulty[key]),
+                'stimulus_groups': len({t for q in entries for t in q.get('skill_tags', []) if t.startswith('stimulus:')}),
+                'question_types': dict(Counter(q['type'] for q in entries)),
+                'needs_more_questions': len(entries) < 3,
+                'needs_difficulty_variety': len(by_topic_difficulty[key]) < 2,
+            })
     return {
+        'topic_details': topic_details,
+        'unmapped_question_topics': [
+            {'unit': key[0], 'topic': key[1], 'questions': count}
+            for key, count in sorted(mapped.items()) if key not in topics
+        ],
         'units': len(units), 'topics': len(topics), 'questions': len(questions),
         'mcq': sum(q['type'] == 'mcq' for q in questions),
         'frq': sum(q['type'] == 'frq' for q in questions),
