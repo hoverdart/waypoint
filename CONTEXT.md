@@ -390,3 +390,10 @@
 - Public-domain excerpt checked against the Yale Avalon transcription at https://avalon.law.yale.edu/19th_century/ajveto01.asp; institutional context checked with Senate history and National Archives Bank War resources. Questions distinguish Jackson’s political justification from neutral financial evidence and ask what records support claims about executive authority.
 - U.S. History now has 117 questions across 57 topics; normal seed totals are 557 questions across 333 topics. Nullification, broader Period 4 framework/depth, non-text evidence, later periods, and history FRQ workflows remain outstanding. Overall goal remains active.
 - Affected areas: backend content/tests and docs. All 284 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.
+
+### Expansion milestone 31 — Nullification and compromise
+
+- Previous goal turn classified as progress: Bank War questions were tested and pushed. Added four original nullification questions under CED 4.8, with an explicitly labeled instructional summary referenced to https://guides.loc.gov/nullification-proclamation.
+- Questions distinguish a tariff concession from acceptance of nullification, compare Jackson’s selective use of federal power, and reject claims that a temporary settlement ended sectional conflict permanently. Each option includes a rationale.
+- U.S. History now has 121 questions across 57 topics; normal seed totals are 561 questions across 333 topics. Broader Period 4 framework/depth, non-text evidence, later periods, and history FRQ workflows remain outstanding. Overall goal remains active.
+- Affected areas: backend content/tests and docs. All 285 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.
