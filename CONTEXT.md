@@ -971,3 +971,11 @@
 - Backend lesson content/router/tests and history documentation changed; frontend unchanged. Counts remain 765 questions; guided lessons now total 50 (49 English Language and one history). User AGENTS.md edits excluded.
 - Verification: all 391 backend tests passed. New integration test seeds actual history content, checks the curriculum-linked practice target, verifies wrong-answer retry and completion persistence, prevents answer/feedback leakage in lesson fetches, and checks user isolation. Existing English target/availability and revision/security tests remain green. Scoped whitespace checks passed.
 - This is the first history lesson, not a full history learning path. Other history units, richer question formats, writing/exam workflows, remaining courses, and broader learning progression remain unfinished. Goal remains active.
+
+### Expansion milestone 106 — Source purpose and implementation lessons
+
+- Previous goal turn classified as progress: the first history lesson and curriculum-linked practice were tested and pushed as 7ba0b89. Added guided lessons for Period 2 source purpose and Period 8 legal change versus implementation, linked to topics 2.3 and 8.6.
+- Rechecked the Mayflower Compact through Yale Avalon and Brown through the National Archives. Original explanations distinguish colonial association from independence or universal participation, and judicial rulings from observed institutional outcomes. Worked examples and three-option checks provide individual corrective feedback.
+- Reused existing lesson/progress APIs and frontend. Backend content/tests and history documentation changed; question count remains 765. There are now 52 guided lessons: 49 English Language and three history. User AGENTS.md edits excluded.
+- Verification: all 393 backend tests passed. Parameterized actual-seed integration coverage verifies each history lesson's topic target, retry feedback, completion and user isolation. Existing authorization, revision, availability and English lesson checks remain passing. Scoped whitespace checks passed.
+- Single introductory lessons are not full unit learning sequences. Remaining history topics, visual evidence, writing/exam workflows, other AP courses, and deeper learning progression remain unfinished. Goal remains active.

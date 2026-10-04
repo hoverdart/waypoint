@@ -201,8 +201,8 @@ def test_every_seeded_english_lesson_has_matching_mcq_practice(client, db_sessio
     assert count == 49
 
 
-def test_history_lesson_targets_curriculum_and_persists_owned_progress(client, db_session):
-    from app.content.lessons import HISTORY_DEMOGRAPHY
+@pytest.mark.parametrize('order,tag,skill', [(2, 'ced:2.3', 'sourcing'), (8, 'ced:8.6', 'comparison'), (9, 'ced:9.5', 'claims-evidence')])
+def test_history_lesson_targets_curriculum_and_persists_owned_progress(client, db_session, order, tag, skill):
     from app.models.subject import Subject, Unit, Topic
     from scripts.seed import seed_subject
     from scripts.seed_data.subjects import SUBJECTS
@@ -211,20 +211,20 @@ def test_history_lesson_targets_curriculum_and_persists_owned_progress(client, d
     other = make_user(db_session, 'history-other', 'history-other@example.com')
     db_session.commit()
     subject = db_session.exec(select(Subject).where(Subject.ap_exam_code == 'us-history')).one()
-    unit = db_session.exec(select(Unit).where(Unit.subject_id == subject.id, Unit.display_order == 9)).one()
+    unit = db_session.exec(select(Unit).where(Unit.subject_id == subject.id, Unit.display_order == order)).one()
     path = f'/units/{unit.id}/lessons'
     headers = auth_header(user.auth_provider_id)
-    lesson = HISTORY_DEMOGRAPHY[0]
+    lesson = lessons_for('us-history', order)[0]
     row = client.get(path, headers=headers).json()[0]
     assert not {'correct', 'feedback', 'practice_tag'} & row.keys()
-    assert row['skill'] == 'claims-evidence'
+    assert row['skill'] == skill
     assert not row['completed']
     topic = db_session.get(Topic, row['practice_topic_ids']['mcq'])
-    assert topic.unit_id == unit.id and 'ced:9.5' in topic.skill_tags
-    for option in [0, 2, 1]:
+    assert topic.unit_id == unit.id and tag in topic.skill_tags
+    for option in [i for i in range(3) if i != lesson.correct] + [lesson.correct]:
         result = client.post(f'{path}/{lesson.slug}/check', headers=headers,
                              json={'option': option, 'revision': 1})
-        assert result.json() == {'correct': option == 1, 'feedback': lesson.feedback[option]}
-        assert client.get(path, headers=headers).json()[0]['completed'] == (option == 1)
+        assert result.json() == {'correct': option == lesson.correct, 'feedback': lesson.feedback[option]}
+        assert client.get(path, headers=headers).json()[0]['completed'] == (option == lesson.correct)
     assert not client.get(path, headers=auth_header(other.auth_provider_id)).json()[0]['completed']
-    assert lessons_for('us-history', 8) == ()
+    assert lessons_for('us-history', 7) == ()

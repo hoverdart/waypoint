@@ -158,4 +158,13 @@ Period 9 now includes a guided demographic-evidence lesson with explanation,
 a worked Census example, a three-option check, individual feedback, and versioned
 per-user completion. Its practice target uses topic tag `ced:9.5`; existing
 English lessons continue using `ap-skill:` mappings. Completion is a learning
-check, not a mastery score. Other history units still need lesson sequences.
+check, not a mastery score. Periods 2 and 8 also have introductory source-purpose and legal-implementation
+lessons, respectively. These three single lessons do not yet form full unit
+sequences; other history units still need guided lessons.
+
+The Period 2 lesson uses the [Mayflower Compact transcription](https://avalon.law.yale.edu/17th_century/mayflower.asp)
+to distinguish local association, royal loyalty, and claims about participation.
+The Period 8 lesson uses the [National Archives Brown record](https://www.archives.gov/milestone-documents/brown-v-board-of-education)
+to distinguish constitutional change from local implementation. Each includes
+original instruction, a worked example, a check with specific feedback, and a
+curriculum-linked practice target.

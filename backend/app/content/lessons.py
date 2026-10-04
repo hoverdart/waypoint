@@ -757,7 +757,8 @@ QUALIFIED_ARGUMENTS = (
 
 def lessons_for(code: str, unit_order: int) -> tuple[Lesson, ...]:
     if code == "us-history":
-        return HISTORY_DEMOGRAPHY if unit_order == 9 else ()
+        return {2: HISTORY_SOURCE_PURPOSE, 8: HISTORY_IMPLEMENTATION,
+                9: HISTORY_DEMOGRAPHY}.get(unit_order, ())
     if code != "english-language":
         return ()
     return {1: FOUNDATIONS, 2: AUDIENCE_AND_THESIS, 3: REASONING_AND_DEVELOPMENT,
@@ -782,5 +783,40 @@ HISTORY_DEMOGRAPHY = (
         options=("Twelve percent of the population immigrated during 2000", "The foreign-born share rose by four percentage points", "The region received more immigrants than any other region"),
         feedback=("The figure describes residents at the census date, including people who arrived earlier.", "Yes. Subtracting 8 from 12 gives four percentage points; the figures do not establish arrivals or comparisons with other regions.", "That comparison requires evidence from other regions, which the source does not provide."),
         correct=1,
+    ),
+)
+
+
+HISTORY_SOURCE_PURPOSE = (
+    Lesson(
+        slug="source-purpose-and-limits", title="Explain a document's purpose and limits",
+        skill="sourcing", practice_tag="ced:2.3",
+        objective="Connect a document's purpose to a supported historical claim without inventing participation rights.",
+        explanation=(
+            "Start with the document's creator, setting, audience, and intended action. A governing agreement can tell you what its signers promised and how they justified authority. Its existence alone does not establish how every inhabitant participated in government.",
+            "Explain why the source's situation matters to your claim. Naming a date or saying that a document is biased is not enough. Identify the commitment or perspective visible in its wording, then explain what it helps establish and what needs corroboration.",
+        ),
+        example="The Mayflower Compact (1620) describes its signers as loyal subjects of King James while agreeing to form a civil political association for collective order. Original summary based on Yale's Avalon transcription.",
+        walkthrough="The agreement supports a claim about local institution-building within an English colonial setting. Its expression of loyalty cautions against treating it as a declaration of independence. Its collective language does not establish voting rights for every person affected by colonial government.",
+        prompt="A historian uses the compact to argue that the settlers organized local government. Which extension of that argument requires additional evidence?",
+        options=("The agreement expressed a commitment to collective order", "The signers described themselves as subjects of the king", "All inhabitants had equal access to voting and officeholding"),
+        feedback=("The agreement's stated purpose directly supports collective ordering.", "The description of royal loyalty appears in the document itself.", "Yes. A claim about everyone's participation requires evidence of eligibility and actual practice, beyond the signers' agreement."), correct=2,
+    ),
+)
+
+HISTORY_IMPLEMENTATION = (
+    Lesson(
+        slug="rights-and-implementation", title="Separate a legal change from its implementation",
+        skill="comparison", practice_tag="ced:8.6",
+        objective="Compare a constitutional ruling with evidence about institutions and lived outcomes.",
+        explanation=(
+            "A legal decision establishes a ruling about rights or authority. It is important evidence of institutional change, but it is not a direct measurement of every institution's subsequent behavior. Distinguish what the decision required from how, when, and where it was implemented.",
+            "Build the comparison with sources suited to each question. Read a judicial opinion for its reasoning and scope; examine enrollment records, local orders, enforcement actions, and community accounts for implementation. Resistance does not mean the ruling never occurred, and the ruling does not mean resistance immediately ended.",
+        ),
+        example="Brown v. Board of Education (1954) held state-sanctioned segregation in public schools unconstitutional under the Fourteenth Amendment. Disputes and resistance over implementation followed. Original summary based on the National Archives' Brown milestone document.",
+        walkthrough="A historian can identify a major constitutional change while also explaining uneven implementation. School records across places and years help assess institutional change; testimony can illuminate experiences that enrollment totals alone miss.",
+        prompt="Which evidence best tests whether a particular district changed enrollment practices after Brown?",
+        options=("District enrollment and assignment records before and after the ruling, checked against enforcement records", "The date of the Supreme Court decision by itself", "A later commemorative speech praising the decision without discussing the district"),
+        feedback=("Yes. Local records over time address actual practices; enforcement evidence helps explain their timing and limits.", "The date establishes chronology, not the district's response.", "Commemoration can reveal later memory, but this speech does not establish the district's enrollment practices."), correct=0,
     ),
 )
