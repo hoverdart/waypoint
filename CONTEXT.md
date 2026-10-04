@@ -297,3 +297,11 @@
 - Verified the short public-domain excerpt against the National Archives transcription at https://www.archives.gov/milestone-documents/northwest-ordinance. Questions cover interpretation, contextualization, argumentation, and corroboration across difficulties 2–4, with individual option explanations. No AP exam questions were copied.
 - U.S. History now has 70 questions across 47 topics; total normal seed content is 510 questions across 323 topics. Period 3 and wider course depth remain incomplete; the overall expansion goal remains active.
 - Affected areas: backend content/curriculum/tests and delivery documentation. Verification: all 261 backend tests pass, including valid answer keys, provenance, mappings, and idempotent seeding. Frontend unchanged. Next: remaining Period 3 framework areas and varied non-text sources, then later periods and current-format FRQ support.
+
+### Expansion milestone 18 — Confederation finances and ratification
+
+- Previous goal turn classified as progress: western territorial questions were tested and pushed. Added eight original questions and two Period 3 topics (CED 3.7 and 3.8), preserving the combined legacy topic and existing IDs.
+- Primary excerpts verified against National Archives transcriptions of the Articles of Confederation and the 1789 resolution proposing amendments. Questions distinguish state revenue collection from federal authority, connect institutional weaknesses to constitutional change, and analyze ratification concerns without treating promised protections as proof of universal enforcement.
+- U.S. History now contains 78 questions across 49 topics; normal seed totals are 518 questions across 325 topics. Period 3 still needs missing framework areas and broader evidence formats. Other remaining courses and history FRQ workflows remain outstanding; the overall goal is active.
+- Affected areas: backend curriculum/content/tests and documentation. All 262 backend tests pass, including the new provenance, answer-key, topic-code and schema validations plus idempotent reseeding. Changed-file whitespace check passes. Frontend unchanged.
+- References: https://www.archives.gov/milestone-documents/articles-of-confederation and https://www.archives.gov/founding-docs/bill-of-rights-transcript. No copyrighted AP questions imported.

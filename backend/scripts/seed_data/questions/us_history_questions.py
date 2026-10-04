@@ -689,3 +689,5 @@ from .us_history.period_three_founding import QUESTIONS as PERIOD_THREE_FOUNDING
 QUESTIONS += PERIOD_THREE_FOUNDING
 from .us_history.period_three_expansion import QUESTIONS as PERIOD_THREE_EXPANSION
 QUESTIONS += PERIOD_THREE_EXPANSION
+from .us_history.period_three_ratification import QUESTIONS as PERIOD_THREE_RATIFICATION
+QUESTIONS += PERIOD_THREE_RATIFICATION

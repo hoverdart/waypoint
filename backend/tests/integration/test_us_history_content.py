@@ -43,7 +43,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 70
+    assert len(questions) == 78
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -94,3 +94,23 @@ def test_western_expansion_source_set_validates_and_uses_distinct_skills():
         assert 'https://www.archives.gov/milestone-documents/northwest-ordinance' in q['prompt']
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+
+
+def test_confederation_and_ratification_sets_have_valid_keys_and_topic_alignment():
+    from collections import Counter
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.seed_data.questions.us_history.period_three_ratification import QUESTIONS
+    assert len(QUESTIONS) == 8
+    assert set(Counter(q['topic_name'] for q in QUESTIONS).values()) == {4}
+    assert {q['difficulty'] for q in QUESTIONS} == {2, 3, 4}
+    topics = {t['name']: t for t in UNITS[2]['topics']}
+    for q in QUESTIONS:
+        assert q['prompt'].startswith('Primary excerpt:')
+        assert 'Source reference: https://www.archives.gov/' in q['prompt']
+        code = next(t for t in q['skill_tags'] if t.startswith('ced:'))
+        assert code in topics[q['topic_name']]['skill_tags']
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+    for code in ('ced:3.7', 'ced:3.8'):
+        assert {q['correct_answer'] for q in QUESTIONS if code in q['skill_tags']} == set('ABCD')

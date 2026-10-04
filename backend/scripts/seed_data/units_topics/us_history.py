@@ -359,3 +359,12 @@ UNITS[2]['topics'].append({
     'description': 'Analyze territorial government, western migration, and competing claims to land and political authority.',
     'skill_tags': ['contextualization', 'sourcing', 'ced:3.12'], 'display_order': 8,
 })
+
+UNITS[2]['topics'] += [
+    {'name': 'Government Under the Articles of Confederation',
+     'description': 'Explain confederation institutions, fiscal limitations, and debates about state sovereignty.',
+     'skill_tags': ['causation', 'comparison', 'ced:3.7'], 'display_order': 9},
+    {'name': 'Constitutional Convention and Ratification',
+     'description': 'Analyze constitutional compromises, competing arguments over ratification, and demands for a bill of rights.',
+     'skill_tags': ['argumentation', 'sourcing', 'ced:3.8'], 'display_order': 10},
+]
