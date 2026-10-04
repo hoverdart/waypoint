@@ -64,7 +64,7 @@ def test_expanded_science_and_history_cover_every_topic(module, count):
     assert len(questions) == count
 
 
-def test_all_six_subjects_seed_and_reseed_without_changing_ids(db_session):
+def test_all_available_subjects_seed_and_reseed_without_changing_ids(db_session):
     for subject in SUBJECTS:
         seed_subject(db_session, subject)
     question_ids = {q.id for q in db_session.exec(select(Question)).all()}
@@ -73,7 +73,9 @@ def test_all_six_subjects_seed_and_reseed_without_changing_ids(db_session):
         seed_subject(db_session, subject)
     assert {q.id for q in db_session.exec(select(Question)).all()} == question_ids
     assert {o.id for o in db_session.exec(select(QuestionOption)).all()} == option_ids
-    assert len(question_ids) == 279
+    assert len(question_ids) == 477
+    assert SUBJECTS[0]['ap_exam_code'] == 'english-language'
+    assert len(SUBJECTS) == 7
 
 
 @pytest.mark.parametrize("module,unit_count,question_count", [("psychology", 5, 59), ("computer_science_a", 4, 50)])

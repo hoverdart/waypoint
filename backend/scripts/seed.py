@@ -26,6 +26,7 @@ from scripts.seed_data.badges import BADGES
 from scripts.seed_data.subjects import SUBJECTS
 
 SUBJECT_MODULES = {
+    "english-language": ("units_topics.english_language", "questions.english_language_questions"),
     "calculus-ab": ("units_topics.calculus_ab", "questions.calculus_ab_questions"),
     "biology": ("units_topics.biology", "questions.biology_questions"),
     "psychology": ("units_topics.psychology", "questions.psychology_questions"),

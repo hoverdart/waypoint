@@ -44,7 +44,7 @@ def test_coverage_report_exposes_missing_depth_instead_of_equating_counts_with_c
     assert coverage['topics_without_difficulty_variety'] > 0
     courses = report()
     assert len(courses) == 43
-    assert courses[0]['status'] == 'in_development'
+    assert courses[0]['status'] == 'live_expanded_bank'
     assert any(c['status'] == 'not_started' for c in courses)
 
 

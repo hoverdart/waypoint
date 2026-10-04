@@ -38,11 +38,7 @@ def report():
             unit_module, question_module = SUBJECT_MODULES[code]
             units = importlib.import_module(f'scripts.seed_data.{unit_module}').UNITS
             questions = importlib.import_module(f'scripts.seed_data.{question_module}').QUESTIONS
-            row.update(status='live_bank_requires_depth_review', coverage=audit_bank(units, questions))
-        elif code == 'english-language':
-            from scripts.seed_data.units_topics.english_language import UNITS
-            from scripts.seed_data.questions.english_language_questions import QUESTIONS
-            row.update(status='in_development', coverage=audit_bank(UNITS, QUESTIONS))
+            row.update(status='live_expanded_bank' if code == 'english-language' else 'live_bank_requires_depth_review', coverage=audit_bank(units, questions))
         rows.append(row)
     return rows
 

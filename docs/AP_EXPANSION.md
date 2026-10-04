@@ -1,6 +1,7 @@
 # Comprehensive AP expansion
 
-Status: **in progress**, starting with AP English Language and Composition.
+Status: **in progress**. English Language's expanded bank is registered for normal
+seeding and enrollment; U.S. History is next for comprehensive expansion.
 The earlier six-course delivery remains the working software foundation; it does
 not satisfy the expanded all-course content requirement.
 
@@ -72,16 +73,15 @@ checks must never claim to provide it.
   with persistent essay self-review. Standard/1.5x/2x practice time and an explicitly
   untimed inter-section break are available. These are rehearsal tools, not official
   AP score predictions or an accommodation approval system.
-- Candidate course remains outside live enrollment until content depth is ready.
-  Content depth targets are met structurally. Next: normal seed/enrollment activation
-  and full student-flow verification, then U.S. History expansion.
+- English Language is now included in normal seeding/enrollment. Content depth
+  targets are met structurally. External educator review and empirical difficulty
+  calibration have not been performed. Next: U.S. History expansion.
 
-For candidate browser verification, point `DATABASE_URL` at a disposable database
-named `waypoint_test`, `waypoint_migration_test`, or `waypoint_exam_test`, run migrations
-and the regular seed, then run `python -m scripts.seed_exam_preview` from `backend/`.
-Run the frontend Playwright suite with the same database and
-`E2E_INCLUDE_CANDIDATES=1`; real Clerk test credentials are required. The preview seed
-rejects other database names and does not change the production course registry.
+For browser verification, point `DATABASE_URL` at a disposable database, run
+migrations and `python -m scripts.seed` from `backend/`, then run the frontend
+Playwright suite with that database. Real Clerk test credentials are required.
+English Language's enrollment/exam/self-review test runs with the ordinary suite;
+the candidate-only preview script and flag are retired.
 
 Run `python -m scripts.content_audit` from `backend/` to see the current 43-course
 inventory and structural gaps. The audit separates live foundation banks, candidate

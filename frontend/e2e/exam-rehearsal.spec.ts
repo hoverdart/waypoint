@@ -2,8 +2,8 @@ import { test, expect } from "@playwright/test";
 import { clerk } from "@clerk/testing/playwright";
 import { createTestUser } from "./fixtures/testUser";
 
-test.describe("Candidate English Language exam rehearsal", () => {
-  test.skip(!process.env.CLERK_SECRET_KEY || process.env.E2E_INCLUDE_CANDIDATES !== "1", "requires real Clerk and an explicitly seeded disposable candidate database");
+test.describe("English Language exam rehearsal", () => {
+  test.skip(!process.env.CLERK_SECRET_KEY, "requires real Clerk test credentials");
   test.describe.configure({ timeout: 90_000 });
   let user: Awaited<ReturnType<typeof createTestUser>>;
   test.beforeAll(async () => { user = await createTestUser(); });

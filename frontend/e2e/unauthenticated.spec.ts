@@ -24,7 +24,7 @@ test.describe("Unauthenticated visitors", () => {
     // decorative floating signals and in the hero preview card elsewhere on
     // the page.
     const showcase = page.getByRole("region", { name: "Priority AP subjects" });
-    for (const subject of ["AP Calculus AB", "AP Biology", "AP Psychology", "AP US History", "AP Chemistry", "AP Computer Science A"]) {
+    for (const subject of ["AP English Language and Composition", "AP Calculus AB", "AP Biology", "AP Psychology", "AP US History", "AP Chemistry", "AP Computer Science A"]) {
       await expect(showcase.getByText(subject, { exact: true })).toBeVisible();
     }
   });

@@ -1,6 +1,13 @@
-"""The 6 launch-priority AP subjects, in rollout priority order."""
+"""Available courses, ordered by the verified participation ranking."""
+from .rollout import COURSE_ROLLOUT
 
 SUBJECTS = [
+    {
+        "name": "AP English Language and Composition",
+        "ap_exam_code": "english-language",
+        "description": "Rhetorical reading, purposeful revision, synthesis, and argument. Four timed rehearsals and original essay practice with rubric self-review.",
+        "display_order": 1,
+    },
     {
         "name": "AP Calculus AB",
         "ap_exam_code": "calculus-ab",
@@ -38,3 +45,8 @@ SUBJECTS = [
         "display_order": 6,
     },
 ]
+
+_priority = {code: index for index, (code, _, _) in enumerate(COURSE_ROLLOUT, start=1)}
+for _subject in SUBJECTS:
+    _subject['display_order'] = _priority[_subject['ap_exam_code']]
+SUBJECTS.sort(key=lambda subject: subject['display_order'])
