@@ -827,3 +827,6 @@ QUESTIONS += PERIOD_NINE_ECONOMY
 
 from .us_history.period_nine_technology import QUESTIONS as PERIOD_NINE_TECHNOLOGY
 QUESTIONS += PERIOD_NINE_TECHNOLOGY
+
+from .us_history.period_two_baptism import QUESTIONS as PERIOD_TWO_BAPTISM
+QUESTIONS += PERIOD_TWO_BAPTISM

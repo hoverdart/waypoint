@@ -1,6 +1,6 @@
 # U.S. History expansion
 
-Status: in progress. The live bank currently contains 315 questions, including 278 new source-based items;
+Status: in progress. The live bank currently contains 318 questions, including 281 new source-based items;
 it is not a comprehensive AP U.S. History preparation bank.
 
 ## Verified format for May 2027
@@ -93,15 +93,14 @@ rounding minimum counts up and maximum counts down. Only approved MCQs with
 unique trimmed prompts and recognized periods count; ambiguous duplicate prompts
 are excluded. This is a necessary inventory check, not a form assembler.
 
-Current shortages against the four-form period minima are Period 2: **1**,
-Period 8: **0**, and Period 9: **0**. Although the whole history bank has 294
-questions and period caps leave 243 usable MCQs toward the 220-question target,
-the per-period shortages still prevent balanced forms. An aggregate surplus
-cannot replace missing questions from required periods.
+All nine periods now meet the necessary raw inventory minima for four forms.
+The history bank has 318 questions, with 246 approved unique MCQs usable after
+period caps against the 220-question target. This does not mean four valid forms
+have been assembled: stimulus groups, skills, sources, and difficulty still need
+to be balanced within each form.
 
-The remaining raw inventory shortage is the Period 2 minimum. Period 9 still
-requires substantive expansion beyond the minimum count. Period 8 still requires broader curriculum coverage despite meeting its
-raw inventory minimum, alongside the remaining Period 7 topic gaps. Even passing this
-check will not establish stimulus-group integrity, skill balance, source variety,
-difficulty calibration, factual review, or FRQ readiness. Those remain separate
-gates before publishing representative exam forms.
+Periods 7–9 still require broader curriculum coverage despite meeting their raw
+inventory minima. The next exam gate is explicit form assembly with source-group
+integrity and skill balance, followed by historical/editorial review. Non-text
+stimuli, difficulty calibration, and FRQ readiness remain separate unmet gates
+before publishing representative exam forms.
