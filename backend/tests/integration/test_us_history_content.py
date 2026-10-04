@@ -47,7 +47,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 213
+    assert len(questions) == 219
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -867,5 +867,27 @@ def test_period_six_south_and_exclusion_items_map_and_validate():
         for q in rows:
             assert q['unit_name'] == 'Period 6: 1865-1898'
             assert f'ced:{code}' in q['skill_tags']
+            validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+                **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+
+
+def test_period_six_railroad_sets_validate_and_preserve_legacy_topic_coverage():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.content_audit import audit_bank
+    from scripts.seed_data.questions.us_history.period_six_railroads import QUESTIONS
+    from scripts.seed_data.questions.us_history_questions import QUESTIONS as ALL
+    assert len(QUESTIONS) == 6
+    report = audit_bank(UNITS, ALL)
+    for name, code, total in [('Labor and the Rise of Unions', '6.7', 4),
+                              ('Government and Economic Controversies', '6.12', 3)]:
+        rows = [q for q in QUESTIONS if q['topic_name'] == name]
+        assert len(rows) == 3
+        assert {q['difficulty'] for q in rows} == {2, 3, 4}
+        topic = next(t for t in report['topic_details'] if t['topic'] == name)
+        assert topic['questions'] == total
+        assert topic['question_curriculum_counts'] == {code: 3}
+        for q in rows:
+            assert q['unit_name'] == 'Period 6: 1865-1898'
             validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
                 **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))

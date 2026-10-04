@@ -567,3 +567,9 @@ UNITS[5]['topics'].extend([
      'description': 'Analyze exclusion, nativism, and the relationship between federal law and immigrant experiences.',
      'skill_tags': ['contextualization', 'sourcing', 'ced:6.9'], 'display_order': 6},
 ])
+
+UNITS[5]['topics'].append({
+    'name': 'Government and Economic Controversies',
+    'description': 'Evaluate conflicts over federal economic authority, regulation, and the relationship between legislation and enforcement.',
+    'skill_tags': ['causation', 'argumentation', 'ced:6.12'], 'display_order': 7,
+})
