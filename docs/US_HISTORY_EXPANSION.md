@@ -104,3 +104,18 @@ inventory minima. The next exam gate is explicit form assembly with source-group
 integrity and skill balance, followed by historical/editorial review. Non-text
 stimuli, difficulty calibration, and FRQ readiness remain separate unmet gates
 before publishing representative exam forms.
+
+### Whole-source-group gate
+
+`source_group_inventory` now checks whether each period's inventory can fill
+four separate slots within its weight bounds without splitting or reusing a
+source group. Untagged questions count as individual items. Groups with duplicate,
+unapproved, non-MCQ, cross-period, or ambiguous members are excluded rather than
+silently shortened. A dynamic-programming check permits unused groups.
+
+Current result: **Period 2 fails** despite passing the raw-count gate. Its source
+sets cannot currently make four independent four-question allocations. All other
+periods pass this necessary per-period packing check. Add substantive Period 2
+items or sets that support those allocations; do not split sources merely to
+make the arithmetic pass. Per-period feasibility still does not establish four
+complete 55-question forms or skill/source balance.

@@ -56,3 +56,62 @@ def test_current_history_bank_meets_necessary_inventory_checks_only():
     assert result['periods'][7]['shortfall_to_minimum'] == 0
     assert result['periods'][8]['shortfall_to_minimum'] == 0
     assert result['periods'][1]['shortfall_to_minimum'] == 0
+
+
+def grouped(name, sizes):
+    rows = []
+    for group, size in enumerate(sizes):
+        for i in range(size):
+            rows.append(dict(unit_name=name, prompt=f'{name}:{group}:{i}', type='mcq',
+                validation_status='approved', skill_tags=[f'stimulus:{name}:{group}']))
+    return rows
+
+
+def test_raw_counts_can_pass_while_whole_groups_cannot_fit():
+    from scripts.history_readiness import source_group_inventory
+    units = [unit('a', 100, 100)]
+    rows = grouped('a', [3, 3, 2])
+    assert history_mcq_inventory(units, rows, forms=2, questions_per_form=4)['necessary_inventory_checks_pass']
+    assert not source_group_inventory(units, rows, forms=2, questions_per_form=4)['all_periods_packable']
+
+
+def test_whole_group_packing_can_combine_and_skip_groups():
+    from scripts.history_readiness import source_group_inventory
+    result = source_group_inventory([unit('a', 100, 100)], grouped('a', [3, 2, 1, 2, 5]), forms=2, questions_per_form=4)
+    assert result['all_periods_packable']
+    assert result['periods'][0]['example_period_counts'] == [4, 4]
+
+
+def test_partial_approval_excludes_whole_source_group():
+    from scripts.history_readiness import source_group_inventory
+    rows = grouped('a', [3])
+    rows[0]['validation_status'] = 'draft'
+    result = source_group_inventory([unit('a', 100, 100)], rows, forms=1, questions_per_form=2)
+    assert not result['all_periods_packable']
+    assert result['excluded_groups'][0]['reason'] == 'ineligible_group_member'
+
+
+def test_cross_period_group_is_not_silently_split():
+    from scripts.history_readiness import source_group_inventory
+    rows = grouped('a', [2])
+    rows[1]['unit_name'] = 'b'
+    result = source_group_inventory([unit('a'), unit('b')], rows, forms=1, questions_per_form=2)
+    assert result['excluded_groups'][0]['reason'] == 'cross_period_group'
+    assert not result['all_periods_packable']
+
+
+def test_ambiguous_members_invalidate_related_groups():
+    from scripts.history_readiness import source_group_inventory
+    rows = grouped('a', [2])
+    rows[0]['skill_tags'].append('stimulus:other')
+    result = source_group_inventory([unit('a', 100, 100)], rows, forms=1, questions_per_form=1)
+    assert not result['all_periods_packable']
+    assert any(x['reason'] == 'ambiguous_group_member' for x in result['excluded_groups'])
+
+
+def test_current_bank_needs_period_two_group_combinations():
+    from scripts.history_readiness import source_group_inventory
+    from scripts.seed_data.units_topics.us_history import UNITS
+    from scripts.seed_data.questions.us_history_questions import QUESTIONS
+    result = source_group_inventory(UNITS, QUESTIONS)
+    assert [p['unit'] for p in result['periods'] if not p['whole_group_allocation_possible']] == [UNITS[1]['name']]

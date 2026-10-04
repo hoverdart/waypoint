@@ -39,3 +39,66 @@ def history_mcq_inventory(units, questions, *, forms=4, questions_per_form=55):
             and usable >= total_needed and all(not p['shortfall_to_minimum'] for p in periods),
         'limitations': 'Necessary inventory checks only. Does not assemble forms or verify stimulus-group integrity, skill balance, source diversity, difficulty, historical accuracy, or educator review.',
     }
+
+
+def source_group_inventory(units, questions, *, forms=4, questions_per_form=55):
+    """Check per-period packing without splitting/reusing source sets.
+
+    This is deliberately a separate gate: feasible period allocations do not
+    prove that combined forms have the requested length or balanced skills.
+    """
+    raw = history_mcq_inventory(units, questions, forms=forms, questions_per_form=questions_per_form)
+    known = {u['name'] for u in units}
+    prompts = Counter(q['prompt'].strip() for q in questions)
+    groups = {}
+    invalid = []
+    ambiguous_tags = set()
+    for index, q in enumerate(questions):
+        tags = sorted({t for t in q.get('skill_tags', []) if t.startswith('stimulus:')})
+        if len(tags) > 1:
+            ambiguous_tags.update(tags)
+            invalid.append({'question_index': index, 'reason': 'multiple_stimulus_groups'})
+            continue
+        identity = tags[0] if tags else f'ungrouped:{index}'
+        groups.setdefault(identity, []).append(q)
+    eligible = {name: [] for name in known}
+    for identity, members in groups.items():
+        if identity in ambiguous_tags:
+            invalid.append({'group': identity, 'reason': 'ambiguous_group_member'})
+            continue
+        periods = {q['unit_name'] for q in members}
+        if len(periods) != 1:
+            invalid.append({'group': identity, 'reason': 'cross_period_group'})
+            continue
+        period = next(iter(periods))
+        if period not in known:
+            continue
+        if not all(q['type'] == 'mcq' and q.get('validation_status') == 'approved'
+                   and prompts[q['prompt'].strip()] == 1 for q in members):
+            # Partial approval or duplicate copies must not silently truncate a set.
+            invalid.append({'group': identity, 'reason': 'ineligible_group_member'})
+            continue
+        eligible[period].append(len(members))
+    results = []
+    for period in raw['periods']:
+        low, high = period['minimum_per_form'], period['maximum_per_form']
+        sizes = eligible[period['unit']]
+        # Canonical sorted bins collapse permutations of equivalent forms.
+        states = {(0,) * forms}
+        for size in sizes:
+            updated = set(states)  # Groups may be left unused.
+            for state in states:
+                for slot in range(forms):
+                    if state[slot] + size <= high:
+                        counts = list(state)
+                        counts[slot] += size
+                        updated.add(tuple(sorted(counts)))
+            states = updated
+        allocations = sorted(state for state in states if all(low <= n <= high for n in state))
+        results.append({'unit': period['unit'], 'group_sizes': sorted(sizes),
+            'minimum_per_form': low, 'maximum_per_form': high,
+            'whole_group_allocation_possible': bool(allocations),
+            'example_period_counts': list(allocations[0]) if allocations else None})
+    return {'periods': results, 'excluded_groups': invalid,
+        'all_periods_packable': all(p['whole_group_allocation_possible'] for p in results),
+        'limitations': 'Per-period packing only; does not assemble complete forms, balance skills, or establish educational quality.'}

@@ -923,3 +923,11 @@
 - Updated the current history-readiness narrative, including stale prose counts discovered during review. Next exam-specific work is explicit balanced form assembly and source/skill checks while continuing missing curriculum and FRQ workflows.
 - Backend content/tests and delivery/history documentation changed; frontend unchanged; user AGENTS.md edits excluded. Verification: all 368 backend tests passed, including whole-bank reseeding; scoped whitespace checks passed. Added schema and whole-bank inventory-gate tests.
 - Broad coverage, non-text evidence, educational review, representative writing/exam workflows, remaining AP courses, and deeper learning features remain unfinished. Goal remains active.
+
+### Expansion milestone 100 — Whole-source-group inventory gate
+
+- Previous goal turn classified as progress: colonial-law content was tested and pushed as 49c5b34. Added a separate per-period packing check to the content audit, using canonical-bin dynamic programming to keep source sets intact and unreused while allowing unused sets.
+- The audit excludes groups containing duplicate/unapproved/non-MCQ members, cross-period assignments, or ambiguous multiple-group tags. Untagged questions remain independent single items. Output includes group sizes, period bounds, example count allocations, exclusions, and explicit limits on what the gate proves.
+- New evidence: Period 2 cannot fill four four-question slots with current whole groups even though raw counts pass. All other periods pass per-period packing. This directs the next content work toward substantive Period 2 combinations; it does not certify full-length forms, skill balance, or educational quality.
+- Backend audit/tests and history documentation changed; question counts unchanged at 758 overall and 318 history. Frontend unchanged; user AGENTS.md edits excluded. Verification: all 374 backend tests passed, including whole-bank reseeding; scoped whitespace checks passed. Tests cover raw-count false confidence, combining/skipping groups, partial approval, cross-period groups, ambiguous tags, and the actual bank limitation.
+- Representative form assembly, missing curriculum areas, non-text source diversity, writing/exam workflows, remaining AP courses, and learning progression remain unfinished. Goal remains active.
