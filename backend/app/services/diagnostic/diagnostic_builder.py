@@ -13,6 +13,7 @@ from app.services.practice.scope import validate_practice_scope
 from app.models.practice import PracticeSession
 from app.models.question import Question
 from app.models.subject import Unit
+from app.services.practice.self_review import requires_self_review
 
 PREFERRED_DIFFICULTIES = {2, 3, 4}
 
@@ -60,6 +61,8 @@ def build_diagnostic_session(
             Question.is_active == True,  # noqa: E712
             Question.validation_status == "approved",
         )).all())
+        # Essays requiring judgment cannot supply an automatic baseline.
+        candidates = [q for q in candidates if not requires_self_review(q)]
         rng.shuffle(candidates)
         # Stable ordering retains randomness within each difficulty group.
         candidates.sort(key=lambda q: q.difficulty not in PREFERRED_DIFFICULTIES)

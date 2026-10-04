@@ -137,7 +137,7 @@ SLEEP = passage_questions(passage_id='lang-b-sleep', title='Draft: A Headline Ah
         ('Details about time and groups are technical, so readers do not need them in a report.', 'This excludes the very distinction the writer argues is essential.'),
         ('Readers need every detail about groups and times because specialized vocabulary explains research.', 'This contradicts the draft’s selective approach and substitutes jargon for clarity.'),
     ]),
-    (2, '4.B', 3, 'Which sentence would best replace sentence 16 as a topic sentence for the final paragraph?', 2, [
+    (4, '2.A', 3, 'Which opening for the final paragraph would best prepare a conclusion that connects accurate reporting with public decisions?', 2, [
         ('The school board should decide the start time without consulting any additional evidence.', 'The paragraph identifies several further considerations and ends by asking what evidence a decision requires.'),
         ('The effect on grades is the only issue that should influence the start-time decision.', 'Sentence 18 expressly adds alertness, family schedules, and transport costs.'),
         ('Accurately describing uncertainty can improve a policy debate rather than prevent a decision.', 'This previews both continued consideration of the policy and the need to avoid guaranteed outcomes.'),

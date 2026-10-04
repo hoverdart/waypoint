@@ -201,7 +201,7 @@ export function PracticeSessionRoot({
         />
 
         </fieldset>
-        {question.type === "frq" && <p className="text-xs leading-relaxed text-muted-foreground">Free-response feedback uses a keyword checklist. Treat it as practice guidance, not an official AP grade.</p>}
+        {question.type === "frq" && <p className="text-xs leading-relaxed text-muted-foreground">{question.scoring_method === "self_review" ? "After submitting, compare your essay with an example and save your own rubric assessment. Essays are not automatically graded and do not change mastery." : "Free-response feedback uses a keyword checklist. Treat it as practice guidance, not an official AP grade."}</p>}
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/70 pt-5">
           <div className="flex items-center gap-1">
             <PillButton

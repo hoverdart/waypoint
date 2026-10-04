@@ -56,3 +56,9 @@ def test_predict_ap_score_bounded_1_to_5():
         for c in (0.0, 0.5, 1.0):
             score = predict_ap_score(mastery_score=m, confidence_score=c)
             assert 1 <= score <= 5
+
+
+def test_subjects_without_official_unit_weights_use_explicit_equal_weight_fallback():
+    mastery, confidence = compute_subject_mastery_from_units([(0, 0.8, 0.6), (0, 0.2, 0.4)])
+    assert mastery == pytest.approx(0.5)
+    assert confidence == pytest.approx(0.5)

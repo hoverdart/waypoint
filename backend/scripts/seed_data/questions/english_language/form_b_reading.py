@@ -19,7 +19,7 @@ MUSEUM = passage_questions(passage_id='lang-b-museum', title='Something Left to 
         ('believe that curators should hide the location of celebrated works.', 'The writer continues to value recognizable works and does not recommend concealing them.'),
         ('expect the essay to compare the monetary values of the portraits.', 'Neither the admission nor its supporting details address market values.'),
     ]),
-    (2, '3.B', 3, 'Which statement best expresses the essay’s main position?', 3, [
+    (1, '1.A', 3, 'Which change in museum practice is the curator primarily trying to encourage?', 3, [
         ('Museums should display unsigned paintings primarily to correct the prices assigned by collectors.', 'The unsigned portrait matters because it prompts inquiry, not because its market price needs correction.'),
         ('Visitors should be taught to spend the same amount of time on every work in a gallery.', 'Paragraph 4 explicitly respects brief visits and does not prescribe equal viewing time.'),
         ('Familiar images offer deeper pleasure than unfamiliar details because recognition creates confidence.', 'The essay acknowledges recognition’s value but argues that uncertainty can deepen looking.'),
@@ -161,11 +161,11 @@ BIRDS = passage_questions(passage_id='lang-b-birds', title='A Map of Where We Lo
         ('how sustained local attention can contribute information that brief visits miss.', 'Frequent familiarity may reveal changes unavailable to an occasional visiting researcher.'),
         ('how a researcher can eliminate the need to record observation effort.', 'The example does not remove the importance of measuring how often places are observed.'),
     ]),
-    (2, '3.B', 4, 'Which statement best describes the relationship between the essay’s main claim and its view of volunteer data?', 3, [
+    (5, '5.A', 4, 'Which account best describes how the discussion of volunteer observations supports the proposed changes in survey design?', 3, [
         ('The data are celebrated as valuable because collecting enough observations automatically removes bias.', 'The essay expressly warns that a large collection can preserve unequal attention.'),
         ('The data are rejected as unreliable because volunteers choose where to walk.', 'The essay improves survey design while retaining the value of volunteer contributions.'),
         ('The data are treated as useful only when contributors stop making unplanned observations.', 'The form retains room for surprises that do not fit its checkboxes.'),
-        ('The data are valued, but their interpretation must account for the circumstances in which they are gathered.', 'The essay pairs the strength of local observation with attention to sampling effort, access, and reporting burden.'),
+        ('The data are valued, but their interpretation must account for the circumstances in which they are gathered.', 'The useful local observations justify continuing the survey, while the limits of sampling and reporting explain why its design should change.'),
     ]),
     (4, '5.C', 2, 'The contrast between the first and revised maps chiefly develops the argument by', 1, [
         ('comparing two neighborhoods with identical ecological conditions.', 'Both maps concern the same survey area, and ecological equality is not established.'),

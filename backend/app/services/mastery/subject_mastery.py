@@ -35,8 +35,13 @@ def compute_subject_mastery_from_units(
     Returns (mastery_score, confidence_score) for the subject.
     """
     weight_sum = sum(w for w, _, _ in unit_scores)
-    if weight_sum <= 0:
+    if not unit_scores:
         return 0.0, 0.0
+    if weight_sum <= 0:
+        # Some AP frameworks weight skills rather than instructional units.
+        # Use an explicit equal-unit fallback, not permanent zero mastery.
+        return (sum(m for _, m, _ in unit_scores) / len(unit_scores),
+                sum(c for _, _, c in unit_scores) / len(unit_scores))
     mastery = sum(w * m for w, m, _ in unit_scores) / weight_sum
     confidence = sum(w * c for w, _, c in unit_scores) / weight_sum
     return mastery, confidence

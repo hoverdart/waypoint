@@ -9,6 +9,13 @@ vi.mock("@/components/shared/ReportQuestionDialog", () => ({ ReportQuestionDialo
 vi.mock("@/lib/api", async importOriginal => ({ ...await importOriginal<object>(), savePracticeDraft: save, submitPractice: submit, submitDiagnostic: diagnostic }));
 const questions: Question[] = [1, 2].map(id => ({ id, subject_id: 1, unit_id: 1, topic_id: 1, type: "mcq", difficulty: 2, prompt: `Question ${id}`, options: [{ id: id * 10, label: "A", text: `Answer ${id}` }] }));
 describe("Saved practice", () => {
+  it("explains essay self-review before submission without claiming keyword scoring", () => {
+    render(<PracticeSessionRoot sessionId={7} sessionType="frq" questions={[{ ...questions[0], type: "frq", scoring_method: "self_review", options: [] }]} />);
+    expect(screen.getByText(/Essays are not automatically graded/)).toBeVisible();
+    expect(screen.queryByText(/uses a keyword checklist/)).not.toBeInTheDocument();
+    expect(screen.getByRole("textbox", { name: "Your response" })).toBeVisible();
+  });
+
   beforeEach(() => { vi.resetAllMocks(); save.mockResolvedValue(undefined); submit.mockResolvedValue({}); });
   it("saves on next and allows returning to the selected answer", async () => {
     render(<PracticeSessionRoot sessionId={7} sessionType="mcq" questions={questions} />);

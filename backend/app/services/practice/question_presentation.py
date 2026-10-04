@@ -6,6 +6,7 @@ attributes that aren't declared fields.
 
 from sqlmodel import Session, select
 
+from app.services.practice.self_review import requires_self_review
 from app.models.question import Question, QuestionOption
 from app.schemas.practice import QuestionOptionRead, QuestionRead
 
@@ -20,6 +21,7 @@ def questions_to_reads(db: Session, questions: list[Question]) -> list[QuestionR
 
     return [
         QuestionRead(
+            scoring_method="self_review" if requires_self_review(q) else "keyword" if q.type == "frq" else "automatic",
             id=q.id,
             subject_id=q.subject_id,
             unit_id=q.unit_id,

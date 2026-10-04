@@ -25,6 +25,7 @@ class QuestionOptionRead(BaseModel):
 
 
 class QuestionRead(BaseModel):
+    scoring_method: Literal["automatic", "keyword", "self_review"] = "automatic"
     model_config = ConfigDict(from_attributes=True)
 
     id: int

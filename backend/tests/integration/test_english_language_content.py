@@ -78,12 +78,13 @@ def test_candidate_course_seeds_idempotently_and_supports_essay_review(client, d
     seed_subject(db_session, subject_data)
     assert {q.id for q in db_session.exec(select(Question)).all()} == ids
     assert {q.id for q in db_session.exec(select(QuestionOption)).all()} == option_ids
-    assert len(ids) == 93
+    assert len(ids) == 96
     subject = db_session.exec(select(Subject).where(Subject.ap_exam_code == 'english-language')).one()
     user = make_user(db_session)
     headers = auth_header(user.auth_provider_id)
     started = client.post('/practice/start', headers=headers, json={'subject_id': subject.id, 'session_type': 'frq', 'question_count': 3}).json()
     assert len(started['questions']) == 3
+    assert all(q['scoring_method'] == 'self_review' for q in started['questions'])
     answers = [{'question_id': q['id'], 'free_response_text': 'My argument and evidence.'} for q in started['questions']]
     sid = started['session_id']
     assert client.post(f'/practice/{sid}/submit', headers=headers, json={'answers': answers}).status_code == 200
@@ -111,3 +112,54 @@ def test_second_form_adds_independent_stimuli_and_valid_curriculum_mappings():
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
     assert len({q['prompt'] for q in READING + WRITING + reading + writing}) == 90
+
+
+def test_second_essay_set_is_distinct_and_uses_valid_six_point_rubrics():
+    from scripts.seed_data.questions.english_language.form_a_essays import QUESTIONS as first
+    from scripts.seed_data.questions.english_language.form_b_essays import QUESTIONS, SOURCES
+    assert not {q['prompt'] for q in first} & {q['prompt'] for q in QUESTIONS}
+    assert all(f'Source {letter} —' in SOURCES for letter in 'ABCDEF')
+    assert {tag for q in QUESTIONS for tag in q['skill_tags'] if tag.startswith('format:')} == {
+        'format:synthesis', 'format:rhetorical-analysis', 'format:argument'}
+    for q in QUESTIONS:
+        assert len(q['correct_answer'].split()) >= 350
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+
+
+def test_mock_form_skill_category_weights_match_the_published_ranges():
+    from scripts.seed_data.questions.english_language import form_a_reading, form_a_writing, form_b_reading, form_b_writing
+    # Official MCQ category ranges, not fabricated weights for spiraling units.
+    ranges = {'1': (11, 14), '2': (11, 14), '3': (13, 16), '4': (11, 14),
+              '5': (13, 16), '6': (11, 14), '7': (11, 14), '8': (11, 14)}
+    for reading, writing in ((form_a_reading, form_a_writing), (form_b_reading, form_b_writing)):
+        questions = reading.QUESTIONS + writing.QUESTIONS
+        counts = Counter(tag[len('ap-skill:')] for q in questions for tag in q['skill_tags'] if tag.startswith('ap-skill:'))
+        assert len(questions) == 45
+        for category, (minimum, maximum) in ranges.items():
+            assert minimum <= counts[category] / len(questions) * 100 <= maximum, (category, counts)
+
+
+def test_candidate_diagnostic_only_uses_mcqs_and_can_build_subject_mastery(client, db_session, monkeypatch):
+    from sqlmodel import select
+    from app.models.subject import Subject
+    from app.models.mastery import SubjectMastery
+    from app.models.question import QuestionOption
+    from scripts.seed import SUBJECT_MODULES, seed_subject
+    from tests.factories import make_user
+    from app.services.diagnostic.diagnostic_builder import build_diagnostic_session
+    from app.services.diagnostic.diagnostic_scorer import score_diagnostic
+    from app.services.practice.types import AnswerSubmission
+    monkeypatch.setitem(SUBJECT_MODULES, 'english-language', ('units_topics.english_language', 'questions.english_language_questions'))
+    seed_subject(db_session, {'name': 'AP English Language', 'ap_exam_code': 'english-language', 'display_order': 1})
+    subject = db_session.exec(select(Subject).where(Subject.ap_exam_code == 'english-language')).one()
+    user = make_user(db_session)
+    session, questions = build_diagnostic_session(db_session, user.id, subject.id, 60)
+    assert len(questions) == 60 and all(q.type == 'mcq' for q in questions)
+    answers = [AnswerSubmission(question_id=q.id, selected_option_id=db_session.exec(
+        select(QuestionOption.id).where(QuestionOption.question_id == q.id, QuestionOption.is_correct == True)
+    ).one()) for q in questions]
+    score_diagnostic(db_session, session.id, answers)
+    db_session.flush()
+    mastery = db_session.get(SubjectMastery, (user.id, subject.id))
+    assert mastery.mastery_score > 0 and mastery.confidence_score > 0

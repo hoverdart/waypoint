@@ -57,6 +57,7 @@ class TopicCandidate:
     has_frq_questions: bool = False
     has_mcq_questions: bool = True
     calibration_eligible: bool = False
+    uses_equal_unit_weights: bool = False
 
 
 @dataclass
@@ -78,7 +79,8 @@ def determine_item_type(candidate: TopicCandidate, rng: random.Random) -> str:
     if candidate.mastery_score < REVIEW_MASTERY_CEILING:
         return "review"
     if (
-        candidate.mastery_score >= CHALLENGE_MASTERY_THRESHOLD
+        not candidate.uses_equal_unit_weights
+        and candidate.mastery_score >= CHALLENGE_MASTERY_THRESHOLD
         and candidate.ap_weight_midpoint_percent >= CHALLENGE_AP_WEIGHT_THRESHOLD_PERCENT
     ):
         return "challenge"
@@ -96,7 +98,11 @@ def _score_candidate(candidate: TopicCandidate, rng: random.Random) -> tuple[flo
         topic_timer=candidate.topic_timer,
         rng=rng,
     )
-    return score_from_factors(factors), factors
+    score = score_from_factors(factors)
+    if candidate.uses_equal_unit_weights:
+        # A fallback weight must not become a claim about official frequency.
+        factors.pop("ap_unit_weight")
+    return score, factors
 
 
 def select_plan_items(
@@ -167,6 +173,9 @@ def _build_candidates(db: Session, subject_id: int, user_id: int) -> list[TopicC
         select(Topic, Unit).join(Unit, Topic.unit_id == Unit.id).where(Unit.subject_id == subject_id, Unit.is_active == True)
     ).all()
     topic_ids = [topic.id for topic, _ in rows]
+    units = {unit.id: unit for _, unit in rows}
+    equal_weights = bool(units) and all(unit.ap_weight_min + unit.ap_weight_max == 0 for unit in units.values())
+    fallback_weight = 100.0 / len(units) if equal_weights else 0.0
 
     tms_by_topic = {
         tm.topic_id: tm
@@ -212,7 +221,8 @@ def _build_candidates(db: Session, subject_id: int, user_id: int) -> list[TopicC
                 confidence_score=confidence_score,
                 retention_score=retention_score,
                 topic_timer=topic_timer,
-                ap_weight_midpoint_percent=(unit.ap_weight_min + unit.ap_weight_max) / 2.0,
+                ap_weight_midpoint_percent=fallback_weight if equal_weights else (unit.ap_weight_min + unit.ap_weight_max) / 2.0,
+                uses_equal_unit_weights=equal_weights,
                 has_frq_questions=topic.id in frq_topic_ids,
                 has_mcq_questions=topic.id in mcq_topic_ids,
                 calibration_eligible=topic.id in mcq_topic_ids and confidence_score >= CALIBRATION_CONFIDENCE_THRESHOLD,

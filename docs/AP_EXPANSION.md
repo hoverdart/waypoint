@@ -47,11 +47,15 @@ checks must never claim to provide it.
 - Two independent 45-question MCQ forms: each has three reading sets (24 questions)
   and two revision sets (21 questions), for 90 questions across ten original passages,
   levels 2–4, and individual rationales.
-- First three essays: synthesis (six sources, including data and a concept diagram),
-  rhetorical analysis, and argument; models and six-point rubric reflection.
+- Six essays across two sets: synthesis (six sources per task, including data and a
+  visual stimulus), rhetorical analysis, and argument; models and six-point rubric
+  reflection. Both MCQ forms now meet the published skill-category percentage ranges.
 - Durable, owned rubric review implemented in backend and frontend. Mixed-session
   accuracy excludes self-review responses. Anonymous, foreign, unfinished, and invalid
-  review requests are rejected.
+  review requests are rejected. Pre-submission guidance identifies the scoring method;
+  essay entry provides a word count and bounded, accessible text field. Diagnostics
+  exclude self-review essays, and courses without official unit weights use an explicit
+  equal-unit fallback for mastery and planning.
 - Candidate course remains outside live enrollment until depth and timed-exam work
   are ready. Next: additional independent forms/essay sets, close coverage gaps, and
   implement section-aware timed practice.

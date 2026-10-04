@@ -109,3 +109,11 @@ def test_admin_requires_score_level_descriptions_for_self_review(levels, valid):
     else:
         with pytest.raises(DomainError):
             validate_question_content(question)
+
+
+def test_self_review_essays_do_not_enter_automatically_scored_diagnostics(client, db_session):
+    from app.core.exceptions import DomainError
+    from app.services.diagnostic.diagnostic_builder import build_diagnostic_session
+    user, session, _, _ = prepare(db_session, client, completed=False)
+    with pytest.raises(DomainError, match='No approved questions'):
+        build_diagnostic_session(db_session, user.id, session.subject_id, 10)

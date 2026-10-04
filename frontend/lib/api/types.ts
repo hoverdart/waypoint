@@ -62,6 +62,7 @@ export interface QuestionOption {
 export type QuestionType = "mcq" | "frq";
 
 export interface Question {
+  scoring_method?: "automatic" | "keyword" | "self_review";
   id: number;
   subject_id: number;
   unit_id: number;

@@ -21,7 +21,7 @@ REPAIR = passage_questions(
         ('Whether volunteers should be prohibited from using advanced equipment', 'Safety limits support investment in the workshop; no prohibition is proposed.'),
         ('Whether to replace elected officials with technical specialists', 'The speaker addresses council members as decision makers rather than proposing to replace them.'),
     ]),
-    (6, '3.B', 3, 'Which statement best captures the passage’s central claim?', 3, [
+    (4, '1.A', 3, 'In the context of the budget hearing, which purpose most directly motivates the coordinator’s address to the council?', 3, [
         ('Public programs should be funded only when their outcomes cannot be counted.', 'The speaker accepts attendance and repair counts; uncountability is not a funding requirement.'),
         ('Repairing old possessions is always preferable to buying new ones.', 'Paragraph 3 explicitly acknowledges cases where repair is unsafe or impractical.'),
         ('New technology usually weakens relationships between generations.', 'The phone example and final welcome for new tools contradict a general rejection of technology.'),
@@ -57,7 +57,7 @@ REPAIR = passage_questions(
         ('A scientific hypothesis followed by a controlled experiment and a reported result', 'Anecdotes and analogies support a civic argument; no experiment is conducted.'),
         ('A disputed comparison, concrete examples of value, acknowledged limits, and a recommendation using a broader standard', 'These steps follow the photographs, reciprocal repairs, qualifications, discussion of measurement, and final proposal.'),
     ]),
-    (7, '7.B', 4, 'In “That outcome is difficult to count. Difficulty, however, is not evidence of absence,” the short second sentence primarily', 2, [
+    (7, '7.C', 4, 'In “That outcome is difficult to count. Difficulty, however, is not evidence of absence,” the combination of the full stop and “however” primarily', 2, [
         ('equates a lack of measurement with proof that the workshop creates trust.', 'The statement rejects one inference; it does not claim that unmeasured trust has thereby been proved.'),
         ('makes the previous sentence an admission that social benefits do not exist.', 'It explicitly distinguishes difficulty counting an outcome from its nonexistence.'),
         ('interrupts a possible inference by sharply distinguishing measurement from existence.', 'The short sentence and “however” block the leap from hard-to-count to absent.'),
@@ -185,11 +185,11 @@ TRANSLATION = passage_questions(
         ('Family members are invariably better translators than trained professionals.', 'The essay offers no comparison of family translators with professionals and acknowledges the narrator’s errors.'),
         ('A translator should avoid intervening even when wording is unclear.', 'Paragraph 3 endorses asking questions and challenging unclear official wording.'),
     ]),
-    (7, '7.C', 3, 'The colon after “Translation required movement” in paragraph 3 chiefly helps the writer', 2, [
-        ('separate two unrelated topics to create surprise.', 'The material after the colon directly explains the movement named before it.'),
-        ('indicate that the next words quote the grandmother.', 'The examples are the narrator’s explanation, not the grandmother’s quoted speech.'),
-        ('introduce concrete actions that clarify an initially figurative claim.', 'Asking, checking, and telling specify the active work meant by “movement.”'),
-        ('signal uncertainty about whether the examples actually occurred.', 'The colon introduces elaboration and does not mark doubt.'),
+    (8, '1.B', 3, 'For readers who admire fluent translators, the narrator’s admissions of personal mistakes primarily serve to', 2, [
+        ('replace their admiration with distrust of all community translation.', 'The narrator continues translating and identifies ways to improve the work, rather than urging wholesale distrust.'),
+        ('assure them that technical accuracy has little practical importance.', 'The conclusion emphasizes that inaccurate dates and warnings can have serious consequences.'),
+        ('encourage them to value attentive listening as part of competence rather than treating fluency as sufficient.', 'The narrator’s fluent but premature explanation shows why admired language skills must be paired with respect for the speaker.'),
+        ('persuade them that only a speaker’s relatives can understand a message reliably.', 'The narrator makes mistakes both as a relative and in community work; kinship is not presented as a guarantee.'),
     ]),
 ])
 
