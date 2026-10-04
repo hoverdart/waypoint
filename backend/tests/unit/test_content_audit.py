@@ -59,11 +59,11 @@ def test_audit_does_not_infer_question_coverage_from_broad_topic_mapping():
     assert unmapped['curriculum_codes_without_tagged_questions'] == []
 
 
-def test_live_reconstruction_mapping_does_not_imply_failure_of_reconstruction_items():
+def test_live_reconstruction_audit_distinguishes_tagged_sets_from_legacy_item():
     from scripts.seed_data.units_topics.us_history import UNITS
     from scripts.seed_data.questions.us_history_questions import QUESTIONS
     topic = next(t for t in audit_bank(UNITS, QUESTIONS)['topic_details'] if t['topic'] == 'Reconstruction')
     assert topic['curriculum_codes'] == ['5.10', '5.11']
-    assert topic['question_curriculum_counts'] == {'5.10': 3}
-    assert topic['curriculum_codes_without_tagged_questions'] == ['5.11']
+    assert topic['question_curriculum_counts'] == {'5.10': 3, '5.11': 3}
+    assert topic['curriculum_codes_without_tagged_questions'] == []
     assert topic['questions_without_curriculum_codes'] == 1

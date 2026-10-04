@@ -623,3 +623,11 @@
 - Questions address claims, institutional perspective, and corroborating opponents’ characterizations against Lincoln’s contemporary positions. The Civil War topic now has three tagged 5.7 items, three tagged 5.8 items, and one untagged legacy item.
 - All 318 backend tests pass, including explicit curriculum coverage and whole-bank reseeding. U.S. History now has 204 questions across 70 topics; total bank 644 questions across 346 topics. Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md edits excluded.
 - Reconstruction’s failure still needs a dedicated tagged source set. Wider election perspectives, later periods, non-text sources, history FRQ/exam support, and remaining subjects are unfinished. Overall goal remains active.
+
+### Expansion milestone 63 — Resistance to Reconstruction and enforcement
+
+- Previous goal turn classified as progress: election/secession questions were tested and pushed. Added three original questions on political intimidation and federal enforcement, tagged CED 5.11 within Reconstruction.
+- Context checked against https://www.senate.gov/artandhistory/history/common/generic/EnforcementActs.htm. Items distinguish formal rights from effective participation, analyze national enforcement, and require longitudinal evidence before claiming durable success.
+- Every Period 5 code now has explicitly tagged questions. This milestone does not establish full content coverage: Reconstruction’s collapse, including the retreat from enforcement, still requires broader treatment. Updated the audit regression to report both Reconstruction sets and its untagged legacy item accurately.
+- All 319 backend tests pass, including a whole-Period-5 item-tag coverage check and whole-bank reseeding. U.S. History has 207 questions across 70 topics; total bank 647 questions across 346 topics.
+- Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md edits excluded. Later periods, earlier depth and source diversity, non-text stimuli, history FRQ/exam support, and other subjects are unfinished. Overall goal remains active.

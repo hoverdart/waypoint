@@ -761,3 +761,5 @@ from .us_history.period_five_oregon import QUESTIONS as PERIOD_FIVE_OREGON
 QUESTIONS += PERIOD_FIVE_OREGON
 from .us_history.period_five_secession import QUESTIONS as PERIOD_FIVE_SECESSION
 QUESTIONS += PERIOD_FIVE_SECESSION
+from .us_history.period_five_enforcement import QUESTIONS as PERIOD_FIVE_ENFORCEMENT
+QUESTIONS += PERIOD_FIVE_ENFORCEMENT
