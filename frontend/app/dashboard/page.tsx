@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getDashboard, getSubject } from "@/lib/api";
+import { getDashboard, getSubject, syncUser } from "@/lib/api";
 import { getServerAuthToken } from "@/lib/auth/getServerAuthToken";
 import { DashboardView } from "@/components/dashboard/DashboardView";
 import { buildTopicNameMap } from "@/lib/planItemLabels";
@@ -8,6 +8,8 @@ export default async function DashboardPage() {
   const token = await getServerAuthToken();
   if (!token) redirect("/login");
 
+  // A returning Clerk session can outlive the local application database.
+  await syncUser(token);
   const data = await getDashboard(token);
   // The compact dashboard cards still need friendly topic labels for the next
   // route item. Fetching the enrolled subject details keeps that context out

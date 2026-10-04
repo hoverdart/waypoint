@@ -1087,3 +1087,9 @@
 - Counts remain 790 questions, 363 topics, seven available courses and 54 guided lessons. This is a functional foundation, not comprehensive AP coverage or Khan Academy/Duolingo parity. Remaining work includes history curriculum gaps and depth, writing and representative exams, other AP subjects in participation order, richer stimuli and educational review.
 - User requested stopping for now. Save and push this milestone, then pause the goal. Resume with larger course milestones rather than treating small question batches as course completion. User changes to AGENTS.md remain excluded.
 - Local restart: existing Clerk settings are in frontend/.env and backend/.env. The verified seeded database is waypoint_migration_test on localhost:55432 (local PostgreSQL data directory /tmp/waypoint-postgres). Override DATABASE_URL when launching the backend because backend/.env points at a different port. Use Node 24 for the frontend. Do not overwrite existing environment files.
+
+### Local startup follow-up — Dashboard account synchronization
+
+- Fixed a frontend-only dashboard crash when a valid Clerk session has no corresponding user in the selected application database. Dashboard now awaits the existing authenticated, idempotent sync-user API before fetching protected data, matching onboarding's existing pattern. Backend contracts unchanged.
+- Added three page regression tests covering synchronization ordering, signed-out redirect and failed synchronization. All three passed; scoped ESLint passed. Broader content expansion remains paused at the user's request.
+- Local PostgreSQL startup correction: the server was already running on port 55432. Sandboxed readiness checks incorrectly reported no response; an elevated connection verified the seeded database and latest migration. Do not start a second server or remove its live PID file.
