@@ -386,3 +386,9 @@ UNITS[2]['topics'].append({
     'description': 'Situate the imperial crisis and early republic within changing Atlantic power relationships.',
     'skill_tags': ['contextualization', 'causation', 'ced:3.1'], 'display_order': 13,
 })
+
+UNITS[2]['topics'].append({
+    'name': 'Continuity and Change in Period 3',
+    'description': 'Develop qualified arguments about political transformation and persistent social hierarchies from 1754 to 1800.',
+    'skill_tags': ['continuity-and-change', 'argumentation', 'ced:3.13'], 'display_order': 14,
+})

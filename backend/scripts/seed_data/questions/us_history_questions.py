@@ -697,3 +697,5 @@ from .us_history.period_three_identity import QUESTIONS as PERIOD_THREE_IDENTITY
 QUESTIONS += PERIOD_THREE_IDENTITY
 from .us_history.period_three_context import QUESTIONS as PERIOD_THREE_CONTEXT
 QUESTIONS += PERIOD_THREE_CONTEXT
+from .us_history.period_three_continuity import QUESTIONS as PERIOD_THREE_CONTINUITY
+QUESTIONS += PERIOD_THREE_CONTINUITY

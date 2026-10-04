@@ -327,3 +327,10 @@
 - Reference verified: https://history.state.gov/milestones/1750-1775/french-indian-war (retired historical series; used for established historical context). Questions reject reversed chronology and inevitability claims while distinguishing contributing conditions from automatic outcomes.
 - U.S. History now contains 89 questions across 52 topics; normal seed totals are 529 questions across 328 topics. Continuity/change and complete Period 3 alignment remain pending, as do later-period expansion and history FRQ workflows. Overall goal remains active.
 - Affected areas: backend content/curriculum/tests and docs. All 265 backend tests pass, including content validation and stable reseeding. Changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions copied.
+
+### Expansion milestone 22 — Uneven revolutionary change
+
+- Previous goal turn classified as progress: imperial-crisis context was tested and pushed. Added four original questions and Continuity and Change in Period 3 (CED 3.13).
+- Verified Article I, section 9 against https://www.archives.gov/founding-docs/constitution-transcript. Questions distinguish political independence from the persistence of slavery and distinguish the 1808 end of a constitutional restriction on congressional action from emancipation. Every option includes a rationale.
+- U.S. History now has 93 questions across 53 topics; normal seed totals are 533 questions across 329 topics. Period 3 still lacks distinct Revolutionary War coverage and final ordering/mapping of legacy topics. Later periods, diversified non-text evidence, and history FRQ support remain outstanding; overall goal remains active.
+- Affected areas: backend curriculum/content/tests and docs. All 266 backend tests pass; changed-file whitespace check passes. Frontend unchanged. No copyrighted AP questions imported.
