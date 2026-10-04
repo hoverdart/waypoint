@@ -43,7 +43,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 167
+    assert len(questions) == 170
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -576,3 +576,21 @@ def test_cotton_expansion_deepens_existing_topic_with_validated_items():
         assert 'ced:4.13' in q['skill_tags']
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+
+
+def test_election_set_validates_and_period_four_has_basic_topic_depth():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.content_audit import audit_bank
+    from scripts.seed_data.questions.us_history.period_four_election import QUESTIONS
+    from scripts.seed_data.questions.us_history_questions import QUESTIONS as ALL
+    assert len(QUESTIONS) == 3
+    assert {q['difficulty'] for q in QUESTIONS} == {2, 3, 4}
+    for q in QUESTIONS:
+        assert q['topic_name'] == 'The Rise of Political Parties and Democracy'
+        assert 'ced:4.7' in q['skill_tags']
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+    details = [t for t in audit_bank(UNITS, ALL)['topic_details'] if t['unit'] == UNITS[3]['name']]
+    assert details
+    assert all(not t['needs_more_questions'] and not t['needs_difficulty_variety'] for t in details)

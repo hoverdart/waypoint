@@ -511,3 +511,11 @@
 - Checked the historical mechanism against https://www.archives.gov/milestone-documents/patent-for-cotton-gin. The original summary distinguishes processing from planting and picking; items examine the scale of production, evidence connecting acreage to labor demand, and multiple causes rather than technological determinism.
 - All 302 backend tests pass, including topic-depth assertions, question validation, and whole-bank reseeding. Changed-file whitespace checks pass. U.S. History now has 167 questions across 65 topics; overall bank has 607 questions across 341 topics.
 - Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md changes excluded. The political-parties legacy topic remains shallow, and comprehensive regional society, later periods, diverse non-text sources, history FRQ/exam support, and remaining courses are unfinished. Overall goal remains active.
+
+### Expansion milestone 48 — Electoral procedure and partisan mobilization
+
+- Previous goal turn classified as progress: cotton/slavery depth additions were tested and pushed. Added three original questions to the existing political-parties topic using the 1824 electoral tally and subsequent controversy.
+- Verified context against https://www.archives.gov/education/lessons/electoral-tally and House History materials. The original summary explicitly distinguishes the allegation of a corrupt bargain from proof; questions separate plurality from majority and analyze partisan sources without either accepting them uncritically or discarding them.
+- Every stored Period 4 topic now meets the basic audit thresholds of three questions and two difficulty levels. A regression checks those thresholds alongside new-item validation. This does not certify comprehensive curriculum coverage, diverse source formats, editorial quality, or calibrated difficulty.
+- All 303 backend tests pass. U.S. History now has 170 questions across 65 topics; overall bank has 610 questions across 341 topics. Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md edits excluded.
+- Next: expand Period 5 framework and source coverage while retaining the outstanding need for earlier-period depth, non-text stimuli, history FRQ/exam workflows, and other courses. Overall goal remains active.
