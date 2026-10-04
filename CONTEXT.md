@@ -460,3 +460,10 @@
 - Revised nine distractors and rationales across the three revival questions. Alternatives now distinguish voluntary associations from established churches, revivalism from deism, cooperation from doctrinal uniformity, and direct organizational evidence from contextual evidence. Prompts, keys, and item identifiers remain unchanged.
 - Added a reseeding regression that restores revised options from stale data while preserving question and option IDs and matching every explanation to its option. All 295 backend tests pass; changed-file whitespace check passes.
 - Counts unchanged: 144 U.S. History questions / 584 total. This review covers only the revival set; other recent sets need the same scrutiny. Passing structural tests does not establish educator review or calibrated AP difficulty. Broader content and exam-workflow work remain outstanding; overall goal remains active.
+
+### Expansion milestone 41 — American literary culture
+
+- Previous goal turn classified as progress: revival distractor improvements were tested and pushed. Resumed the authorized original-content expansion and added four Emerson-based questions plus The Development of an American Culture (CED 4.9).
+- Public-domain excerpt and address context verified against https://depts.washington.edu/lsearlec/TEXTS/EMERSON/AMSCHOL.HTM. Questions address intellectual independence, scholarly audience, individual insight, and evidence of literary change. The evidence question distinguishes circulation and reception from changes in writers’ practices.
+- U.S. History now contains 148 questions across 62 topics; normal seed totals are 588 questions across 338 topics. These counts do not establish comprehensive coverage, educator review, or calibrated difficulty. Remaining Period 4 coverage, later periods, non-text stimuli, and history FRQ/exam workflows remain outstanding; overall goal remains active.
+- Affected areas: backend content/curriculum/tests and documentation. All 296 backend tests pass, including curriculum mapping, answer validation, and whole-bank idempotent seeding. Frontend unchanged. User changes to AGENTS.md remain untouched and excluded from the commit.

@@ -725,3 +725,5 @@ from .us_history.period_four_regions import QUESTIONS as PERIOD_FOUR_REGIONS
 QUESTIONS += PERIOD_FOUR_REGIONS
 from .us_history.period_four_revival import QUESTIONS as PERIOD_FOUR_REVIVAL
 QUESTIONS += PERIOD_FOUR_REVIVAL
+from .us_history.period_four_culture import QUESTIONS as PERIOD_FOUR_CULTURE
+QUESTIONS += PERIOD_FOUR_CULTURE

@@ -469,3 +469,9 @@ UNITS[3]['topics'].append({
     'description': 'Explain sectional interests, economic policy disputes, and compromises over slavery and representation.',
     'skill_tags': ['causation', 'argumentation', 'ced:4.3'], 'display_order': 11,
 })
+
+UNITS[3]['topics'].append({
+    'name': 'The Development of an American Culture',
+    'description': 'Analyze distinctive literary and artistic movements, intellectual independence, and debates over cultural authority.',
+    'skill_tags': ['contextualization', 'sourcing', 'ced:4.9'], 'display_order': 12,
+})
