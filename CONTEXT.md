@@ -504,3 +504,10 @@
 - Period 4 now maps all 14 CED codes. This is framework coverage only: legacy political-party and cotton/slavery topics still need depth, and other topics need additional stimuli and perspectives.
 - All 301 backend tests pass after correcting an accidental date replacement in an existing test fixture; no application date changed. New tests check complete Period 4 mapping and question validation. U.S. History has 164 questions across 65 topics; total bank 604 questions across 341 topics.
 - Affected areas: backend content/curriculum/tests and docs. Frontend unchanged; user AGENTS.md edits excluded. Overall goal remains active with later periods, non-text sources, history exam/FRQ workflows, and other courses outstanding.
+
+### Expansion milestone 47 — Cotton production and coerced labor
+
+- Previous goal turn classified as progress: Period 4 causation was tested and pushed. Added three original source-based questions to the existing cotton/slavery topic (CED 4.13), increasing its coverage from one to four questions without creating a replacement topic.
+- Checked the historical mechanism against https://www.archives.gov/milestone-documents/patent-for-cotton-gin. The original summary distinguishes processing from planting and picking; items examine the scale of production, evidence connecting acreage to labor demand, and multiple causes rather than technological determinism.
+- All 302 backend tests pass, including topic-depth assertions, question validation, and whole-bank reseeding. Changed-file whitespace checks pass. U.S. History now has 167 questions across 65 topics; overall bank has 607 questions across 341 topics.
+- Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md changes excluded. The political-parties legacy topic remains shallow, and comprehensive regional society, later periods, diverse non-text sources, history FRQ/exam support, and remaining courses are unfinished. Overall goal remains active.

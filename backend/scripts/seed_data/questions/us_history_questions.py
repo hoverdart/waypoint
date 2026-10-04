@@ -735,3 +735,5 @@ from .us_history.period_four_douglass import QUESTIONS as PERIOD_FOUR_DOUGLASS
 QUESTIONS += PERIOD_FOUR_DOUGLASS
 from .us_history.period_four_causation import QUESTIONS as PERIOD_FOUR_CAUSATION
 QUESTIONS += PERIOD_FOUR_CAUSATION
+from .us_history.period_four_cotton import QUESTIONS as PERIOD_FOUR_COTTON
+QUESTIONS += PERIOD_FOUR_COTTON
