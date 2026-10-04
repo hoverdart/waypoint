@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
 
 from app.db.session import get_db
+from app.content.lessons import lessons_for
 from app.content.released_exams import released_resources
 from app.models.subject import Subject, Topic, Unit
 from app.schemas.subject import SubjectDetailRead, SubjectRead, TopicRead, UnitRead, UnitWithTopicsRead
@@ -36,6 +37,7 @@ def get_subject(subject_id: int, db: Session = Depends(get_db)) -> SubjectDetail
             UnitWithTopicsRead(
                 **UnitRead.model_validate(unit).model_dump(),
                 topics=[TopicRead.model_validate(t) for t in topics],
+                lesson_count=len(lessons_for(subject.ap_exam_code, unit.display_order)),
             )
         )
 

@@ -9,6 +9,7 @@ from app.models import (  # noqa: F401
     coach,
     gamification,
     mastery,
+    lesson,
     planner,
     practice,
     question,

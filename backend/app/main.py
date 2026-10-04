@@ -14,6 +14,7 @@ from app.routers import (
     exams,
     internal,
     mastery,
+    lessons,
     onboarding,
     practice,
     question_reports,
@@ -64,6 +65,7 @@ app.include_router(daily_plan.router)
 app.include_router(practice.router)
 app.include_router(exams.router)
 app.include_router(mastery.router)
+app.include_router(lessons.router)
 app.include_router(ai.router)
 app.include_router(question_reports.router)
 app.include_router(coach.router)

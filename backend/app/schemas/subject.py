@@ -28,6 +28,7 @@ class UnitRead(BaseModel):
 
 
 class UnitWithTopicsRead(UnitRead):
+    lesson_count: int = 0
     topics: list[TopicRead] = []
 
 

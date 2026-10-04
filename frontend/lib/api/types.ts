@@ -28,6 +28,7 @@ export interface Unit {
 }
 
 export interface UnitWithTopics extends Unit {
+  lesson_count?: number;
   topics: Topic[];
 }
 

@@ -1,0 +1,46 @@
+import { test, expect } from "@playwright/test";
+import { clerk } from "@clerk/testing/playwright";
+import { createTestUser } from "./fixtures/testUser";
+
+test.describe("Guided learning", () => {
+  test.skip(!process.env.CLERK_SECRET_KEY, "requires real Clerk test credentials");
+  test.describe.configure({ timeout: 90_000 });
+  let user: Awaited<ReturnType<typeof createTestUser>>;
+  test.beforeAll(async () => { user = await createTestUser(); });
+  test.afterAll(async () => { await user?.remove(); });
+  test("read, retry, persist, resume, and apply a lesson", async ({ page }, testInfo) => {
+    const failures: string[] = [];
+    page.on("response", response => { if (response.status() >= 500) failures.push(new URL(response.url()).pathname); });
+    await page.goto("/");
+    await clerk.signIn({ page, emailAddress: user.email });
+    await page.goto("/onboarding");
+    await page.getByRole("radio", { name: /Professional/ }).click();
+    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByRole("button", { name: "AP English Language and Composition", exact: true }).click();
+    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByRole("button", { name: "Start studying" }).click();
+    await expect(page).toHaveURL(/\/dashboard/);
+    await page.goto("/subjects");
+    await page.getByText("AP English Language and Composition", { exact: true }).locator("../..").getByRole("link", { name: "Open course" }).click();
+    await page.getByRole("heading", { name: "Unit 1", exact: true }).click();
+    await page.getByRole("button", { name: "Open guided lessons" }).click();
+    await expect(page.getByRole("heading", { name: "Read the situation before the sentence" })).toBeVisible();
+    await page.getByLabel("To announce that the routes have already been approved").check();
+    await page.getByRole("button", { name: "Check understanding" }).click();
+    await expect(page.getByRole("status")).toContainText("Take another look");
+    await page.getByLabel("To gather families' practical knowledge before a decision").check();
+    await page.getByRole("button", { name: "Check understanding" }).click();
+    await expect(page.getByRole("status")).toContainText("Lesson complete");
+    await page.setViewportSize({ width: 390, height: 844 });
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    await page.screenshot({ path: testInfo.outputPath("guided-lesson-mobile.png"), fullPage: true });
+    await page.reload();
+    await page.getByRole("heading", { name: "Unit 1", exact: true }).click();
+    await page.getByRole("button", { name: "Open guided lessons" }).click();
+    await expect(page.getByText(/1 of 3 lessons completed/)).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Separate the claim from its support" })).toBeVisible();
+    await page.getByRole("button", { name: "Apply it in practice" }).click();
+    await expect(page).toHaveURL(/\/practice\/session\/\d+$/);
+    expect(failures).toEqual([]);
+  });
+});
