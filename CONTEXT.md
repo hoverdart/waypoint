@@ -798,3 +798,10 @@
 - U.S. History now has 267 questions across 78 topics; overall bank 707 questions across 354 topics. Content remains introductory: recovery programs, relief institutions, opposition, constitutional disputes, labor reform, agricultural policy, and broader lived experiences still need substantial treatment.
 - Affected areas: backend content/tests, delivery/history documentation, and CONTEXT.md. Frontend unchanged; user AGENTS.md edits excluded. Verification: all 344 backend tests and scoped whitespace checks passed, including whole-bank reseeding. Added schema and audit tests for both curriculum codes and existing-topic integration.
 - Representative history writing/exam workflows, non-text sources, other subjects in participation order, and deeper teaching/progression remain unfinished. Overall goal remains active.
+
+### Expansion milestone 84 — Mobilization and fair employment
+
+- Previous goal turn classified as progress: Depression/New Deal content was tested and pushed as 7dfed17. Added three original questions on Randolph's organizing, Executive Order 8802, contracting requirements, and evidence of implementation, tagged 7.12 within the existing World War II topic.
+- Checked National Archives Executive Order 8802 context and transcript. The set distinguishes defense employment policy from military desegregation and formal policy from workplace outcomes. Source references are visible in the questions.
+- U.S. History now has 270 questions across 78 topics; overall bank 710 questions across 354 topics. Backend content/tests and delivery/history documentation changed; frontend unchanged and user AGENTS.md edits excluded.
+- Verification: all 345 backend tests passed, including whole-bank reseeding; scoped whitespace checks passed. Tests validate content and explicitly retain unfilled tagged coverage for military developments (7.13) and postwar diplomacy (7.14). This is a limited mobilization treatment; production, women, incarceration, other minority experiences, and military/diplomatic depth remain unfinished, as do history exam/writing workflows and remaining AP courses. Goal remains active.
