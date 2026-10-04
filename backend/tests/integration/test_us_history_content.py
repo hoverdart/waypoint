@@ -47,7 +47,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 279
+    assert len(questions) == 282
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -1003,7 +1003,7 @@ def test_period_seven_expansion_and_reform_validate_and_preserve_topic_identity(
         assert topic['question_curriculum_counts'][code] == 3
     # Broad legacy mappings must not be mistaken for tagged practice coverage.
     mapped = {tag for t in UNITS[6]['topics'] for tag in t['skill_tags'] if tag.startswith('ced:')}
-    assert mapped == {f'ced:7.{n}' for n in [2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14]}
+    assert mapped == {f'ced:7.{n}' for n in [2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14]}
 
 
 def test_world_war_one_sets_validate_and_reach_existing_practice_topic():
@@ -1095,3 +1095,20 @@ def test_interwar_topic_maps_and_validates_original_practice():
     assert topic['question_curriculum_counts'] == {'7.11': 3}
     assert topic['curriculum_codes_without_tagged_questions'] == []
     assert UNITS[6]['topics'][4]['display_order'] == 5
+
+
+def test_quota_practice_validates_and_maps_to_new_cultural_conflict_topic():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.content_audit import audit_bank
+    from scripts.seed_data.questions.us_history.period_seven_quota import QUESTIONS
+    from scripts.seed_data.questions.us_history_questions import QUESTIONS as ALL
+    assert len(QUESTIONS) == 3
+    assert {q['difficulty'] for q in QUESTIONS} == {2, 3, 4}
+    for q in QUESTIONS:
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+    topic = next(t for t in audit_bank(UNITS, ALL)['topic_details'] if t['topic'] == '1920s Cultural and Political Controversies')
+    assert topic['question_curriculum_counts'] == {'7.8': 3}
+    assert topic['curriculum_codes_without_tagged_questions'] == []
+    assert UNITS[6]['topics'][5]['display_order'] == 6

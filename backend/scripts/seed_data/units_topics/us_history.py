@@ -606,3 +606,9 @@ UNITS[6]['topics'].append({
     'description': 'Examine diplomatic engagement, security commitments, and limits of peacekeeping between the world wars.',
     'skill_tags': ['causation', 'comparison', 'ced:7.11'], 'display_order': 5,
 })
+
+UNITS[6]['topics'].append({
+    'name': '1920s Cultural and Political Controversies',
+    'description': 'Analyze conflicts over national identity, immigration, religion, race, and social change in the 1920s.',
+    'skill_tags': ['contextualization', 'argumentation', 'ced:7.8'], 'display_order': 6,
+})
