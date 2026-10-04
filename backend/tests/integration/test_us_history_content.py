@@ -47,7 +47,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 192
+    assert len(questions) == 195
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -736,5 +736,20 @@ def test_period_five_regions_set_validates_and_maps_to_curriculum():
         assert q['topic_name'] == topic['name']
         assert q['unit_name'] == UNITS[4]['name']
         assert 'ced:5.5' in q['skill_tags']
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+
+
+def test_period_five_comparison_validates_and_completes_topic_code_mapping():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.seed_data.questions.us_history.period_five_comparison import QUESTIONS
+    assert {tag for t in UNITS[4]['topics'] for tag in t['skill_tags'] if tag.startswith('ced:')} == {f'ced:5.{i}' for i in range(1, 13)}
+    assert len(QUESTIONS) == 3
+    assert {q['difficulty'] for q in QUESTIONS} == {2, 3, 4}
+    for q in QUESTIONS:
+        assert q['topic_name'] == 'Comparison in Period 5'
+        assert q['unit_name'] == UNITS[4]['name']
+        assert 'ced:5.12' in q['skill_tags']
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))

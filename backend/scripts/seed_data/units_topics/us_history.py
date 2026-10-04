@@ -541,3 +541,9 @@ UNITS[4]['topics'].append({
     'description': 'Compare regional labor systems and economic development while evaluating interdependence and diverse political interests.',
     'skill_tags': ['comparison', 'sourcing', 'ced:5.5'], 'display_order': 8,
 })
+
+UNITS[4]['topics'].append({
+    'name': 'Comparison in Period 5',
+    'description': 'Compare changing institutions, legal protections, and political outcomes across the Civil War and Reconstruction.',
+    'skill_tags': ['comparison', 'argumentation', 'ced:5.12'], 'display_order': 9,
+})

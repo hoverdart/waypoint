@@ -753,3 +753,5 @@ from .us_history.period_five_context import QUESTIONS as PERIOD_FIVE_CONTEXT
 QUESTIONS += PERIOD_FIVE_CONTEXT
 from .us_history.period_five_regions import QUESTIONS as PERIOD_FIVE_REGIONS
 QUESTIONS += PERIOD_FIVE_REGIONS
+from .us_history.period_five_comparison import QUESTIONS as PERIOD_FIVE_COMPARISON
+QUESTIONS += PERIOD_FIVE_COMPARISON

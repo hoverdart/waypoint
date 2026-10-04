@@ -592,3 +592,11 @@
 - Historical context checked against https://home.nps.gov/blrv/learn/historyculture/cotton-economy.htm. The original summary distinguishes commercial interdependence from identical labor institutions; questions require separate evidence before attributing uniform political beliefs to workers or manufacturers.
 - All 314 backend tests pass, including new-content validation, period/topic mapping, and whole-bank reseeding. U.S. History has 192 questions across 69 topics; overall bank has 632 questions across 345 topics.
 - Affected areas: backend content/curriculum/tests and docs. Frontend unchanged; user AGENTS.md edits excluded. Regional social and cultural differences need additional coverage. Period 5 comparison remains unmapped, while earlier and later periods, non-text sources, history FRQ/exam support, and remaining courses remain incomplete. Overall goal remains active.
+
+### Expansion milestone 59 — Reconstruction amendment comparison
+
+- Previous goal turn classified as progress: regional differences questions were tested and pushed. Added Comparison in Period 5 (CED 5.12) and three original questions distinguishing the Thirteenth, Fourteenth, and Fifteenth Amendments.
+- Provisions checked against https://www.archives.gov/founding-docs/amendments-11-27. The summary retains the Thirteenth Amendment’s criminal-punishment exception and avoids equating the Fifteenth Amendment with universal adult suffrage. Questions also address congressional enforcement powers without assuming automatic implementation.
+- Period 5 now maps all 12 framework codes through nine stored topics, including broad legacy topics. This does not mean all codes have adequate question coverage. New tests check the mapping and validate the comparative items; all 315 backend tests pass.
+- U.S. History has 195 questions across 70 topics; total bank 635 questions across 346 topics. Affected areas: backend content/curriculum/tests and docs. Frontend unchanged; user AGENTS.md edits excluded.
+- Next priorities include Manifest Destiny, military conflict, election/secession, and failure of Reconstruction. Earlier-period depth, later periods, non-text stimuli, history FRQ/exam support, and remaining subjects are unfinished. Overall goal remains active.
