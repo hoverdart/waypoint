@@ -308,3 +308,21 @@ UNITS = [
         ],
     },
 ]
+
+# Preserve existing topic names/IDs while aligning the first period to CED 1.1–1.7.
+_period_one_existing = {topic['name']: topic for topic in UNITS[0]['topics']}
+_period_one_sequence = [
+    ('1.1', 'Contextualizing Period 1', 'Situate contact within diverse Indigenous societies and expanding Atlantic connections.', 'contextualization'),
+    ('1.2', 'Native American Societies Before European Contact', None, 'comparison'),
+    ('1.3', 'European Exploration in the Americas', None, 'causation'),
+    ('1.4', 'Columbian Exchange', None, 'causation'),
+    ('1.5', 'Labor, Slavery, and Caste in the Spanish Colonial System', None, 'comparison'),
+    ('1.6', 'Cultural Interactions Before 1607', 'Analyze negotiation, coercion, and differing perspectives in early colonial encounters.', 'sourcing'),
+    ('1.7', 'Causation in Period 1', 'Explain interacting causes and consequences of transatlantic contact.', 'causation'),
+]
+UNITS[0]['topics'] = []
+for _order, (_code, _name, _description, _skill) in enumerate(_period_one_sequence, start=1):
+    _topic = dict(_period_one_existing.get(_name, {'name': _name, 'description': _description}))
+    _topic['display_order'] = _order
+    _topic['skill_tags'] = list(dict.fromkeys([*_topic.get('skill_tags', []), _skill, f'ced:{_code}']))
+    UNITS[0]['topics'].append(_topic)

@@ -680,3 +680,6 @@ QUESTIONS = [
 
 from scripts.seed_data.questions.us_history_expansion import QUESTIONS as ADDITIONAL_QUESTIONS
 QUESTIONS.extend(ADDITIONAL_QUESTIONS)
+
+from .us_history.period_one_expansion import QUESTIONS as PERIOD_ONE_EXPANSION
+QUESTIONS += PERIOD_ONE_EXPANSION

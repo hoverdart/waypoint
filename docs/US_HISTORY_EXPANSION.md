@@ -1,6 +1,6 @@
 # U.S. History expansion
 
-Status: in progress. The live bank currently contains 37 foundation questions;
+Status: in progress. The live bank currently contains 46 questions, including nine new sourced-summary items;
 it is not a comprehensive AP U.S. History preparation bank.
 
 ## Verified format for May 2027
@@ -52,5 +52,8 @@ These are WayPoint depth targets. Counts, passing tests, and author-assigned
 ratings do not establish educator review or calibrated AP difficulty. Released
 exam archives remain external resources, with older formats identified as such.
 
-Next: inventory the complete current CED topics and begin sourced period-based
+Period 1 now maps all seven framework topic areas, with nine new questions across
+its three previously missing areas. Other periods retain coarse foundation topics.
+
+Next: inventory the remaining current CED topics and continue sourced period-based
 question sets, then implement the three free-response workflows.

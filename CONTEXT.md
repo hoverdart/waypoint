@@ -263,3 +263,12 @@
 - Added docs/US_HISTORY_EXPANSION.md with verified exam references, explicit 2027 requirements, content targets, historical-source provenance rules, and the pending MCQ/SAQ/DBQ/LEQ work. This is a roadmap, not a claim those features exist. Backend curriculum/test and root documentation are the affected areas; frontend unchanged.
 - Next: complete topic mapping and sourced question sets, then current-format free-response workflows. All-course expansion remains active and incomplete.
 - Verification: all 257 backend tests pass, including exact nine-period weights and in-place correction through normal reseeding. No frontend changes required browser checks for this milestone.
+
+### Expansion milestone 14 — Period 1 framework coverage and sourced practice
+
+- Previous turn classified as progress: corrected U.S. History weights and verified the changed 2027 exam requirements. This turn expands Period 1 from four coarse topics to all seven framework topic areas, preserving the existing four names and adding stable `ced:1.x` tags.
+- Added nine original MCQs across contextualization, cultural encounters before 1607, and causation. Stimuli are explicitly labeled instructional summaries, not fabricated primary-source quotations; prompts include verified Library of Congress/NPS research references. Questions assess evidence limits, purpose/audience, historical context, and interacting causes, with individual answer rationales.
+- Current U.S. History bank: 46 questions across 40 topics. The added three topics each have three questions at varied author-estimated difficulty. This does not complete Period 1's total depth or the other eight periods. Total normal seed: 486 questions and 316 topics across seven courses.
+- Source framework: https://apcentral.collegeboard.org/media/pdf/ap-us-history-course-at-a-glance.pdf, read alongside the previously verified fall-2026 corrections. Historical references: https://www.loc.gov/exhibits/1492/america.html and https://www.nps.gov/peco/learn/historyculture/spanish-encounters.htm. New names/descriptions are WayPoint paraphrases of topic scope.
+- Affected areas: backend curriculum, original content, seed regressions, and documentation. Next: expand the remaining period topic mappings and add authentic primary/non-text stimulus practice, followed by 2027 SAQ/DBQ/LEQ workflows.
+- Verification: all 258 backend tests pass, including exact Period 1 framework codes, valid questions/rationales, complete current-topic coverage, and stable topic/question IDs on reseeding. Frontend behavior is unchanged.
