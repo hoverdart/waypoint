@@ -47,7 +47,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 297
+    assert len(questions) == 300
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -1141,8 +1141,8 @@ def test_marshall_plan_items_validate_and_reduce_period_eight_shortfall():
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
     period = history_mcq_inventory(UNITS, ALL)['periods'][7]
-    assert period['approved_unique_mcq'] == 15
-    assert period['shortfall_to_minimum'] == 9
+    assert period['approved_unique_mcq'] == 18
+    assert period['shortfall_to_minimum'] == 6
 
 
 def test_civil_rights_sets_validate_across_two_curriculum_codes():
@@ -1176,4 +1176,20 @@ def test_veterans_benefit_items_validate_with_economic_topic_mapping():
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
     topic = next(t for t in audit_bank(UNITS, ALL)['topic_details'] if t['topic'] == 'Postwar Prosperity and Suburbanization')
     assert topic['question_curriculum_counts'] == {'8.4': 3}
+    assert topic['curriculum_codes_without_tagged_questions'] == []
+
+
+def test_vietnam_items_validate_and_map_to_existing_topic():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.content_audit import audit_bank
+    from scripts.seed_data.questions.us_history.period_eight_vietnam import QUESTIONS
+    from scripts.seed_data.questions.us_history_questions import QUESTIONS as ALL
+    assert len(QUESTIONS) == 3
+    assert {q['difficulty'] for q in QUESTIONS} == {2, 3, 4}
+    for q in QUESTIONS:
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+    topic = next(t for t in audit_bank(UNITS, ALL)['topic_details'] if t['topic'] == 'The Vietnam War and Social Movements of the 1960s-70s')
+    assert topic['question_curriculum_counts'] == {'8.8': 3}
     assert topic['curriculum_codes_without_tagged_questions'] == []
