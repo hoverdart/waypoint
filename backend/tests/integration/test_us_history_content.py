@@ -194,3 +194,40 @@ def test_revolutionary_war_questions_validate_with_visible_summary_provenance():
         assert 'not a primary-source quotation' in q['prompt']
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+
+
+def test_period_three_sequence_maps_all_codes_and_reseeds_without_replacing_topics(db_session):
+    from app.models.subject import Topic
+    from app.models.question import Question
+    expected = [
+        'Contextualizing Period 3', "The Seven Years' War (French and Indian War)",
+        'Taxation Without Representation and the Road to Revolution',
+        'Political Ideas of the Revolution', 'The American Revolutionary War',
+        'Influence of Revolutionary Ideals', "The American Revolution's Effects",
+        'Government Under the Articles of Confederation',
+        'The Articles of Confederation and the Constitution',
+        'Constitutional Convention and Ratification', 'Constitutional Structure and Federal Power',
+        'Washington, Hamilton, and the New Government', 'Developing an American Identity',
+        'Movement in the Early Republic', 'Continuity and Change in Period 3',
+    ]
+    assert [t['name'] for t in UNITS[2]['topics']] == expected
+    assert [t['display_order'] for t in UNITS[2]['topics']] == list(range(1, 16))
+    assert {tag for t in UNITS[2]['topics'] for tag in t['skill_tags'] if tag.startswith('ced:')} == {f'ced:3.{i}' for i in range(1, 14)}
+    subject = {'name': 'AP US History', 'ap_exam_code': 'us-history', 'display_order': 2}
+    seed_subject(db_session, subject)
+    unit = db_session.exec(select(Unit).where(Unit.name == 'Period 3: 1754-1800')).one()
+    topics = db_session.exec(select(Topic).where(Topic.unit_id == unit.id)).all()
+    ids = {t.name: t.id for t in topics}
+    question_topics = {q.id: q.topic_id for q in db_session.exec(select(Question)).all()}
+    for topic in topics:
+        topic.display_order = 99
+        topic.skill_tags = []
+        db_session.add(topic)
+    db_session.flush()
+    seed_subject(db_session, subject)
+    db_session.expire_all()
+    restored = db_session.exec(select(Topic).where(Topic.unit_id == unit.id).order_by(Topic.display_order)).all()
+    assert [t.name for t in restored] == expected
+    assert {t.name: t.id for t in restored} == ids
+    assert all(any(tag.startswith('ced:') for tag in t.skill_tags) for t in restored)
+    assert {q.id: q.topic_id for q in db_session.exec(select(Question)).all()} == question_topics

@@ -341,3 +341,10 @@
 - Verified historical context against https://history.state.gov/milestones/1776-1783/french-alliance. The stimulus is explicitly an original instructional summary. Questions connect Saratoga, French strategic motives, international assistance, and evidence of naval contributions without presenting the war as exclusively domestic or foreign-led.
 - U.S. History now has 97 questions across 54 topics; normal seed totals are 537 questions across 330 topics. Remaining work includes final Period 3 legacy mapping/order, broader wartime perspectives, non-text stimuli, later periods, and history FRQ workflows. Overall goal remains active.
 - Affected areas: backend content/curriculum/tests and docs. All 267 backend tests pass; changed-file whitespace check passes. Frontend unchanged. No copyrighted AP questions imported.
+
+### Expansion milestone 24 — Period 3 curriculum sequence
+
+- Previous goal turn classified as progress: Revolutionary War questions were tested and pushed. Verified Period 3 sequence against https://apcentral.collegeboard.org/media/pdf/ap-us-history-course-at-a-glance.pdf and mapped all 13 framework codes across the existing 15 topics.
+- Reordered topics without changing their names or seed identities. Retained the two overlapping foundation topics alongside related expanded topics; the combined Articles/Constitution topic has explicit 3.7–3.9 mappings. Existing questions retain their topic assignments.
+- New integration regression simulates stale ordering and missing tags, then verifies reseeding repairs metadata while preserving every topic ID and question-to-topic association. All 268 backend tests pass; changed-file whitespace check passes.
+- Affected areas: backend curriculum/tests and documentation. Counts remain 97 U.S. History questions and 537 total. Topic-code mapping does not establish content depth; later-period expansion, diverse evidence, and history FRQ workflows remain outstanding. Overall goal remains active.

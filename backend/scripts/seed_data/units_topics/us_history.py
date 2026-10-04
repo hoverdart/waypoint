@@ -398,3 +398,32 @@ UNITS[2]['topics'].append({
     'description': 'Explain military and diplomatic factors in independence, including foreign alliances and competing wartime loyalties.',
     'skill_tags': ['causation', 'contextualization', 'ced:3.5'], 'display_order': 15,
 })
+
+# Framework sequence without renaming topics, which are stable seed identities.
+# Keep the two overlapping foundation topics next to their expanded counterparts.
+_period_three_sequence = [
+    ('Contextualizing Period 3', ('3.1',)),
+    ("The Seven Years' War (French and Indian War)", ('3.2',)),
+    ('Taxation Without Representation and the Road to Revolution', ('3.3',)),
+    ('Political Ideas of the Revolution', ('3.4',)),
+    ('The American Revolutionary War', ('3.5',)),
+    ('Influence of Revolutionary Ideals', ('3.6',)),
+    ("The American Revolution's Effects", ('3.6',)),
+    ('Government Under the Articles of Confederation', ('3.7',)),
+    ('The Articles of Confederation and the Constitution', ('3.7', '3.8', '3.9')),
+    ('Constitutional Convention and Ratification', ('3.8',)),
+    ('Constitutional Structure and Federal Power', ('3.9',)),
+    ('Washington, Hamilton, and the New Government', ('3.10',)),
+    ('Developing an American Identity', ('3.11',)),
+    ('Movement in the Early Republic', ('3.12',)),
+    ('Continuity and Change in Period 3', ('3.13',)),
+]
+_period_three_existing = {topic['name']: topic for topic in UNITS[2]['topics']}
+UNITS[2]['topics'] = []
+for _order, (_name, _codes) in enumerate(_period_three_sequence, start=1):
+    _topic = dict(_period_three_existing[_name])
+    _topic['display_order'] = _order
+    _topic['skill_tags'] = list(dict.fromkeys([
+        *_topic['skill_tags'], *(f'ced:{code}' for code in _codes),
+    ]))
+    UNITS[2]['topics'].append(_topic)

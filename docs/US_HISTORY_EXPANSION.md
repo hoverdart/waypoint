@@ -59,3 +59,8 @@ ratification, revolutionary ideals, and national identity, and continuity/change
 
 Next: inventory the remaining current CED topics and continue sourced period-based
 question sets, then implement the three free-response workflows.
+
+Period 3 now follows the framework sequence and maps all 13 topic codes. Its 15
+stored topics include two retained foundation topics that overlap expanded areas;
+these preserve existing question assignments and learner records. This mapping
+is not a claim of comprehensive content depth or representative exam coverage.
