@@ -50,13 +50,17 @@ checks must never claim to provide it.
 - Form D combines a theater memoir, a seed-saving reflection, civic testimony,
   and music-rehearsal and trail-description revision drafts. Its essay section
   covers repairability purchasing, civic testimony, and public recognition.
-- Twelve essays across four sets: synthesis (six sources per task, including data and a
+- Eighteen essays across six sets: synthesis (six sources per task, including data and a
   visual stimulus), rhetorical analysis, and argument; models and six-point rubric
   reflection. All four MCQ forms meet the published skill-category percentage ranges.
   Form C adds a public opening address, a nature essay, a fictional historical civic
   letter, and tool-lending and neighborhood heat-mapping revision drafts. All 49
   unit/skill topics now have at least three questions. Every topic
   has difficulty variety. Labels are author estimates, not calibrated difficulty.
+- Supplemental sets add group grading, public-art duration, printing craft,
+  scientific leadership, unplanned time, and ambitious goals. Their rhetorical
+  passages are independent of the MCQ bank. The extra sets are essay practice,
+  not two additional full mock exams.
 - Durable, owned rubric review implemented in backend and frontend. Mixed-session
   accuracy excludes self-review responses. Anonymous, foreign, unfinished, and invalid
   review requests are rejected. Pre-submission guidance identifies the scoring method;
@@ -69,7 +73,8 @@ checks must never claim to provide it.
   untimed inter-section break are available. These are rehearsal tools, not official
   AP score predictions or an accommodation approval system.
 - Candidate course remains outside live enrollment until content depth is ready.
-  Next: six additional essays and course activation verification.
+  Content depth targets are met structurally. Next: normal seed/enrollment activation
+  and full student-flow verification, then U.S. History expansion.
 
 For candidate browser verification, point `DATABASE_URL` at a disposable database
 named `waypoint_test`, `waypoint_migration_test`, or `waypoint_exam_test`, run migrations

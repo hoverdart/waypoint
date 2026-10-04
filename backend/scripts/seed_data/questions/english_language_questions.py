@@ -13,5 +13,7 @@ from .english_language.form_c_essays import QUESTIONS as ESSAYS_C
 from .english_language.form_d_reading import QUESTIONS as READING_D
 from .english_language.form_d_writing import QUESTIONS as WRITING_D
 from .english_language.form_d_essays import QUESTIONS as ESSAYS_D
+from .english_language.essay_practice_e import QUESTIONS as ESSAYS_E
+from .english_language.essay_practice_f import QUESTIONS as ESSAYS_F
 
-QUESTIONS = READING_A + WRITING_A + ESSAYS_A + READING_B + WRITING_B + ESSAYS_B + READING_C + WRITING_C + ESSAYS_C + READING_D + WRITING_D + ESSAYS_D
+QUESTIONS = READING_A + WRITING_A + ESSAYS_A + READING_B + WRITING_B + ESSAYS_B + READING_C + WRITING_C + ESSAYS_C + READING_D + WRITING_D + ESSAYS_D + ESSAYS_E + ESSAYS_F
