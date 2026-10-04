@@ -594,3 +594,9 @@ UNITS[5]['topics'].extend([
      'description': 'Evaluate uneven economic and social transformation using evidence across time and regions.',
      'skill_tags': ['comparison', 'sourcing', 'ced:6.14'], 'display_order': 12},
 ])
+
+# Preserve legacy topic identities while attaching verified curriculum mappings.
+UNITS[6]['topics'][0]['skill_tags'] += ['ced:7.4']
+UNITS[6]['topics'][1]['skill_tags'] += ['ced:7.2', 'ced:7.3', 'ced:7.5', 'ced:7.6']
+UNITS[6]['topics'][2]['skill_tags'] += ['ced:7.9', 'ced:7.10']
+UNITS[6]['topics'][3]['skill_tags'] += ['ced:7.12', 'ced:7.13', 'ced:7.14']

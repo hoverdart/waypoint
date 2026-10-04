@@ -47,7 +47,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 249
+    assert len(questions) == 255
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -977,3 +977,30 @@ def test_industry_and_migration_sets_validate_with_period_six_minimum_depth():
     assert len(topics) == 12
     assert all(t['questions'] >= 3 and len(t['difficulty_levels']) >= 2 for t in topics)
     assert all(not t['curriculum_codes_without_tagged_questions'] for t in topics)
+
+
+def test_period_seven_expansion_and_reform_validate_and_preserve_topic_identity():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.content_audit import audit_bank
+    from scripts.seed_data.questions.us_history.period_seven_expansion_and_reform import QUESTIONS
+    from scripts.seed_data.questions.us_history_questions import QUESTIONS as ALL
+    assert len(QUESTIONS) == 6
+    assert [t['name'] for t in UNITS[6]['topics']] == [
+        'The Progressive Movement', 'American Imperialism and World War I',
+        'The Great Depression and the New Deal', 'World War II',
+    ]
+    for code in ['7.3', '7.4']:
+        rows = [q for q in QUESTIONS if f'ced:{code}' in q['skill_tags']]
+        assert len(rows) == 3
+        assert {q['difficulty'] for q in rows} == {2, 3, 4}
+        for q in rows:
+            validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+                **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+    topics = [t for t in audit_bank(UNITS, ALL)['topic_details'] if t['unit'] == UNITS[6]['name']]
+    for name, code in [('The Progressive Movement', '7.4'), ('American Imperialism and World War I', '7.3')]:
+        topic = next(t for t in topics if t['topic'] == name)
+        assert topic['question_curriculum_counts'][code] == 3
+    # Broad legacy mappings must not be mistaken for tagged practice coverage.
+    mapped = {tag for t in UNITS[6]['topics'] for tag in t['skill_tags'] if tag.startswith('ced:')}
+    assert mapped == {f'ced:7.{n}' for n in [2, 3, 4, 5, 6, 9, 10, 12, 13, 14]}
