@@ -35,4 +35,16 @@ def released_resources(code: str) -> list[ReleasedExamResource]:
                     url=f'{base}/media/pdf/ap25-{prefix}-english-language-set-{number}.pdf',
                     checked_on='2026-10-04',
                 ))
+    if code == 'us-history':
+        # Verified from the official course archive. The 2027 SAQ/LEQ format
+        # differs; preserve the released papers as external historical practice.
+        for year, number in ((2026, None), (2025, 1), (2025, 2), (2024, 1), (2024, 2)):
+            suffix = '' if number is None else f'-set-{number}'
+            label = str(year) if number is None else f'{year} · Set {number}'
+            for prefix, kind, title in (('frq', 'questions', 'Questions'), ('sg', 'scoring', 'Scoring guide')):
+                resources.append(ReleasedExamResource(
+                    title=f'{label} · {title} · Pre-2027 format', year=year, kind=kind,
+                    url=f'{base}/media/pdf/ap{year % 100}-{prefix}-us-history{suffix}.pdf',
+                    checked_on='2026-10-03',
+                ))
     return resources

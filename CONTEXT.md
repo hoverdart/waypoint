@@ -404,3 +404,10 @@
 - Historical context checked against https://www.nps.gov/lowe/learn/historyculture/anti-slavery-in-lowell.htm. The explicitly labeled instructional summary connects northern textile production to enslaved cotton labor. Questions distinguish economic interdependence from identical legal status and from uniform political beliefs.
 - U.S. History now has 125 questions across 58 topics; normal seed totals are 565 questions across 334 topics. More industrial technology/workplace evidence, broader Period 4 mapping, later periods, and history FRQ workflows remain outstanding. Overall goal remains active.
 - Affected areas: backend content/curriculum/tests and docs. All 286 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.
+
+### Expansion milestone 33 — Direct released-exam practice resources
+
+- Previous goal turn classified as progress: industrialization questions were tested and pushed. In response to the request to find sites with old AP exams, verified College Board’s U.S. History archive and opened ten linked question/scoring PDFs: 2026, both 2025 sets, and both 2024 sets.
+- Added these five question-paper/scoring-guide pairs to the existing course-detail resource list. Each title identifies the pre-2027 format. The existing frontend component renders these links; external responses are not saved or scored by WayPoint. No exam text or PDFs were mirrored.
+- Source: https://apcentral.collegeboard.org/courses/ap-united-states-history/exam/past-exam-questions, checked October 3, 2026 using the client date. Actual PDF links were verified from that archive, including the single 2026 paper without a set suffix.
+- Affected areas: backend resource catalog and API integration tests. All 287 backend tests pass; changed-file whitespace check passes. Question counts unchanged at 125 U.S. History / 565 total. Frontend code unchanged. Overall expansion remains incomplete and active.
