@@ -1,6 +1,6 @@
 # U.S. History expansion
 
-Status: in progress. The live bank currently contains 331 questions, including 294 new source-based items;
+Status: in progress. The live bank currently contains 335 questions, including 298 new source-based items;
 it is not a comprehensive AP U.S. History preparation bank.
 
 ## Verified format for May 2027
@@ -94,7 +94,7 @@ unique trimmed prompts and recognized periods count; ambiguous duplicate prompts
 are excluded. This is a necessary inventory check, not a form assembler.
 
 All nine periods now meet the necessary raw inventory minima for four forms.
-The history bank has 331 questions, with 250 approved unique MCQs usable after
+The history bank has 335 questions, with 254 approved unique MCQs usable after
 period caps against the 220-question target. This does not mean four valid forms
 have been assembled: stimulus groups, skills, sources, and difficulty still need
 to be balanced within each form.
@@ -206,3 +206,13 @@ They examine Cold War context, the source's stated protective purpose, and
 how case-level evidence could test implementation. This first set does not
 cover the full Red Scare: congressional investigations, blacklisting,
 McCarthyism, espionage cases, resistance and consequences still need expansion.
+
+### America as a World Power
+
+Topic 8.7 now includes four original Cuban Missile Crisis questions on response
+options, escalation incentives, public versus private evidence, and a qualified
+interpretation of the outcome. The stimulus identifies the private Turkey
+missile understanding so the exercise does not present the settlement as an
+unconditional Soviet withdrawal. Reference: [Office of the Historian](https://history.state.gov/milestones/1961-1968/cuban-missile-crisis).
+This case does not complete the topic's coverage of intervention, decolonization,
+regional alliances, and U.S. relationships with governments around the world.

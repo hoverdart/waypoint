@@ -842,3 +842,6 @@ QUESTIONS += PERIOD_EIGHT_BERLIN
 
 from .us_history.period_eight_loyalty import QUESTIONS as PERIOD_EIGHT_LOYALTY
 QUESTIONS += PERIOD_EIGHT_LOYALTY
+
+from .us_history.period_eight_cuba import QUESTIONS as PERIOD_EIGHT_CUBA
+QUESTIONS += PERIOD_EIGHT_CUBA

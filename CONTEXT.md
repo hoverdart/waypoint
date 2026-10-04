@@ -1029,3 +1029,11 @@
 - History now has 331 questions across 83 topics; overall bank 771 across 359 topics. Period 8 has 30 approved unique MCQs; recomputed capped inventory is 250. The new topic appends without changing existing topic identities.
 - Backend curriculum/content/tests and delivery/history documentation changed; frontend unchanged. Verification: all 398 backend tests passed, including whole-bank reseeding, content mapping/schema checks, and history form integrity. Scoped whitespace checks passed. User AGENTS.md edits excluded.
 - This first Red Scare set leaves congressional investigations, blacklisting, McCarthyism, espionage cases and consequences incomplete. Remaining history curriculum, visuals, writing/exam integration, other AP courses and deeper learning progression remain unfinished. Goal remains active.
+
+### Expansion milestone 113 — World-power topic and crisis decisions
+
+- Previous goal turn classified as progress: Red Scare coverage was tested and pushed as 3d3a26d. Added the missing 8.7 America as a World Power topic with four original questions about the Cuban Missile Crisis.
+- Verified curriculum mapping against indexed College Board text and historical details against the State Department Office of the Historian. The stimulus includes the private Turkey missile understanding. Questions distinguish response instruments, escalation incentives, limits of public evidence, and a negotiated outcome from unconditional victory or resolution of the Cold War.
+- History now has 335 questions across 84 topics; overall bank 775 across 360 topics. Period 8 has 34 approved unique MCQs. Direct recomputation gives capped history inventory of 254. The new topic appends without changing existing identities.
+- Backend curriculum/content/tests and delivery/history documentation changed; frontend unchanged. Verification: all 399 backend tests passed, including question/schema mapping, four-item stimulus integrity, reseeding and whole-bank exam assembly gates. Scoped whitespace checks passed. User AGENTS.md edits excluded.
+- A single crisis does not complete topic 8.7: intervention, decolonization, alliances and regional relationships need expansion. Other curriculum gaps, visuals, writing/exam integration, remaining AP courses and deeper learning progression remain unfinished. Goal remains active.

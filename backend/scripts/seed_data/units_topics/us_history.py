@@ -639,3 +639,9 @@ UNITS[7]['topics'].append({
     'description': 'Analyze domestic anticommunism, loyalty investigations, and conflicts over security and civil liberties.',
     'skill_tags': ['contextualization', 'sourcing', 'argumentation', 'ced:8.3'], 'display_order': 7,
 })
+
+UNITS[7]['topics'].append({
+    'name': 'America as a World Power',
+    'description': 'Evaluate U.S. global commitments, intervention, diplomacy, and competing responses to international crises.',
+    'skill_tags': ['comparison', 'causation', 'sourcing', 'argumentation', 'ced:8.7'], 'display_order': 8,
+})
