@@ -43,5 +43,6 @@ BLUEPRINTS = {
         language_form('a', ('repair', 'forecast', 'translation', 'garden', 'archive')),
         language_form('b', ('museum', 'clock', 'birds', 'recipe', 'sleep')),
         language_form('c', ('sky', 'marsh', 'library', 'tools', 'heat')),
+        language_form('d', ('stage', 'seeds', 'bridge', 'rehearsal', 'trail')),
     )
 }

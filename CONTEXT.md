@@ -230,3 +230,11 @@
 - Composition coverage gaps are closed structurally: all writing topics have at least three questions. All 49 unit/skill topics have multiple difficulty labels, and only Unit 2 thesis/argument structure remains below three questions. Labels remain author estimates, not empirical calibration or educator certification.
 - Verification: all 251 backend tests pass, including category weights for all four forms, independent new stimuli, admin content validation, rationales, coverage depth, and idempotent seeding of 189 questions. Backend content/tests and documentation changed; frontend behavior is unchanged.
 - Next: add nine essays to meet the 18-essay target, complete Form D, close the last topic-depth gap, and verify activation before continuing to U.S. History. Overall goal remains active and incomplete.
+
+### Expansion milestone 10 — Four complete English Language exam forms
+
+- Previous turn classified as progress: pushed `6c0b7f0`; CI run 37165602130 passed. Added Form D synthesis on repairability in municipal purchasing (six fictional sources including bid data and a label mockup), rhetorical analysis of the original bridge testimony, and argument on public recognition. Each has a substantial model and six-point self-review rubric.
+- Registered Form D in the candidate timed-exam catalog. Parameterized end-to-end backend checks now exercise all four forms: exact form-specific item membership, 45/3 section counts, section transitions, final submission, and automatic/self-review separation.
+- Candidate bank: 180 MCQs and 12 essays, four complete timed forms. All 49 unit/skill topics now have at least three questions and multiple author-estimated difficulty levels. The last gap was Unit 2 thesis/argument structure, now supported by the rhetorical analysis of the testimony's qualified central argument. Structural checks do not establish educator review or calibrated difficulty.
+- Verification: 255 backend tests pass, including idempotent seeding of 192 questions. Historical Form C coverage comparison now explicitly uses the A/B/C snapshot so later additions cannot invalidate its baseline. No frontend behavior changed.
+- Next: six additional diverse essays to reach the 18-essay target, activation verification, and then U.S. History. Overall all-course objective remains active.

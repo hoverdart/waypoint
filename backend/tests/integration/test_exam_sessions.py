@@ -40,7 +40,7 @@ def save(client, exam, headers, answers, revision=0):
 def test_catalog_and_exam_resolve_full_ordered_form_without_answer_leaks(client, exam_setup):
     subject, _, headers, _ = exam_setup
     catalog = client.get(f'/exams/subjects/{subject.id}', headers=headers).json()
-    assert len(catalog) == 3 and all(form['available'] for form in catalog)
+    assert len(catalog) == 4 and all(form['available'] for form in catalog)
     assert [s['question_count'] for s in catalog[0]['sections']] == [45, 3]
     assert [s['duration_seconds'] for s in catalog[0]['sections']] == [3600, 8100]
     assert [s['score_weight'] for s in catalog[0]['sections']] == [.45, .55]
@@ -186,15 +186,16 @@ def test_extended_practice_time_is_bounded_and_fixed_at_start(client, exam_setup
         assert client.post('/exams/start', headers=headers, json={'subject_id': subject.id, 'form_id': 'english-language-a', 'time_multiplier': multiplier}).status_code == 422
 
 
-def test_third_form_resolves_its_own_passages_and_essays(client, db_session, exam_setup):
+@pytest.mark.parametrize('letter', ['a', 'b', 'c', 'd'])
+def test_each_form_resolves_its_own_passages_and_essays(client, db_session, exam_setup, letter):
     _, _, headers, _ = exam_setup
-    exam = start(client, exam_setup, form_id='english-language-c')
+    exam = start(client, exam_setup, form_id=f'english-language-{letter}')
     sid = exam['session_id']
     assert len(exam['questions']) == 45
     session = db_session.get(PracticeSession, sid)
     questions = [db_session.get(Question, qid) for qid in session.session_metadata['question_ids']]
     assert len(questions) == 48
-    assert all(any(t.startswith('item:lang-c-') for t in q.skill_tags) for q in questions)
+    assert all(any(t.startswith(f'item:lang-{letter}-') for t in q.skill_tags) for q in questions)
     assert client.post(f'/exams/{sid}/sections/0/finish', headers=headers).status_code == 200
     opened = client.post(f'/exams/{sid}/sections/1/start', headers=headers).json()
     assert len(opened['questions']) == 3

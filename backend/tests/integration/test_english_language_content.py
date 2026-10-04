@@ -78,7 +78,7 @@ def test_candidate_course_seeds_idempotently_and_supports_essay_review(client, d
     seed_subject(db_session, subject_data)
     assert {q.id for q in db_session.exec(select(Question)).all()} == ids
     assert {q.id for q in db_session.exec(select(QuestionOption)).all()} == option_ids
-    assert len(ids) == 189
+    assert len(ids) == 192
     subject = db_session.exec(select(Subject).where(Subject.ap_exam_code == 'english-language')).one()
     user = make_user(db_session)
     headers = auth_header(user.auth_provider_id)
@@ -168,7 +168,9 @@ def test_candidate_diagnostic_only_uses_mcqs_and_can_build_subject_mastery(clien
 def test_third_mcq_form_adds_distinct_passages_and_closes_uncovered_topic():
     from scripts.seed_data.questions.english_language.form_c_reading import QUESTIONS as reading
     from scripts.seed_data.questions.english_language.form_c_writing import QUESTIONS as writing
-    from scripts.seed_data.questions.english_language_questions import QUESTIONS
+    from scripts.seed_data.questions.english_language_questions import QUESTIONS as BANK
+    # Evaluate this milestone against Forms A/B/C, independent of later additions.
+    QUESTIONS = [q for q in BANK if any(t.startswith(('item:lang-a-', 'item:lang-b-', 'item:lang-c-')) for t in q['skill_tags'])]
     from scripts.content_audit import audit_bank
     added = reading + writing
     existing = [q for q in QUESTIONS if q not in added]
@@ -253,8 +255,28 @@ def test_fourth_writing_set_completes_independent_mcq_forms_and_composition_dept
     coverage = audit_bank(UNITS, QUESTIONS)
     assert coverage['mcq'] == 180 and coverage['independent_stimuli'] == 20
     assert coverage['topics_without_difficulty_variety'] == 0
-    assert coverage['topics_below_three_questions'] == 1
+    assert coverage['topics_below_three_questions'] == 0
     for unit in UNITS:
         for topic in unit['topics']:
             if topic['name'][0] in '2468':
                 assert sum(q['unit_name'] == unit['name'] and q['topic_name'] == topic['name'] for q in QUESTIONS) >= 3
+
+
+def test_fourth_essay_set_finishes_topic_depth_and_uses_complete_rubrics():
+    from scripts.seed_data.questions.english_language.form_d_essays import QUESTIONS, SOURCES
+    assert len(QUESTIONS) == 3
+    assert all(f'Source {letter} —' in SOURCES for letter in 'ABCDEF')
+    assert {t for q in QUESTIONS for t in q['skill_tags'] if t.startswith('format:')} == {
+        'format:synthesis', 'format:rhetorical-analysis', 'format:argument'}
+    for q in QUESTIONS:
+        assert len(q['correct_answer'].split()) >= 350
+        assert q['rubric_json']['scoring_method'] == 'self_review'
+        assert sum(row['points'] for row in q['rubric_json']['checklist']) == 6
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+    from scripts.seed_data.questions.english_language_questions import QUESTIONS as BANK
+    from scripts.content_audit import audit_bank
+    coverage = audit_bank(UNITS, BANK)
+    assert coverage['topics_below_three_questions'] == 0
+    assert coverage['topics_without_difficulty_variety'] == 0
+    assert coverage['frq'] == 12

@@ -49,13 +49,13 @@ checks must never claim to provide it.
   levels 2–4, and individual rationales.
 - Form D combines a theater memoir, a seed-saving reflection, civic testimony,
   and music-rehearsal and trail-description revision drafts. Its essay section
-  is unfinished, so Form D is not yet available as a timed rehearsal.
-- Nine essays across three sets: synthesis (six sources per task, including data and a
+  covers repairability purchasing, civic testimony, and public recognition.
+- Twelve essays across four sets: synthesis (six sources per task, including data and a
   visual stimulus), rhetorical analysis, and argument; models and six-point rubric
   reflection. All four MCQ forms meet the published skill-category percentage ranges.
   Form C adds a public opening address, a nature essay, a fictional historical civic
   letter, and tool-lending and neighborhood heat-mapping revision drafts. All 49
-  unit/skill topics now have questions; one still has fewer than three. Every topic
+  unit/skill topics now have at least three questions. Every topic
   has difficulty variety. Labels are author estimates, not calibrated difficulty.
 - Durable, owned rubric review implemented in backend and frontend. Mixed-session
   accuracy excludes self-review responses. Anonymous, foreign, unfinished, and invalid
@@ -63,13 +63,13 @@ checks must never claim to provide it.
   essay entry provides a word count and bounded, accessible text field. Diagnostics
   exclude self-review essays, and courses without official unit weights use an explicit
   equal-unit fallback for mastery and planning.
-- Section-aware Forms A/B/C now support server-enforced deadlines, saved drafts,
+- Section-aware Forms A/B/C/D now support server-enforced deadlines, saved drafts,
   revision conflict protection, history resume, locked sections, and final results
   with persistent essay self-review. Standard/1.5x/2x practice time and an explicitly
   untimed inter-section break are available. These are rehearsal tools, not official
   AP score predictions or an accommodation approval system.
 - Candidate course remains outside live enrollment until content depth is ready.
-  Next: Form D, further essay sets, and closure of topic coverage gaps.
+  Next: six additional essays and course activation verification.
 
 For candidate browser verification, point `DATABASE_URL` at a disposable database
 named `waypoint_test`, `waypoint_migration_test`, or `waypoint_exam_test`, run migrations
