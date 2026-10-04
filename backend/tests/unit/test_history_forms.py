@@ -64,3 +64,49 @@ def test_ineligible_period_items_do_not_fill_blueprint(invalid):
             q['validation_status' if invalid == 'draft' else 'type'] = invalid
     with pytest.raises(ValueError, match='Cannot pack'):
         assemble_draft_forms(UNITS, rows)
+
+
+def test_every_draft_contains_required_reasoning_skills():
+    from scripts.history_forms import REQUIRED_SKILLS
+    for form in assemble_draft_forms(UNITS, QUESTIONS):
+        assert REQUIRED_SKILLS <= {tag for q in form for tag in q['skill_tags']}
+    assert manifest(UNITS, QUESTIONS)['required_skills'] == sorted(REQUIRED_SKILLS)
+
+
+@pytest.mark.parametrize('use_donor', [False, True])
+def test_skill_repair_preserves_groups_and_does_not_mutate_inputs(use_donor):
+    from scripts.history_forms import balance_skills, REQUIRED_SKILLS
+    def group(tags, period='one', size=1):
+        return [{'unit_name': period, 'skill_tags': list(tags)} for _ in range(size)]
+    partial = REQUIRED_SKILLS - {'continuity-and-change'}
+    groups = {'old': group(partial), 'replacement': group(REQUIRED_SKILLS),
+              'reserve': group(REQUIRED_SKILLS)}
+    selected = [['old'], ['replacement', 'reserve']] if use_donor else [['old']]
+    before = deepcopy((selected, groups))
+    result = balance_skills(selected, groups)
+    assert result[0] == ['replacement']
+    if use_donor:
+        assert result[1] == ['old', 'reserve']
+    assert (selected, groups) == before
+    assert result == balance_skills(selected, groups)
+
+
+@pytest.mark.parametrize('period,size', [('other', 1), ('one', 2)])
+def test_skill_repair_cannot_violate_period_or_group_size(period, size):
+    from scripts.history_forms import balance_skills, REQUIRED_SKILLS
+    groups = {
+        'old': [{'unit_name': 'one', 'skill_tags': []}],
+        'replacement': [{'unit_name': period, 'skill_tags': list(REQUIRED_SKILLS)}] * size,
+    }
+    with pytest.raises(ValueError, match='Skill coverage unmet'):
+        balance_skills([['old']], groups)
+
+
+def test_skill_repair_does_not_transfer_deficit_to_another_form():
+    from scripts.history_forms import balance_skills, REQUIRED_SKILLS
+    groups = {
+        'old': [{'unit_name': 'one', 'skill_tags': []}],
+        'replacement': [{'unit_name': 'one', 'skill_tags': list(REQUIRED_SKILLS)}],
+    }
+    with pytest.raises(ValueError, match='Skill coverage unmet'):
+        balance_skills([['old'], ['replacement']], groups)

@@ -127,9 +127,14 @@ and no question or source group is reused across drafts. Unapproved, duplicate,
 and non-MCQ items cannot fill slots. Invalid weights or ambiguous groups fail.
 Prompt hashes identify the exact content version; they are not database IDs.
 
-These drafts are **not published exams**. Assembly currently selects for period
-and group constraints, not skill optimization. The generated skill report shows
-that draft 3 has no explicitly tagged continuity/change item; other drafts have
-only one or two. Skill tagging itself needs review, and source variety, non-text
-stimuli, difficulty, and factual quality remain unverified. Add skill constraints
-and review the selected content before student-facing exam integration.
+These drafts are **not published exams**. Assembly requires each draft to contain
+sourcing, claims/evidence, contextualization, comparison, causation, and
+continuity/change tags. Deterministic same-period, equal-size whole-group swaps
+repair missing skills while preserving all existing assembly constraints. The
+local search fails closed when it cannot improve coverage; this does not prove
+that no globally feasible arrangement exists.
+
+All four current drafts pass minimum tag presence, including continuity/change.
+This is not balanced skill weighting or verification of tag accuracy. Source
+variety, non-text stimuli, difficulty, and factual quality still require review
+before student-facing exam integration.

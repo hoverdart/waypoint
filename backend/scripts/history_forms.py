@@ -4,6 +4,9 @@ import json
 from collections import Counter
 from math import ceil, floor
 
+REQUIRED_SKILLS = frozenset({'sourcing', 'claims-evidence', 'contextualization',
+    'comparison', 'causation', 'continuity-and-change'})
+
 PERIOD_COUNTS = (3, 4, 9, 9, 9, 6, 6, 6, 3)
 
 
@@ -30,7 +33,7 @@ def assemble_draft_forms(units, questions):
         if period in eligible and all(q['type'] == 'mcq' and q.get('validation_status') == 'approved'
                 and prompts[q['prompt'].strip()] == 1 for q in rows):
             eligible[period].append((key, rows))
-    forms = [[] for _ in range(4)]
+    form_groups = [[] for _ in range(4)]
     for unit, target in zip(units, PERIOD_COUNTS):
         states = {(0, 0, 0, 0): ((), (), (), ())}
         goal = (target,) * 4
@@ -54,14 +57,59 @@ def assemble_draft_forms(units, questions):
             raise ValueError(f'Cannot pack blueprint for {unit["name"]} without splitting sources')
         for slot, keys in enumerate(states[goal]):
             for key in keys:
-                forms[slot].extend(groups[key])
-    return forms
+                form_groups[slot].append(key)
+    eligible_groups = {key: rows for entries in eligible.values() for key, rows in entries}
+    form_groups = balance_skills(form_groups, eligible_groups)
+    return [sum((groups[key] for key in keys), []) for keys in form_groups]
+
+
+def balance_skills(form_groups, groups):
+    """Deterministic improving swaps, never a proof of global infeasibility.
+
+    Equal-size, same-period exchanges preserve all assembly constraints. If
+    local search cannot satisfy the minimum, fail closed for editorial repair.
+    """
+    skills = {key: {tag for q in rows for tag in q.get('skill_tags', [])} for key, rows in groups.items()}
+    def missing(keys):
+        return len(REQUIRED_SKILLS - set().union(*(skills[key] for key in keys)))
+    selected = [list(keys) for keys in form_groups]
+    while True:
+        deficits = [missing(keys) for keys in selected]
+        if not any(deficits):
+            return selected
+        owners = {key: (i, j) for i, keys in enumerate(selected) for j, key in enumerate(keys)}
+        improved = False
+        for recipient, keys in enumerate(selected):
+            if not deficits[recipient]:
+                continue
+            for position, old in enumerate(keys):
+                for candidate, rows in groups.items():
+                    owner = owners.get(candidate)
+                    if owner and owner[0] == recipient:
+                        continue
+                    if len(rows) != len(groups[old]) or rows[0]['unit_name'] != groups[old][0]['unit_name']:
+                        continue
+                    proposal = [list(form) for form in selected]
+                    proposal[recipient][position] = candidate
+                    if owner:
+                        proposal[owner[0]][owner[1]] = old
+                    if sum(missing(form) for form in proposal) < sum(deficits):
+                        selected = proposal
+                        improved = True
+                        break
+                if improved:
+                    break
+            if improved:
+                break
+        if not improved:
+            raise ValueError('Skill coverage unmet by local group swaps; review content or assembly strategy')
 
 
 def manifest(units, questions):
     return {
         'status': 'offline_draft_not_published',
-        'limitations': 'Period balance and source integrity only; skills, source variety, difficulty and historical quality require review. No FRQ sections included.',
+        'required_skills': sorted(REQUIRED_SKILLS),
+        'limitations': 'Minimum skill-tag presence, period balance and source integrity only; tag accuracy, source variety, difficulty and historical quality require review. No FRQ sections included.',
         'forms': [dict(name=f'History draft {i + 1}', question_count=len(rows),
             periods=dict(Counter(q['unit_name'] for q in rows)),
             skills=dict(Counter(t for q in rows for t in q.get('skill_tags', []) if ':' not in t)),
