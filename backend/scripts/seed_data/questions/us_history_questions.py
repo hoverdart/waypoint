@@ -693,3 +693,5 @@ from .us_history.period_three_ratification import QUESTIONS as PERIOD_THREE_RATI
 QUESTIONS += PERIOD_THREE_RATIFICATION
 from .us_history.period_three_rights import QUESTIONS as PERIOD_THREE_RIGHTS
 QUESTIONS += PERIOD_THREE_RIGHTS
+from .us_history.period_three_identity import QUESTIONS as PERIOD_THREE_IDENTITY
+QUESTIONS += PERIOD_THREE_IDENTITY

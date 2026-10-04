@@ -43,7 +43,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 82
+    assert len(questions) == 86
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -129,5 +129,21 @@ def test_revolutionary_rights_questions_distinguish_advocacy_from_outcomes():
         assert q['prompt'].startswith('Primary excerpt:')
         assert 'Abigail Adams to John Adams, March 31, 1776' in q['prompt']
         assert 'Source reference: https://www.battlefields.org/' in q['prompt']
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+
+
+def test_national_identity_source_questions_validate_and_identify_transcription():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.seed_data.questions.us_history.period_three_identity import QUESTIONS
+    assert len(QUESTIONS) == 4
+    assert {q['correct_answer'] for q in QUESTIONS} == set('ABCD')
+    assert {q['difficulty'] for q in QUESTIONS} == {2, 3, 4}
+    for q in QUESTIONS:
+        assert q['topic_name'] in {t['name'] for t in UNITS[2]['topics']}
+        assert 'ced:3.11' in q['skill_tags']
+        assert 'spelling and punctuation modernized' in q['prompt']
+        assert 'Source reference: https://www.senate.gov/' in q['prompt']
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))

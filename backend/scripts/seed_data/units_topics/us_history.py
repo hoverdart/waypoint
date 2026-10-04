@@ -374,3 +374,9 @@ UNITS[2]['topics'].append({
     'description': 'Evaluate how revolutionary ideals inspired challenges to social hierarchies and the limits of resulting changes.',
     'skill_tags': ['argumentation', 'contextualization', 'ced:3.6'], 'display_order': 11,
 })
+
+UNITS[2]['topics'].append({
+    'name': 'Developing an American Identity',
+    'description': 'Analyze national belonging, regional attachments, and competing visions of the republic.',
+    'skill_tags': ['sourcing', 'argumentation', 'ced:3.11'], 'display_order': 12,
+})

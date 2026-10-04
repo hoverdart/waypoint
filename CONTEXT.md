@@ -313,3 +313,10 @@
 - Questions analyze claims, context, audience, and limits of evidence, distinguishing advocacy from actual changes in legal rights. Each answer option has an explanation. No released AP question text was imported.
 - U.S. History now has 82 questions across 50 topics; normal seed totals are 522 questions across 326 topics. Period 3 and all-course expansion remain incomplete. Next: missing Period 3 context, identity, and continuity/change areas, then later periods and varied evidence formats.
 - Affected areas: backend content, curriculum, tests, and docs. All 263 backend tests pass; changed-file whitespace checks pass. Frontend unchanged. Overall goal remains active.
+
+### Expansion milestone 20 — National identity and regional loyalties
+
+- Previous goal turn classified as progress: revolutionary ideals content was tested and pushed. Added four original questions and Developing an American Identity (CED 3.11), preserving legacy topics and IDs.
+- Verified Washington’s 1796 Farewell Address against the Senate Historical Office transcription at https://www.senate.gov/artandhistory/history/resources/pdf/Washingtons_Farewell_Address.pdf. Prompts identify its modernized spelling/punctuation. Questions cover claims, context, purpose, and counterevidence, without treating a persuasive appeal as proof of universal agreement.
+- U.S. History now has 86 questions across 51 topics; normal seed totals are 526 questions across 327 topics. The full course and wider AP expansion remain incomplete. Next: Period 3 contextualization and continuity/change, then full later-period mapping and broader source formats.
+- Affected areas: backend curriculum/content/tests and docs. All 264 backend tests pass; changed-file whitespace check passes. Frontend unchanged. No copyrighted AP questions imported; overall goal remains active.
