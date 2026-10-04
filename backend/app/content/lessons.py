@@ -642,10 +642,122 @@ QUALIFICATION_AND_SENTENCES = (
     ),
 )
 
+AUDIENCE_AND_VOICE = (
+    Lesson(
+        slug="infer-shared-knowledge", title="Infer what readers are expected to know", skill="1.B",
+        objective="Use explanation and omission as evidence of a writer's assumptions about readers.",
+        explanation=(
+            "Writers make decisions about what needs explaining. An unexplained technical term may suggest a specialist audience, while an analogy or definition can make a concept available to newcomers. Treat these as clues, not proof that every reader has the same knowledge.",
+            "Look for multiple signals: the publication context, direct address, examples, and level of detail. Distinguish assumed knowledge from shared values. Readers might understand a technical process without agreeing about how it should be used.",
+        ),
+        example="An original astronomy article defines a telescope's aperture as the opening that gathers light, then compares two instruments using the amount of light each can collect. It avoids assuming readers already know the technical term.",
+        walkthrough="The definition and concrete comparison support an inference that the article welcomes nonspecialists. They do not show that every reader is a beginner or that technical accuracy is unimportant.",
+        prompt="A guide explains an unfamiliar abbreviation on first use but then uses it throughout. What is the best-supported audience inference?",
+        options=("The writer expects all readers to reject technical language", "The writer assumes readers cannot learn new terminology", "The writer accommodates readers who may not initially know the abbreviation"),
+        feedback=("Explaining a term makes it usable; it does not establish opposition to technical language.", "Later use of the abbreviation expects readers to apply the explanation.", "Yes. The introduction supplies knowledge that readers can then use in the rest of the guide."), correct=2,
+    ),
+    Lesson(
+        slug="adapt-an-explanation", title="Adapt an explanation while preserving its meaning", skill="2.B",
+        objective="Revise background and examples for readers with different levels of familiarity.",
+        explanation=(
+            "Changing audiences often requires changing the route into an idea. Identify what the new audience needs to understand before it can evaluate your point. Define necessary terms, choose a relevant example, and retain qualifications that affect meaning.",
+            "Do not confuse accessibility with removing uncertainty or replacing a claim with a slogan. An analogy can help, but explain its relevant feature. Specialists and general readers both deserve an accurate account of what is known and what remains unresolved.",
+        ),
+        example="A technical report says a result has considerable measurement uncertainty. A public summary explains that repeated measurements may vary within a stated range, rather than describing the finding as either exact or worthless.",
+        walkthrough="The revision explains a technical limitation without erasing it. The report's method and range still matter; plain language should make them interpretable rather than imply certainty the evidence lacks.",
+        prompt="Which revision best prepares general readers to understand an archive's metadata?",
+        options=("Define metadata as information describing an item, such as its date and creator, before explaining how those details support searches", "Delete every reference to dates and creators because the term is technical", "Replace metadata with a claim that the archive can answer every question instantly"),
+        feedback=("Yes. The definition and examples establish a useful basis for understanding the search function.", "Removing relevant details would weaken the explanation instead of making it clearer.", "This introduces an unsupported promise and loses the original meaning."), correct=0,
+    ),
+    Lesson(
+        slug="analyze-patterns-in-diction", title="Read a pattern of words, not an isolated label", skill="7.A",
+        objective="Explain how related word choices develop a perspective across a passage.",
+        explanation=(
+            "A pattern of diction can sustain an attitude or frame an idea. Look for words that share associations, but check whether each contributes to the interpretation. One word alone may have several plausible meanings; a pattern can help distinguish them.",
+            "Explain what the pattern encourages readers to notice. Language of cultivation might represent learning as gradual work, while language of competition could foreground ranking. These frames are interpretations to support with context, not universal meanings attached to a vocabulary list.",
+        ),
+        example="A reflective essay describes learning a craft through 'small repairs,' 'patient adjustments,' and 'work returned to the bench.' The recurring language presents improvement as iterative effort rather than sudden perfection.",
+        walkthrough="The terms work together to emphasize revision and persistence. The interpretation does not require claiming that the writer rejects talent entirely; the passage foregrounds a process without resolving every cause of achievement.",
+        prompt="A critic calls a building 'a conversation with its surroundings' and describes its windows as 'answering' neighboring rooflines. What shared effect do the comparisons most directly support?",
+        options=("They establish that buildings can literally hear speech", "They portray design as responding to an existing environment", "They prove that all neighboring residents approve of the building"),
+        feedback=("The language is figurative, not a claim about literal hearing.", "Yes. Both comparisons emphasize relationships between the building and surrounding forms.", "The description does not supply evidence about residents' opinions."), correct=1,
+    ),
+    Lesson(
+        slug="sustain-an-appropriate-voice", title="Sustain a voice that fits the task", skill="8.A",
+        objective="Revise inconsistent diction while preserving a clear, credible stance.",
+        explanation=(
+            "Voice emerges from repeated choices in diction, detail, and attitude. A shift can be purposeful, but accidental changes may distract from the argument. Compare the revision with the surrounding passage and the relationship you are establishing with readers.",
+            "A formal voice need not be inflated, and a conversational voice need not be careless. Prefer precise language that fits the evidence. Keep quotations or clearly attributed voices distinct from your own so readers know whose attitude they are hearing.",
+        ),
+        example="A measured exhibition review discusses lighting and placement, then calls one room 'the greatest thing ever.' A revision describes how the room's arrangement allows visitors to compare sketches with finished works.",
+        walkthrough="The revision preserves a positive evaluation but gives readers a concrete reason for it. It fits the surrounding analytical voice better than an unsupported superlative. Enthusiasm can remain when its basis is explained.",
+        prompt="Which sentence best fits a careful review that has praised a film's editing while acknowledging uneven pacing?",
+        options=("The editing often clarifies shifts in perspective, though several transitions slow the middle section", "This film is perfect in every possible way", "Anyone who dislikes the film clearly understands nothing"),
+        feedback=("Yes. The sentence maintains the review's qualified evaluation and names a specific effect.", "This contradicts the acknowledged limitation and substitutes a universal judgment.", "Attacking readers supplies no analysis of the editing or pacing."), correct=0,
+    ),
+    Lesson(
+        slug="analyze-parallel-structure", title="Explain how parallel structure organizes emphasis", skill="7.B",
+        objective="Connect repeated grammatical patterns to relationships among ideas.",
+        explanation=(
+            "Parallel structure places related elements in similar grammatical forms. It can make a sequence easier to follow, emphasize a shared category, or sharpen a contrast. Identify what the pattern groups together and why that grouping matters here.",
+            "Repetition alone does not establish agreement, causation, or truth. Examine the content within the pattern. A writer may use similar forms to contrast different commitments, and the resulting rhythm still needs interpretation in relation to purpose.",
+        ),
+        example="A speaker describes a community archive as a place 'to preserve records, to question memories, and to share discoveries.' The repeated infinitive phrases give three activities a coordinated role in the institution's purpose.",
+        walkthrough="The pattern makes the activities easy to compare and resists reducing the archive to storage alone. It does not establish that every activity receives equal funding or produces equally successful results.",
+        prompt="What does the parallel form in 'We can document the loss; we can examine its causes; we can prevent its repetition' most directly do?",
+        options=("It proves that prevention is guaranteed", "It makes the three activities logically identical", "It presents related actions in a clear, cumulative sequence"),
+        feedback=("The form emphasizes possibility and action but does not prove the outcome.", "The actions differ even though their grammatical structures match.", "Yes. Repeated structure connects the actions while the verbs move from recording toward response."), correct=2,
+    ),
+    Lesson(
+        slug="revise-for-clear-agency", title="Make the actor and emphasis clear", skill="8.B",
+        objective="Revise sentence structure to clarify who acts and what the reader should focus on.",
+        explanation=(
+            "Choose active or passive voice according to what the sentence needs to foreground. Active voice can identify responsibility directly; passive voice can appropriately foreground a recipient or process when the actor is unknown or less relevant. Neither choice is automatically better in every context.",
+            "Check modifiers and pronouns for clear attachment. A phrase describing an action should connect to the person or thing performing it. If a revision changes who acted or implies information not in the source, it has changed more than style.",
+        ),
+        example="Draft: 'After reviewing the records, several errors were found.' Revision: 'After reviewing the records, the archivist found several errors.'",
+        walkthrough="The revision names the actor who reviewed and found, correcting the awkward implication that the errors performed the review. If the actor is unknown, another revision can avoid invention: 'A review of the records revealed several errors.'",
+        prompt="Which revision clearly identifies who made the decision without changing the stated facts: 'The committee reviewed the proposals. The committee selected two finalists'?",
+        options=("After reviewing the proposals, two finalists selected the committee", "After reviewing the proposals, the committee selected two finalists", "The proposals reviewed the committee and selected two finalists"),
+        feedback=("This makes the finalists the actor and reverses the decision relationship.", "Yes. The introductory phrase attaches to the committee, preserving its role in both actions.", "This incorrectly makes the proposals perform the review and selection."), correct=1,
+    ),
+)
+
+QUALIFIED_ARGUMENTS = (
+    Lesson(
+        slug="evaluate-the-final-qualification", title="Evaluate whether a qualification resolves the objection", skill="3.C",
+        objective="Assess whether a writer's concession and response adequately support the revised claim.",
+        explanation=(
+            "A qualification should address the actual challenge to a claim. Identify the objection's target: cost, fairness, evidence, feasibility, or another premise. Then ask whether the response changes the relevant part of the argument or merely acknowledges the concern in passing.",
+            "A concession does not automatically make an argument balanced or sufficient. The writer still needs evidence for the retained position. Distinguish a condition that could be checked from vague reassurance that everything will work out.",
+        ),
+        example="A proposal promises a service for everyone. After evidence of uneven internet access, it adds, 'Some access problems may occur,' but still requires online registration without an alternative.",
+        walkthrough="The acknowledgment names a concern but does not resolve the mismatch between universal access and the registration requirement. A meaningful revision would need to address registration access or narrow the promise, with evidence about the result.",
+        prompt="Which qualification most directly responds to evidence that a pilot's success depended on additional staff?",
+        options=("The model may transfer where comparable staffing can be provided; expansion should account for that requirement", "The pilot succeeded, so staffing details never matter", "There are many opinions about pilots, so no conclusion is possible"),
+        feedback=("Yes. This identifies a relevant condition and ties the expansion claim to it.", "This dismisses the condition raised by the evidence rather than addressing it.", "Uncertainty calls for a suitably limited conclusion, not necessarily abandonment of all inference."), correct=0,
+    ),
+    Lesson(
+        slug="compose-a-qualified-recommendation", title="Build a recommendation that survives its limits", skill="4.C",
+        objective="Integrate evidence, an important objection, and a specific condition into a defensible position.",
+        explanation=(
+            "Bring the argument's pieces together: state the position, identify the strongest relevant support, and address a serious limitation. A useful qualification explains where or when the recommendation applies. It should sharpen the claim rather than bury it beneath indecision.",
+            "Check the relationship among the final thesis, body, and conclusion. If the response to an objection changes the proposed action, carry that change through the whole argument. Retain unresolved uncertainty openly and explain what further evidence or evaluation would affect the decision.",
+            "Before drafting, try a short plan: position, support, objection, response, and implication. This is a thinking aid, not a required paragraph formula. In the completed essay, use the order and emphasis that make your reasoning clearest to readers.",
+        ),
+        example="A writer recommends public access to digitized oral histories. Evidence supports educational value, but interviews include sensitive personal material. The revised recommendation prioritizes recordings whose permissions support release, explains review of sensitive content, and identifies access alternatives where public release is inappropriate.",
+        walkthrough="The revision retains an access goal while responding to a concrete limitation. It avoids claiming that educational value alone resolves every release decision. Its safeguards still need a clear process and support; naming a condition does not prove it will be implemented well.",
+        prompt="An argument favors extending a successful small reading program. Evidence shows benefits but leaves costs at larger scale uncertain. Which position is best supported?",
+        options=("Expand without limits because success at one scale proves success at every scale", "Expand in stages while measuring costs and outcomes before committing to the full proposed scale", "Close the program because an unanswered cost question disproves every reported benefit"),
+        feedback=("The evidence does not establish performance or affordability at every scale.", "Yes. The recommendation uses the observed benefits while making further commitment depend on evidence about the unresolved issue.", "The uncertainty concerns expansion costs; it does not automatically invalidate the observed benefits."), correct=1,
+    ),
+)
+
 
 def lessons_for(code: str, unit_order: int) -> tuple[Lesson, ...]:
     if code != "english-language":
         return ()
     return {1: FOUNDATIONS, 2: AUDIENCE_AND_THESIS, 3: REASONING_AND_DEVELOPMENT,
             4: PURPOSE_AND_STRUCTURE, 5: COHERENCE_AND_STYLE,
-            6: SOURCES_AND_REFINEMENT, 7: QUALIFICATION_AND_SENTENCES}.get(unit_order, ())
+            6: SOURCES_AND_REFINEMENT, 7: QUALIFICATION_AND_SENTENCES,
+            8: AUDIENCE_AND_VOICE, 9: QUALIFIED_ARGUMENTS}.get(unit_order, ())

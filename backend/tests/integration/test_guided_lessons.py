@@ -1,6 +1,6 @@
 import pytest
 from sqlmodel import select
-from app.content.lessons import FOUNDATIONS, AUDIENCE_AND_THESIS, PURPOSE_AND_STRUCTURE, COHERENCE_AND_STYLE, SOURCES_AND_REFINEMENT, QUALIFICATION_AND_SENTENCES, lessons_for
+from app.content.lessons import FOUNDATIONS, AUDIENCE_AND_THESIS, PURPOSE_AND_STRUCTURE, COHERENCE_AND_STYLE, SOURCES_AND_REFINEMENT, QUALIFICATION_AND_SENTENCES, AUDIENCE_AND_VOICE, QUALIFIED_ARGUMENTS, lessons_for
 from app.models.lesson import LessonCompletion
 from tests.conftest import auth_header
 from tests.factories import make_subject_with_units_topics, make_user
@@ -68,6 +68,8 @@ def test_lessons_validate_scope_revision_and_payload(client, db_session):
     (5, COHERENCE_AND_STYLE, ['5.A', '6.A', '5.B', '6.B', '7.A', '8.A']),
     (6, SOURCES_AND_REFINEMENT, ['3.A', '4.A', '3.B', '4.B', '7.A', '8.A']),
     (7, QUALIFICATION_AND_SENTENCES, ['1.A', '2.A', '3.C', '4.C', '7.B', '8.B', '7.C', '8.C']),
+    (8, AUDIENCE_AND_VOICE, ['1.B', '2.B', '7.A', '8.A', '7.B', '8.B']),
+    (9, QUALIFIED_ARGUMENTS, ['3.C', '4.C']),
 ])
 def test_published_sequences_persist_all_checks(client, db_session, unit_order, sequence, skills):
     subject, first, second, headers, other_headers = setup(db_session)
@@ -100,7 +102,8 @@ def test_published_lesson_skills_match_seeded_unit_topics():
     for unit in UNITS:
         skills = {tag.removeprefix('ap-skill:') for topic in unit['topics'] for tag in topic['skill_tags']}
         lessons = lessons_for('english-language', unit['display_order'])
-        assert all(lesson.skill in skills for lesson in lessons)
+        assert {lesson.skill for lesson in lessons} == skills
+        assert len({lesson.slug for lesson in lessons}) == len(lessons)
         for lesson in lessons:
             assert len(lesson.options) == len(lesson.feedback) == 3
             assert 0 <= lesson.correct < 3
