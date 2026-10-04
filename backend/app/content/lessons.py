@@ -256,8 +256,102 @@ REASONING_AND_DEVELOPMENT = (
     ),
 )
 
+PURPOSE_AND_STRUCTURE = (
+    Lesson(
+        slug="connect-occasion-and-choice", title="Connect the occasion to the writer's choices", skill="1.A",
+        objective="Explain how a specific situation makes a writer's emphasis meaningful.",
+        explanation=(
+            "A rhetorical situation includes more than a topic. Consider the speaker's role, the audience, the event that prompts the text, and what the writer hopes to accomplish. The same topic can produce a celebration, an explanation, a warning, or a request, depending on the occasion.",
+            "Ask why this writer addresses these readers now. A looming decision can explain urgency; a recent misunderstanding can explain a careful definition; a commemoration can explain an appeal to shared memory. Support the connection with details rather than supplying an invented history.",
+            "A text may serve several purposes, but distinguish the main aim from supporting moves. A speaker may praise volunteers to establish solidarity before requesting help. Explain how the praise contributes to the request rather than assuming praise is the only purpose.",
+        ),
+        example="Before a neighborhood vote on flood-prevention funding, a resident recalls helping neighbors clean their homes after a storm. She then asks voters to examine the proposed drainage plan, including its cost and maintenance requirements.",
+        walkthrough="The approaching vote creates an immediate decision. The shared experience establishes why drainage matters, while the request directs that concern toward evaluating a particular plan. The account does not alone show that the plan is effective or that every resident supports it.",
+        prompt="After residents mistake a preliminary map for an approved route, a transit director begins a notice by distinguishing proposals from final decisions. Why is that opening especially relevant to the occasion?",
+        options=("It responds to a misunderstanding that could distort residents' participation in the pending decision", "It establishes that the director opposes all route changes", "It guarantees that no reader will misunderstand later notices"),
+        feedback=("Yes. Clarifying the map's status helps readers understand what is still open for discussion.", "Explaining the stage of a decision does not establish opposition to every possible change.", "The clarification can help, but the text does not guarantee every reader's future response."),
+        correct=0,
+    ),
+    Lesson(
+        slug="open-and-close-with-purpose", title="Give openings and conclusions a job", skill="2.A",
+        objective="Choose an opening and conclusion that advance the text's purpose rather than follow a formula.",
+        explanation=(
+            "An opening orients readers to the question, stakes, or perspective they need. A narrative, definition, contrast, or direct claim can work when it serves that job. A dramatic hook is not automatically useful, and broad claims about all of human history often delay the actual argument.",
+            "Choose the background readers need before your claim makes sense. Do not summarize every related fact. For a practical proposal, clarify the problem and decision; for rhetorical analysis, establish the relevant speaker, audience, and purpose without retelling the whole passage.",
+            "A conclusion can draw out an implication, explain why the reasoning matters, or specify a warranted next step. It may return to an opening image with new significance. Avoid introducing a major unsupported claim at the end or merely replacing words in the thesis with synonyms.",
+        ),
+        example="An essay proposing captioned recordings opens with the problem of missing an announcement in a noisy room. After discussing access, accuracy, and production costs, it closes by recommending a trial of captions on weekly notices and a process for correcting errors.",
+        walkthrough="The opening makes an access problem concrete. The conclusion converts the developed reasoning into a limited next step and preserves the concern about accuracy. A promise that captions eliminate every communication barrier would exceed what the essay established.",
+        prompt="An argument has compared the benefits and costs of a six-week community compost trial. Which conclusion best builds on that reasoning?",
+        options=("People have produced waste throughout history, and waste is a very large topic", "Launch the trial with the proposed collection schedule, then assess participation and costs before expanding it", "All household waste problems will disappear once the trial begins"),
+        feedback=("This broad background does not develop an implication of the comparison already made.", "Yes. The conclusion connects the evaluation to a specific, limited next step and a basis for judging expansion.", "The claim is much broader than a six-week trial and ignores limits discussed in the argument."),
+        correct=1,
+    ),
+    Lesson(
+        slug="map-thesis-to-sections", title="Map the thesis to the argument's sections", skill="3.B",
+        objective="Explain how supporting claims develop the central position, including qualifications.",
+        explanation=(
+            "Once you identify a thesis, test how each section relates to it. A section may establish a reason, support that reason with evidence, define a condition, or answer an objection. A text's organization is not necessarily a list of independent reasons of equal importance.",
+            "Look for qualifications within the central position. If the thesis recommends a change only under certain conditions, a paragraph about those conditions may be essential rather than a digression. A fair account of the thesis must preserve those limits.",
+            "Separate a writer's position from the alternatives discussed. A paragraph describing a rejected option is not evidence that the writer endorses it. Follow the transitions and evaluation to see how the option contributes to the argument's final recommendation.",
+        ),
+        example="A writer recommends converting an unused lot into a recreation area if the plan preserves a stormwater channel. One section explains the need for play space; another evaluates drainage requirements; a third rejects a design that would block the channel.",
+        walkthrough="The drainage section develops a condition in the thesis, not an unrelated technical issue. Rejecting one design is consistent with supporting a recreation area under the stated condition. Describing the thesis as simply 'build on the lot' would erase a central limitation.",
+        prompt="A thesis favors expanded online services while retaining in-person help. What role would a paragraph about residents who cannot reliably use online forms most directly play?",
+        options=("It necessarily abandons the thesis by criticizing digital tools", "It proves that online services are useless for every resident", "It develops the reason for retaining the in-person option specified in the thesis"),
+        feedback=("The thesis already includes an in-person option, so this paragraph can support that qualified position.", "Difficulty for some residents does not establish that digital services have no value for anyone.", "Yes. The paragraph explains the need for one of the thesis's stated conditions."),
+        correct=2,
+    ),
+    Lesson(
+        slug="build-an-analysis-thesis", title="Turn an observation into an analysis thesis", skill="4.B",
+        objective="Write a defensible thesis that connects rhetorical choices to a writer's purpose.",
+        explanation=(
+            "An analysis thesis makes a claim about how a text works. It does not simply agree with the writer's policy or list techniques. Start with a meaningful choice in the passage and explain how it contributes to the purpose in this rhetorical situation.",
+            "You can describe a choice precisely without a specialized label. A writer might contrast a familiar routine with an unexpected consequence, repeat a shared responsibility, or acknowledge a likely objection. The thesis should point toward analysis that the passage can support.",
+            "Avoid generic effects such as grabs attention when the text permits a more specific explanation. Also avoid claiming the writer succeeds with every reader. A thesis proposes an interpretation that the body develops through details and commentary; naming three devices is not required.",
+        ),
+        example="A safety notice begins by acknowledging that workers already complete many checklists, then describes one overlooked step that prevents a common equipment error. A thesis might argue that the notice recognizes workers' workload before narrowing its request, presenting the added check as a targeted precaution rather than indiscriminate paperwork.",
+        walkthrough="The thesis identifies two related choices and interprets their role for a particular audience. It gives the analysis something to demonstrate. 'The writer uses persuasion and good examples' would not distinguish this notice from countless other texts.",
+        prompt="A speech to volunteers recalls their past successes before asking them to train new members. Which thesis offers the strongest basis for rhetorical analysis?",
+        options=("By presenting past achievements as the result of shared effort, the speaker frames mentoring as a continuation of the volunteers' existing commitment", "The speaker uses words, examples, and sentences to make a good speech", "The volunteers should train new members because mentoring is always beneficial"),
+        feedback=("Yes. This connects a specific choice to the request and offers an interpretation the analysis can test against the speech.", "These categories are too broad to explain how this speech develops its purpose.", "This endorses the request rather than analyzing the speaker's choices, and its universal claim needs separate support."),
+        correct=0,
+    ),
+    Lesson(
+        slug="analyze-definition-and-contrast", title="Analyze how definition changes an argument", skill="5.C",
+        objective="Explain how a writer uses definition or contrast to shape the terms of a debate.",
+        explanation=(
+            "Arguments often turn on the meaning of a key term. A writer may narrow, expand, or distinguish a term to change what readers consider relevant. Notice how the definition affects the claims that follow, rather than treating it as neutral background automatically.",
+            "A contrast can make the definition visible. Distinguishing access from mere availability, for example, invites attention to whether people can actually use a service. Evaluate whether the distinction is relevant and consistently applied; a useful definition still needs supporting evidence.",
+            "Do not assume a writer has proved a policy merely by choosing a favorable definition. Ask what consequences follow if readers accept it and what questions remain. Definitions organize reasoning; they do not replace evidence about costs, effects, or implementation.",
+        ),
+        example="An essay distinguishes making a public document available from making it usable. It notes that a scanned image may be online while still being difficult to search or read with assistive technology, then proposes publishing accessible text versions.",
+        walkthrough="The distinction shifts evaluation from the fact of publication to how readers can use the document. It helps explain why a text version matters. The writer still needs evidence about the proposed process, and the example does not prove every scanned document is equally inaccessible.",
+        prompt="A writer distinguishes attendance from participation before discussing students who are present but rarely have a chance to speak. What does the distinction contribute?",
+        options=("It proves that attending class has no educational value", "It establishes a standard for evaluating involvement beyond physical presence", "It shows that every quiet student wants to speak more often"),
+        feedback=("The distinction does not require rejecting the value of attendance; it identifies an additional dimension.", "Yes. The definition prepares readers to consider opportunities for contribution rather than counting presence alone.", "The writer would need further evidence about individual preferences. Quietness alone does not establish them."),
+        correct=1,
+    ),
+    Lesson(
+        slug="combine-development-methods", title="Combine methods without losing the argument", skill="6.C",
+        objective="Build a coherent sequence that connects illustration, explanation, and evaluation.",
+        explanation=(
+            "A developed argument can use several methods for different jobs. An example may introduce a problem, a process explanation may show why it occurs, and a comparison may evaluate possible remedies. Make the relationship clear so the text does not become a collection of unrelated sections.",
+            "Choose the order readers need. If they cannot evaluate alternatives without understanding the problem, establish the problem first. If a familiar term is misleading, define it before applying it. There is no single required order; justify your sequence through the reasoning it enables.",
+            "After outlining, test each section against the central claim. Explain how an opening example represents the relevant issue without treating it as universal proof. Compare alternatives fairly, and preserve important limits in the recommendation that follows.",
+        ),
+        example="An essay about missed medical appointments begins with one patient's scheduling difficulty, explains how conflicting work hours and transit schedules can combine, then compares evening appointments with transportation vouchers. It recommends testing the option best suited to the documented local barrier.",
+        walkthrough="The narrative illustrates an experience, the explanation identifies a possible mechanism, and the comparison evaluates responses. Broader local evidence is still needed before generalizing from the opening story. The recommendation depends on which barrier the evidence establishes.",
+        prompt="An essay opens with a confusing evacuation notice and recommends clearer public warnings. Which next sequence most directly develops the recommendation?",
+        options=("Retell several unrelated emergencies, then repeat that clear writing is good", "Describe the notice's paper quality, then rank printing companies by size", "Explain the ambiguous wording, compare clearer revisions, and address how officials can test comprehension"),
+        feedback=("Additional stories may not explain the wording problem or establish how the proposed improvement would work.", "Paper and company size do not directly address the notice's confusing language.", "Yes. The sequence moves from a specific problem to alternatives and a practical way to evaluate the remedy."),
+        correct=2,
+    ),
+)
+
 
 def lessons_for(code: str, unit_order: int) -> tuple[Lesson, ...]:
     if code != "english-language":
         return ()
-    return {1: FOUNDATIONS, 2: AUDIENCE_AND_THESIS, 3: REASONING_AND_DEVELOPMENT}.get(unit_order, ())
+    return {1: FOUNDATIONS, 2: AUDIENCE_AND_THESIS, 3: REASONING_AND_DEVELOPMENT,
+            4: PURPOSE_AND_STRUCTURE}.get(unit_order, ())

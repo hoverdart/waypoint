@@ -1,5 +1,6 @@
+import pytest
 from sqlmodel import select
-from app.content.lessons import FOUNDATIONS, AUDIENCE_AND_THESIS, lessons_for
+from app.content.lessons import FOUNDATIONS, AUDIENCE_AND_THESIS, PURPOSE_AND_STRUCTURE, lessons_for
 from app.models.lesson import LessonCompletion
 from tests.conftest import auth_header
 from tests.factories import make_subject_with_units_topics, make_user
@@ -40,7 +41,7 @@ def test_lessons_check_feedback_persistence_and_user_isolation(client, db_sessio
 
 def test_lessons_validate_scope_revision_and_payload(client, db_session):
     subject, unit, unavailable, headers, _ = setup(db_session)
-    unavailable.display_order = 4
+    unavailable.display_order = 5
     db_session.add(unavailable)
     db_session.commit()
     path = f"/units/{unit.id}/lessons"
@@ -61,15 +62,22 @@ def test_lessons_validate_scope_revision_and_payload(client, db_session):
     assert client.get(path, headers=headers).status_code == 404
 
 
-def test_unit_two_publishes_distinct_lessons_and_persists_all_checks(client, db_session):
+@pytest.mark.parametrize('unit_order,sequence,skills', [
+    (2, AUDIENCE_AND_THESIS, ['1.B', '2.B', '3.A', '4.A', '3.B', '4.B']),
+    (4, PURPOSE_AND_STRUCTURE, ['1.A', '2.A', '3.B', '4.B', '5.C', '6.C']),
+])
+def test_published_sequences_persist_all_checks(client, db_session, unit_order, sequence, skills):
     subject, first, second, headers, other_headers = setup(db_session)
+    second.display_order = unit_order
+    db_session.add(second)
+    db_session.commit()
     response = client.get(f"/subjects/{subject.id}").json()
     assert [unit['lesson_count'] for unit in response['units']] == [3, 6]
     path = f"/units/{second.id}/lessons"
     lessons = client.get(path, headers=headers).json()
-    assert [lesson['skill'] for lesson in lessons] == ['1.B', '2.B', '3.A', '4.A', '3.B', '4.B']
+    assert [lesson['skill'] for lesson in lessons] == skills
     assert len({lesson['slug'] for lesson in lessons}) == 6
-    for lesson in AUDIENCE_AND_THESIS:
+    for lesson in sequence:
         assert client.post(f"/units/{first.id}/lessons/{lesson.slug}/check", headers=headers,
                            json={'option': lesson.correct, 'revision': lesson.revision}).status_code == 404
         for option in range(3):
@@ -81,7 +89,7 @@ def test_unit_two_publishes_distinct_lessons_and_persists_all_checks(client, db_
     assert not any(lesson['completed'] for lesson in client.get(path, headers=other_headers).json())
     assert not any(lesson['completed'] for lesson in client.get(f"/units/{first.id}/lessons", headers=headers).json())
     assert lessons_for('biology', 2) == ()
-    assert lessons_for('english-language', 4) == ()
+    assert lessons_for('english-language', 5) == ()
 
 
 def test_published_lesson_skills_match_seeded_unit_topics():
