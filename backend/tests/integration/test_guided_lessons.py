@@ -202,8 +202,8 @@ def test_every_seeded_english_lesson_has_matching_mcq_practice(client, db_sessio
     assert count == 49
 
 
-@pytest.mark.parametrize('order,tag,skill', [(2, 'ced:2.3', 'sourcing'), (8, 'ced:8.6', 'comparison'), (9, 'ced:9.5', 'claims-evidence')])
-def test_history_lesson_targets_curriculum_and_persists_owned_progress(client, db_session, order, tag, skill):
+@pytest.mark.parametrize('order,index,tag,skill', [(2, 0, 'ced:2.3', 'sourcing'), (8, 0, 'ced:8.6', 'comparison'), (8, 1, 'ced:8.2', 'causation'), (8, 2, 'ced:8.2', 'argumentation'), (9, 0, 'ced:9.5', 'claims-evidence')])
+def test_history_lesson_targets_curriculum_and_persists_owned_progress(client, db_session, order, index, tag, skill):
     from app.models.subject import Subject, Unit, Topic
     from scripts.seed import seed_subject
     from scripts.seed_data.subjects import SUBJECTS
@@ -215,8 +215,8 @@ def test_history_lesson_targets_curriculum_and_persists_owned_progress(client, d
     unit = db_session.exec(select(Unit).where(Unit.subject_id == subject.id, Unit.display_order == order)).one()
     path = f'/units/{unit.id}/lessons'
     headers = auth_header(user.auth_provider_id)
-    lesson = lessons_for('us-history', order)[0]
-    row = client.get(path, headers=headers).json()[0]
+    lesson = lessons_for('us-history', order)[index]
+    row = client.get(path, headers=headers).json()[index]
     assert not {'correct', 'feedback', 'practice_tag'} & row.keys()
     assert row['skill'] == skill
     assert row['example_kind'] == 'historical'
@@ -227,6 +227,7 @@ def test_history_lesson_targets_curriculum_and_persists_owned_progress(client, d
         result = client.post(f'{path}/{lesson.slug}/check', headers=headers,
                              json={'option': option, 'revision': 1})
         assert result.json() == {'correct': option == lesson.correct, 'feedback': lesson.feedback[option]}
-        assert client.get(path, headers=headers).json()[0]['completed'] == (option == lesson.correct)
-    assert not client.get(path, headers=auth_header(other.auth_provider_id)).json()[0]['completed']
+        assert client.get(path, headers=headers).json()[index]['completed'] == (option == lesson.correct)
+    assert not any(row['completed'] for i, row in enumerate(client.get(path, headers=headers).json()) if i != index)
+    assert not any(row['completed'] for row in client.get(path, headers=auth_header(other.auth_provider_id)).json())
     assert lessons_for('us-history', 7) == ()

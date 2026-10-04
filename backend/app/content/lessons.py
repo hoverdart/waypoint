@@ -759,7 +759,7 @@ QUALIFIED_ARGUMENTS = (
 
 def lessons_for(code: str, unit_order: int) -> tuple[Lesson, ...]:
     if code == "us-history":
-        return {2: HISTORY_SOURCE_PURPOSE, 8: HISTORY_IMPLEMENTATION,
+        return {2: HISTORY_SOURCE_PURPOSE, 8: HISTORY_IMPLEMENTATION + HISTORY_CAUSATION,
                 9: HISTORY_DEMOGRAPHY}.get(unit_order, ())
     if code != "english-language":
         return ()
@@ -820,5 +820,38 @@ HISTORY_IMPLEMENTATION = (
         prompt="Which evidence best tests whether a particular district changed enrollment practices after Brown?",
         options=("District enrollment and assignment records before and after the ruling, checked against enforcement records", "The date of the Supreme Court decision by itself", "A later commemorative speech praising the decision without discussing the district"),
         feedback=("Yes. Local records over time address actual practices; enforcement evidence helps explain their timing and limits.", "The date establishes chronology, not the district's response.", "Commemoration can reveal later memory, but this speech does not establish the district's enrollment practices."), correct=0,
+    ),
+)
+
+
+HISTORY_CAUSATION = (
+    Lesson(
+        slug="explain-a-causal-mechanism", title="Explain how a cause could produce an effect",
+        skill="causation", practice_tag="ced:8.2", example_kind="historical",
+        objective="Build a causal explanation that identifies a mechanism and acknowledges competing influences.",
+        explanation=(
+            "Chronology is a starting point: a proposed cause must precede its effect. It is not the whole explanation. Identify the intervening process that connects the cause to the outcome, then choose evidence that could support or challenge that connection.",
+            "Distinguish what policymakers expected from what happened. A speech can establish a stated rationale; it cannot alone measure a program's effects. To assess outcomes, compare changes over time and consider other conditions that could contribute to them.",
+            "Use proportionate language. A policy may contribute to an outcome without being its sole cause. A strong explanation can weigh several factors and identify why one mattered in a particular setting rather than merely listing events.",
+        ),
+        example="In 1947 Marshall called for European reconstruction; Congress funded the recovery program in 1948. Supporters connected economic stabilization with limiting Communist influence. Original summary based on the State Department Office of the Historian's Marshall Plan account.",
+        walkthrough="The proposed mechanism connects economic assistance to improved conditions, then to greater political stability. That describes the policy rationale. Establishing how much aid actually contributed requires economic and political evidence and consideration of other influences on recovery.",
+        prompt="Which argument best explains a possible mechanism linking reconstruction aid to containment?",
+        options=("Aid preceded later political developments, which proves it caused all of them", "Aid could improve economic conditions and strengthen governments, reducing the appeal of Communist movements", "Aid and containment appeared in the same speech, so they were identical policies"),
+        feedback=("Sequence alone does not establish causation or exclude other influences.", "Yes. This connects assistance, economic conditions, and political stability while presenting a possible mechanism rather than a guaranteed outcome.", "Policies can serve a related goal through different instruments. Shared mention does not make them identical."), correct=1,
+    ),
+    Lesson(
+        slug="weigh-multiple-policy-motives", title="Weigh motives without erasing consequences",
+        skill="argumentation", practice_tag="ced:8.2", example_kind="historical",
+        objective="Qualify a claim of exclusive motivation using relevant evidence about policy choices.",
+        explanation=(
+            "Separate motives, instruments, and consequences. A government may pursue security through economic assistance that also relieves suffering. Humanitarian benefits do not prove that humanitarian concern was the only motive; strategic motives do not erase those benefits.",
+            "An exclusive claim is demanding: it rules out other meaningful motives. Test it with evidence from deliberations, speeches, funding decisions, and implementation. Different policymakers may emphasize different goals, so avoid assigning one uniform intention without support.",
+        ),
+        example="The Marshall Plan supported Western European reconstruction and markets for American goods while policymakers linked recovery to resistance to Communist influence. Original summary based on the State Department Office of the Historian's Marshall Plan account.",
+        walkthrough="This evidence supports examining humanitarian, economic, and strategic objectives together. It challenges a claim of purely humanitarian motivation without implying that assistance provided no humanitarian benefit. Relative importance requires closer evidence about decisions and actors.",
+        prompt="An essay says reconstruction aid was motivated only by humanitarian concern. Which revision best responds to evidence of strategic objectives?",
+        options=("Aid could serve humanitarian and strategic purposes; evidence of decision-making is needed to weigh their importance", "Strategic objectives prove that nobody benefited from reconstruction", "Humanitarian benefits make policymakers' strategic statements irrelevant"),
+        feedback=("Yes. The revision addresses the exclusive claim and identifies what further evidence can establish.", "A motive does not by itself determine whether recipients benefited.", "Benefits and intentions answer different questions. Strategic statements remain relevant to a claim about motives."), correct=0,
     ),
 )

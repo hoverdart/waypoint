@@ -988,3 +988,11 @@
 - Cross-area work was announced before proceeding. Backend lesson metadata/tests, frontend API type/component/tests, and CONTEXT.md changed. Read the installed Next.js use-client documentation before frontend edits. User AGENTS.md edits excluded.
 - Verification: all 393 backend tests and 104 frontend tests passed; frontend lint and production build passed under Node 24. Added rendering checks for historical, fictional, and absent metadata and backend assertions for actual lesson provenance. Scoped whitespace checks passed. Counts unchanged at 765 questions and 52 lessons.
 - Exact skill-filtered practice, full history lesson sequences, missing curriculum coverage, visual evidence, writing/exam integration, and remaining AP courses are unfinished. Goal remains active.
+
+### Expansion milestone 108 — Causal reasoning and policy motives
+
+- Previous goal turn classified as progress: lesson provenance and practice-scope labels were tested and pushed as 6f63930. Added two Period 8 lessons on causal mechanisms and weighing policy motives, using original instruction and attributed Marshall Plan examples.
+- Verified historical context against the State Department Office of the Historian account. Lessons distinguish intended mechanisms from measured outcomes, chronology from causal proof, and humanitarian effects from exclusive humanitarian motives. Both target the existing 8.2 containment topic through the current topic-based practice flow.
+- History now has five guided lessons; total guided lessons 54, including 49 English Language lessons. Questions remain 765. Backend content/tests and history documentation changed; frontend unchanged. User AGENTS.md edits excluded.
+- Verification: all 395 backend tests passed. Expanded actual-seed tests cover each lesson's feedback, topic mapping, provenance, independent completion within a multi-lesson sequence, and user isolation. An initial test run caught an accidental index substitution in an existing helper; corrected the test and reran the full suite. Scoped whitespace checks passed.
+- These lessons do not complete Period 8 instruction. Remaining curriculum gaps, visual evidence, writing/exam integration, exact skill-filtered practice, other AP courses, and broader learning progression remain unfinished. Goal remains active.
