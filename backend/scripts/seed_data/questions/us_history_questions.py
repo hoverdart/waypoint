@@ -767,3 +767,5 @@ from .us_history.period_six_south_and_exclusion import QUESTIONS as PERIOD_SIX_S
 QUESTIONS += PERIOD_SIX_SOUTH_AND_EXCLUSION
 from .us_history.period_six_railroads import QUESTIONS as PERIOD_SIX_RAILROADS
 QUESTIONS += PERIOD_SIX_RAILROADS
+from .us_history.period_six_reform_and_politics import QUESTIONS as PERIOD_SIX_REFORM_AND_POLITICS
+QUESTIONS += PERIOD_SIX_REFORM_AND_POLITICS

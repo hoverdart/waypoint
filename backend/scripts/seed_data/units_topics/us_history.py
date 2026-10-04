@@ -573,3 +573,12 @@ UNITS[5]['topics'].append({
     'description': 'Evaluate conflicts over federal economic authority, regulation, and the relationship between legislation and enforcement.',
     'skill_tags': ['causation', 'argumentation', 'ced:6.12'], 'display_order': 7,
 })
+
+UNITS[5]['topics'].extend([
+    {'name': 'Reform in the Gilded Age',
+     'description': 'Examine organized responses to urban and industrial conditions, including settlement work and social reform.',
+     'skill_tags': ['contextualization', 'sourcing', 'ced:6.11'], 'display_order': 8},
+    {'name': 'Politics in the Gilded Age',
+     'description': 'Analyze political coalitions and competing proposals for addressing economic power and inequality.',
+     'skill_tags': ['comparison', 'sourcing', 'ced:6.13'], 'display_order': 9},
+])

@@ -740,3 +740,12 @@
 - All 337 backend tests and scoped whitespace checks pass, including new content/coverage validation and whole-bank reseeding. U.S. History now has 219 questions across 73 topics; overall bank has 659 questions across 349 topics.
 - Affected areas: backend question/curriculum seed data and tests, docs/DELIVERY.md, docs/US_HISTORY_EXPANSION.md, and CONTEXT.md. Frontend unchanged; user AGENTS.md edits excluded.
 - Remaining Period 6 mapping gaps include context, middle-class development, reform, politics, and continuity/change. Existing topics also need wider sources and historical perspectives; later periods, non-text stimuli, history FRQ/exam workflows, other AP subjects, and richer teaching/progression remain unfinished. Overall goal remains active.
+
+### Expansion milestone 77 — Settlement reform and Populist politics
+
+- Previous goal turn classified as progress: railroad labor/regulation questions were tested and pushed as 1fb87fa. Added Reform in the Gilded Age (6.11) and Politics in the Gilded Age (6.13), each with three original source-based questions.
+- Settlement context checked against https://hullhouse.uic.edu/about/our-history/. The summary avoids claiming Hull-House was the first American settlement or that all later programs existed at its founding. Questions distinguish organized intervention from unrestricted competition and require residents' evidence before inferring how services were experienced.
+- Populist context checked against the 1892 platform at https://www.presidency.ucsb.edu/documents/populist-party-platform-1892. Questions distinguish proposals from enactment, public ownership from the ICC's regulation of private carriers, and coalition-building claims from actual political support.
+- All 338 backend tests and scoped whitespace checks pass, including item validation, curriculum coverage, and whole-bank reseeding. U.S. History now has 225 questions across 75 topics; overall bank has 665 questions across 351 topics.
+- Affected areas: backend question/curriculum seed data and tests, docs/DELIVERY.md, docs/US_HISTORY_EXPANSION.md, and CONTEXT.md. Frontend unchanged; user AGENTS.md edits excluded.
+- Period 6 context, middle-class development, and continuity/change still lack dedicated mappings. Reform and politics require additional movements, competing perspectives, and electoral developments. Later periods, non-text stimuli, history FRQ/exam workflows, other AP courses, and deeper learning features remain unfinished. Overall goal remains active.
