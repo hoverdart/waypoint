@@ -1,4 +1,5 @@
 import { ExamLaunch } from "@/components/exams/ExamLaunch";
+import { ReleasedExamResources } from "@/components/subjects/ReleasedExamResources";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSubject } from "@/lib/api";
@@ -21,6 +22,7 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
       <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">{subject.description}</p>
     </header>
     <ExamLaunch subjectId={subject.id} />
+    <ReleasedExamResources resources={subject.released_exam_resources ?? []} />
     <CourseStudy subject={subject} />
   </div>;
 }

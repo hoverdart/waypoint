@@ -1,4 +1,5 @@
 from datetime import date
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
 
@@ -41,8 +42,17 @@ class SubjectRead(BaseModel):
     display_order: int
 
 
+class ReleasedExamResource(BaseModel):
+    title: str
+    url: str
+    kind: Literal['archive', 'questions', 'scoring']
+    year: int | None = None
+    checked_on: date
+
+
 class SubjectDetailRead(SubjectRead):
     units: list[UnitWithTopicsRead] = []
+    released_exam_resources: list[ReleasedExamResource] = []
 
 
 class UserSubjectRead(BaseModel):

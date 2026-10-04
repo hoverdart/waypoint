@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
 
 from app.db.session import get_db
+from app.content.released_exams import released_resources
 from app.models.subject import Subject, Topic, Unit
 from app.schemas.subject import SubjectDetailRead, SubjectRead, TopicRead, UnitRead, UnitWithTopicsRead
 
@@ -38,4 +39,5 @@ def get_subject(subject_id: int, db: Session = Depends(get_db)) -> SubjectDetail
             )
         )
 
-    return SubjectDetailRead(**SubjectRead.model_validate(subject).model_dump(), units=unit_reads)
+    return SubjectDetailRead(**SubjectRead.model_validate(subject).model_dump(), units=unit_reads,
+        released_exam_resources=released_resources(subject.ap_exam_code))

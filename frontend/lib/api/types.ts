@@ -42,6 +42,15 @@ export interface Subject {
 
 export interface SubjectDetail extends Subject {
   units: UnitWithTopics[];
+  released_exam_resources?: ReleasedExamResource[];
+}
+
+export interface ReleasedExamResource {
+  title: string;
+  url: string;
+  kind: "archive" | "questions" | "scoring";
+  year: number | null;
+  checked_on: string;
 }
 
 export interface UserSubject {
