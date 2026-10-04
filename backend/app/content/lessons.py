@@ -535,10 +535,117 @@ SOURCES_AND_REFINEMENT = (
     ),
 )
 
+QUALIFICATION_AND_SENTENCES = (
+    Lesson(
+        slug="recognize-competing-purposes", title="Recognize competing demands in a situation", skill="1.A",
+        objective="Explain how a writer responds to an audience with more than one concern.",
+        explanation=(
+            "A writer may need to reassure readers while asking them to change, or acknowledge a loss while defending a decision. Identify these demands through the occasion and language. Do not assume every sentence serves an identical immediate purpose.",
+            "Explain how the moves work together. Acknowledging inconvenience can establish that a request takes readers' experience seriously. It does not necessarily withdraw the request or guarantee agreement. Keep your interpretation tied to the specific audience and circumstances.",
+        ),
+        example="A curator announces a gallery closure for conservation. She acknowledges visitors who planned trips, explains the damage that continued display could cause, and identifies other ways to view the collection during repairs.",
+        walkthrough="The announcement must explain a restriction and respond to disappointed visitors. Acknowledgment and alternatives support that response, while the conservation explanation supplies the reason for closing. The text need not claim the alternatives fully replace the visit.",
+        prompt="A director thanks volunteers before explaining why a familiar event must change its schedule. What is the most supported function of the thanks?",
+        options=("It recognizes their investment before introducing a potentially unwelcome change", "It proves every volunteer already supports the new schedule", "It makes an explanation of the change unnecessary"),
+        feedback=("Yes. Recognition can help address the audience's relationship to the event before the change is discussed.", "Thanks does not establish agreement; the schedule may still need justification.", "Acknowledgment can accompany reasons but cannot replace the explanation readers need."), correct=0,
+    ),
+    Lesson(
+        slug="frame-a-qualified-position", title="Frame a qualified position from beginning to end", skill="2.A",
+        objective="Use an opening and conclusion to preserve the argument's central tension.",
+        explanation=(
+            "When an argument weighs competing concerns, an opening can establish the decision without pretending one concern does not exist. Introduce only the context needed to understand the tension and the position you will develop.",
+            "A conclusion should reflect the reasoning actually completed. If the body supports a conditional recommendation, do not end with an unconditional slogan. Draw out the warranted implication and identify the condition that remains important.",
+        ),
+        example="An essay on displaying fragile letters opens with the tension between public access and preservation. After comparing viewing arrangements, it concludes that short display periods paired with readable reproductions can expand access while limiting exposure of the originals.",
+        walkthrough="The conclusion responds to the tension established at the start. It proposes a specific balance rather than claiming that preservation or access no longer matters. The body must supply evidence for the proposed arrangement.",
+        prompt="An essay supports a pilot only if its costs are monitored. Which ending preserves that position?",
+        options=("The pilot deserves unlimited expansion immediately", "Begin the pilot with regular cost reviews before deciding whether to expand", "Because costs exist, no trial can ever be justified"),
+        feedback=("Immediate unlimited expansion removes the condition the essay defended.", "Yes. The ending carries the stated condition into the proposed action.", "This reverses the argument without showing why the conditional trial is untenable."), correct=1,
+    ),
+    Lesson(
+        slug="read-concessions-carefully", title="Distinguish concession from surrender", skill="3.C",
+        objective="Explain how a writer acknowledges a competing perspective while retaining or revising a claim.",
+        explanation=(
+            "A concession accepts a point without necessarily accepting every conclusion attached to it. Identify exactly what the writer grants and what remains disputed. Although and even if can help signal this relationship, but the reasoning matters more than any single word.",
+            "A qualification narrows a claim's scope or specifies conditions. It can respond to a valid objection while preserving a defensible position. Avoid describing every acknowledgment of difficulty as a complete reversal.",
+        ),
+        example="A reviewer writes, 'The translation loses some of the original rhythm, but its clear notes make unfamiliar references accessible to new readers.'",
+        walkthrough="The reviewer concedes a limitation and retains a favorable judgment about another feature. The sentence does not establish that rhythm is unimportant or that notes eliminate the loss. It weighs distinct considerations.",
+        prompt="A writer states, 'The program is expensive, yet its benefits may justify a smaller trial.' What position is retained?",
+        options=("The program has no meaningful costs", "The program must operate at its original full scale", "A limited trial may be warranted despite the acknowledged cost"),
+        feedback=("The cost is explicitly acknowledged.", "The smaller trial qualifies the scale rather than preserving the original size.", "Yes. The writer grants a concern while proposing a narrower course of action."), correct=2,
+    ),
+    Lesson(
+        slug="answer-the-strong-objection", title="Answer the objection your argument actually faces", skill="4.C",
+        objective="Represent a competing claim fairly and respond with reasoning rather than dismissal.",
+        explanation=(
+            "Choose an objection that challenges a real premise, consequence, or priority in your argument. A weak caricature is easy to reject but leaves the substantive concern unanswered. State the opposing position in terms its reasonable supporters could recognize.",
+            "Decide whether evidence rebuts the objection, whether a concession is appropriate, or whether your claim needs a condition. Your response should explain why the central position remains justified after the concern is considered.",
+        ),
+        example="A proposal for extended museum hours faces a staffing objection. Instead of accusing critics of opposing access, the writer proposes a limited evening schedule, identifies staffing costs, and explains how attendance and cost will be reviewed.",
+        walkthrough="The response treats staffing as a practical constraint and adjusts the proposal. It still needs credible cost evidence. Merely saying access is valuable would not answer whether the plan can be staffed.",
+        prompt="A critic argues that an outdoor event plan lacks an accessible route. Which response most directly addresses the objection?",
+        options=("Revise the layout to provide an accessible route and explain how it will be checked before opening", "Describe the critic as someone who dislikes outdoor events", "Repeat that the event will be enjoyable without discussing the route"),
+        feedback=("Yes. This responds to the specific access issue with an actionable revision and verification.", "An invented motive does not address the layout's accessibility.", "Enjoyment does not resolve the route problem identified by the critic."), correct=0,
+    ),
+    Lesson(
+        slug="analyze-sentence-emphasis", title="Explain how sentence structure directs emphasis", skill="7.B",
+        objective="Connect clause arrangement and sentence length to a specific rhetorical effect.",
+        explanation=(
+            "Sentence structure can foreground a claim, delay it, or place it beside a qualification. Identify the main clause and the relationship of other clauses to it. Do not assume every long sentence is complex in thought or every short sentence is emphatic in the same way.",
+            "Read the sentence within its surroundings. A brief sentence after a sequence of detail can create a pause or focus attention on a conclusion. Explain which idea receives emphasis and how that emphasis serves this passage.",
+        ),
+        example="A memoir lists the narrator's attempts to locate a missing photograph: searching drawers, calling relatives, and sorting boxes. The paragraph ends, 'Then I stopped searching.'",
+        walkthrough="The short final sentence contrasts with the accumulated activity and marks a change in action. Its significance depends on what follows; it does not by itself establish whether the narrator feels relief, despair, or something else.",
+        prompt="In 'Although the route is longer, it avoids the steep stairs,' which idea occupies the main clause?",
+        options=("The route is longer", "The route avoids the steep stairs", "The route has no disadvantages"),
+        feedback=("The although clause acknowledges that point in a subordinate position.", "Yes. Avoiding the stairs receives the main-clause emphasis while length remains a concession.", "The sentence explicitly recognizes a drawback, so it does not claim there are none."), correct=1,
+    ),
+    Lesson(
+        slug="revise-clause-relationships", title="Make sentence structure reflect the intended relationship", skill="8.B",
+        objective="Revise clauses to express contrast, cause, or emphasis clearly and accurately.",
+        explanation=(
+            "Before combining sentences, identify how their ideas relate. Coordination can place ideas alongside one another; subordination can mark a concession, reason, or condition. Combining sentences is useful when it clarifies that relationship, not simply because longer sentences seem more advanced.",
+            "Keep modifiers close to what they describe and make the actor clear. After revision, check whether the grammar implies a cause or condition you did not intend. Preserve the evidence's limits while improving flow.",
+        ),
+        example="Draft: 'The recording is incomplete. It preserves the opening speech.' Revision: 'Although the recording is incomplete, it preserves the opening speech.'",
+        walkthrough="The revision makes incompleteness a concession and emphasizes the recording's remaining value. Because would create a different, unsupported causal relationship. Neither version establishes what else the recording contains.",
+        prompt="Which revision clearly expresses a contrast without implying causation?",
+        options=("Because the room is small, its acoustics are excellent", "The room is small, its acoustics are excellent", "Although the room is small, its acoustics are excellent"),
+        feedback=("Because attributes the acoustics to size; that is a causal claim rather than the requested contrast.", "This joins two independent clauses with only a comma and leaves their relationship implicit.", "Yes. Although marks the contrast while the main clause emphasizes the positive acoustic judgment."), correct=2,
+    ),
+    Lesson(
+        slug="read-punctuation-as-meaning", title="Explain what punctuation does in context", skill="7.C",
+        objective="Analyze how punctuation separates, introduces, or emphasizes ideas.",
+        explanation=(
+            "Punctuation helps readers interpret relationships and pacing. A colon can introduce an explanation or specification after a complete clause; a semicolon can link closely related independent clauses. Dashes and parentheses can set off material with different degrees of interruption or emphasis in context.",
+            "Do not assign a fixed emotion to a mark. Explain what the punctuation does to these words in this sentence. Replacing a mark may preserve the basic information while changing how the reader encounters it.",
+        ),
+        example="An essay states, 'The collection lacked one essential feature: a record of where the objects came from.'",
+        walkthrough="The complete clause creates an expectation that the colon's following phrase fulfills. The specification identifies provenance as the missing feature. The colon does not add evidence proving why the records are absent.",
+        prompt="In 'The door was open; no one entered,' what does the semicolon most directly accomplish?",
+        options=("It links two complete clauses closely while allowing readers to notice the contrast", "It proves that the open door caused everyone to stay outside", "It marks the second clause as a quotation from another speaker"),
+        feedback=("Yes. Both clauses can stand independently; their close placement makes the unexpected relationship available for interpretation.", "The mark does not establish a causal explanation for the lack of entry.", "A semicolon does not attribute speech or mark quoted material."), correct=0,
+    ),
+    Lesson(
+        slug="edit-conventions-in-context", title="Edit punctuation without changing the claim", skill="8.C",
+        objective="Choose a grammatically sound sentence that preserves the intended relationship and scope.",
+        explanation=(
+            "Editing requires more than locating a possible pause. Identify complete clauses, dependent clauses, and the relationships between them. Two independent clauses cannot normally be joined by a comma alone; a conjunction, semicolon, or period can resolve the boundary depending on the intended connection.",
+            "Check meaning after fixing form. Adding because may repair a sentence boundary but introduce an unsupported cause. A colon needs an appropriate grammatical setup. Preserve distinctions such as which people or objects a modifying phrase identifies.",
+        ),
+        example="Draft: 'The archive is open, appointments are required.' Revision: 'The archive is open, but appointments are required.' Another grammatical option is 'The archive is open; appointments are required.'",
+        walkthrough="Both revisions repair the comma splice. But explicitly presents the appointment rule as a limitation on access; the semicolon leaves the relationship less explicit. Neither claims that opening the archive causes the appointment requirement.",
+        prompt="Which revision repairs the sentence boundary while explicitly retaining the contrast: 'The scan is clear, the original is faded'?",
+        options=("The scan is clear, the original is faded", "The scan is clear, but the original is faded", "Because the scan is clear, the original is faded"),
+        feedback=("This retains the comma splice between two independent clauses.", "Yes. The coordinating conjunction repairs the boundary and explicitly signals contrast.", "This is grammatical but introduces an unsupported causal relationship instead of the intended contrast."), correct=1,
+    ),
+)
+
 
 def lessons_for(code: str, unit_order: int) -> tuple[Lesson, ...]:
     if code != "english-language":
         return ()
     return {1: FOUNDATIONS, 2: AUDIENCE_AND_THESIS, 3: REASONING_AND_DEVELOPMENT,
             4: PURPOSE_AND_STRUCTURE, 5: COHERENCE_AND_STYLE,
-            6: SOURCES_AND_REFINEMENT}.get(unit_order, ())
+            6: SOURCES_AND_REFINEMENT, 7: QUALIFICATION_AND_SENTENCES}.get(unit_order, ())
