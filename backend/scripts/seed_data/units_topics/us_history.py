@@ -529,3 +529,9 @@ UNITS[4]['topics'].append({
     'description': 'Analyze wartime federal authority, emancipation, mobilization, and the relationship between policy and implementation.',
     'skill_tags': ['causation', 'sourcing', 'ced:5.9'], 'display_order': 6,
 })
+
+UNITS[4]['topics'].append({
+    'name': 'Contextualizing Period 5',
+    'description': 'Connect territorial expansion and sectional conflict to earlier disputes over slavery, representation, and diplomacy.',
+    'skill_tags': ['contextualization', 'argumentation', 'ced:5.1'], 'display_order': 7,
+})

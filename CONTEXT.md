@@ -578,3 +578,10 @@
 - The topic now has seven questions: three explicitly tagged 5.4, three tagged 5.6, and one legacy item without a curriculum tag. New tests verify this distinction through the audit rather than inferring coverage from topic scope.
 - All 312 backend tests pass. U.S. History has 186 questions across 67 topics; overall bank has 626 questions across 343 topics. Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md edits excluded.
 - Other failure-of-compromise events and perspectives remain to be covered. Missing Period 5 areas, later periods, non-text sources, history FRQ/exam support, and remaining courses are still outstanding; overall goal remains active.
+
+### Expansion milestone 57 — Period 5 context and Texas annexation
+
+- Previous goal turn classified as progress: Kansas-Nebraska questions were tested and pushed. Added Contextualizing Period 5 (CED 5.1) and three original questions connecting Texas annexation to earlier sectional conflict and competing motives.
+- Historical context checked against Texas State Library annexation resources at https://www.tsl.texas.gov/exhibits/annexation/index.html and the Office of the Historian’s Texas annexation overview. The original summary supports questions about precedent, representation, and evidence distinguishing motives among opponents.
+- All 313 backend tests pass, including new-question validation, period/topic mapping, and whole-bank reseeding. U.S. History has 189 questions across 68 topics; overall bank has 629 questions across 344 topics.
+- Affected areas: backend content/curriculum/tests and docs. Frontend unchanged; user AGENTS.md edits excluded. Period 5 regional differences and comparison remain unmapped; existing topics require more varied sources and depth. Later periods, history FRQ/exam support, and remaining subjects are also outstanding. Overall goal remains active.
