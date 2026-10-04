@@ -446,3 +446,10 @@
 - Verified the settlement’s scope against https://www.archives.gov/milestone-documents/missouri-compromise. The original summary avoids claiming simultaneous admission dates and identifies the Missouri exception to the territorial restriction. Questions analyze Senate balance, expansion, and the limits of sectional compromise.
 - U.S. History now has 141 questions across 61 topics; normal seed totals are 581 questions across 337 topics. Further Period 4 mapping/depth, non-text evidence, later periods, and representative FRQ/exam workflows remain outstanding. Overall goal remains active.
 - Affected areas: backend content/curriculum/tests and docs. All 293 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.
+
+### Expansion milestone 39 — Revival networks and reform
+
+- Previous goal turn classified as progress: Missouri Compromise questions were tested and pushed. Added three original questions to the existing Religious Revival and Reform Movements topic, tagged CED 4.10 with a distinct voluntary-societies stimulus.
+- Context checked against https://www.loc.gov/exhibits/religion/rel07.html. The explicitly labeled instructional summary connects revival networks and voluntary reform; questions require distinguishing organizational mechanisms and supporting evidence from unsupported generalizations.
+- U.S. History now has 144 questions across 61 topics; normal seed totals are 584 questions across 337 topics. Further Period 4 mapping/depth, non-text evidence, later periods, and representative FRQ/exam workflows remain outstanding. Overall goal remains active.
+- Affected areas: backend content/tests and docs. All 294 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.

@@ -723,3 +723,5 @@ from .us_history.period_four_louisiana import QUESTIONS as PERIOD_FOUR_LOUISIANA
 QUESTIONS += PERIOD_FOUR_LOUISIANA
 from .us_history.period_four_regions import QUESTIONS as PERIOD_FOUR_REGIONS
 QUESTIONS += PERIOD_FOUR_REGIONS
+from .us_history.period_four_revival import QUESTIONS as PERIOD_FOUR_REVIVAL
+QUESTIONS += PERIOD_FOUR_REVIVAL
