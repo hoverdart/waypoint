@@ -623,3 +623,9 @@ UNITS[7]['topics'].append({
     'description': 'Examine federal efforts to address poverty and expand opportunity, their implementation, and debates over government responsibility.',
     'skill_tags': ['contextualization', 'comparison', 'ced:8.9'], 'display_order': 5,
 })
+
+UNITS[7]['topics'].append({
+    'name': 'Environment and Natural Resources',
+    'description': 'Evaluate environmental activism, federal regulation, resource use, and debates over costs and outcomes.',
+    'skill_tags': ['causation', 'comparison', 'ced:8.13'], 'display_order': 6,
+})

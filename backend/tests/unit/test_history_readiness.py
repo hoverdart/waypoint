@@ -48,10 +48,10 @@ def test_invalid_form_parameters(forms, size):
         history_mcq_inventory([], [], forms=forms, questions_per_form=size)
 
 
-def test_current_history_bank_has_late_period_inventory_shortages():
+def test_current_history_bank_still_has_period_nine_inventory_shortage():
     from scripts.seed_data.units_topics.us_history import UNITS
     from scripts.seed_data.questions.us_history_questions import QUESTIONS
     result = history_mcq_inventory(UNITS, QUESTIONS)
     assert not result['necessary_inventory_checks_pass']
-    assert result['periods'][7]['shortfall_to_minimum'] > 0
+    assert result['periods'][7]['shortfall_to_minimum'] == 0
     assert result['periods'][8]['shortfall_to_minimum'] > 0
