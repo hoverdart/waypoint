@@ -334,3 +334,10 @@
 - Verified Article I, section 9 against https://www.archives.gov/founding-docs/constitution-transcript. Questions distinguish political independence from the persistence of slavery and distinguish the 1808 end of a constitutional restriction on congressional action from emancipation. Every option includes a rationale.
 - U.S. History now has 93 questions across 53 topics; normal seed totals are 533 questions across 329 topics. Period 3 still lacks distinct Revolutionary War coverage and final ordering/mapping of legacy topics. Later periods, diversified non-text evidence, and history FRQ support remain outstanding; overall goal remains active.
 - Affected areas: backend curriculum/content/tests and docs. All 266 backend tests pass; changed-file whitespace check passes. Frontend unchanged. No copyrighted AP questions imported.
+
+### Expansion milestone 23 — Revolutionary War and French assistance
+
+- Previous goal turn classified as progress: continuity/change questions were tested and pushed. Added four original questions and a distinct American Revolutionary War topic (CED 3.5).
+- Verified historical context against https://history.state.gov/milestones/1776-1783/french-alliance. The stimulus is explicitly an original instructional summary. Questions connect Saratoga, French strategic motives, international assistance, and evidence of naval contributions without presenting the war as exclusively domestic or foreign-led.
+- U.S. History now has 97 questions across 54 topics; normal seed totals are 537 questions across 330 topics. Remaining work includes final Period 3 legacy mapping/order, broader wartime perspectives, non-text stimuli, later periods, and history FRQ workflows. Overall goal remains active.
+- Affected areas: backend content/curriculum/tests and docs. All 267 backend tests pass; changed-file whitespace check passes. Frontend unchanged. No copyrighted AP questions imported.

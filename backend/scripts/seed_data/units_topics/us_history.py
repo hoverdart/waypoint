@@ -392,3 +392,9 @@ UNITS[2]['topics'].append({
     'description': 'Develop qualified arguments about political transformation and persistent social hierarchies from 1754 to 1800.',
     'skill_tags': ['continuity-and-change', 'argumentation', 'ced:3.13'], 'display_order': 14,
 })
+
+UNITS[2]['topics'].append({
+    'name': 'The American Revolutionary War',
+    'description': 'Explain military and diplomatic factors in independence, including foreign alliances and competing wartime loyalties.',
+    'skill_tags': ['causation', 'contextualization', 'ced:3.5'], 'display_order': 15,
+})
