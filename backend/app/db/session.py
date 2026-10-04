@@ -6,7 +6,10 @@ from app.config import get_settings
 
 settings = get_settings()
 
-engine = create_engine(settings.database_url, echo=False, pool_pre_ping=True)
+# Timestamp columns currently store UTC without an offset. Pin the connection
+# zone so PostgreSQL never casts aware writes into the host's local date.
+engine = create_engine(settings.database_url, echo=False, pool_pre_ping=True,
+                       connect_args={"options": "-c timezone=UTC"})
 
 
 def get_db() -> Generator[Session, None, None]:

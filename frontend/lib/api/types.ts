@@ -103,6 +103,7 @@ export interface PracticeStartResponse {
 }
 
 export interface PracticeHistoryItem {
+  is_exam?: boolean;
   graded_count?: number;
   self_review_count?: number;
   session_id: number;

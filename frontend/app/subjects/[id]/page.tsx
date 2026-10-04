@@ -1,3 +1,4 @@
+import { ExamLaunch } from "@/components/exams/ExamLaunch";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSubject } from "@/lib/api";
@@ -19,6 +20,7 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
       <h1 className="mt-4 font-display text-4xl sm:text-6xl">{subject.name}</h1>
       <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">{subject.description}</p>
     </header>
+    <ExamLaunch subjectId={subject.id} />
     <CourseStudy subject={subject} />
   </div>;
 }

@@ -56,9 +56,20 @@ checks must never claim to provide it.
   essay entry provides a word count and bounded, accessible text field. Diagnostics
   exclude self-review essays, and courses without official unit weights use an explicit
   equal-unit fallback for mastery and planning.
-- Candidate course remains outside live enrollment until depth and timed-exam work
-  are ready. Next: additional independent forms/essay sets, close coverage gaps, and
-  implement section-aware timed practice.
+- Section-aware Forms A/B now support server-enforced deadlines, saved drafts,
+  revision conflict protection, history resume, locked sections, and final results
+  with persistent essay self-review. Standard/1.5x/2x practice time and an explicitly
+  untimed inter-section break are available. These are rehearsal tools, not official
+  AP score predictions or an accommodation approval system.
+- Candidate course remains outside live enrollment until content depth is ready.
+  Next: additional independent forms/essay sets and closure of topic coverage gaps.
+
+For candidate browser verification, point `DATABASE_URL` at a disposable database
+named `waypoint_test`, `waypoint_migration_test`, or `waypoint_exam_test`, run migrations
+and the regular seed, then run `python -m scripts.seed_exam_preview` from `backend/`.
+Run the frontend Playwright suite with the same database and
+`E2E_INCLUDE_CANDIDATES=1`; real Clerk test credentials are required. The preview seed
+rejects other database names and does not change the production course registry.
 
 Run `python -m scripts.content_audit` from `backend/` to see the current 43-course
 inventory and structural gaps. The audit separates live foundation banks, candidate

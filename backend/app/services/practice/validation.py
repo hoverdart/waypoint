@@ -8,7 +8,7 @@ from app.services.practice.types import AnswerSubmission
 
 
 def validate_submission(
-    db: Session, session_id: int, answers: list[AnswerSubmission], *, diagnostic: bool, partial: bool = False
+    db: Session, session_id: int, answers: list[AnswerSubmission], *, diagnostic: bool, partial: bool = False, allow_exam: bool = False
 ) -> PracticeSession:
     # Serialize competing submissions so a session can award mastery and XP only once.
     session = db.exec(
@@ -17,6 +17,8 @@ def validate_submission(
     ).first()
     if session is None:
         raise NotFoundError("Session not found")
+    if "exam" in session.session_metadata and not allow_exam:
+        raise ConflictError("Use the exam section controls for this session")
     if session.completed_at is not None:
         raise ConflictError("This session has already been submitted")
     if (session.session_type == "diagnostic") != diagnostic:

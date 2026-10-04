@@ -47,7 +47,7 @@ export function CourseStudy({ subject }: { subject: SubjectDetail }) {
           <details key={unit.id} open={query.length > 0 || undefined} className="group border-b border-border pb-6">
             <summary className="flex cursor-pointer list-none items-start gap-5 py-3 focus-visible:outline-2 focus-visible:outline-ring">
               <span className="font-mono text-sm text-blue">{String(unit.display_order).padStart(2, "0")}</span>
-              <div className="flex-1"><h2 className="text-xl font-semibold tracking-tight">{unit.name}</h2><p className="mt-1 text-xs text-muted-foreground">{unit.topics.length} topics · {unit.ap_weight_min}–{unit.ap_weight_max}% exam weighting</p></div>
+              <div className="flex-1"><h2 className="text-xl font-semibold tracking-tight">{unit.name}</h2><p className="mt-1 text-xs text-muted-foreground">{unit.topics.length} topics · {unit.ap_weight_max > 0 ? `${unit.ap_weight_min}–${unit.ap_weight_max}% exam weighting` : "No official unit weighting"}</p></div>
               <span className="text-xl group-open:rotate-45" aria-hidden="true">+</span>
             </summary>
             <div className="space-y-4 pt-4 sm:pl-10">
@@ -68,7 +68,7 @@ export function CourseStudy({ subject }: { subject: SubjectDetail }) {
         {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
         <PillButton className="w-full" arrow disabled={busy} onClick={() => void practice()}>{busy ? "Preparing…" : "Practice the whole course"}</PillButton>
         <div className="border-t border-border pt-5"><p className="mb-3 text-xs leading-relaxed text-muted-foreground">New to this course? A diagnostic helps build your first study plan.</p><DiagnosticStartButton subjectId={subject.id} /></div>
-        <p className="text-[11px] leading-relaxed text-muted-foreground">Original practice material. Not affiliated with or endorsed by College Board. Free-response feedback is an automated study aid.</p>
+        <p className="text-[11px] leading-relaxed text-muted-foreground">Original practice material. Not affiliated with or endorsed by College Board. Practice feedback is not an official AP grade.</p>
       </aside>
     </div>
   );

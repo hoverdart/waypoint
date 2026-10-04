@@ -93,9 +93,10 @@ def submit_practice_session(
     answers: list[AnswerSubmission],
     daily_plan_item_id: int | None = None,
     now: datetime | None = None,
+    *, allow_exam: bool = False,
 ) -> PracticeSession:
     now = now or datetime.now(timezone.utc)
-    session = validate_submission(db, session_id, answers, diagnostic=False)
+    session = validate_submission(db, session_id, answers, diagnostic=False, allow_exam=allow_exam)
     item = None
     if daily_plan_item_id is not None:
         item = db.get(DailyPlanItem, daily_plan_item_id)

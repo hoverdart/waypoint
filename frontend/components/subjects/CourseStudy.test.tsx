@@ -8,6 +8,12 @@ vi.mock("@/lib/api", () => ({ startPractice: start }));
 vi.mock("./DiagnosticStartButton", () => ({ DiagnosticStartButton: () => <button>Take diagnostic</button> }));
 const subject = { id: 1, name: "AP Biology", ap_exam_code: "biology", description: "Living systems", is_active: true, display_order: 1, units: [{ id: 2, subject_id: 1, name: "Cell structure", description: "Inside the cell", display_order: 1, ap_weight_min: 10, ap_weight_max: 13, topics: [{ id: 3, unit_id: 2, name: "Organelles", description: "Cell machinery", skill_tags: [], display_order: 1 }] }] };
 describe("CourseStudy", () => {
+  it("does not describe unknown unit weights as zero percent of the exam", () => {
+    render(<CourseStudy subject={{ ...subject, units: [{ ...subject.units[0], ap_weight_min: 0, ap_weight_max: 0 }] }} />);
+    expect(screen.getByText(/No official unit weighting/)).toBeVisible();
+    expect(screen.queryByText(/0–0%/)).not.toBeInTheDocument();
+  });
+
   beforeEach(() => vi.clearAllMocks());
   it("searches topics and explains empty results", () => {
     render(<CourseStudy subject={subject} />);

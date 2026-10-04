@@ -81,12 +81,13 @@ def list_practice_sessions(
         .offset(offset).limit(limit)
     ).all()
     return [PracticeHistoryItem(
+        is_exam="exam" in s.session_metadata,
         session_id=s.id, subject_id=s.subject_id, subject_name=name,
         session_type=s.session_type, started_at=s.started_at, completed_at=s.completed_at,
         total_questions=s.total_questions, correct_count=s.correct_count, score=s.score,
         graded_count=s.session_metadata.get("graded_count", s.total_questions),
         self_review_count=len(s.session_metadata.get("self_review_question_ids", [])),
-        answered_count=s.total_questions if s.completed_at else sum(a.get("selected_option_id") is not None or bool((a.get("free_response_text") or "").strip()) for a in s.session_metadata.get("draft_answers", [])),
+        answered_count=s.total_questions if s.completed_at else sum(a.get("selected_option_id") is not None or bool((a.get("free_response_text") or "").strip()) for a in ([answer for section in s.session_metadata["exam"]["sections"] for answer in section["answers"]] if "exam" in s.session_metadata else s.session_metadata.get("draft_answers", []))),
     ) for s, name in rows]
 
 
@@ -125,6 +126,8 @@ def get_practice_session(
     from `session_metadata` - a fresh page load has no other way to know
     which questions belong to this session_id."""
     session = _owned_session_or_404(db, session_id, user)
+    if "exam" in session.session_metadata and session.completed_at is None:
+        raise HTTPException(status_code=409, detail="Use the exam session page to resume this exam")
     questions = get_session_questions(db, session)
     return PracticeSessionDetailResponse(
         session_id=session.id,

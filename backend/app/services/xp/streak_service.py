@@ -1,7 +1,7 @@
 """Pure day-walk streak calculation, shared by the weekly coach report and
 live badge/dashboard queries so the two never drift apart."""
 
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 
 from sqlmodel import Session, select
 
@@ -24,8 +24,8 @@ def compute_streak_days(session_dates: set[date], as_of: date) -> int:
 def get_current_streak(
     db: Session, user_id: int, as_of: date | None = None, lookback_days: int = DEFAULT_STREAK_LOOKBACK_DAYS
 ) -> int:
-    as_of = as_of or date.today()
-    lookback_start = datetime(as_of.year, as_of.month, as_of.day) - timedelta(days=lookback_days)
+    as_of = as_of or datetime.now(timezone.utc).date()
+    lookback_start = datetime(as_of.year, as_of.month, as_of.day, tzinfo=timezone.utc) - timedelta(days=lookback_days)
     sessions = db.exec(
         select(PracticeSession).where(
             PracticeSession.user_id == user_id,
@@ -33,5 +33,8 @@ def get_current_streak(
             PracticeSession.completed_at >= lookback_start,
         )
     ).all()
-    session_dates = {s.completed_at.date() for s in sessions}
+    session_dates = {
+        (s.completed_at.astimezone(timezone.utc) if s.completed_at.tzinfo else s.completed_at).date()
+        for s in sessions
+    }
     return compute_streak_days(session_dates, as_of)

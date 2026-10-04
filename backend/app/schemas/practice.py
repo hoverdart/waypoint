@@ -56,6 +56,7 @@ class PracticeDraftRequest(BaseModel):
 
 
 class PracticeHistoryItem(BaseModel):
+    is_exam: bool = False
     graded_count: int | None = None
     self_review_count: int = 0
     session_id: int

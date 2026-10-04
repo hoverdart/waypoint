@@ -14,7 +14,7 @@ TEST_DATABASE_URL = os.environ.get(
     "postgresql+psycopg://waypoint:waypoint@localhost:5432/waypoint_test",
 )
 
-_engine = create_engine(TEST_DATABASE_URL)
+_engine = create_engine(TEST_DATABASE_URL, connect_args={"options": "-c timezone=UTC"})
 
 
 @pytest.fixture(scope="session", autouse=True)
