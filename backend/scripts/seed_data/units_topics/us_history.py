@@ -368,3 +368,9 @@ UNITS[2]['topics'] += [
      'description': 'Analyze constitutional compromises, competing arguments over ratification, and demands for a bill of rights.',
      'skill_tags': ['argumentation', 'sourcing', 'ced:3.8'], 'display_order': 10},
 ]
+
+UNITS[2]['topics'].append({
+    'name': 'Influence of Revolutionary Ideals',
+    'description': 'Evaluate how revolutionary ideals inspired challenges to social hierarchies and the limits of resulting changes.',
+    'skill_tags': ['argumentation', 'contextualization', 'ced:3.6'], 'display_order': 11,
+})

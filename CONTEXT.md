@@ -305,3 +305,11 @@
 - U.S. History now contains 78 questions across 49 topics; normal seed totals are 518 questions across 325 topics. Period 3 still needs missing framework areas and broader evidence formats. Other remaining courses and history FRQ workflows remain outstanding; the overall goal is active.
 - Affected areas: backend curriculum/content/tests and documentation. All 262 backend tests pass, including the new provenance, answer-key, topic-code and schema validations plus idempotent reseeding. Changed-file whitespace check passes. Frontend unchanged.
 - References: https://www.archives.gov/milestone-documents/articles-of-confederation and https://www.archives.gov/founding-docs/bill-of-rights-transcript. No copyrighted AP questions imported.
+
+### Expansion milestone 19 — Revolutionary ideals and women’s legal status
+
+- Previous goal turn classified as progress: confederation and ratification content was tested and pushed. Added four original source-analysis questions and the Influence of Revolutionary Ideals topic (CED 3.6).
+- Verified a short public-domain excerpt of Abigail Adams’s March 31–April 5, 1776 letter against the American Battlefield Trust transcription: https://www.battlefields.org/learn/primary-sources/abigail-adams-john-adams-remember-ladies. The Massachusetts Historical Society endpoint returned 502, so the working transcription is the visible provenance link.
+- Questions analyze claims, context, audience, and limits of evidence, distinguishing advocacy from actual changes in legal rights. Each answer option has an explanation. No released AP question text was imported.
+- U.S. History now has 82 questions across 50 topics; normal seed totals are 522 questions across 326 topics. Period 3 and all-course expansion remain incomplete. Next: missing Period 3 context, identity, and continuity/change areas, then later periods and varied evidence formats.
+- Affected areas: backend content, curriculum, tests, and docs. All 263 backend tests pass; changed-file whitespace checks pass. Frontend unchanged. Overall goal remains active.
