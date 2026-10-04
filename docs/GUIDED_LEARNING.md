@@ -1,8 +1,11 @@
 # Guided learning
 
-The first guided sequence is available inside AP English Language, Unit 1. Open
-that unit on the course page and select **Open guided lessons**. Three original
-lessons teach rhetorical context, claims and evidence, and evidence selection.
+Guided sequences are available inside AP English Language, Units 1 and 2. Open
+either unit on the course page and select **Open guided lessons**. Unit 1 has three
+original lessons on rhetorical context, claims and evidence, and evidence selection.
+Unit 2 has six distinct lessons on audience inference, audience-aware revision,
+supporting claims, evidence limits, recognizing a thesis, and writing a defensible
+thesis. Later units do not yet have guided sequences.
 Each provides an explanation, fictional worked example, analysis, and a retryable
 three-option understanding check. Students may move freely between lessons and
 start the unit's practice using the course's selected format and session length.
@@ -10,7 +13,7 @@ start the unit's practice using the course's selected format and session length.
 Correct checks save completion to the authenticated account. Reopening the sequence
 selects the first unfinished lesson. Completion does not award XP, update mastery,
 or imply exam readiness. Reading position and unsubmitted check choices are not
-saved across reloads. This is the first sequence, not a complete lesson curriculum.
+saved across reloads. These are foundational sequences, not a complete lesson curriculum.
 
 ## Setup and maintenance
 

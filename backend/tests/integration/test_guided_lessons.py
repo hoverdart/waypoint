@@ -1,5 +1,5 @@
 from sqlmodel import select
-from app.content.lessons import FOUNDATIONS
+from app.content.lessons import FOUNDATIONS, AUDIENCE_AND_THESIS, lessons_for
 from app.models.lesson import LessonCompletion
 from tests.conftest import auth_header
 from tests.factories import make_subject_with_units_topics, make_user
@@ -40,6 +40,9 @@ def test_lessons_check_feedback_persistence_and_user_isolation(client, db_sessio
 
 def test_lessons_validate_scope_revision_and_payload(client, db_session):
     subject, unit, unavailable, headers, _ = setup(db_session)
+    unavailable.display_order = 3
+    db_session.add(unavailable)
+    db_session.commit()
     path = f"/units/{unit.id}/lessons"
     check = f"{path}/{FOUNDATIONS[0].slug}/check"
     assert client.get(f"/units/{unavailable.id}/lessons", headers=headers).json() == []
@@ -56,3 +59,39 @@ def test_lessons_validate_scope_revision_and_payload(client, db_session):
     subject.is_active = False
     db_session.add(unit); db_session.add(subject); db_session.commit()
     assert client.get(path, headers=headers).status_code == 404
+
+
+def test_unit_two_publishes_distinct_lessons_and_persists_all_checks(client, db_session):
+    subject, first, second, headers, other_headers = setup(db_session)
+    response = client.get(f"/subjects/{subject.id}").json()
+    assert [unit['lesson_count'] for unit in response['units']] == [3, 6]
+    path = f"/units/{second.id}/lessons"
+    lessons = client.get(path, headers=headers).json()
+    assert [lesson['skill'] for lesson in lessons] == ['1.B', '2.B', '3.A', '4.A', '3.B', '4.B']
+    assert len({lesson['slug'] for lesson in lessons}) == 6
+    for lesson in AUDIENCE_AND_THESIS:
+        assert client.post(f"/units/{first.id}/lessons/{lesson.slug}/check", headers=headers,
+                           json={'option': lesson.correct, 'revision': lesson.revision}).status_code == 404
+        for option in range(3):
+            result = client.post(f"{path}/{lesson.slug}/check", headers=headers,
+                                 json={'option': option, 'revision': lesson.revision})
+            assert result.status_code == 200
+            assert result.json() == {'correct': option == lesson.correct, 'feedback': lesson.feedback[option]}
+    assert all(lesson['completed'] for lesson in client.get(path, headers=headers).json())
+    assert not any(lesson['completed'] for lesson in client.get(path, headers=other_headers).json())
+    assert not any(lesson['completed'] for lesson in client.get(f"/units/{first.id}/lessons", headers=headers).json())
+    assert lessons_for('biology', 2) == ()
+    assert lessons_for('english-language', 3) == ()
+
+
+def test_published_lesson_skills_match_seeded_unit_topics():
+    from scripts.seed_data.units_topics.english_language import UNITS
+    for unit in UNITS:
+        skills = {tag.removeprefix('ap-skill:') for topic in unit['topics'] for tag in topic['skill_tags']}
+        lessons = lessons_for('english-language', unit['display_order'])
+        assert all(lesson.skill in skills for lesson in lessons)
+        for lesson in lessons:
+            assert len(lesson.options) == len(lesson.feedback) == 3
+            assert 0 <= lesson.correct < 3
+            assert len(set(lesson.options)) == 3
+            assert lesson.revision >= 1
