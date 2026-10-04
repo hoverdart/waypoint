@@ -824,3 +824,6 @@ QUESTIONS += PERIOD_NINE_ARMS
 
 from .us_history.period_nine_economy import QUESTIONS as PERIOD_NINE_ECONOMY
 QUESTIONS += PERIOD_NINE_ECONOMY
+
+from .us_history.period_nine_technology import QUESTIONS as PERIOD_NINE_TECHNOLOGY
+QUESTIONS += PERIOD_NINE_TECHNOLOGY

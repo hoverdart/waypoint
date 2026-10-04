@@ -1,6 +1,6 @@
 # U.S. History expansion
 
-Status: in progress. The live bank currently contains 312 questions, including 275 new source-based items;
+Status: in progress. The live bank currently contains 315 questions, including 278 new source-based items;
 it is not a comprehensive AP U.S. History preparation bank.
 
 ## Verified format for May 2027
@@ -94,13 +94,13 @@ unique trimmed prompts and recognized periods count; ambiguous duplicate prompts
 are excluded. This is a necessary inventory check, not a form assembler.
 
 Current shortages against the four-form period minima are Period 2: **1**,
-Period 8: **0**, and Period 9: **2**. Although the whole history bank has 294
-questions and period caps leave 241 usable MCQs toward the 220-question target,
+Period 8: **0**, and Period 9: **0**. Although the whole history bank has 294
+questions and period caps leave 243 usable MCQs toward the 220-question target,
 the per-period shortages still prevent balanced forms. An aggregate surplus
 cannot replace missing questions from required periods.
 
-Next inventory priorities are substantive Period 9 expansion and the Period 2
-minimum. Period 8 still requires broader curriculum coverage despite meeting its
+The remaining raw inventory shortage is the Period 2 minimum. Period 9 still
+requires substantive expansion beyond the minimum count. Period 8 still requires broader curriculum coverage despite meeting its
 raw inventory minimum, alongside the remaining Period 7 topic gaps. Even passing this
 check will not establish stimulus-group integrity, skill balance, source variety,
 difficulty calibration, factual review, or FRQ readiness. Those remain separate
