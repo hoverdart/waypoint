@@ -44,12 +44,16 @@ checks must never claim to provide it.
 ## Current English Language work
 
 - Nine-unit progression with 22 framework skill codes and 49 unit/skill topics.
-- Two independent 45-question MCQ forms: each has three reading sets (24 questions)
-  and two revision sets (21 questions), for 90 questions across ten original passages,
+- Three independent 45-question MCQ forms: each has three reading sets (24 questions)
+  and two revision sets (21 questions), for 135 questions across fifteen original passages,
   levels 2–4, and individual rationales.
 - Six essays across two sets: synthesis (six sources per task, including data and a
   visual stimulus), rhetorical analysis, and argument; models and six-point rubric
-  reflection. Both MCQ forms now meet the published skill-category percentage ranges.
+  reflection. All three MCQ forms meet the published skill-category percentage ranges.
+  Form C adds a public opening address, a nature essay, a fictional historical civic
+  letter, and tool-lending and neighborhood heat-mapping revision drafts. All 49
+  unit/skill topics now have questions, but 19 still have fewer than three and ten
+  lack difficulty variety. Labels are author estimates, not calibrated difficulty.
 - Durable, owned rubric review implemented in backend and frontend. Mixed-session
   accuracy excludes self-review responses. Anonymous, foreign, unfinished, and invalid
   review requests are rejected. Pre-submission guidance identifies the scoring method;
@@ -62,7 +66,8 @@ checks must never claim to provide it.
   untimed inter-section break are available. These are rehearsal tools, not official
   AP score predictions or an accommodation approval system.
 - Candidate course remains outside live enrollment until content depth is ready.
-  Next: additional independent forms/essay sets and closure of topic coverage gaps.
+  Next: Form C essays, Form D, further essay sets, and closure of topic coverage gaps.
+  Form C is not yet offered as a timed exam because its essay section is unfinished.
 
 For candidate browser verification, point `DATABASE_URL` at a disposable database
 named `waypoint_test`, `waypoint_migration_test`, or `waypoint_exam_test`, run migrations
