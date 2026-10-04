@@ -420,3 +420,35 @@ def test_revival_set_deepens_existing_topic_with_varied_difficulty():
         assert q['prompt'].startswith('Original instructional summary:')
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+
+
+def test_revised_revival_distractors_reseed_in_place_with_matching_rationales(db_session):
+    from app.models.question import Question, QuestionOption, QuestionExplanation
+    from scripts.seed_data.questions.us_history.period_four_revival import QUESTIONS
+    subject = {'name': 'AP US History', 'ap_exam_code': 'us-history', 'display_order': 2}
+    seed_subject(db_session, subject)
+    expected = {q['prompt']: q for q in QUESTIONS}
+    questions = db_session.exec(select(Question).where(Question.prompt.in_(list(expected)))).all()
+    assert len(questions) == 3
+    original_ids = {}
+    for question in questions:
+        options = db_session.exec(select(QuestionOption).where(QuestionOption.question_id == question.id)).all()
+        original_ids[question.prompt] = (question.id, {o.label: o.id for o in options})
+        for option in options:
+            if not option.is_correct:
+                option.text = 'Outdated distractor'
+                db_session.add(option)
+    db_session.flush()
+    seed_subject(db_session, subject)
+    db_session.expire_all()
+    for question in db_session.exec(select(Question).where(Question.prompt.in_(list(expected)))).all():
+        data = expected[question.prompt]
+        options = db_session.exec(select(QuestionOption).where(QuestionOption.question_id == question.id)).all()
+        assert (question.id, {o.label: o.id for o in options}) == original_ids[question.prompt]
+        assert {o.label: o.text for o in options} == {o['label']: o['text'] for o in data['options']}
+        assert question.correct_answer == data['correct_answer']
+        explanations = db_session.exec(select(QuestionExplanation).where(QuestionExplanation.question_id == question.id)).all()
+        assert {e.option_id: e.explanation for e in explanations} == {
+            next(o.id for o in options if o.label == e['option_label']): e['explanation']
+            for e in data['explanations']
+        }

@@ -453,3 +453,10 @@
 - Context checked against https://www.loc.gov/exhibits/religion/rel07.html. The explicitly labeled instructional summary connects revival networks and voluntary reform; questions require distinguishing organizational mechanisms and supporting evidence from unsupported generalizations.
 - U.S. History now has 144 questions across 61 topics; normal seed totals are 584 questions across 337 topics. Further Period 4 mapping/depth, non-text evidence, later periods, and representative FRQ/exam workflows remain outstanding. Overall goal remains active.
 - Affected areas: backend content/tests and docs. All 294 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.
+
+### Expansion milestone 40 — Distractor quality review
+
+- Previous goal turn classified as progress: revival questions were tested and pushed. Editorial review found that several distractors relied on conspicuous chronological mismatches or unrelated objects, making author-assigned difficulty weak evidence of AP-style reasoning.
+- Revised nine distractors and rationales across the three revival questions. Alternatives now distinguish voluntary associations from established churches, revivalism from deism, cooperation from doctrinal uniformity, and direct organizational evidence from contextual evidence. Prompts, keys, and item identifiers remain unchanged.
+- Added a reseeding regression that restores revised options from stale data while preserving question and option IDs and matching every explanation to its option. All 295 backend tests pass; changed-file whitespace check passes.
+- Counts unchanged: 144 U.S. History questions / 584 total. This review covers only the revival set; other recent sets need the same scrutiny. Passing structural tests does not establish educator review or calibrated AP difficulty. Broader content and exam-workflow work remain outstanding; overall goal remains active.
