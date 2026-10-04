@@ -30,7 +30,7 @@ describe("GuidedLessons", () => {
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Check understanding" })).toBeDisabled();
     fireEvent.click(screen.getByRole("button", { name: "Apply it in practice" }));
-    expect(practice).toHaveBeenCalledExactlyOnceWith(23);
+    expect(practice).toHaveBeenCalledExactlyOnceWith(23, undefined);
   });
 
   it("does not launch unrelated practice when the chosen format is unavailable", async () => {
@@ -42,7 +42,7 @@ describe("GuidedLessons", () => {
     expect(practice).not.toHaveBeenCalled();
     rerender(<GuidedLessons unitId={7} onPractice={practice} practiceBusy={false} practiceMode="mcq" />);
     fireEvent.click(screen.getByRole("button", { name: "Apply it in practice" }));
-    expect(practice).toHaveBeenCalledWith(23);
+    expect(practice).toHaveBeenCalledWith(23, undefined);
   });
   it("resumes at the first unfinished lesson", async () => {
     get.mockResolvedValue([{ ...lesson, completed: true }, { ...lesson, slug: "next", title: "Next skill" }]);
@@ -78,4 +78,15 @@ it.each([
   expect(await screen.findByText(label)).toBeVisible();
   expect(screen.getByText("Practice will use a related topic in your selected format.")).toBeVisible();
   if (kind !== "fictional") expect(screen.queryByText("Original fictional example")).not.toBeInTheDocument();
+});
+
+
+it("passes the exact lesson skill tag into practice", async () => {
+  const practice = vi.fn();
+  get.mockResolvedValue([{ ...lesson, skill: "sourcing", practice_skill_tag: "sourcing" }]);
+  render(<GuidedLessons unitId={7} onPractice={practice} practiceBusy={false} />);
+  fireEvent.click(screen.getByRole("button", { name: "Open guided lessons" }));
+  expect(await screen.findByText(/Practice will focus on skill sourcing/)).toBeVisible();
+  fireEvent.click(screen.getByRole("button", { name: "Apply it in practice" }));
+  expect(practice).toHaveBeenCalledWith(23, "sourcing");
 });

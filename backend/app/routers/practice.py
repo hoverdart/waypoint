@@ -53,6 +53,7 @@ def start_practice(
         topic_id=payload.topic_id,
         session_type=payload.session_type,
         question_count=payload.question_count,
+        skill_tag=payload.skill_tag,
     )
     question_reads = questions_to_reads(db, questions)
     db.commit()

@@ -1,7 +1,8 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CourseStudy } from "./CourseStudy";
-const { start, push } = vi.hoisted(() => ({ start: vi.fn(), push: vi.fn() }));
+const { start, push, lessons } = vi.hoisted(() => ({ start: vi.fn(), push: vi.fn(), lessons: vi.fn() }));
+vi.mock("@/lib/api/lessons", () => ({ getLessons: lessons, checkLesson: vi.fn() }));
 vi.mock("next/navigation", () => ({ useRouter: () => ({ push }) }));
 vi.mock("@/lib/hooks/useApiToken", () => ({ useApiToken: () => "token" }));
 vi.mock("@/lib/api", () => ({ startPractice: start }));
@@ -45,4 +46,16 @@ describe("CourseStudy", () => {
     expect(await screen.findByRole("alert")).toHaveTextContent("no questions");
     expect(push).not.toHaveBeenCalled();
   });
+});
+
+
+it("carries lesson skill, topic, format and count into the start request", async () => {
+  lessons.mockResolvedValue([{ slug: "source", title: "Read a source", skill: "sourcing", objective: "Read carefully", explanation: [], example: "Example", walkthrough: "Reasoning", prompt: "Check", options: ["A", "B", "C"], revision: 1, completed: false, practice_skill_tag: "sourcing", practice_topic_ids: { mcq: 3, frq: 3 } }]);
+  start.mockResolvedValue({ session_id: 43, questions: [{ id: 1 }] });
+  render(<CourseStudy subject={{ ...subject, units: [{ ...subject.units[0], lesson_count: 1 }] }} />);
+  fireEvent.change(screen.getByLabelText("Question format"), { target: { value: "frq" } });
+  fireEvent.change(screen.getByLabelText("Session length"), { target: { value: "5" } });
+  fireEvent.click(screen.getByRole("button", { name: "Open guided lessons" }));
+  fireEvent.click(await screen.findByRole("button", { name: "Apply it in practice" }));
+  await waitFor(() => expect(start).toHaveBeenCalledWith({ subject_id: 1, unit_id: 2, topic_id: 3, session_type: "frq", question_count: 5, skill_tag: "sourcing" }, "token"));
 });

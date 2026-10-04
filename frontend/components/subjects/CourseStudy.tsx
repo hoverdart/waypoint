@@ -19,11 +19,11 @@ export function CourseStudy({ subject }: { subject: SubjectDetail }) {
   const [error, setError] = useState<string | null>(null);
   const units = subject.units.filter(unit => `${unit.name} ${unit.topics.map(t => t.name).join(" ")}`.toLowerCase().includes(query.toLowerCase()));
 
-  async function practice(unitId?: number, topicId?: number) {
+  async function practice(unitId?: number, topicId?: number, skillTag?: string) {
     setBusy(true);
     setError(null);
     try {
-      const session = await startPractice({ subject_id: subject.id, unit_id: unitId, topic_id: topicId, session_type: mode, question_count: count }, token);
+      const session = await startPractice({ subject_id: subject.id, unit_id: unitId, topic_id: topicId, session_type: mode, question_count: count, ...(skillTag ? { skill_tag: skillTag } : {}) }, token);
       if (!session.questions.length) {
         setError("There are no questions in this format for that selection yet. Try the whole unit or multiple choice.");
         return;
@@ -53,7 +53,7 @@ export function CourseStudy({ subject }: { subject: SubjectDetail }) {
             </summary>
             <div className="space-y-4 pt-4 sm:pl-10">
               <p className="text-sm leading-relaxed text-muted-foreground">{unit.description}</p>
-              {!!unit.lesson_count && <GuidedLessons unitId={unit.id} onPractice={topicId => void practice(unit.id, topicId)} practiceBusy={busy} practiceMode={mode} />}
+              {!!unit.lesson_count && <GuidedLessons unitId={unit.id} onPractice={(topicId, skillTag) => void practice(unit.id, topicId, skillTag)} practiceBusy={busy} practiceMode={mode} />}
               <PillButton size="sm" disabled={busy} onClick={() => void practice(unit.id)}>Practice this unit</PillButton>
               <ul className="divide-y divide-border">
                 {unit.topics.map(topic => <li key={topic.id} className="flex items-center justify-between gap-4 py-4"><div><h3 className="text-sm font-medium">{topic.name}</h3><p className="mt-1 max-w-lg text-xs leading-relaxed text-muted-foreground">{topic.description}</p></div><button aria-label={`Practice ${topic.name}`} disabled={busy} onClick={() => void practice(unit.id, topic.id)} className="rounded-full border border-border p-2 text-blue hover:bg-blue-soft focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40"><ArrowUpRight className="size-4" /></button></li>)}

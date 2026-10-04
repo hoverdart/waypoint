@@ -155,6 +155,9 @@ def test_lesson_practice_targets_require_matching_skill_unit_and_approved_questi
     assert target() == {'mcq': None, 'frq': None}
     question.validation_status = 'approved'
     db_session.add(question); db_session.commit()
+    assert target() == {'mcq': None, 'frq': None}
+    question.skill_tags = ['ap-skill:1.A']
+    db_session.add(question); db_session.commit()
     assert target() == {'mcq': topic.id, 'frq': None}
     assert all(row['practice_topic_ids'] == {'mcq': None, 'frq': None}
                for row in client.get(path, headers=headers).json()[1:])
@@ -188,7 +191,7 @@ def test_every_seeded_english_lesson_has_matching_mcq_practice(client, db_sessio
         for lesson in response.json():
             count += 1
             topic_id = lesson['practice_topic_ids']['mcq']
-            assert topic_id is not None
+            assert topic_id is not None, (unit.name, lesson['slug'])
             topic = db_session.get(Topic, topic_id)
             assert topic.unit_id == unit.id
             assert f"ap-skill:{lesson['skill']}" in topic.skill_tags
@@ -218,6 +221,7 @@ def test_history_lesson_targets_curriculum_and_persists_owned_progress(client, d
     lesson = lessons_for('us-history', order)[index]
     row = client.get(path, headers=headers).json()[index]
     assert not {'correct', 'feedback', 'practice_tag'} & row.keys()
+    assert row['practice_skill_tag'] == skill
     assert row['skill'] == skill
     assert row['example_kind'] == 'historical'
     assert not row['completed']

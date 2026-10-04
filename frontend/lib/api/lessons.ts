@@ -13,6 +13,7 @@ export interface GuidedLesson {
   options: string[];
   revision: number;
   completed: boolean;
+  practice_skill_tag?: string;
   practice_topic_ids: { mcq: number | null; frq: number | null };
 }
 

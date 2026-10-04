@@ -72,6 +72,7 @@ class PracticeHistoryItem(BaseModel):
 
 
 class PracticeStartRequest(BaseModel):
+    skill_tag: str | None = Field(default=None, min_length=1, max_length=100, pattern=r"^[A-Za-z0-9][A-Za-z0-9.:-]*$")
     subject_id: int
     unit_id: int | None = None
     topic_id: int | None = None

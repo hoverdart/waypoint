@@ -39,6 +39,7 @@ def start_practice_session(
     session_type: str = "mcq",
     question_count: int = DEFAULT_QUESTION_COUNT,
     rng: random.Random | None = None,
+    skill_tag: str | None = None,
 ) -> tuple[PracticeSession, list[Question]]:
     validate_practice_scope(db, subject_id, unit_id, topic_id)
     if session_type not in ("mcq", "frq", "timed") or not 1 <= question_count <= 60:
@@ -59,6 +60,8 @@ def start_practice_session(
         query = query.where(Question.type == session_type)
 
     candidates = list(db.exec(query).all())
+    if skill_tag is not None:
+        candidates = [q for q in candidates if skill_tag in q.skill_tags]
     rng.shuffle(candidates)
     if session_type == "mcq":
         candidates = prioritize_mcq_candidates(db, user_id, candidates)
@@ -77,7 +80,7 @@ def start_practice_session(
         # without this, reloading /practice/session/[id] (a fresh page load,
         # so no client-side state survives) would have no way to know which
         # questions belong to this session.
-        session_metadata={"question_ids": [q.id for q in selected]},
+        session_metadata={"question_ids": [q.id for q in selected], **({"skill_tag": skill_tag} if skill_tag is not None else {})},
     )
     db.add(session)
     db.flush()

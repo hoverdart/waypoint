@@ -39,21 +39,26 @@ def get_lessons(unit_id: int, db: Session = Depends(get_db), user: User = Depend
     ).all()}
     topics = db.exec(select(Topic).where(Topic.unit_id == unit_id).order_by(Topic.display_order, Topic.id)).all()
     unit = db.get(Unit, unit_id)
-    available = set(db.exec(select(Question.topic_id, Question.type).where(
+    available = db.exec(select(Question.topic_id, Question.type, Question.skill_tags).where(
         Question.unit_id == unit_id,
         Question.subject_id == unit.subject_id,
         Question.is_active == True,
         Question.validation_status == "approved",
-    ).distinct()).all())
+    )).all()
+
+    def skill_tag(lesson):
+        return lesson.skill if lesson.practice_tag else f"ap-skill:{lesson.skill}"
 
     def practice_targets(lesson):
         tag = lesson.practice_tag or f"ap-skill:{lesson.skill}"
         matching = [topic for topic in topics if tag in topic.skill_tags]
-        return {kind: next((topic.id for topic in matching if (topic.id, kind) in available), None)
+        eligible = {(topic_id, kind) for topic_id, kind, tags in available if skill_tag(lesson) in tags}
+        return {kind: next((topic.id for topic in matching if (topic.id, kind) in eligible), None)
                 for kind in ("mcq", "frq")}
 
     return [{**{key: value for key, value in asdict(lesson).items() if key not in ("correct", "feedback", "practice_tag")},
              "completed": (lesson.slug, lesson.revision) in completed,
+             "practice_skill_tag": skill_tag(lesson),
              "practice_topic_ids": practice_targets(lesson)} for lesson in lessons]
 
 

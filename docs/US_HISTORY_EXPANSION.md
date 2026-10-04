@@ -175,3 +175,15 @@ They distinguish chronology from causation, stated policy rationale from measure
 outcomes, and humanitarian effects from exclusive humanitarian motives. The
 three-lesson Period 8 sequence links to civil-rights and containment practice;
 it does not yet cover the full period curriculum.
+
+### Skill-filtered lesson practice
+
+Lesson launches now send an exact question skill tag in addition to topic and
+format. History uses reasoning tags such as `sourcing`; English Language uses
+`ap-skill:` tags. Only approved, active questions within the selected scope can
+fill a session. Lessons disable unavailable formats rather than offering
+questions with unrelated skill tags. A small matching bank can produce fewer
+questions than requested, and no matches return a recoverable error. Selected
+question IDs and the filter are stored in session metadata for stable resumption.
+These filters rely on authored tags; they do not certify tag accuracy or balance
+exam forms. Direct course/topic practice remains unfiltered unless requested.

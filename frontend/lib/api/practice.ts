@@ -12,6 +12,7 @@ import {
 
 export interface PracticeStartRequest {
   subject_id: number;
+  skill_tag?: string;
   unit_id?: number | null;
   topic_id?: number | null;
   session_type?: QuestionType | "timed";
