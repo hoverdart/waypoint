@@ -534,3 +534,10 @@
 - Live audit identifies missing topic mappings for 5.1 (context), 5.5 (regional differences), 5.9 (wartime government policy), and 5.12 (comparison). Broad existing topics also need narrower source coverage and more questions.
 - Added a reseeding regression that removes curriculum tags, restores them, and verifies stable topic identities. All 305 backend tests pass. Counts unchanged: 173 U.S. History questions, 613 overall, 342 total topics.
 - Affected areas: backend curriculum/tests and this context. Frontend unchanged; user AGENTS.md edits excluded. Next: source-based questions for missing Period 5 areas and deeper coverage of existing topics. Overall goal remains active; later periods, history exam/FRQ workflows, source diversity, and remaining subjects remain outstanding.
+
+### Expansion milestone 51 — Emancipation and wartime authority
+
+- Previous goal turn classified as progress: Period 5 legacy mappings were tested and pushed. Added Government Policies During the Civil War (CED 5.9) and four original questions using a brief public-domain Emancipation Proclamation excerpt.
+- Text and context checked against https://www.archives.gov/milestone-documents/emancipation-proclamation. Items distinguish wartime authority, geographic scope, Black military service, and local implementation. The set avoids treating the proclamation as immediate nationwide abolition or an automatic end to military discrimination.
+- All 306 backend tests pass, including curriculum mapping, new-question validation, and whole-bank idempotent reseeding. U.S. History has 177 questions across 67 topics; overall bank has 617 questions across 343 topics.
+- Affected areas: backend content/curriculum/tests and docs. Frontend unchanged; user AGENTS.md edits excluded. Wartime economic policy and civil-liberties debates still need coverage, alongside missing Period 5 areas, later periods, non-text stimuli, history FRQ/exam workflows, and other courses. Overall goal remains active.

@@ -741,3 +741,5 @@ from .us_history.period_four_election import QUESTIONS as PERIOD_FOUR_ELECTION
 QUESTIONS += PERIOD_FOUR_ELECTION
 from .us_history.period_five_treaty import QUESTIONS as PERIOD_FIVE_TREATY
 QUESTIONS += PERIOD_FIVE_TREATY
+from .us_history.period_five_emancipation import QUESTIONS as PERIOD_FIVE_EMANCIPATION
+QUESTIONS += PERIOD_FIVE_EMANCIPATION

@@ -523,3 +523,9 @@ for _topic in UNITS[4]['topics']:
     for _code in _period_five_legacy_codes.get(_topic['name'], []):
         if f'ced:{_code}' not in _topic['skill_tags']:
             _topic['skill_tags'].append(f'ced:{_code}')
+
+UNITS[4]['topics'].append({
+    'name': 'Government Policies During the Civil War',
+    'description': 'Analyze wartime federal authority, emancipation, mobilization, and the relationship between policy and implementation.',
+    'skill_tags': ['causation', 'sourcing', 'ced:5.9'], 'display_order': 6,
+})
