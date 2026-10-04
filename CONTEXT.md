@@ -1062,3 +1062,11 @@
 - History now has 344 questions across 85 topics; overall bank 784 across 361 topics. Period 8 has 43 approved unique MCQs; capped history inventory remains 256. Backend content/tests and delivery/history documentation changed; frontend unchanged.
 - Verification: all 402 backend tests passed, including new content validation and distinct item IDs, whole-bank reseeding and history draft assembly checks. Scoped whitespace checks passed. User AGENTS.md edits excluded.
 - This labor case does not complete Chicano movement coverage; school walkouts, electoral activism and other experiences still need coverage. Other rights movements, remaining history gaps, non-text evidence, writing/exam workflows, other AP courses and deeper learning progression remain unfinished. Goal remains active.
+
+### Expansion milestone 117 — Youth culture and voting-age advocacy
+
+- Previous goal turn classified as progress: farmworker coalition questions were tested and pushed as 59c3d2c. Added the missing 8.12 Youth Culture of the 1960s topic with three original questions on voting-age advocacy and the Twenty-Sixth Amendment.
+- Verified the mapping against indexed College Board material and historical context through National Archives accounts. Questions connect military obligations to voting-age arguments, recognize World War II roots rather than inventing a Vietnam-only origin, and distinguish legal eligibility from measured turnout.
+- History now has 347 questions across 86 topics; overall bank 787 across 362 topics. Period 8 has 46 approved unique MCQs; capped inventory remains 256. Backend curriculum/content/tests and delivery/history documentation changed; frontend unchanged.
+- Verification: all 403 backend tests passed, including new content/schema mapping, whole-bank reseeding and exam assembly checks. Scoped whitespace checks passed. User AGENTS.md edits excluded.
+- Recomputed remaining unmapped codes: Period 7 — 7.1/7.7/7.15; Period 8 — 8.1/8.5/8.14/8.15; Period 9 — 9.1/9.6/9.7. Mapped topics also need depth. Youth counterculture, student movements and cultural experimentation are not completed by a voting-rights case. Visual evidence, writing/exam integration, remaining AP subjects and deeper learning progression remain unfinished. Goal remains active.

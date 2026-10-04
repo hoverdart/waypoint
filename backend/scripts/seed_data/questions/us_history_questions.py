@@ -854,3 +854,6 @@ QUESTIONS += PERIOD_EIGHT_ALCATRAZ
 
 from .us_history.period_eight_delano import QUESTIONS as PERIOD_EIGHT_DELANO
 QUESTIONS += PERIOD_EIGHT_DELANO
+
+from .us_history.period_eight_youth_vote import QUESTIONS as PERIOD_EIGHT_YOUTH_VOTE
+QUESTIONS += PERIOD_EIGHT_YOUTH_VOTE

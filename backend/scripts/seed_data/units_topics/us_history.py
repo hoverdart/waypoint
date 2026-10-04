@@ -651,3 +651,9 @@ UNITS[7]['topics'].append({
     'description': 'Examine expanding movements for equality and the relationship between activism, law, institutions, and lived experience.',
     'skill_tags': ['contextualization', 'comparison', 'claims-evidence', 'causation', 'argumentation', 'ced:8.11'], 'display_order': 9,
 })
+
+UNITS[7]['topics'].append({
+    'name': 'Youth Culture of the 1960s',
+    'description': 'Analyze youth activism, challenges to established institutions, cultural experimentation, and political participation.',
+    'skill_tags': ['contextualization', 'continuity-and-change', 'claims-evidence', 'ced:8.12'], 'display_order': 10,
+})

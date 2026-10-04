@@ -47,7 +47,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 344
+    assert len(questions) == 347
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -1141,7 +1141,7 @@ def test_marshall_plan_items_validate_and_reduce_period_eight_shortfall():
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
     period = history_mcq_inventory(UNITS, ALL)['periods'][7]
-    assert period['approved_unique_mcq'] == 43
+    assert period['approved_unique_mcq'] == 46
     assert period['shortfall_to_minimum'] == 0
 
 
@@ -1418,3 +1418,19 @@ def test_delano_coalition_questions_validate_with_distinct_item_ids():
         assert 'ced:8.11' in q['skill_tags']
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+
+
+def test_youth_voting_questions_validate_and_map_to_youth_culture():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.content_audit import audit_bank
+    from scripts.seed_data.questions.us_history.period_eight_youth_vote import QUESTIONS
+    from scripts.seed_data.questions.us_history_questions import QUESTIONS as ALL
+    assert len(QUESTIONS) == 3
+    assert {q['difficulty'] for q in QUESTIONS} == {2, 3, 4}
+    for q in QUESTIONS:
+        assert 'ced:8.12' in q['skill_tags']
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+    topic = next(t for t in audit_bank(UNITS, ALL)['topic_details'] if t['topic'] == 'Youth Culture of the 1960s')
+    assert topic['question_curriculum_counts'] == {'8.12': 3}

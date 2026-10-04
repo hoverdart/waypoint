@@ -1,6 +1,6 @@
 # U.S. History expansion
 
-Status: in progress. The live bank currently contains 344 questions, including 307 new source-based items;
+Status: in progress. The live bank currently contains 347 questions, including 310 new source-based items;
 it is not a comprehensive AP U.S. History preparation bank.
 
 ## Verified format for May 2027
@@ -94,7 +94,7 @@ unique trimmed prompts and recognized periods count; ambiguous duplicate prompts
 are excluded. This is a necessary inventory check, not a form assembler.
 
 All nine periods now meet the necessary raw inventory minima for four forms.
-The history bank has 344 questions, with 256 approved unique MCQs usable after
+The history bank has 347 questions, with 256 approved unique MCQs usable after
 period caps against the 220-question target. This does not mean four valid forms
 have been assembled: stimulus groups, skills, sources, and difficulty still need
 to be balanced within each form.
@@ -239,3 +239,13 @@ withholding labor from withholding purchases, and evaluate evidence for a
 multiethnic coalition. Reference: [National Park Service](https://www.nps.gov/articles/000/workers-united-the-delano-grape-strike-and-boycott.htm).
 This case adds labor organizing; it does not cover the full Chicano movement,
 school walkouts, electoral activism, or all farmworker experiences.
+
+### Youth-culture topic
+
+Topic 8.12 begins with three original voting-age campaign questions based on
+[National Archives historical context](https://prologue.blogs.archives.gov/2013/11/13/records-of-rights-vote-old-enough-to-fight-old-enough-to-vote/).
+They connect wartime obligations to voting-age arguments, trace an earlier
+demand into a later constitutional change, and distinguish legal eligibility
+from measured participation. This is one political case, not full coverage of
+student movements, counterculture, music, cultural experimentation or diverse
+youth experiences.
