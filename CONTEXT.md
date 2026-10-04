@@ -526,3 +526,11 @@
 - Context verified against https://www.archives.gov/milestone-documents/treaty-of-guadalupe-hidalgo. The original summary distinguishes financial terms from equal bargaining power and formal property/citizenship provisions from their implementation. Questions also connect territorial acquisition to sectional conflict.
 - All 304 backend tests pass, including new-item validation, period/topic mapping, and whole-bank reseeding. U.S. History now contains 173 questions across 66 topics; total bank 613 questions across 342 topics.
 - Affected areas: backend content/curriculum/tests and documentation. Frontend unchanged; user AGENTS.md changes excluded. Period 5 mapping and depth, earlier-period source diversity, later periods, history FRQ/exam support, and remaining courses remain outstanding. Overall goal remains active.
+
+### Expansion milestone 50 — Period 5 legacy mapping and gap inventory
+
+- Previous goal turn classified as progress: Mexican-American War settlement questions were tested and pushed. Mapped the four broad legacy Period 5 topics to relevant framework codes while retaining names, IDs, and existing non-CED skill tags.
+- Framework checked against https://apcentral.collegeboard.org/media/pdf/ap-us-history-course-at-a-glance.pdf. Mappings describe topic scope, not proof of question coverage: each legacy topic currently has only one item, while the added Mexican-American War topic has three.
+- Live audit identifies missing topic mappings for 5.1 (context), 5.5 (regional differences), 5.9 (wartime government policy), and 5.12 (comparison). Broad existing topics also need narrower source coverage and more questions.
+- Added a reseeding regression that removes curriculum tags, restores them, and verifies stable topic identities. All 305 backend tests pass. Counts unchanged: 173 U.S. History questions, 613 overall, 342 total topics.
+- Affected areas: backend curriculum/tests and this context. Frontend unchanged; user AGENTS.md edits excluded. Next: source-based questions for missing Period 5 areas and deeper coverage of existing topics. Overall goal remains active; later periods, history exam/FRQ workflows, source diversity, and remaining subjects remain outstanding.

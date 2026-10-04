@@ -512,3 +512,14 @@ UNITS[4]['topics'].append({
     'description': 'Analyze the war, territorial settlement, and consequences for sectional politics and residents of acquired lands.',
     'skill_tags': ['causation', 'sourcing', 'ced:5.3'], 'display_order': 5,
 })
+
+_period_five_legacy_codes = {
+    'Manifest Destiny and Continued Expansion': ['5.2', '5.3'],
+    'The Compromise of 1850 and Escalating Sectional Conflict': ['5.4', '5.6'],
+    'The Civil War': ['5.7', '5.8'],
+    'Reconstruction': ['5.10', '5.11'],
+}
+for _topic in UNITS[4]['topics']:
+    for _code in _period_five_legacy_codes.get(_topic['name'], []):
+        if f'ced:{_code}' not in _topic['skill_tags']:
+            _topic['skill_tags'].append(f'ced:{_code}')

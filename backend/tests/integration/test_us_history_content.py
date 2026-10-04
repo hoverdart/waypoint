@@ -610,3 +610,29 @@ def test_mexican_war_set_validates_and_maps_to_period_five():
         assert 'ced:5.3' in q['skill_tags']
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+
+
+def test_period_five_legacy_codes_restore_metadata_and_preserve_topic_identity(db_session):
+    from app.models.subject import Topic
+    expected = {
+        'Manifest Destiny and Continued Expansion': {'ced:5.2', 'ced:5.3'},
+        'The Compromise of 1850 and Escalating Sectional Conflict': {'ced:5.4', 'ced:5.6'},
+        'The Civil War': {'ced:5.7', 'ced:5.8'},
+        'Reconstruction': {'ced:5.10', 'ced:5.11'},
+    }
+    subject = {'name': 'AP US History', 'ap_exam_code': 'us-history', 'display_order': 2}
+    seed_subject(db_session, subject)
+    topics = db_session.exec(select(Topic).where(Topic.name.in_(list(expected)))).all()
+    original = {t.name: t.id for t in topics}
+    assert len(original) == 4
+    for topic in topics:
+        topic.skill_tags = [tag for tag in topic.skill_tags if not tag.startswith('ced:')]
+        db_session.add(topic)
+    db_session.flush()
+    seed_subject(db_session, subject)
+    db_session.expire_all()
+    topics = db_session.exec(select(Topic).where(Topic.name.in_(list(expected)))).all()
+    assert {t.name: t.id for t in topics} == original
+    for topic in topics:
+        assert {tag for tag in topic.skill_tags if tag.startswith('ced:')} == expected[topic.name]
+        assert any(not tag.startswith('ced:') for tag in topic.skill_tags)
