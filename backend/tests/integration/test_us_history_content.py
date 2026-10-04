@@ -47,7 +47,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 309
+    assert len(questions) == 312
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -1241,5 +1241,20 @@ def test_inf_items_validate_and_reduce_period_nine_shortfall():
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
     period = history_mcq_inventory(UNITS, ALL)['periods'][8]
-    assert period['approved_unique_mcq'] == 7
-    assert period['shortfall_to_minimum'] == 5
+    assert period['approved_unique_mcq'] == 10
+    assert period['shortfall_to_minimum'] == 2
+
+
+def test_reagan_economic_proposal_items_validate_with_curriculum_mapping():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.content_audit import audit_bank
+    from scripts.seed_data.questions.us_history.period_nine_economy import QUESTIONS
+    from scripts.seed_data.questions.us_history_questions import QUESTIONS as ALL
+    assert len(QUESTIONS) == 3
+    assert {q['difficulty'] for q in QUESTIONS} == {2, 3, 4}
+    for q in QUESTIONS:
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+    topic = next(t for t in audit_bank(UNITS, ALL)['topic_details'] if t['topic'] == 'The Reagan Revolution and Conservative Resurgence')
+    assert topic['question_curriculum_counts'] == {'9.2': 3}

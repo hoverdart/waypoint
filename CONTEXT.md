@@ -898,3 +898,11 @@
 - U.S. History now has 309 questions across 82 topics; overall bank 749 questions across 358 topics. Period 9 approved unique MCQs rise to seven, leaving five against the four-form period minimum; capped aggregate inventory is 238. Period 2 still needs one and broader quality/coverage gates remain unmet.
 - Backend content/curriculum/tests and delivery/history documentation changed; frontend unchanged; user AGENTS.md edits excluded. Verification: all 365 backend tests passed, including whole-bank reseeding; scoped whitespace checks passed. Added schema, tagged-topic, and inventory-change checks.
 - Soviet reform, Eastern European movements, domestic politics, globalization, other late-period developments, primary/non-text diversity, writing/exam workflows, remaining AP courses, and deeper learning features remain unfinished. Goal remains active.
+
+### Expansion milestone 97 — Conservative economic-policy proposals
+
+- Previous goal turn classified as progress: late Cold War practice was tested and pushed as 2c4706a. Added three original questions tagged 9.2 within the existing conservative-resurgence topic.
+- Checked indexed Reagan Library February 1981 economic-program report and related contemporaneous speeches. Summary distinguishes slower spending growth from an absolute spending decline, proposed incentives from measured outcomes, and the independent Federal Reserve from presidential control.
+- U.S. History now has 312 questions across 82 topics; overall bank 752 questions across 358 topics. Period 9 inventory reaches ten approved unique MCQs, leaving two against its four-form minimum. Capped aggregate inventory is 241; Period 2 still needs one. These counts do not establish source, skill, or curricular breadth.
+- Backend content/curriculum/tests and delivery/history documentation changed; frontend unchanged; user AGENTS.md edits excluded. Verification: all 366 backend tests passed, including whole-bank reseeding; scoped whitespace checks passed. Added schema/mapping checks and updated period inventory assertions.
+- Conservative coalition diversity, social policy, labor, actual economic outcomes and debates, globalization, remaining history gaps, writing/exam workflows, other AP courses, and deeper learning features remain unfinished. Goal remains active.

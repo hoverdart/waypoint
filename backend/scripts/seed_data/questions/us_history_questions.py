@@ -821,3 +821,6 @@ QUESTIONS += PERIOD_EIGHT_ENVIRONMENT
 
 from .us_history.period_nine_arms import QUESTIONS as PERIOD_NINE_ARMS
 QUESTIONS += PERIOD_NINE_ARMS
+
+from .us_history.period_nine_economy import QUESTIONS as PERIOD_NINE_ECONOMY
+QUESTIONS += PERIOD_NINE_ECONOMY
