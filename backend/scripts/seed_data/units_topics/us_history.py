@@ -475,3 +475,9 @@ UNITS[3]['topics'].append({
     'description': 'Analyze distinctive literary and artistic movements, intellectual independence, and debates over cultural authority.',
     'skill_tags': ['contextualization', 'sourcing', 'ced:4.9'], 'display_order': 12,
 })
+
+UNITS[3]['topics'].append({
+    'name': 'Expanding Democracy',
+    'description': 'Analyze changes in voting qualifications and the racial, gender, and economic limits of political participation.',
+    'skill_tags': ['contextualization', 'argumentation', 'ced:4.7'], 'display_order': 13,
+})

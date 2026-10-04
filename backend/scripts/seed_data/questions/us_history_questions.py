@@ -727,3 +727,5 @@ from .us_history.period_four_revival import QUESTIONS as PERIOD_FOUR_REVIVAL
 QUESTIONS += PERIOD_FOUR_REVIVAL
 from .us_history.period_four_culture import QUESTIONS as PERIOD_FOUR_CULTURE
 QUESTIONS += PERIOD_FOUR_CULTURE
+from .us_history.period_four_democracy import QUESTIONS as PERIOD_FOUR_DEMOCRACY
+QUESTIONS += PERIOD_FOUR_DEMOCRACY
