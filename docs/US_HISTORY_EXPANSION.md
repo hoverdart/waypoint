@@ -1,6 +1,6 @@
 # U.S. History expansion
 
-Status: in progress. The live bank currently contains 325 questions, including 288 new source-based items;
+Status: in progress. The live bank currently contains 328 questions, including 291 new source-based items;
 it is not a comprehensive AP U.S. History preparation bank.
 
 ## Verified format for May 2027
@@ -94,7 +94,7 @@ unique trimmed prompts and recognized periods count; ambiguous duplicate prompts
 are excluded. This is a necessary inventory check, not a form assembler.
 
 All nine periods now meet the necessary raw inventory minima for four forms.
-The history bank has 325 questions, with 244 approved unique MCQs usable after
+The history bank has 328 questions, with 247 approved unique MCQs usable after
 period caps against the 220-question target. This does not mean four valid forms
 have been assembled: stimulus groups, skills, sources, and difficulty still need
 to be balanced within each form.
@@ -187,3 +187,13 @@ questions than requested, and no matches return a recoverable error. Selected
 question IDs and the filter are stored in session metadata for stable resumption.
 These filters rely on authored tags; they do not certify tag accuracy or balance
 exam forms. Direct course/topic practice remains unfiltered unless requested.
+
+### Berlin crisis practice depth
+
+Three original source-based items extend topic 8.2 with the Berlin blockade and
+airlift. They examine geographic vulnerability, the mechanism connecting air
+supply to preserving a strategic position, and the distinction between ending
+a blockade and resolving Germany's political division. Containment now provides
+three causation and at least two argumentation MCQs for its guided lessons;
+these are still short practice pools. Historical reference:
+[Office of the Historian](https://history.state.gov/milestones/1945-1952/berlin-airlift).

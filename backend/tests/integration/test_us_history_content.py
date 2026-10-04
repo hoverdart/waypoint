@@ -47,7 +47,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 325
+    assert len(questions) == 328
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -1141,7 +1141,7 @@ def test_marshall_plan_items_validate_and_reduce_period_eight_shortfall():
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
     period = history_mcq_inventory(UNITS, ALL)['periods'][7]
-    assert period['approved_unique_mcq'] == 24
+    assert period['approved_unique_mcq'] == 27
     assert period['shortfall_to_minimum'] == 0
 
 
@@ -1318,3 +1318,20 @@ def test_migration_data_questions_validate_and_map_to_demographic_topic():
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
     topic = next(t for t in audit_bank(UNITS, ALL)['topic_details'] if t['topic'] == 'Demographic and Cultural Change Since 1980')
     assert topic['question_curriculum_counts'] == {'9.5': 3}
+
+
+def test_berlin_set_validates_and_deepens_lesson_skill_pools():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.seed_data.questions.us_history.period_eight_berlin import QUESTIONS
+    from scripts.seed_data.questions.us_history_questions import QUESTIONS as ALL
+    assert len(QUESTIONS) == 3
+    assert len({t for q in QUESTIONS for t in q['skill_tags'] if t.startswith('stimulus:')}) == 1
+    assert {q['difficulty'] for q in QUESTIONS} == {2, 3, 4}
+    for q in QUESTIONS:
+        assert 'ced:8.2' in q['skill_tags']
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+    pool = [q for q in ALL if q['topic_name'] == 'The Cold War and Containment' and q['type'] == 'mcq' and q['validation_status'] == 'approved']
+    assert sum('causation' in q['skill_tags'] for q in pool) >= 3
+    assert sum('argumentation' in q['skill_tags'] for q in pool) >= 2

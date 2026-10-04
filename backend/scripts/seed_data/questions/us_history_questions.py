@@ -836,3 +836,6 @@ QUESTIONS += PERIOD_TWO_COMPACT
 
 from .us_history.period_nine_migration import QUESTIONS as PERIOD_NINE_MIGRATION
 QUESTIONS += PERIOD_NINE_MIGRATION
+
+from .us_history.period_eight_berlin import QUESTIONS as PERIOD_EIGHT_BERLIN
+QUESTIONS += PERIOD_EIGHT_BERLIN
