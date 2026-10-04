@@ -614,3 +614,4 @@ UNITS[6]['topics'].append({
 })
 
 UNITS[7]['topics'][0]['skill_tags'] += ['ced:8.2']
+UNITS[7]['topics'][2]['skill_tags'] += ['ced:8.6', 'ced:8.10']
