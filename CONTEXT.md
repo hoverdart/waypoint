@@ -290,3 +290,10 @@
 - Sources checked: https://www.archives.gov/founding-docs/declaration-transcript and https://www.archives.gov/founding-docs/constitution-transcript. Questions are original, not copied AP items.
 - Affected areas: backend question sets, curriculum, regression tests, and docs. Next: remaining Period 3 areas, diverse non-text stimuli, and broader period expansion before the current-format FRQ workflows.
 - Verification: all 260 backend tests pass, including source attribution, content validation, topic mapping, and idempotent seeding. Frontend unchanged.
+
+### Expansion milestone 17 — Western territorial incorporation
+
+- Previous goal turn classified as progress: founding-text questions were tested and pushed. Added four original source-based questions on the Northwest Ordinance and a Movement in the Early Republic topic (CED 3.12).
+- Verified the short public-domain excerpt against the National Archives transcription at https://www.archives.gov/milestone-documents/northwest-ordinance. Questions cover interpretation, contextualization, argumentation, and corroboration across difficulties 2–4, with individual option explanations. No AP exam questions were copied.
+- U.S. History now has 70 questions across 47 topics; total normal seed content is 510 questions across 323 topics. Period 3 and wider course depth remain incomplete; the overall expansion goal remains active.
+- Affected areas: backend content/curriculum/tests and delivery documentation. Verification: all 261 backend tests pass, including valid answer keys, provenance, mappings, and idempotent seeding. Frontend unchanged. Next: remaining Period 3 framework areas and varied non-text sources, then later periods and current-format FRQ support.

@@ -687,3 +687,5 @@ from .us_history.period_two_expansion import QUESTIONS as PERIOD_TWO_EXPANSION
 QUESTIONS += PERIOD_TWO_EXPANSION
 from .us_history.period_three_founding import QUESTIONS as PERIOD_THREE_FOUNDING
 QUESTIONS += PERIOD_THREE_FOUNDING
+from .us_history.period_three_expansion import QUESTIONS as PERIOD_THREE_EXPANSION
+QUESTIONS += PERIOD_THREE_EXPANSION

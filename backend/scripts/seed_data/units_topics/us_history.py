@@ -353,3 +353,9 @@ UNITS[2]['topics'] += [
     {'name': 'Constitutional Structure and Federal Power', 'description': 'Explain constitutional institutions, federalism, and the limits of using legal texts as evidence of practice.',
      'skill_tags': ['comparison', 'claims-evidence', 'ced:3.9'], 'display_order': 7},
 ]
+
+UNITS[2]['topics'].append({
+    'name': 'Movement in the Early Republic',
+    'description': 'Analyze territorial government, western migration, and competing claims to land and political authority.',
+    'skill_tags': ['contextualization', 'sourcing', 'ced:3.12'], 'display_order': 8,
+})
