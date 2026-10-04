@@ -600,3 +600,10 @@
 - Period 5 now maps all 12 framework codes through nine stored topics, including broad legacy topics. This does not mean all codes have adequate question coverage. New tests check the mapping and validate the comparative items; all 315 backend tests pass.
 - U.S. History has 195 questions across 70 topics; total bank 635 questions across 346 topics. Affected areas: backend content/curriculum/tests and docs. Frontend unchanged; user AGENTS.md edits excluded.
 - Next priorities include Manifest Destiny, military conflict, election/secession, and failure of Reconstruction. Earlier-period depth, later periods, non-text stimuli, history FRQ/exam support, and remaining subjects are unfinished. Overall goal remains active.
+
+### Expansion milestone 60 — Mississippi campaign strategy
+
+- Previous goal turn classified as progress: Reconstruction amendment comparison and Period 5 mappings were tested and pushed. Added three original questions to The Civil War, tagged CED 5.8, raising that topic from one to four questions.
+- Context checked against https://www.nps.gov/vick/planyourvisit/park-maps-and-brochure.htm and NPS Port Hudson materials. The original summary preserves the July 4 Vicksburg / July 9 Port Hudson sequence; questions analyze strategic geography, chronology, and logistical evidence without treating a single victory as the end of the war.
+- All 316 backend tests pass, including content validation, legacy-topic depth, and whole-bank reseeding. U.S. History has 198 questions across 70 topics; total bank 638 questions across 346 topics.
+- Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md changes excluded. Other campaigns, election/secession, Manifest Destiny, Reconstruction’s failure, later periods, non-text sources, history FRQ/exam workflows, and remaining subjects remain unfinished. Overall goal remains active.
