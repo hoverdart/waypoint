@@ -344,3 +344,12 @@ for _order, (_name, _description, _skill) in enumerate(_period_two_sequence, sta
     _topic['display_order'] = _order
     _topic['skill_tags'] = list(dict.fromkeys([*_topic.get('skill_tags', []), _skill, f'ced:2.{_order}']))
     UNITS[1]['topics'].append(_topic)
+
+# Period 3 expansion is incremental; retain the combined legacy topic until its
+# existing questions and mastery records can be mapped without discarding IDs.
+UNITS[2]['topics'] += [
+    {'name': 'Political Ideas of the Revolution', 'description': 'Analyze rights, consent, and arguments justifying independence.',
+     'skill_tags': ['sourcing', 'claims-evidence', 'ced:3.4'], 'display_order': 6},
+    {'name': 'Constitutional Structure and Federal Power', 'description': 'Explain constitutional institutions, federalism, and the limits of using legal texts as evidence of practice.',
+     'skill_tags': ['comparison', 'claims-evidence', 'ced:3.9'], 'display_order': 7},
+]

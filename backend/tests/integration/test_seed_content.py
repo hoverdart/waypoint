@@ -55,7 +55,7 @@ def test_expanded_calculus_seed_is_idempotent(db_session):
     assert len(first_questions) == 50
 
 
-@pytest.mark.parametrize("module,count", [("biology", 44), ("chemistry", 39), ("us_history", 58)])
+@pytest.mark.parametrize("module,count", [("biology", 44), ("chemistry", 39), ("us_history", 66)])
 def test_expanded_science_and_history_cover_every_topic(module, count):
     units = importlib.import_module(f"scripts.seed_data.units_topics.{module}").UNITS
     questions = importlib.import_module(f"scripts.seed_data.questions.{module}_questions").QUESTIONS
@@ -73,7 +73,7 @@ def test_all_available_subjects_seed_and_reseed_without_changing_ids(db_session)
         seed_subject(db_session, subject)
     assert {q.id for q in db_session.exec(select(Question)).all()} == question_ids
     assert {o.id for o in db_session.exec(select(QuestionOption)).all()} == option_ids
-    assert len(question_ids) == 498
+    assert len(question_ids) == 506
     assert SUBJECTS[0]['ap_exam_code'] == 'english-language'
     assert len(SUBJECTS) == 7
 

@@ -281,3 +281,12 @@
 - U.S. History now contains 58 questions across 44 topics; normal seed totals are 498 questions and 320 topics. Periods 1–2 map their framework topic areas, but their original topics still need more depth and Periods 3–9 remain coarse. Current-format SAQ/DBQ/LEQ workflows are still pending.
 - Backend content/curriculum/build helper/tests and docs changed. Next: Period 3 mapping and diverse primary/non-text evidence. Overall goal remains active.
 - Verification: all 259 backend tests pass, including all eight Period 2 codes, valid distinct stimulus types, per-option explanations, and stable seed/reseed IDs. Frontend unchanged.
+
+### Expansion milestone 16 — Revolutionary ideals and constitutional evidence
+
+- Previous goal turn classified as progress: Period 2 coverage and verified primary-source questions were pushed. Added eight original Period 3 questions using short public-domain excerpts checked against National Archives transcriptions of the Declaration and Constitution.
+- Added two distinct topics, political ideas of the Revolution (CED 3.4) and constitutional structure/federal power (CED 3.9), without renaming or removing legacy topics. Questions distinguish political principles from participation, legal grants from actual exercise, and interpretation from unsupported generalization. All options include explanations.
+- U.S. History now has 66 questions across 46 topics; normal seed totals are 506 questions and 322 topics. Period 3 is only partially expanded. Combined legacy topics remain until their existing questions and progress can be safely mapped; this is not complete framework coverage.
+- Sources checked: https://www.archives.gov/founding-docs/declaration-transcript and https://www.archives.gov/founding-docs/constitution-transcript. Questions are original, not copied AP items.
+- Affected areas: backend question sets, curriculum, regression tests, and docs. Next: remaining Period 3 areas, diverse non-text stimuli, and broader period expansion before the current-format FRQ workflows.
+- Verification: all 260 backend tests pass, including source attribution, content validation, topic mapping, and idempotent seeding. Frontend unchanged.
