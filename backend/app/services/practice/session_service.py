@@ -11,6 +11,7 @@ from sqlmodel import Session, select
 
 from app.core.exceptions import DomainError, NotFoundError
 from app.models.planner import DailyPlan, DailyPlanItem
+from app.services.practice.selection import prioritize_mcq_candidates
 from app.services.practice.validation import validate_submission
 from app.services.practice.scope import validate_practice_scope
 from app.models.practice import PracticeSession, QuestionAttempt
@@ -59,6 +60,8 @@ def start_practice_session(
 
     candidates = list(db.exec(query).all())
     rng.shuffle(candidates)
+    if session_type == "mcq":
+        candidates = prioritize_mcq_candidates(db, user_id, candidates)
     selected = candidates[:question_count]
     if not selected:
         raise DomainError("No approved questions are available for this selection. Try another topic or question type.")
