@@ -705,3 +705,5 @@ from .us_history.period_four_diplomacy import QUESTIONS as PERIOD_FOUR_DIPLOMACY
 QUESTIONS += PERIOD_FOUR_DIPLOMACY
 from .us_history.period_four_reform import QUESTIONS as PERIOD_FOUR_REFORM
 QUESTIONS += PERIOD_FOUR_REFORM
+from .us_history.period_four_removal import QUESTIONS as PERIOD_FOUR_REMOVAL
+QUESTIONS += PERIOD_FOUR_REMOVAL

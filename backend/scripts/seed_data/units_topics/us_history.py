@@ -439,3 +439,9 @@ UNITS[3]['topics'].append({
     'description': 'Analyze antebellum reform movements, their methods, and the relationship between rights claims and institutional change.',
     'skill_tags': ['continuity-and-change', 'sourcing', 'ced:4.11'], 'display_order': 6,
 })
+
+UNITS[3]['topics'].append({
+    'name': 'Jackson and Federal Power',
+    'description': 'Evaluate executive authority, conflicts over federal power, and policies affecting Native sovereignty.',
+    'skill_tags': ['causation', 'sourcing', 'ced:4.8'], 'display_order': 7,
+})

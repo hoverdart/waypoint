@@ -369,3 +369,10 @@
 - Verified the public-domain excerpt against https://www.nps.gov/wori/learn/historyculture/declaration-of-sentiments.htm. Questions analyze founding-language adaptation, antebellum context, continuity/change, and evidence of actual legal outcomes. Every option includes its own rationale.
 - U.S. History now has 105 questions across 56 topics; normal seed totals are 545 questions across 332 topics. Other reform movements, broader Period 4 mapping, later periods, and history FRQ workflows remain outstanding; overall goal remains active.
 - Affected areas: backend content/curriculum/tests and docs. All 281 backend tests pass, including named-source validation and bank-wide identifier checks. Changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.
+
+### Expansion milestone 28 — Indian removal and federal policy
+
+- Previous goal turn classified as progress: reform questions were tested and pushed. Added four original questions and Jackson and Federal Power (CED 4.8), using a named removal-message source set.
+- Verified Jackson’s December 1830 message at https://www.archives.gov/milestone-documents/jacksons-message-to-congress-on-indian-removal. The short public-domain excerpt remains explicitly attributed; questions critically evaluate its justification, plantation expansion, and omitted consequences for Native people. Complementary Native-authored sources remain needed.
+- U.S. History now has 109 questions across 57 topics; normal seed totals are 549 questions across 333 topics. Period 4 mapping/depth, varied evidence, later periods, and history FRQ support remain outstanding. Overall goal remains active.
+- Affected areas: backend content/curriculum/tests and docs. All 282 backend tests pass, including bank-wide source identity checks. Changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.

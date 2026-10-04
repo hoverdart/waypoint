@@ -1,6 +1,6 @@
 # U.S. History expansion
 
-Status: in progress. The live bank currently contains 105 questions, including 68 new source-based items;
+Status: in progress. The live bank currently contains 109 questions, including 72 new source-based items;
 it is not a comprehensive AP U.S. History preparation bank.
 
 ## Verified format for May 2027
@@ -72,3 +72,7 @@ mapping and expansion; this first set does not cover the full diplomacy topic.
 Period 4 also includes four Declaration of Sentiments questions under An Age of
 Reform (4.11). This named source set leaves room for independent abolition,
 temperance, education, and other reform evidence; those areas need further depth.
+
+Four Indian-removal questions begin Jackson and Federal Power (4.8), analyzing
+presidential justification and its limits. Complementary Native-authored evidence,
+the Bank War, and nullification still need coverage within this topic.
