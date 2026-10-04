@@ -833,3 +833,6 @@ QUESTIONS += PERIOD_TWO_BAPTISM
 
 from .us_history.period_two_compact import QUESTIONS as PERIOD_TWO_COMPACT
 QUESTIONS += PERIOD_TWO_COMPACT
+
+from .us_history.period_nine_migration import QUESTIONS as PERIOD_NINE_MIGRATION
+QUESTIONS += PERIOD_NINE_MIGRATION

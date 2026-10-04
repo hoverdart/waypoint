@@ -1,6 +1,6 @@
 # U.S. History expansion
 
-Status: in progress. The live bank currently contains 322 questions, including 285 new source-based items;
+Status: in progress. The live bank currently contains 325 questions, including 288 new source-based items;
 it is not a comprehensive AP U.S. History preparation bank.
 
 ## Verified format for May 2027
@@ -94,7 +94,7 @@ unique trimmed prompts and recognized periods count; ambiguous duplicate prompts
 are excluded. This is a necessary inventory check, not a form assembler.
 
 All nine periods now meet the necessary raw inventory minima for four forms.
-The history bank has 322 questions, with 244 approved unique MCQs usable after
+The history bank has 325 questions, with 244 approved unique MCQs usable after
 period caps against the 220-question target. This does not mean four valid forms
 have been assembled: stimulus groups, skills, sources, and difficulty still need
 to be balanced within each form.
@@ -138,3 +138,16 @@ All four current drafts pass minimum tag presence, including continuity/change.
 This is not balanced skill weighting or verification of tag accuracy. Source
 variety, non-text stimuli, difficulty, and factual quality still require review
 before student-facing exam integration.
+
+### Migration and demographic evidence
+
+Three original questions tagged 9.5 now extend the existing demographic-change
+topic. A compact numeric series uses Census foreign-born population shares for
+1970, 1980, 1990, and 2000. Questions distinguish population stocks from annual
+arrivals, relate admission-policy changes to historical context, and identify
+the geographic and arrival-period evidence needed to test settlement claims.
+These are text-rendered data, not an interactive chart. Internal migration,
+regional change, immigrant experiences, and policy debates still need depth.
+
+Sources: [Census historical statistics](https://www.census.gov/library/working-papers/2006/demo/POP-twps0081.html)
+and [National Archives on the 1965 act](https://prologue.blogs.archives.gov/2015/09/17/fifty-year-later-a-brief-history-of-the-immigration-act-of-1965/).
