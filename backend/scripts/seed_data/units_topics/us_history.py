@@ -1,3 +1,8 @@
+"""Foundation curriculum; comprehensive topic expansion remains in progress.
+
+Weights checked against the official course page on 2026-10-04:
+https://apcentral.collegeboard.org/courses/ap-united-states-history
+"""
 UNITS = [
     {
         "name": "Period 1: 1491-1607",
@@ -35,8 +40,8 @@ UNITS = [
     {
         "name": "Period 2: 1607-1754",
         "description": "The founding and development of English, French, Dutch, and Spanish colonies, and the emergence of distinct regional colonial societies.",
-        "ap_weight_min": 4.0,
-        "ap_weight_max": 6.0,
+        "ap_weight_min": 6.0,
+        "ap_weight_max": 8.0,
         "display_order": 2,
         "topics": [
             {

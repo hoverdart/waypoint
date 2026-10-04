@@ -1,0 +1,56 @@
+# U.S. History expansion
+
+Status: in progress. The live bank currently contains 37 foundation questions;
+it is not a comprehensive AP U.S. History preparation bank.
+
+## Verified format for May 2027
+
+Checked 2026-10-04 against the [official exam page](https://apcentral.collegeboard.org/courses/ap-united-states-history/exam),
+[2027 update](https://apcentral.collegeboard.org/courses/ap-history-exam-updates), and
+[fall-2026 corrections](https://apcentral.collegeboard.org/media/pdf/ap-us-history-course-and-exam-description-clarifications.pdf).
+
+| Section | Required work | Time | Weight |
+|---|---|---|---|
+| I-A | 55 multiple-choice questions | 55 minutes | 40% |
+| I-B | Three short-answer questions | 40 minutes | 20% |
+| II | One DBQ and one long essay | 100 minutes total | 25% + 15% |
+
+Build for the 2027 format: all three SAQs are required. Their stimuli comprise
+secondary text, primary text, and a non-text source respectively, with different
+periods represented. The LEQ is one broad required prompt with flexibility in the
+evidence selected; do not reproduce the former menu of three LEQ prompts or the
+former SAQ choice. The DBQ uses seven documents. The suggested division of Section II
+is 60 minutes for DBQ (including reading) and 40 for LEQ; preserve the shared clock.
+Course content and rubric criteria remain unchanged according to the update.
+
+## Work and acceptance gates
+
+1. Expand the current coarse topic list against the full current CED, preserving
+   existing topic IDs where possible and explicitly mapping legacy questions.
+   Period 2's live seed weighting is corrected to 6–8%; other period ranges match
+   the [course page](https://apcentral.collegeboard.org/courses/ap-united-states-history).
+2. Build a diverse source-based bank: primary texts with provenance, original
+   secondary interpretations, maps, quantitative evidence, and visual sources.
+   Use public-domain or licensed material with verified attribution. Do not invent
+   a quotation and present it as an authentic historical document.
+3. Target four independent 55-question MCQ forms (220 questions minimum), plus
+   additional questions needed for at least three per curriculum topic and varied
+   difficulty. Each form must meet period weights and sample sourcing, claims,
+   contextualization, comparison, causation, and continuity/change skills.
+4. Target at least 24 SAQs, eight DBQs with seven-document packs, and 12 broad LEQs.
+   Include substantive models, evidence alternatives, and transparent self-review
+   rubrics. Keyword matches cannot substitute for evaluating historical reasoning.
+5. Extend the timed state machine to mixed free-response sections and distinct
+   section types. The current implementation assumes MCQ first and FRQ afterward;
+   it also needs explicit SAQ/DBQ/LEQ presentation and appropriate rubric guidance.
+   No current U.S. History timed form is advertised as representative.
+6. Verify normal practice, diagnostic exclusion of self-reviewed work, persisted
+   drafts, section deadlines, results, source readability, and responsive layouts.
+   Check existing-session compatibility when revising the foundation bank.
+
+These are WayPoint depth targets. Counts, passing tests, and author-assigned
+ratings do not establish educator review or calibrated AP difficulty. Released
+exam archives remain external resources, with older formats identified as such.
+
+Next: inventory the complete current CED topics and begin sourced period-based
+question sets, then implement the three free-response workflows.
