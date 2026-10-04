@@ -845,3 +845,6 @@ QUESTIONS += PERIOD_EIGHT_LOYALTY
 
 from .us_history.period_eight_cuba import QUESTIONS as PERIOD_EIGHT_CUBA
 QUESTIONS += PERIOD_EIGHT_CUBA
+
+from .us_history.period_eight_title_ix import QUESTIONS as PERIOD_EIGHT_TITLE_IX
+QUESTIONS += PERIOD_EIGHT_TITLE_IX

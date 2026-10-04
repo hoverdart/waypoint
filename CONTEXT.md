@@ -1037,3 +1037,11 @@
 - History now has 335 questions across 84 topics; overall bank 775 across 360 topics. Period 8 has 34 approved unique MCQs. Direct recomputation gives capped history inventory of 254. The new topic appends without changing existing identities.
 - Backend curriculum/content/tests and delivery/history documentation changed; frontend unchanged. Verification: all 399 backend tests passed, including question/schema mapping, four-item stimulus integrity, reseeding and whole-bank exam assembly gates. Scoped whitespace checks passed. User AGENTS.md edits excluded.
 - A single crisis does not complete topic 8.7: intervention, decolonization, alliances and regional relationships need expansion. Other curriculum gaps, visuals, writing/exam integration, remaining AP courses and deeper learning progression remain unfinished. Goal remains active.
+
+### Expansion milestone 114 — Expanding civil-rights topic
+
+- Previous goal turn classified as progress: world-power/Cuban crisis content was tested and pushed as 6624a1d. Added the missing 8.11 Civil Rights Movement Expands topic and three original Title IX questions.
+- Verified curriculum mapping against indexed College Board material and the historical enactment through National Archives sources. Questions distinguish federally assisted educational scope from athletics alone, compare the law with constitutional voting protection, and evaluate evidence needed to test claims of immediate universal equality. No claim about current regulatory details is made.
+- History now has 338 questions across 85 topics; overall bank 778 across 361 topics. Period 8 has 37 approved unique MCQs; direct recomputation gives capped history inventory of 256. Existing topic identities preserved.
+- Backend curriculum/content/tests and delivery/history documentation changed; frontend unchanged. Verification: all 400 backend tests passed, including new topic mapping and content validation, whole-bank reseeding and exam assembly gates. Scoped whitespace checks passed. User AGENTS.md edits excluded.
+- This first set does not complete 8.11. Women's movement strategies, Chicano activism, Native rights and gay-rights organizing need depth, alongside remaining history gaps, visual sources, writing/exam workflows, other AP subjects and learning progression. Goal remains active.

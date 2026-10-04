@@ -645,3 +645,9 @@ UNITS[7]['topics'].append({
     'description': 'Evaluate U.S. global commitments, intervention, diplomacy, and competing responses to international crises.',
     'skill_tags': ['comparison', 'causation', 'sourcing', 'argumentation', 'ced:8.7'], 'display_order': 8,
 })
+
+UNITS[7]['topics'].append({
+    'name': 'The Civil Rights Movement Expands',
+    'description': 'Examine expanding movements for equality and the relationship between activism, law, institutions, and lived experience.',
+    'skill_tags': ['contextualization', 'comparison', 'claims-evidence', 'ced:8.11'], 'display_order': 9,
+})
