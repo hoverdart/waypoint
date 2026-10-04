@@ -47,7 +47,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 318
+    assert len(questions) == 322
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -1288,5 +1288,17 @@ def test_baptism_law_items_validate_and_complete_raw_period_inventory():
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
     report = history_mcq_inventory(UNITS, ALL)
-    assert report['periods'][1]['approved_unique_mcq'] == 18
+    assert report['periods'][1]['approved_unique_mcq'] == 22
     assert report['necessary_inventory_checks_pass']
+
+
+def test_compact_set_validates_as_one_four_question_stimulus():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.seed_data.questions.us_history.period_two_compact import QUESTIONS
+    assert len(QUESTIONS) == 4
+    assert len({t for q in QUESTIONS for t in q['skill_tags'] if t.startswith('stimulus:')}) == 1
+    for q in QUESTIONS:
+        assert 'ced:2.3' in q['skill_tags']
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))

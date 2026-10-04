@@ -1,6 +1,6 @@
 # U.S. History expansion
 
-Status: in progress. The live bank currently contains 318 questions, including 281 new source-based items;
+Status: in progress. The live bank currently contains 322 questions, including 285 new source-based items;
 it is not a comprehensive AP U.S. History preparation bank.
 
 ## Verified format for May 2027
@@ -94,7 +94,7 @@ unique trimmed prompts and recognized periods count; ambiguous duplicate prompts
 are excluded. This is a necessary inventory check, not a form assembler.
 
 All nine periods now meet the necessary raw inventory minima for four forms.
-The history bank has 318 questions, with 246 approved unique MCQs usable after
+The history bank has 322 questions, with 244 approved unique MCQs usable after
 period caps against the 220-question target. This does not mean four valid forms
 have been assembled: stimulus groups, skills, sources, and difficulty still need
 to be balanced within each form.
@@ -113,9 +113,7 @@ source group. Untagged questions count as individual items. Groups with duplicat
 unapproved, non-MCQ, cross-period, or ambiguous members are excluded rather than
 silently shortened. A dynamic-programming check permits unused groups.
 
-Current result: **Period 2 fails** despite passing the raw-count gate. Its source
-sets cannot currently make four independent four-question allocations. All other
-periods pass this necessary per-period packing check. Add substantive Period 2
-items or sets that support those allocations; do not split sources merely to
-make the arithmetic pass. Per-period feasibility still does not establish four
-complete 55-question forms or skill/source balance.
+Current result: **all periods pass** the necessary whole-group packing check.
+The four-question Mayflower Compact set resolves the previous Period 2 packing
+constraint without splitting sources. Per-period feasibility still does not
+establish four complete 55-question forms, skill/source balance, or educator review.

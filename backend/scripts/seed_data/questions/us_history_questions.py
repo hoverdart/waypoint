@@ -830,3 +830,6 @@ QUESTIONS += PERIOD_NINE_TECHNOLOGY
 
 from .us_history.period_two_baptism import QUESTIONS as PERIOD_TWO_BAPTISM
 QUESTIONS += PERIOD_TWO_BAPTISM
+
+from .us_history.period_two_compact import QUESTIONS as PERIOD_TWO_COMPACT
+QUESTIONS += PERIOD_TWO_COMPACT

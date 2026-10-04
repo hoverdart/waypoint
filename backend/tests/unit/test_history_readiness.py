@@ -109,9 +109,9 @@ def test_ambiguous_members_invalidate_related_groups():
     assert any(x['reason'] == 'ambiguous_group_member' for x in result['excluded_groups'])
 
 
-def test_current_bank_needs_period_two_group_combinations():
+def test_current_bank_has_whole_group_period_combinations():
     from scripts.history_readiness import source_group_inventory
     from scripts.seed_data.units_topics.us_history import UNITS
     from scripts.seed_data.questions.us_history_questions import QUESTIONS
     result = source_group_inventory(UNITS, QUESTIONS)
-    assert [p['unit'] for p in result['periods'] if not p['whole_group_allocation_possible']] == [UNITS[1]['name']]
+    assert [p['unit'] for p in result['periods'] if not p['whole_group_allocation_possible']] == []
