@@ -397,3 +397,10 @@
 - Questions distinguish a tariff concession from acceptance of nullification, compare Jackson’s selective use of federal power, and reject claims that a temporary settlement ended sectional conflict permanently. Each option includes a rationale.
 - U.S. History now has 121 questions across 57 topics; normal seed totals are 561 questions across 333 topics. Broader Period 4 framework/depth, non-text evidence, later periods, and history FRQ workflows remain outstanding. Overall goal remains active.
 - Affected areas: backend content/tests and docs. All 285 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.
+
+### Expansion milestone 32 — Cotton and industrial interdependence
+
+- Previous goal turn classified as progress: nullification questions were tested and pushed. Added four original questions and Market Revolution: Industrialization (CED 4.5).
+- Historical context checked against https://www.nps.gov/lowe/learn/historyculture/anti-slavery-in-lowell.htm. The explicitly labeled instructional summary connects northern textile production to enslaved cotton labor. Questions distinguish economic interdependence from identical legal status and from uniform political beliefs.
+- U.S. History now has 125 questions across 58 topics; normal seed totals are 565 questions across 334 topics. More industrial technology/workplace evidence, broader Period 4 mapping, later periods, and history FRQ workflows remain outstanding. Overall goal remains active.
+- Affected areas: backend content/curriculum/tests and docs. All 286 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.

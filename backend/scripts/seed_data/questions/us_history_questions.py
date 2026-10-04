@@ -713,3 +713,5 @@ from .us_history.period_four_bank import QUESTIONS as PERIOD_FOUR_BANK
 QUESTIONS += PERIOD_FOUR_BANK
 from .us_history.period_four_nullification import QUESTIONS as PERIOD_FOUR_NULLIFICATION
 QUESTIONS += PERIOD_FOUR_NULLIFICATION
+from .us_history.period_four_industry import QUESTIONS as PERIOD_FOUR_INDUSTRY
+QUESTIONS += PERIOD_FOUR_INDUSTRY

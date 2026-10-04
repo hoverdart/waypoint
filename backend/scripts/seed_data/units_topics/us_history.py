@@ -445,3 +445,9 @@ UNITS[3]['topics'].append({
     'description': 'Evaluate executive authority, conflicts over federal power, and policies affecting Native sovereignty.',
     'skill_tags': ['causation', 'sourcing', 'ced:4.8'], 'display_order': 7,
 })
+
+UNITS[3]['topics'].append({
+    'name': 'Market Revolution: Industrialization',
+    'description': 'Explain mechanized production, investment, transportation, and interregional economic connections.',
+    'skill_tags': ['causation', 'comparison', 'ced:4.5'], 'display_order': 8,
+})

@@ -1,6 +1,6 @@
 # U.S. History expansion
 
-Status: in progress. The live bank currently contains 121 questions, including 84 new source-based items;
+Status: in progress. The live bank currently contains 125 questions, including 88 new source-based items;
 it is not a comprehensive AP U.S. History preparation bank.
 
 ## Verified format for May 2027
@@ -76,3 +76,7 @@ temperance, education, and other reform evidence; those areas need further depth
 Four Indian-removal questions begin Jackson and Federal Power (4.8), analyzing
 presidential justification and its limits. Four complementary Cherokee petition questions address representation and consent.
 Four Bank War questions analyze the veto message; four nullification questions compare enforcement with compromise. Further depth remains needed.
+
+Four questions begin Market Revolution: Industrialization (4.5), examining cotton
+supply chains and differences between wage and enslaved labor. Technology,
+transportation, and workplace evidence still need additional sets.
