@@ -563,3 +563,10 @@
 - Fixture tests exercise broad mappings, duplicate tags, missing tags, and out-of-mapping codes. A live Reconstruction check confirms three questions tagged 5.10, no explicitly tagged 5.11 questions, and one untagged legacy item. The current history bank has no question codes outside their topic mappings.
 - All 310 backend tests pass. Counts unchanged: 180 U.S. History questions / 620 overall. Affected areas: backend audit tooling/tests and context; frontend unchanged. User AGENTS.md edits excluded.
 - This exposes incomplete coverage hidden by broad topic mappings and will guide further Period 5 additions and legacy-item review. Overall goal remains active, with extensive source diversity, later-period, exam/FRQ, and remaining-course work outstanding.
+
+### Expansion milestone 55 — Compromise provisions and continuing conflict
+
+- Previous goal turn classified as progress: question-level curriculum auditing was implemented, tested, and pushed. Added three original questions to the Compromise of 1850 legacy topic, tagged CED 5.4 and increasing topic depth from one to four items.
+- Context checked against https://www.archives.gov/milestone-documents/compromise-of-1850. The original summary and questions distinguish ending the District’s slave trade from abolishing slavery, examine enforcement conflict in free states, and explain how immediate legislative agreement could coexist with unresolved sectional disagreement.
+- All 311 backend tests pass, including new-content validation, existing-topic depth, and whole-bank reseeding. U.S. History now has 183 questions across 67 topics; total bank 623 questions across 343 topics.
+- Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md edits excluded. Broader CED 5.6 failure-of-compromise events still require explicit coverage, alongside missing Period 5 areas, later periods, source diversity, history FRQ/exam workflows, and remaining subjects. Overall goal remains active.

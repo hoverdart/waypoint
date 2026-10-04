@@ -745,3 +745,5 @@ from .us_history.period_five_emancipation import QUESTIONS as PERIOD_FIVE_EMANCI
 QUESTIONS += PERIOD_FIVE_EMANCIPATION
 from .us_history.period_five_citizenship import QUESTIONS as PERIOD_FIVE_CITIZENSHIP
 QUESTIONS += PERIOD_FIVE_CITIZENSHIP
+from .us_history.period_five_compromise import QUESTIONS as PERIOD_FIVE_COMPROMISE
+QUESTIONS += PERIOD_FIVE_COMPROMISE
