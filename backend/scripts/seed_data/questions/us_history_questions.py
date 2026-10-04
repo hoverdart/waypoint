@@ -751,3 +751,5 @@ from .us_history.period_five_kansas import QUESTIONS as PERIOD_FIVE_KANSAS
 QUESTIONS += PERIOD_FIVE_KANSAS
 from .us_history.period_five_context import QUESTIONS as PERIOD_FIVE_CONTEXT
 QUESTIONS += PERIOD_FIVE_CONTEXT
+from .us_history.period_five_regions import QUESTIONS as PERIOD_FIVE_REGIONS
+QUESTIONS += PERIOD_FIVE_REGIONS

@@ -535,3 +535,9 @@ UNITS[4]['topics'].append({
     'description': 'Connect territorial expansion and sectional conflict to earlier disputes over slavery, representation, and diplomacy.',
     'skill_tags': ['contextualization', 'argumentation', 'ced:5.1'], 'display_order': 7,
 })
+
+UNITS[4]['topics'].append({
+    'name': 'Sectional Conflict: Regional Differences',
+    'description': 'Compare regional labor systems and economic development while evaluating interdependence and diverse political interests.',
+    'skill_tags': ['comparison', 'sourcing', 'ced:5.5'], 'display_order': 8,
+})

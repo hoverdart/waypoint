@@ -585,3 +585,10 @@
 - Historical context checked against Texas State Library annexation resources at https://www.tsl.texas.gov/exhibits/annexation/index.html and the Office of the Historian’s Texas annexation overview. The original summary supports questions about precedent, representation, and evidence distinguishing motives among opponents.
 - All 313 backend tests pass, including new-question validation, period/topic mapping, and whole-bank reseeding. U.S. History has 189 questions across 68 topics; overall bank has 629 questions across 344 topics.
 - Affected areas: backend content/curriculum/tests and docs. Frontend unchanged; user AGENTS.md edits excluded. Period 5 regional differences and comparison remain unmapped; existing topics require more varied sources and depth. Later periods, history FRQ/exam support, and remaining subjects are also outstanding. Overall goal remains active.
+
+### Expansion milestone 58 — Regional difference and interdependence
+
+- Previous goal turn classified as progress: Period 5 context and Texas annexation questions were tested and pushed. Added Sectional Conflict: Regional Differences (CED 5.5) and three original questions on cotton supply chains and political inference.
+- Historical context checked against https://home.nps.gov/blrv/learn/historyculture/cotton-economy.htm. The original summary distinguishes commercial interdependence from identical labor institutions; questions require separate evidence before attributing uniform political beliefs to workers or manufacturers.
+- All 314 backend tests pass, including new-content validation, period/topic mapping, and whole-bank reseeding. U.S. History has 192 questions across 69 topics; overall bank has 632 questions across 345 topics.
+- Affected areas: backend content/curriculum/tests and docs. Frontend unchanged; user AGENTS.md edits excluded. Regional social and cultural differences need additional coverage. Period 5 comparison remains unmapped, while earlier and later periods, non-text sources, history FRQ/exam support, and remaining courses remain incomplete. Overall goal remains active.
