@@ -383,3 +383,10 @@
 - Verified the public-domain transcription and provenance at https://docsteach.org/document/cherokee-petition-protest-new-echota-treaty/ (National Archives Identifier 2127291). Questions examine representative authority, the Senate audience, comparison with Jackson’s justification, and limits on generalizing a petition to an entire nation.
 - U.S. History now has 113 questions across 57 topics; normal seed totals are 553 questions across 333 topics. Remaining work includes broader Period 4 mapping/depth, non-text evidence, later periods, and history FRQ workflows. Overall goal remains active.
 - Affected areas: backend content/tests and docs. All 283 backend tests pass, including distinct identifiers for two sources under the same curriculum code and bank-wide metadata consistency. Changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.
+
+### Expansion milestone 30 — Bank War and executive authority
+
+- Previous goal turn classified as progress: Cherokee petition questions were tested and pushed. Added four original Bank War questions under CED 4.8 using a distinct bank-veto source set.
+- Public-domain excerpt checked against the Yale Avalon transcription at https://avalon.law.yale.edu/19th_century/ajveto01.asp; institutional context checked with Senate history and National Archives Bank War resources. Questions distinguish Jackson’s political justification from neutral financial evidence and ask what records support claims about executive authority.
+- U.S. History now has 117 questions across 57 topics; normal seed totals are 557 questions across 333 topics. Nullification, broader Period 4 framework/depth, non-text evidence, later periods, and history FRQ workflows remain outstanding. Overall goal remains active.
+- Affected areas: backend content/tests and docs. All 284 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.

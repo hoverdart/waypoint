@@ -709,3 +709,5 @@ from .us_history.period_four_removal import QUESTIONS as PERIOD_FOUR_REMOVAL
 QUESTIONS += PERIOD_FOUR_REMOVAL
 from .us_history.period_four_cherokee import QUESTIONS as PERIOD_FOUR_CHEROKEE
 QUESTIONS += PERIOD_FOUR_CHEROKEE
+from .us_history.period_four_bank import QUESTIONS as PERIOD_FOUR_BANK
+QUESTIONS += PERIOD_FOUR_BANK
