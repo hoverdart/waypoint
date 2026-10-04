@@ -3,6 +3,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 
+from app.schemas.stimulus import DataTable
 from app.schemas.gamification import BadgeRead
 
 
@@ -25,6 +26,7 @@ class QuestionOptionRead(BaseModel):
 
 
 class QuestionRead(BaseModel):
+    data_table: DataTable | None = None
     scoring_method: Literal["automatic", "keyword", "self_review"] = "automatic"
     model_config = ConfigDict(from_attributes=True)
 
@@ -124,6 +126,7 @@ class RubricCriterionRead(BaseModel):
 
 
 class AnswerBreakdownItem(BaseModel):
+    data_table: DataTable | None = None
     scoring_method: Literal["automatic", "keyword", "self_review"] = "automatic"
     self_review: SelfReviewRead | None = None
     question_id: int

@@ -27,3 +27,15 @@ QUESTIONS = source_set(
         ]),
     ],
 )
+
+
+for question in QUESTIONS:
+    question['data_table'] = {
+        'caption': 'Household income and unemployment, 1974–1975',
+        'columns': ['Measure', '1974', '1975'],
+        'rows': [
+            ['Median household money income (nominal dollars)', '$11,200', '$11,800'],
+            ['Average annual unemployment rate', '5.6%', '8.5%'],
+        ],
+        'note': 'Source: Census Bureau, P60-104 (1977). The report revised 1974 income estimates for comparability and reported roughly 9% consumer-price growth between 1974 and 1975.',
+    }

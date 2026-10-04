@@ -1,5 +1,7 @@
 "use client";
 
+import { QuestionDataTable } from "@/components/practice/QuestionDataTable";
+
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Inbox } from "lucide-react";
@@ -179,7 +181,8 @@ export function PracticeSessionRoot({
       <QuestionProgressIndicator current={index + 1} total={questions.length} isDiagnostic={isDiagnostic} />
 
       <Surface className="space-y-7 p-6 sm:p-8">
-        <p className="text-lg leading-relaxed whitespace-pre-wrap text-ink">{question.prompt}</p>
+        <QuestionDataTable table={question.data_table} />
+        <p className="text-lg leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere] text-ink">{question.prompt}</p>
 
         <fieldset disabled={submitting} className="space-y-7">
         {question.type === "mcq" ? (

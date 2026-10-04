@@ -86,6 +86,7 @@ def create_question(db: Session, data: AdminQuestionCreate) -> Question:
         difficulty=data.difficulty,
         prompt=data.prompt,
         correct_answer=data.correct_answer,
+        data_table=data.data_table.model_dump() if data.data_table else None,
         rubric_json=data.rubric_json,
         skill_tags=data.skill_tags,
         misconception_tags=data.misconception_tags,

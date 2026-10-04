@@ -29,6 +29,7 @@ def questions_to_reads(db: Session, questions: list[Question]) -> list[QuestionR
             type=q.type,
             difficulty=q.difficulty,
             prompt=q.prompt,
+            data_table=q.data_table,
             options=[
                 QuestionOptionRead(id=o.id, label=o.label, text=o.text)
                 for o in options_by_question.get(q.id, [])

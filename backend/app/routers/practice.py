@@ -186,6 +186,7 @@ def practice_results(
                 question_id=question.id,
                 topic_id=question.topic_id,
                 prompt=question.prompt,
+                data_table=question.data_table,
                 type=question.type,
                 is_correct=None if requires_self_review(question) else attempt.is_correct,
                 score=None if requires_self_review(question) else attempt.score,

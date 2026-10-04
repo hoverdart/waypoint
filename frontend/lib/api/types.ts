@@ -71,7 +71,15 @@ export interface QuestionOption {
 
 export type QuestionType = "mcq" | "frq";
 
+export interface DataTable {
+  caption: string;
+  columns: string[];
+  rows: string[][];
+  note?: string | null;
+}
+
 export interface Question {
+  data_table?: DataTable | null;
   scoring_method?: "automatic" | "keyword" | "self_review";
   id: number;
   subject_id: number;
@@ -160,6 +168,7 @@ export interface SelfReview {
 }
 
 export interface AnswerBreakdownItem {
+  data_table?: DataTable | null;
   scoring_method?: "automatic" | "keyword" | "self_review";
   self_review?: SelfReview | null;
   question_id: number;
@@ -312,6 +321,7 @@ export interface QuestionReport {
 }
 
 export interface AdminQuestion {
+  data_table?: DataTable | null;
   id: number;
   subject_id: number;
   unit_id: number;

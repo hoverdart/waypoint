@@ -70,6 +70,18 @@ test.describe("Guided learning", () => {
     await expect(page).toHaveURL(/\/practice\/session\/\d+$/);
     await page.reload();
     await expect(page.getByText(historySession.questions[0].prompt, { exact: true })).toBeVisible();
+    await page.goto("/subjects");
+    await page.getByText("AP US History", { exact: true }).locator("../..").getByRole("link", { name: "Open course" }).click();
+    await page.getByRole("heading", { name: "Period 8: 1945-1980", exact: true }).click();
+    await page.getByRole("button", { name: "Practice Society in Transition", exact: true }).click();
+    await expect(page).toHaveURL(/\/practice\/session\/\d+$/);
+    const evidence = page.getByRole("table", { name: "Household income and unemployment, 1974–1975" });
+    await expect(evidence).toBeVisible();
+    await expect(evidence.getByRole("cell", { name: "$11,200", exact: true })).toBeVisible();
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    await page.screenshot({ path: testInfo.outputPath("historical-table-mobile.png"), fullPage: true });
+    await page.reload();
+    await expect(evidence).toBeVisible();
     expect(failures).toEqual([]);
   });
 });

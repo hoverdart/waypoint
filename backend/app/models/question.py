@@ -28,6 +28,7 @@ class Question(SQLModel, table=True):
     difficulty: int
     prompt: str
     correct_answer: str
+    data_table: dict | None = Field(default=None, sa_column=Column(JSONVariant))
     rubric_json: dict | None = Field(default=None, sa_column=Column(JSONVariant))
     skill_tags: list = Field(default_factory=list, sa_column=Column(JSONVariant))
     misconception_tags: list = Field(default_factory=list, sa_column=Column(JSONVariant))

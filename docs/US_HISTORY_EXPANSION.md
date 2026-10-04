@@ -257,5 +257,16 @@ from a [1977 Census report](https://www.census.gov/library/publications/1977/dem
 The stimulus labels the revised historical income estimates, nominal dollars,
 and annual unemployment rates. Students distinguish nominal gains from real
 purchasing-power losses, identify stagflation, and evaluate limits on causal
-claims. Figures are rendered as text; no chart renderer is claimed. Watergate,
+claims. Figures now also render in an accessible evidence table; no graphical chart renderer is claimed. Watergate,
 political confidence, energy policy and other transitions still need coverage.
+
+### Structured evidence tables
+
+The three stagflation questions now carry an optional validated data table with
+column headings, rows, a caption, and a source/methodology note. Tables appear in
+practice, exams, and answer review, including after session reload. Existing
+prompt wording remains to preserve seed identity and provide textual context.
+Tables are text-only, bounded in dimensions/cell length, and reject malformed
+rows or unknown fields. Admin API edits preserve versioned historical evidence;
+the current admin form does not yet offer a table editor. Graphs, maps, and
+images remain separate unfinished formats.

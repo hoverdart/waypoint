@@ -4,6 +4,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from app.schemas.stimulus import DataTable
 from app.schemas.reports import QuestionReportRead
 
 
@@ -27,6 +28,7 @@ class AdminQuestionCreate(BaseModel):
     difficulty: int = Field(ge=1, le=5)
     prompt: str = Field(min_length=1, max_length=20000)
     correct_answer: str = Field(min_length=1, max_length=20000)
+    data_table: DataTable | None = None
     rubric_json: dict | None = None
     skill_tags: list[str] = []
     misconception_tags: list[str] = []
@@ -40,6 +42,7 @@ class AdminQuestionUpdate(BaseModel):
     prompt: str | None = Field(default=None, min_length=1, max_length=20000)
     correct_answer: str | None = Field(default=None, min_length=1, max_length=20000)
     difficulty: int | None = Field(default=None, ge=1, le=5)
+    data_table: DataTable | None = None
     rubric_json: dict | None = None
     skill_tags: list[str] | None = None
     misconception_tags: list[str] | None = None
@@ -58,6 +61,7 @@ class AdminQuestionRead(BaseModel):
     difficulty: int
     prompt: str
     correct_answer: str
+    data_table: DataTable | None = None
     rubric_json: dict | None
     skill_tags: list
     misconception_tags: list

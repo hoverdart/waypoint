@@ -1,5 +1,7 @@
 "use client";
 
+import { QuestionDataTable } from "@/components/practice/QuestionDataTable";
+
 import Link from "next/link";
 import { RubricSelfReview } from "./RubricSelfReview";
 import { useState } from "react";
@@ -42,15 +44,16 @@ export function AnswerBreakdownCard({ item, subjectId, sessionId }: { item: Answ
   return (
     <Surface className="space-y-4 p-5 sm:p-6">
       <div className="flex items-start justify-between gap-4">
-        <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink">{item.prompt}</p>
+        <QuestionDataTable table={item.data_table} />
+        <p className="whitespace-pre-wrap [overflow-wrap:anywhere] text-sm leading-relaxed text-ink">{item.prompt}</p>
         <Chip tone={item.is_correct ? "green" : "coral"} dot className="shrink-0">
           {selfReview ? "Rubric self-review" : item.type === "frq" ? "Checklist feedback" : item.is_correct ? "Correct" : "Incorrect"}
         </Chip>
       </div>
 
       <div className="space-y-3 text-sm">
-        <div><p className="text-xs font-semibold text-muted-foreground">Your answer</p><p className="mt-1 whitespace-pre-wrap text-ink">{item.type === "frq" ? item.free_response_text || "No response" : selectedOption ? `${selectedOption.label}. ${selectedOption.text}` : "No answer recorded"}</p></div>
-        <div><p className="text-xs font-semibold text-muted-foreground">{item.type === "frq" ? "Model response" : "Correct answer"}</p><p className="mt-1 whitespace-pre-wrap text-ink">{correctOption ? `${correctOption.label}. ${correctOption.text}` : item.correct_answer}</p></div>
+        <div><p className="text-xs font-semibold text-muted-foreground">Your answer</p><p className="mt-1 whitespace-pre-wrap [overflow-wrap:anywhere] text-ink">{item.type === "frq" ? item.free_response_text || "No response" : selectedOption ? `${selectedOption.label}. ${selectedOption.text}` : "No answer recorded"}</p></div>
+        <div><p className="text-xs font-semibold text-muted-foreground">{item.type === "frq" ? "Model response" : "Correct answer"}</p><p className="mt-1 whitespace-pre-wrap [overflow-wrap:anywhere] text-ink">{correctOption ? `${correctOption.label}. ${correctOption.text}` : item.correct_answer}</p></div>
         {!selfReview && <p className="text-muted-foreground">{item.score}/{item.max_score} pts</p>}
         {item.type === "frq" && !selfReview && <div className="border-t border-border pt-3">
           <p className="font-medium">Review your reasoning</p>

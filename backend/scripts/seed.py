@@ -108,6 +108,7 @@ def upsert_question(db: Session, subject_id: int, unit_id: int, topic_id: int, d
         difficulty=data["difficulty"],
         prompt=data["prompt"],
         correct_answer=data["correct_answer"],
+        data_table=data.get("data_table"),
         rubric_json=data.get("rubric_json"),
         skill_tags=data.get("skill_tags", []),
         misconception_tags=data.get("misconception_tags", []),
