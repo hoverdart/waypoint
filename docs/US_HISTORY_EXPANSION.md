@@ -117,3 +117,19 @@ Current result: **all periods pass** the necessary whole-group packing check.
 The four-question Mayflower Compact set resolves the previous Period 2 packing
 constraint without splitting sources. Per-period feasibility still does not
 establish four complete 55-question forms, skill/source balance, or educator review.
+
+### Offline draft assembly
+
+Run `python -m scripts.history_forms` from `backend/` to generate a reproducible
+review manifest. Four distinct 55-MCQ drafts now assemble with period counts
+`3, 4, 9, 9, 9, 6, 6, 6, 3`, all within configured weights. Source sets stay intact
+and no question or source group is reused across drafts. Unapproved, duplicate,
+and non-MCQ items cannot fill slots. Invalid weights or ambiguous groups fail.
+Prompt hashes identify the exact content version; they are not database IDs.
+
+These drafts are **not published exams**. Assembly currently selects for period
+and group constraints, not skill optimization. The generated skill report shows
+that draft 3 has no explicitly tagged continuity/change item; other drafts have
+only one or two. Skill tagging itself needs review, and source variety, non-text
+stimuli, difficulty, and factual quality remain unverified. Add skill constraints
+and review the selected content before student-facing exam integration.
