@@ -151,3 +151,11 @@ regional change, immigrant experiences, and policy debates still need depth.
 
 Sources: [Census historical statistics](https://www.census.gov/library/working-papers/2006/demo/POP-twps0081.html)
 and [National Archives on the 1965 act](https://prologue.blogs.archives.gov/2015/09/17/fifty-year-later-a-brief-history-of-the-immigration-act-of-1965/).
+
+### Guided learning
+
+Period 9 now includes a guided demographic-evidence lesson with explanation,
+a worked Census example, a three-option check, individual feedback, and versioned
+per-user completion. Its practice target uses topic tag `ced:9.5`; existing
+English lessons continue using `ap-skill:` mappings. Completion is a learning
+check, not a mastery score. Other history units still need lesson sequences.

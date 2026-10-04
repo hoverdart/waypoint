@@ -46,14 +46,15 @@ def get_lessons(unit_id: int, db: Session = Depends(get_db), user: User = Depend
         Question.validation_status == "approved",
     ).distinct()).all())
 
-    def practice_targets(skill):
-        matching = [topic for topic in topics if f"ap-skill:{skill}" in topic.skill_tags]
+    def practice_targets(lesson):
+        tag = lesson.practice_tag or f"ap-skill:{lesson.skill}"
+        matching = [topic for topic in topics if tag in topic.skill_tags]
         return {kind: next((topic.id for topic in matching if (topic.id, kind) in available), None)
                 for kind in ("mcq", "frq")}
 
-    return [{**{key: value for key, value in asdict(lesson).items() if key not in ("correct", "feedback")},
+    return [{**{key: value for key, value in asdict(lesson).items() if key not in ("correct", "feedback", "practice_tag")},
              "completed": (lesson.slug, lesson.revision) in completed,
-             "practice_topic_ids": practice_targets(lesson.skill)} for lesson in lessons]
+             "practice_topic_ids": practice_targets(lesson)} for lesson in lessons]
 
 
 @router.post("/units/{unit_id}/lessons/{slug}/check")

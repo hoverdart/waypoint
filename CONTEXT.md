@@ -963,3 +963,11 @@
 - History now has 325 questions across 82 topics; overall bank 765 across 358 topics. Period 9 has 16 approved unique MCQs; its capped contribution remains 12. Minimum exam skill/group gates remain intact.
 - Backend content, topic mapping, tests, delivery/history documentation and CONTEXT.md changed. Frontend unchanged; user AGENTS.md edits excluded. Verification: all 390 backend tests passed, including whole-bank idempotent reseeding, content validation, numeric stimulus checks, mapping, and draft assembly invariants.
 - Internal migration, regional and immigrant experiences, remaining topic gaps, non-text source variety, history writing/exam integration, other courses, and learning progression remain unfinished. Goal remains active.
+
+### Expansion milestone 105 — First history guided lesson
+
+- Previous goal turn classified as progress: migration content was tested and pushed as c363006. Added a Period 9 guided lesson on interpreting population shares, percentage-point change, and the limits of national evidence.
+- Reused the existing lesson API, feedback, versioned per-user completion, and frontend component. Added an optional internal practice tag so history can target ced:9.5 without mislabeling its reasoning skill as an English AP skill. The internal tag is excluded from response payloads; existing English fallback behavior is preserved.
+- Backend lesson content/router/tests and history documentation changed; frontend unchanged. Counts remain 765 questions; guided lessons now total 50 (49 English Language and one history). User AGENTS.md edits excluded.
+- Verification: all 391 backend tests passed. New integration test seeds actual history content, checks the curriculum-linked practice target, verifies wrong-answer retry and completion persistence, prevents answer/feedback leakage in lesson fetches, and checks user isolation. Existing English target/availability and revision/security tests remain green. Scoped whitespace checks passed.
+- This is the first history lesson, not a full history learning path. Other history units, richer question formats, writing/exam workflows, remaining courses, and broader learning progression remain unfinished. Goal remains active.

@@ -1,6 +1,6 @@
-"""Original guided lessons. Examples are fictional instructional scenarios.
+"""Original guided lessons with fictional examples or attributed historical data.
 
-Skill categories checked against the AP English Language course overview.
+English skill categories follow the AP English Language course overview.
 Lesson completion records a learning check, not AP mastery or an exam score.
 """
 from dataclasses import dataclass
@@ -20,6 +20,7 @@ class Lesson:
     feedback: tuple[str, ...]
     correct: int
     revision: int = 1
+    practice_tag: str | None = None
 
 
 FOUNDATIONS = (
@@ -755,9 +756,31 @@ QUALIFIED_ARGUMENTS = (
 
 
 def lessons_for(code: str, unit_order: int) -> tuple[Lesson, ...]:
+    if code == "us-history":
+        return HISTORY_DEMOGRAPHY if unit_order == 9 else ()
     if code != "english-language":
         return ()
     return {1: FOUNDATIONS, 2: AUDIENCE_AND_THESIS, 3: REASONING_AND_DEVELOPMENT,
             4: PURPOSE_AND_STRUCTURE, 5: COHERENCE_AND_STYLE,
             6: SOURCES_AND_REFINEMENT, 7: QUALIFICATION_AND_SENTENCES,
             8: AUDIENCE_AND_VOICE, 9: QUALIFIED_ARGUMENTS}.get(unit_order, ())
+
+
+HISTORY_DEMOGRAPHY = (
+    Lesson(
+        slug="read-population-evidence", title="Read population evidence precisely",
+        skill="claims-evidence", practice_tag="ced:9.5",
+        objective="Distinguish a population share from an arrival rate before making a historical claim.",
+        explanation=(
+            "Identify the population, date, and unit of measurement first. A percentage of residents describes who lived in a place at a particular time. It does not tell you how many people arrived during that year. Foreign-born residents may have arrived decades earlier.",
+            "Compare like measures. Subtracting two percentages gives a change in percentage points. Explaining that change requires more evidence: arrivals, departures, deaths, and changes in the total population can affect a population share.",
+            "Keep a claim within the source's geographic scope. National figures cannot by themselves establish where immigrants settled, why they moved, or how they experienced their new communities. Pair demographic patterns with regional records and accounts of experience.",
+        ),
+        example="Census historical figures show that foreign-born residents represented 7.9 percent of the U.S. population in 1990 and 11.1 percent in 2000. Source: Census Bureau, Historical Census Statistics on the Foreign-Born Population, 1850–2000 (2006).",
+        walkthrough="The share increased by 3.2 percentage points. This supports a claim about the changing composition of the resident population. It does not mean that 11.1 percent of residents arrived in 2000, or identify the region receiving the most new arrivals.",
+        prompt="A hypothetical regional census reports that foreign-born residents were 8 percent of the population in 1980 and 12 percent in 2000. Which conclusion follows from these figures alone?",
+        options=("Twelve percent of the population immigrated during 2000", "The foreign-born share rose by four percentage points", "The region received more immigrants than any other region"),
+        feedback=("The figure describes residents at the census date, including people who arrived earlier.", "Yes. Subtracting 8 from 12 gives four percentage points; the figures do not establish arrivals or comparisons with other regions.", "That comparison requires evidence from other regions, which the source does not provide."),
+        correct=1,
+    ),
+)
