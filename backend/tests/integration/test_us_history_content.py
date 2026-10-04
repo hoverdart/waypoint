@@ -47,7 +47,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 261
+    assert len(questions) == 267
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -1024,3 +1024,23 @@ def test_world_war_one_sets_validate_and_reach_existing_practice_topic():
     topic = next(t for t in audit_bank(UNITS, ALL)['topic_details'] if t['topic'] == TOPIC)
     assert topic['question_curriculum_counts'] == {'7.3': 3, '7.5': 3, '7.6': 3}
     assert topic['curriculum_codes_without_tagged_questions'] == ['7.2']
+
+
+def test_depression_sets_validate_and_cover_both_legacy_topic_codes():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.content_audit import audit_bank
+    from scripts.seed_data.questions.us_history.period_seven_depression import QUESTIONS, TOPIC
+    from scripts.seed_data.questions.us_history_questions import QUESTIONS as ALL
+    assert len(QUESTIONS) == 6
+    for code in ['7.9', '7.10']:
+        rows = [q for q in QUESTIONS if f'ced:{code}' in q['skill_tags']]
+        assert len(rows) == 3
+        assert {q['difficulty'] for q in rows} == {2, 3, 4}
+        for q in rows:
+            assert q['topic_name'] == TOPIC
+            validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+                **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+    topic = next(t for t in audit_bank(UNITS, ALL)['topic_details'] if t['topic'] == TOPIC)
+    assert topic['question_curriculum_counts'] == {'7.9': 3, '7.10': 3}
+    assert topic['curriculum_codes_without_tagged_questions'] == []
