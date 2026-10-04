@@ -487,3 +487,16 @@ UNITS[3]['topics'].append({
     'description': 'Examine free and enslaved Black experiences, institution building, community autonomy, and resistance to racial oppression.',
     'skill_tags': ['comparison', 'argumentation', 'ced:4.12'], 'display_order': 14,
 })
+
+# Preserve broad legacy topics and their database identities while exposing all
+# framework areas they span; narrower added topics remain separately available.
+_period_four_legacy_codes = {
+    'The Rise of Political Parties and Democracy': ['4.2', '4.7', '4.8'],
+    'Markets and Westward Expansion': ['4.2', '4.5', '4.6'],
+    'The Cotton Revolution and the Expansion of Slavery': ['4.13'],
+    'Religious Revival and Reform Movements': ['4.10', '4.11'],
+}
+for _topic in UNITS[3]['topics']:
+    for _code in _period_four_legacy_codes.get(_topic['name'], []):
+        if f'ced:{_code}' not in _topic['skill_tags']:
+            _topic['skill_tags'].append(f'ced:{_code}')
