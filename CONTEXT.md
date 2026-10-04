@@ -519,3 +519,10 @@
 - Every stored Period 4 topic now meets the basic audit thresholds of three questions and two difficulty levels. A regression checks those thresholds alongside new-item validation. This does not certify comprehensive curriculum coverage, diverse source formats, editorial quality, or calibrated difficulty.
 - All 303 backend tests pass. U.S. History now has 170 questions across 65 topics; overall bank has 610 questions across 341 topics. Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md edits excluded.
 - Next: expand Period 5 framework and source coverage while retaining the outstanding need for earlier-period depth, non-text stimuli, history FRQ/exam workflows, and other courses. Overall goal remains active.
+
+### Expansion milestone 49 — Mexican-American War settlement
+
+- Previous goal turn classified as progress: election-of-1824 questions and Period 4 minimum-depth checks were tested and pushed. Began Period 5 expansion with The Mexican-American War (CED 5.3) and three original questions on the 1848 settlement.
+- Context verified against https://www.archives.gov/milestone-documents/treaty-of-guadalupe-hidalgo. The original summary distinguishes financial terms from equal bargaining power and formal property/citizenship provisions from their implementation. Questions also connect territorial acquisition to sectional conflict.
+- All 304 backend tests pass, including new-item validation, period/topic mapping, and whole-bank reseeding. U.S. History now contains 173 questions across 66 topics; total bank 613 questions across 342 topics.
+- Affected areas: backend content/curriculum/tests and documentation. Frontend unchanged; user AGENTS.md changes excluded. Period 5 mapping and depth, earlier-period source diversity, later periods, history FRQ/exam support, and remaining courses remain outstanding. Overall goal remains active.

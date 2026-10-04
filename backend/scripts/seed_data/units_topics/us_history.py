@@ -506,3 +506,9 @@ UNITS[3]['topics'].append({
     'description': 'Evaluate interacting causes of economic and social change, distinguishing mechanisms, evidence, and alternative explanations.',
     'skill_tags': ['causation', 'argumentation', 'ced:4.14'], 'display_order': 15,
 })
+
+UNITS[4]['topics'].append({
+    'name': 'The Mexican-American War',
+    'description': 'Analyze the war, territorial settlement, and consequences for sectional politics and residents of acquired lands.',
+    'skill_tags': ['causation', 'sourcing', 'ced:5.3'], 'display_order': 5,
+})

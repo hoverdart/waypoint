@@ -739,3 +739,5 @@ from .us_history.period_four_cotton import QUESTIONS as PERIOD_FOUR_COTTON
 QUESTIONS += PERIOD_FOUR_COTTON
 from .us_history.period_four_election import QUESTIONS as PERIOD_FOUR_ELECTION
 QUESTIONS += PERIOD_FOUR_ELECTION
+from .us_history.period_five_treaty import QUESTIONS as PERIOD_FIVE_TREATY
+QUESTIONS += PERIOD_FIVE_TREATY
