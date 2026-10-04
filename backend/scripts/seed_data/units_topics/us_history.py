@@ -457,3 +457,9 @@ UNITS[3]['topics'].append({
     'description': 'Analyze wage labor, changing gender roles, migration, and worker responses to industrial discipline.',
     'skill_tags': ['contextualization', 'sourcing', 'ced:4.6'], 'display_order': 9,
 })
+
+UNITS[3]['topics'].append({
+    'name': 'Contextualizing Period 4',
+    'description': 'Situate nineteenth-century political and social change within the institutions and conflicts inherited from the founding era.',
+    'skill_tags': ['contextualization', 'argumentation', 'ced:4.1'], 'display_order': 10,
+})

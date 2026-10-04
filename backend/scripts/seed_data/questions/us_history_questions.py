@@ -717,3 +717,5 @@ from .us_history.period_four_industry import QUESTIONS as PERIOD_FOUR_INDUSTRY
 QUESTIONS += PERIOD_FOUR_INDUSTRY
 from .us_history.period_four_workers import QUESTIONS as PERIOD_FOUR_WORKERS
 QUESTIONS += PERIOD_FOUR_WORKERS
+from .us_history.period_four_context import QUESTIONS as PERIOD_FOUR_CONTEXT
+QUESTIONS += PERIOD_FOUR_CONTEXT

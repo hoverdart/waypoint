@@ -418,3 +418,10 @@
 - Added four original Sarah Bagley questions and Market Revolution: Society and Culture (CED 4.6). Verified the public-domain 1846 letter excerpt as quoted by NPS at https://www.nps.gov/lowe/learn/historyculture/the-mill-girls-of-lowell.htm. Questions distinguish activist rhetoric from universal opinion and consider opportunities alongside corporate constraints.
 - U.S. History now has 129 questions across 59 topics; normal seed totals are 569 questions across 335 topics. Broader Period 4 framework/depth, non-text evidence, later periods, and history FRQ workflows remain outstanding. Overall goal remains active.
 - Affected areas: backend content/curriculum/tests and docs. All 288 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.
+
+### Expansion milestone 35 — Early-republic political context
+
+- Previous goal turn classified as progress: factory-worker questions were tested and pushed. Added four original questions and Contextualizing Period 4 (CED 4.1), using Jefferson’s 1801 inaugural appeal to shared principles.
+- Public-domain language and historical context checked against https://www.loc.gov/exhibits/creating-the-united-states/peaceful-transition.html and the Library of Congress Jefferson collections. Questions distinguish conciliatory rhetoric from proof of unanimity and ask for evidence of institutional continuity during partisan succession.
+- U.S. History now has 133 questions across 60 topics; normal seed totals are 573 questions across 336 topics. Remaining Period 4 topic mapping/depth, non-text evidence, later periods, and history FRQ workflows remain outstanding. Overall goal remains active.
+- Affected areas: backend content/curriculum/tests and docs. All 289 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.
