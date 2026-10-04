@@ -615,3 +615,11 @@
 - All nine stored Period 5 topics now meet basic thresholds of three questions and two difficulty levels. New tests check these thresholds and content validation; all 317 backend tests pass. These structural thresholds do not establish comprehensive coverage of all mapped codes.
 - U.S. History has 201 questions across 70 topics; total bank 641 questions across 346 topics. Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md changes excluded.
 - Election/secession and Reconstruction’s failure still lack dedicated tagged source sets. Other perspectives, later periods, non-text sources, history FRQ/exam workflows, and remaining subjects are unfinished. Overall goal remains active.
+
+### Expansion milestone 62 — Election and secession justification
+
+- Previous goal turn classified as progress: Oregon expansion questions were tested and pushed. Added three original questions tagged CED 5.7 to the existing Civil War topic.
+- Context checked against https://home.nps.gov/articles/000/south-carolina-secession.htm. The original summary distinguishes the December 20 ordinance from the declaration four days later, identifies slavery’s centrality in the stated justification, and avoids treating the convention as speaking for every resident.
+- Questions address claims, institutional perspective, and corroborating opponents’ characterizations against Lincoln’s contemporary positions. The Civil War topic now has three tagged 5.7 items, three tagged 5.8 items, and one untagged legacy item.
+- All 318 backend tests pass, including explicit curriculum coverage and whole-bank reseeding. U.S. History now has 204 questions across 70 topics; total bank 644 questions across 346 topics. Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md edits excluded.
+- Reconstruction’s failure still needs a dedicated tagged source set. Wider election perspectives, later periods, non-text sources, history FRQ/exam support, and remaining subjects are unfinished. Overall goal remains active.

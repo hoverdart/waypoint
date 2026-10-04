@@ -759,3 +759,5 @@ from .us_history.period_five_vicksburg import QUESTIONS as PERIOD_FIVE_VICKSBURG
 QUESTIONS += PERIOD_FIVE_VICKSBURG
 from .us_history.period_five_oregon import QUESTIONS as PERIOD_FIVE_OREGON
 QUESTIONS += PERIOD_FIVE_OREGON
+from .us_history.period_five_secession import QUESTIONS as PERIOD_FIVE_SECESSION
+QUESTIONS += PERIOD_FIVE_SECESSION
