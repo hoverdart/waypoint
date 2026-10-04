@@ -411,3 +411,10 @@
 - Added these five question-paper/scoring-guide pairs to the existing course-detail resource list. Each title identifies the pre-2027 format. The existing frontend component renders these links; external responses are not saved or scored by WayPoint. No exam text or PDFs were mirrored.
 - Source: https://apcentral.collegeboard.org/courses/ap-united-states-history/exam/past-exam-questions, checked October 3, 2026 using the client date. Actual PDF links were verified from that archive, including the single 2026 paper without a set suffix.
 - Affected areas: backend resource catalog and API integration tests. All 287 backend tests pass; changed-file whitespace check passes. Question counts unchanged at 125 U.S. History / 565 total. Frontend code unchanged. Overall expansion remains incomplete and active.
+
+### Expansion milestone 34 — Factory workers and labor reform
+
+- Resumed original question-bank expansion at the user’s request after the discussion of external copyrighted exams. Previous implementation turn classified as progress: verified released-paper links were tested and pushed.
+- Added four original Sarah Bagley questions and Market Revolution: Society and Culture (CED 4.6). Verified the public-domain 1846 letter excerpt as quoted by NPS at https://www.nps.gov/lowe/learn/historyculture/the-mill-girls-of-lowell.htm. Questions distinguish activist rhetoric from universal opinion and consider opportunities alongside corporate constraints.
+- U.S. History now has 129 questions across 59 topics; normal seed totals are 569 questions across 335 topics. Broader Period 4 framework/depth, non-text evidence, later periods, and history FRQ workflows remain outstanding. Overall goal remains active.
+- Affected areas: backend content/curriculum/tests and docs. All 288 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.

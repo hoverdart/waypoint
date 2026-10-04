@@ -451,3 +451,9 @@ UNITS[3]['topics'].append({
     'description': 'Explain mechanized production, investment, transportation, and interregional economic connections.',
     'skill_tags': ['causation', 'comparison', 'ced:4.5'], 'display_order': 8,
 })
+
+UNITS[3]['topics'].append({
+    'name': 'Market Revolution: Society and Culture',
+    'description': 'Analyze wage labor, changing gender roles, migration, and worker responses to industrial discipline.',
+    'skill_tags': ['contextualization', 'sourcing', 'ced:4.6'], 'display_order': 9,
+})

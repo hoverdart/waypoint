@@ -1,6 +1,6 @@
 # U.S. History expansion
 
-Status: in progress. The live bank currently contains 125 questions, including 88 new source-based items;
+Status: in progress. The live bank currently contains 129 questions, including 92 new source-based items;
 it is not a comprehensive AP U.S. History preparation bank.
 
 ## Verified format for May 2027
@@ -80,3 +80,7 @@ Four Bank War questions analyze the veto message; four nullification questions c
 Four questions begin Market Revolution: Industrialization (4.5), examining cotton
 supply chains and differences between wage and enslaved labor. Technology,
 transportation, and workplace evidence still need additional sets.
+
+Four Sarah Bagley source questions begin Market Revolution: Society and Culture
+(4.6), examining workers’ dignity, corporate discipline, and women’s wage work.
+Migration, class formation, and broader social changes still need additional sets.

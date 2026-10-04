@@ -715,3 +715,5 @@ from .us_history.period_four_nullification import QUESTIONS as PERIOD_FOUR_NULLI
 QUESTIONS += PERIOD_FOUR_NULLIFICATION
 from .us_history.period_four_industry import QUESTIONS as PERIOD_FOUR_INDUSTRY
 QUESTIONS += PERIOD_FOUR_INDUSTRY
+from .us_history.period_four_workers import QUESTIONS as PERIOD_FOUR_WORKERS
+QUESTIONS += PERIOD_FOUR_WORKERS
