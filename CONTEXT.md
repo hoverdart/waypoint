@@ -496,3 +496,11 @@
 - Checked the topic sequence against https://apcentral.collegeboard.org/media/pdf/ap-us-history-course-at-a-glance.pdf. Added a database regression that removes the codes and reseeds, verifying restored mappings, retained non-CED skill tags, and unchanged topic IDs.
 - All 300 backend tests pass. Live audit: 160 questions, 64 topics, 35 topics below three questions and 35 without difficulty variety. Period 4 now lacks only code 4.14 in its topic mapping; the legacy political-parties and cotton/slavery topics remain below three questions. Mapping presence does not imply sufficient content depth.
 - Affected areas: backend curriculum/tests and context documentation. Counts unchanged at 600 questions / 340 topics overall. Frontend unchanged; user AGENTS.md edits excluded. Next: add Period 4 causation and deepen those legacy topics, then continue later periods and history exam/FRQ support. Overall goal remains active.
+
+### Expansion milestone 46 — Period 4 causation
+
+- Previous goal turn classified as progress: legacy curriculum mappings were tested and pushed. Added Causation in Period 4 and four original questions about transportation, commercial farming, alternative causes, and comparative evidence.
+- Historical context checked against https://nysm.nysed.gov/research-collections/history/economic-history/news/transporting-grains-erie-canal. The stimulus is an original instructional summary; questions require evaluating causal mechanisms rather than attributing every economic change to the canal.
+- Period 4 now maps all 14 CED codes. This is framework coverage only: legacy political-party and cotton/slavery topics still need depth, and other topics need additional stimuli and perspectives.
+- All 301 backend tests pass after correcting an accidental date replacement in an existing test fixture; no application date changed. New tests check complete Period 4 mapping and question validation. U.S. History has 164 questions across 65 topics; total bank 604 questions across 341 topics.
+- Affected areas: backend content/curriculum/tests and docs. Frontend unchanged; user AGENTS.md edits excluded. Overall goal remains active with later periods, non-text sources, history exam/FRQ workflows, and other courses outstanding.

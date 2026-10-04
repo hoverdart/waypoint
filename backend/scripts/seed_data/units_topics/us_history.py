@@ -500,3 +500,9 @@ for _topic in UNITS[3]['topics']:
     for _code in _period_four_legacy_codes.get(_topic['name'], []):
         if f'ced:{_code}' not in _topic['skill_tags']:
             _topic['skill_tags'].append(f'ced:{_code}')
+
+UNITS[3]['topics'].append({
+    'name': 'Causation in Period 4',
+    'description': 'Evaluate interacting causes of economic and social change, distinguishing mechanisms, evidence, and alternative explanations.',
+    'skill_tags': ['causation', 'argumentation', 'ced:4.14'], 'display_order': 15,
+})
