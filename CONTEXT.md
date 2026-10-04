@@ -482,3 +482,10 @@
 - This set addresses free Black institution building only. The topic still needs enslaved people’s experiences, resistance, and additional perspectives; its presence does not establish comprehensive topic coverage.
 - U.S. History now has 156 questions across 64 topics; total bank 596 questions across 340 topics. All 298 backend tests pass, including content validation, mapping, and idempotent seeding; changed-file whitespace checks pass.
 - Affected areas: backend content/curriculum/tests and docs. Frontend unchanged; user AGENTS.md changes excluded. Remaining Period 4 coverage, later periods, non-text stimuli, history FRQ/exam workflows, and other courses remain outstanding. Overall goal stays active.
+
+### Expansion milestone 44 — Literacy and resistance
+
+- Previous goal turn classified as progress: Black community institution questions were tested and pushed. Added four original questions using a brief public-domain excerpt from Douglass’s 1845 Narrative, chapter VI, in the existing CED 4.12 topic.
+- Verified the passage against the Library of Congress transcription and https://en.wikisource.org/wiki/Page:Narrative_of_the_Life_of_Frederick_Douglass,_an_American_Slave.djvu/57. Questions address literacy as resistance, unintended effects of repression, retrospective testimony, and corroborating evidence for resistance outside open rebellion.
+- New stimulus identifiers remain distinct from the institution-building set. All 299 backend tests pass, including schema validation, distinct stimulus checks, and whole-bank idempotent seeding. Changed-file whitespace checks pass.
+- Affected areas: backend content/tests and docs. U.S. History now contains 160 questions across 64 topics; normal seed totals are 600 questions across 340 topics. Frontend unchanged; user AGENTS.md edits excluded. This adds one enslaved author’s perspective, not comprehensive coverage of enslaved experiences. Remaining curriculum depth, later periods, non-text sources, history exam/FRQ workflows, and other subjects remain outstanding; overall goal remains active.

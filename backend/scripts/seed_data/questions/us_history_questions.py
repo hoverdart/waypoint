@@ -731,3 +731,5 @@ from .us_history.period_four_democracy import QUESTIONS as PERIOD_FOUR_DEMOCRACY
 QUESTIONS += PERIOD_FOUR_DEMOCRACY
 from .us_history.period_four_black_institutions import QUESTIONS as PERIOD_FOUR_BLACK_INSTITUTIONS
 QUESTIONS += PERIOD_FOUR_BLACK_INSTITUTIONS
+from .us_history.period_four_douglass import QUESTIONS as PERIOD_FOUR_DOUGLASS
+QUESTIONS += PERIOD_FOUR_DOUGLASS
