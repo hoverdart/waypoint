@@ -163,8 +163,101 @@ AUDIENCE_AND_THESIS = (
     ),
 )
 
+REASONING_AND_DEVELOPMENT = (
+    Lesson(
+        slug="identify-the-assumption", title="Find the assumption between evidence and claim", skill="3.A",
+        objective="Explain the unstated connection a writer needs for evidence to support a claim.",
+        explanation=(
+            "Evidence does not interpret itself. A writer moves from an observation to a conclusion by relying on a connection, sometimes called a warrant. Naming that connection helps you explain the argument instead of merely repeating its details.",
+            "Try writing the argument as evidence, assumed relationship, and claim. Then ask whether the relationship is plausible and what could limit it. An assumption is not automatically a flaw: ordinary reasoning depends on assumptions. The useful question is whether this assumption is justified in this situation.",
+            "Keep the scale of the conclusion in view. Evidence that one feature matters to some users may support testing a change without proving it should be adopted everywhere. A narrower claim can remain persuasive even when a sweeping version would fail.",
+        ),
+        example="A campus editorial says, 'Several students leave evening study sessions early to catch the last bus. Extending the bus schedule would allow those students to stay longer.'",
+        walkthrough="The observation connects early departure with the last bus. The conclusion assumes transportation is a constraint on these students' attendance and that a later bus would be usable. The editorial would need more evidence to claim that all students would study longer or that the change would necessarily improve grades.",
+        prompt="A proposal argues that posting recordings of public meetings will improve access for residents who work during meeting hours. Which assumption most directly connects the proposal to its reason?",
+        options=("Most residents disagree with decisions made at public meetings", "At least some affected residents can access recordings at a more convenient time", "Recorded meetings will be shorter than live meetings"),
+        feedback=("Disagreement is not necessary for the access argument. The relevant issue is when and how residents can follow proceedings.", "Yes. The argument depends on recordings being usable outside the conflicting work hours.", "The proposal can improve scheduling access even if a recording lasts as long as the original meeting."),
+        correct=1,
+    ),
+    Lesson(
+        slug="choose-complementary-evidence", title="Choose evidence that adds a new kind of support", skill="4.A",
+        objective="Combine complementary evidence instead of accumulating details that repeat the same point.",
+        explanation=(
+            "More evidence is not always stronger evidence. Several anecdotes can repeat an experience without establishing how widespread it is. Choose the next source by identifying the question your existing support leaves unanswered.",
+            "Different forms of evidence do different work. A personal account can reveal a mechanism or consequence. A representative survey can estimate how common a view is. A budget can address feasibility. Match the evidence to the claim rather than treating every statistic as inherently stronger than every example.",
+            "Preserve disagreements and limits between sources. If interviewees report a benefit while cost records show an obstacle, develop a qualified proposal that addresses both. Synthesis means explaining relationships among evidence, not lining up quotations as if they all make the same point.",
+        ),
+        example="An argument for translated emergency notices includes a resident's account of misunderstanding an evacuation message. The writer adds a local language-access survey and estimates from qualified translation services.",
+        walkthrough="The account illustrates consequences, the survey helps establish the scope of local need, and estimates address implementation. Each source supports a different part of the proposal. Neither one resident's experience nor the survey alone establishes the cost or reliability of a translation plan.",
+        prompt="A writer has three interviews describing difficulty reaching a clinic by bus. The next paragraph claims a proposed shuttle is financially feasible. Which addition best supports that new claim?",
+        options=("A fourth interview describing the same travel difficulty", "A photograph showing a long line at the clinic entrance", "A documented operating-cost estimate compared with identified funding"),
+        feedback=("Another account may reinforce the access concern but does not establish the shuttle's affordability.", "The photograph may raise questions about demand, but it does not supply cost or funding information.", "Yes. Cost and funding evidence directly addresses financial feasibility; the writer should still identify assumptions in the estimate."),
+        correct=2,
+    ),
+    Lesson(
+        slug="test-the-line-of-reasoning", title="Test each step in the line of reasoning", skill="5.A",
+        objective="Evaluate whether an argument's sequence of claims supports its conclusion.",
+        explanation=(
+            "A line of reasoning is the path from supporting claims to a conclusion. Outline what each paragraph contributes using verbs such as establishes, explains, compares, qualifies, and responds. This reveals relationships that a list of topics can miss.",
+            "Check each transition in the logic. Does a local observation become a universal claim? Does sequence in time become proof of cause? Does the writer change the meaning of a key term? Identify the exact step and the missing support instead of simply calling the whole argument weak.",
+            "A counterexample may require qualification rather than total rejection. Distinguish evidence against a reason from evidence against the conclusion itself. A sound conclusion can have a poorly supported justification, and a plausible reason may still be insufficient for a broad conclusion.",
+        ),
+        example="A writer notes that registrations rose after a recreation center extended its hours, then concludes that longer hours caused the entire increase. The center also reduced fees and launched an advertising campaign during the same period.",
+        walkthrough="The chronology is relevant, but the causal conclusion exceeds it. Fees and advertising offer alternative explanations. The writer could revise to say the increase coincided with the changes and seek comparisons that help isolate the role of hours.",
+        prompt="A proposal argues that one successful outdoor class proves every course should meet outdoors all year. Where does its reasoning most clearly need support?",
+        options=("The move from one class in one setting to all courses and seasons", "The use of a specific example instead of an abstract opening", "The decision to discuss a school policy rather than a personal preference"),
+        feedback=("Yes. The conclusion extends beyond the conditions the example establishes; different subjects and weather may matter.", "Specific examples can be useful. The issue is the breadth of the inference drawn from this one.", "Policy arguments are legitimate. The gap lies between the evidence's scope and the proposed universal rule."),
+        correct=0,
+    ),
+    Lesson(
+        slug="write-commentary-that-connects", title="Write commentary that makes the connection", skill="6.A",
+        objective="Explain why evidence supports a claim rather than paraphrasing it or announcing its importance.",
+        explanation=(
+            "Commentary supplies the reasoning between a detail and your claim. Ask what the evidence shows, why that matters for this argument, and how far the inference extends. A sentence saying 'This proves my point' performs none of those jobs unless it explains the connection.",
+            "In rhetorical analysis, connect a writer's choice to the audience and purpose. Do not treat naming a device as an explanation of its effect. In an argument, explain how an example or observation supports a reason and how that reason advances your position.",
+            "Avoid claiming certainty about every reader's reaction. Use the text and situation to support a plausible effect. Strong commentary can also identify a limit: a detail may establish urgency without showing that the proposed solution is affordable.",
+        ),
+        example="A speaker urging repair of a footbridge tells officials that residents must now take a two-mile detour to reach a grocery store. Weak commentary says, 'This shows the bridge is important.' Stronger commentary explains that the detour turns structural damage into a daily access problem, giving officials a concrete public-service reason to prioritize repairs.",
+        walkthrough="The stronger version explains the relationship between the detail and the request. It does not merely rename the topic. The detour helps establish the repair's significance, although it does not determine engineering costs or prove repairs should outrank every other project.",
+        prompt="A writer advocating extended clinic hours cites workers who cannot attend during their shifts. Which commentary best connects that evidence to the proposal?",
+        options=("The workers say they cannot attend during their shifts, which is what the evidence states", "Offering appointments outside those shifts would address a scheduling barrier identified in the workers' accounts", "The evidence is very powerful and proves the writer is completely correct"),
+        feedback=("This repeats the evidence without explaining why the proposed change responds to it.", "Yes. The commentary identifies the barrier and explains how the proposal could address it without promising to solve every access problem.", "Praise and certainty do not supply reasoning. Explain the specific relationship between the accounts and the proposal."),
+        correct=1,
+    ),
+    Lesson(
+        slug="recognize-development-methods", title="Explain why a writer develops an idea this way", skill="5.C",
+        objective="Identify a method of development and explain its function in the argument.",
+        explanation=(
+            "Writers develop ideas through methods such as narration, description, comparison, definition, and cause-and-effect explanation. A passage may combine several. Identify the method by what the sentences do, then connect it to the claim the writer is developing.",
+            "A comparison can clarify a distinction, expose an inconsistency, or support an evaluation. A narrative can establish a problem through an experience. Neither method guarantees sound reasoning: check whether the compared cases are relevant or whether the story is being asked to represent more than it can.",
+            "Avoid confusing organization with purpose. Chronological order tells you how a passage proceeds, but you still need to explain why that sequence helps the writer. A procedural account may show where a delay occurs; a before-and-after account may emphasize a change.",
+        ),
+        example="An article places two application processes side by side: one requires several office visits, while the other allows documents to be submitted in a single appointment. It compares the same steps in each process before recommending a trial of the second.",
+        walkthrough="The comparison isolates procedural differences relevant to the recommendation. It helps readers see where repeated visits might be reduced. The writer would need separate evidence to establish effects on accuracy, staffing costs, or every applicant's experience.",
+        prompt="A paragraph recounts each step a resident takes to report a broken streetlight, emphasizing that the same information must be submitted to three offices. What is the most supported account of the method's function?",
+        options=("It defines the technical meaning of electrical failure", "It compares streetlights with other kinds of public infrastructure", "It traces a process to reveal duplication that motivates procedural reform"),
+        feedback=("The sequence concerns reporting, not an explanation of an electrical concept.", "No second type of infrastructure is developed as a basis for comparison.", "Yes. Following the resident's steps makes the repeated submissions visible and supports considering a simpler process."),
+        correct=2,
+    ),
+    Lesson(
+        slug="develop-an-argument-purposefully", title="Choose a development method that serves your claim", skill="6.C",
+        objective="Plan an argument's development around the reasoning readers need to follow.",
+        explanation=(
+            "Choose a method after identifying the job a paragraph must do. To clarify a misunderstood term, define it with relevant boundaries. To evaluate alternatives, compare them using consistent criteria. To explain a proposed remedy, show how it addresses the problem's causes or mechanisms.",
+            "A method is a tool rather than a mandatory template. You can begin with an illustrative narrative and then compare alternatives, provided you explain the relationship. Do not let a vivid opening consume space needed for evidence or leave the central recommendation unstated.",
+            "Check the completed plan for fairness and relevance. Compare options on the same criteria, acknowledge differences that limit the comparison, and explain tradeoffs. Develop the position the prompt asks for instead of substituting an easier description of the general topic.",
+        ),
+        example="A writer choosing between two school lunch systems organizes the argument around waiting time, dietary access, and cost. Under each criterion, the writer considers both systems, then recommends a limited trial with measures for judging the results.",
+        walkthrough="Using shared criteria makes the comparison usable for a decision. Describing only the benefits of one system and only the costs of the other would create an uneven comparison. The trial recommendation can address uncertainty if the writer explains what it will test.",
+        prompt="You are arguing that a confusing permit process should be simplified. Which plan most directly develops that argument?",
+        options=("Trace where applicants repeat steps, explain the proposed changes, and evaluate how those changes preserve necessary review", "List every type of permit issued by the town without connecting the list to the process", "Describe a successful applicant's celebration and assume readers will infer the needed changes"),
+        feedback=("Yes. This plan links the identified problem to a remedy while addressing a likely concern about maintaining oversight.", "A catalog may supply background but does not explain what is confusing or how simplification would work.", "A story can engage readers, but it cannot replace the explanation of the proposed reform and its consequences."),
+        correct=0,
+    ),
+)
+
 
 def lessons_for(code: str, unit_order: int) -> tuple[Lesson, ...]:
     if code != "english-language":
         return ()
-    return {1: FOUNDATIONS, 2: AUDIENCE_AND_THESIS}.get(unit_order, ())
+    return {1: FOUNDATIONS, 2: AUDIENCE_AND_THESIS, 3: REASONING_AND_DEVELOPMENT}.get(unit_order, ())

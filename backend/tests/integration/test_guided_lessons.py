@@ -40,7 +40,7 @@ def test_lessons_check_feedback_persistence_and_user_isolation(client, db_sessio
 
 def test_lessons_validate_scope_revision_and_payload(client, db_session):
     subject, unit, unavailable, headers, _ = setup(db_session)
-    unavailable.display_order = 3
+    unavailable.display_order = 4
     db_session.add(unavailable)
     db_session.commit()
     path = f"/units/{unit.id}/lessons"
@@ -81,7 +81,7 @@ def test_unit_two_publishes_distinct_lessons_and_persists_all_checks(client, db_
     assert not any(lesson['completed'] for lesson in client.get(path, headers=other_headers).json())
     assert not any(lesson['completed'] for lesson in client.get(f"/units/{first.id}/lessons", headers=headers).json())
     assert lessons_for('biology', 2) == ()
-    assert lessons_for('english-language', 3) == ()
+    assert lessons_for('english-language', 4) == ()
 
 
 def test_published_lesson_skills_match_seeded_unit_topics():
@@ -95,3 +95,31 @@ def test_published_lesson_skills_match_seeded_unit_topics():
             assert 0 <= lesson.correct < 3
             assert len(set(lesson.options)) == 3
             assert lesson.revision >= 1
+
+
+def test_unit_three_reasoning_sequence_checks_and_versioned_progress(client, db_session):
+    from app.content.lessons import REASONING_AND_DEVELOPMENT
+    subject, first, third, headers, other_headers = setup(db_session)
+    third.display_order = 3
+    db_session.add(third)
+    db_session.commit()
+    path = f"/units/{third.id}/lessons"
+    lessons = client.get(path, headers=headers).json()
+    assert [lesson['skill'] for lesson in lessons] == ['3.A', '4.A', '5.A', '6.A', '5.C', '6.C']
+    assert client.get(f"/subjects/{subject.id}").json()['units'][1]['lesson_count'] == 6
+    for lesson in REASONING_AND_DEVELOPMENT:
+        for option in range(3):
+            result = client.post(f"{path}/{lesson.slug}/check", headers=headers,
+                                 json={'option': option, 'revision': lesson.revision})
+            assert result.status_code == 200
+            assert result.json() == {'correct': option == lesson.correct, 'feedback': lesson.feedback[option]}
+    assert all(lesson['completed'] for lesson in client.get(path, headers=headers).json())
+    assert not any(lesson['completed'] for lesson in client.get(path, headers=other_headers).json())
+    assert not any(lesson['completed'] for lesson in client.get(f"/units/{first.id}/lessons", headers=headers).json())
+    # A historical version must not complete the current lesson revision.
+    row = db_session.exec(select(LessonCompletion).where(LessonCompletion.unit_id == third.id)).first()
+    row.revision = 0
+    db_session.add(row)
+    db_session.commit()
+    current = client.get(path, headers=headers).json()
+    assert sum(lesson['completed'] for lesson in current) == 5
