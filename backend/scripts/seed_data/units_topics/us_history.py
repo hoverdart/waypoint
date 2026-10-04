@@ -657,3 +657,9 @@ UNITS[7]['topics'].append({
     'description': 'Analyze youth activism, challenges to established institutions, cultural experimentation, and political participation.',
     'skill_tags': ['contextualization', 'continuity-and-change', 'claims-evidence', 'ced:8.12'], 'display_order': 10,
 })
+
+UNITS[7]['topics'].append({
+    'name': 'Society in Transition',
+    'description': 'Evaluate economic challenges, changing political confidence, and competing responses to the transitions of the 1970s.',
+    'skill_tags': ['claims-evidence', 'contextualization', 'argumentation', 'ced:8.14'], 'display_order': 11,
+})

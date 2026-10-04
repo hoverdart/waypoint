@@ -1,6 +1,6 @@
 # U.S. History expansion
 
-Status: in progress. The live bank currently contains 347 questions, including 310 new source-based items;
+Status: in progress. The live bank currently contains 350 questions, including 313 new source-based items;
 it is not a comprehensive AP U.S. History preparation bank.
 
 ## Verified format for May 2027
@@ -94,7 +94,7 @@ unique trimmed prompts and recognized periods count; ambiguous duplicate prompts
 are excluded. This is a necessary inventory check, not a form assembler.
 
 All nine periods now meet the necessary raw inventory minima for four forms.
-The history bank has 347 questions, with 256 approved unique MCQs usable after
+The history bank has 350 questions, with 256 approved unique MCQs usable after
 period caps against the 220-question target. This does not mean four valid forms
 have been assembled: stimulus groups, skills, sources, and difficulty still need
 to be balanced within each form.
@@ -249,3 +249,13 @@ demand into a later constitutional change, and distinguish legal eligibility
 from measured participation. This is one political case, not full coverage of
 student movements, counterculture, music, cultural experimentation or diverse
 youth experiences.
+
+### Society in Transition
+
+Topic 8.14 begins with three questions interpreting 1974–1975 economic figures
+from a [1977 Census report](https://www.census.gov/library/publications/1977/demo/p60-104.html).
+The stimulus labels the revised historical income estimates, nominal dollars,
+and annual unemployment rates. Students distinguish nominal gains from real
+purchasing-power losses, identify stagflation, and evaluate limits on causal
+claims. Figures are rendered as text; no chart renderer is claimed. Watergate,
+political confidence, energy policy and other transitions still need coverage.

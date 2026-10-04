@@ -857,3 +857,6 @@ QUESTIONS += PERIOD_EIGHT_DELANO
 
 from .us_history.period_eight_youth_vote import QUESTIONS as PERIOD_EIGHT_YOUTH_VOTE
 QUESTIONS += PERIOD_EIGHT_YOUTH_VOTE
+
+from .us_history.period_eight_stagflation import QUESTIONS as PERIOD_EIGHT_STAGFLATION
+QUESTIONS += PERIOD_EIGHT_STAGFLATION
