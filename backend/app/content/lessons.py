@@ -4,6 +4,7 @@ English skill categories follow the AP English Language course overview.
 Lesson completion records a learning check, not AP mastery or an exam score.
 """
 from dataclasses import dataclass
+from typing import Literal
 
 
 @dataclass(frozen=True)
@@ -21,6 +22,7 @@ class Lesson:
     correct: int
     revision: int = 1
     practice_tag: str | None = None
+    example_kind: Literal["fictional", "historical"] = "fictional"
 
 
 FOUNDATIONS = (
@@ -770,7 +772,7 @@ def lessons_for(code: str, unit_order: int) -> tuple[Lesson, ...]:
 HISTORY_DEMOGRAPHY = (
     Lesson(
         slug="read-population-evidence", title="Read population evidence precisely",
-        skill="claims-evidence", practice_tag="ced:9.5",
+        skill="claims-evidence", practice_tag="ced:9.5", example_kind="historical",
         objective="Distinguish a population share from an arrival rate before making a historical claim.",
         explanation=(
             "Identify the population, date, and unit of measurement first. A percentage of residents describes who lived in a place at a particular time. It does not tell you how many people arrived during that year. Foreign-born residents may have arrived decades earlier.",
@@ -790,7 +792,7 @@ HISTORY_DEMOGRAPHY = (
 HISTORY_SOURCE_PURPOSE = (
     Lesson(
         slug="source-purpose-and-limits", title="Explain a document's purpose and limits",
-        skill="sourcing", practice_tag="ced:2.3",
+        skill="sourcing", practice_tag="ced:2.3", example_kind="historical",
         objective="Connect a document's purpose to a supported historical claim without inventing participation rights.",
         explanation=(
             "Start with the document's creator, setting, audience, and intended action. A governing agreement can tell you what its signers promised and how they justified authority. Its existence alone does not establish how every inhabitant participated in government.",
@@ -807,7 +809,7 @@ HISTORY_SOURCE_PURPOSE = (
 HISTORY_IMPLEMENTATION = (
     Lesson(
         slug="rights-and-implementation", title="Separate a legal change from its implementation",
-        skill="comparison", practice_tag="ced:8.6",
+        skill="comparison", practice_tag="ced:8.6", example_kind="historical",
         objective="Compare a constitutional ruling with evidence about institutions and lived outcomes.",
         explanation=(
             "A legal decision establishes a ruling about rights or authority. It is important evidence of institutional change, but it is not a direct measurement of every institution's subsequent behavior. Distinguish what the decision required from how, when, and where it was implemented.",

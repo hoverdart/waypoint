@@ -65,3 +65,17 @@ describe("GuidedLessons", () => {
     expect(screen.getByText(/0 of 2 lessons completed/)).toBeVisible();
   });
 });
+
+
+it.each([
+  ["historical", "Historical example · source identified above"],
+  ["fictional", "Original fictional example"],
+  [undefined, "Instructional example"],
+])("labels %s examples accurately without asserting skill filtering", async (kind, label) => {
+  get.mockResolvedValue([{ ...lesson, example_kind: kind }]);
+  render(<GuidedLessons unitId={7} onPractice={vi.fn()} practiceBusy={false} />);
+  fireEvent.click(screen.getByRole("button", { name: "Open guided lessons" }));
+  expect(await screen.findByText(label)).toBeVisible();
+  expect(screen.getByText("Practice will use a related topic in your selected format.")).toBeVisible();
+  if (kind !== "fictional") expect(screen.queryByText("Original fictional example")).not.toBeInTheDocument();
+});

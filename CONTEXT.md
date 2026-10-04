@@ -979,3 +979,12 @@
 - Reused existing lesson/progress APIs and frontend. Backend content/tests and history documentation changed; question count remains 765. There are now 52 guided lessons: 49 English Language and three history. User AGENTS.md edits excluded.
 - Verification: all 393 backend tests passed. Parameterized actual-seed integration coverage verifies each history lesson's topic target, retry feedback, completion and user isolation. Existing authorization, revision, availability and English lesson checks remain passing. Scoped whitespace checks passed.
 - Single introductory lessons are not full unit learning sequences. Remaining history topics, visual evidence, writing/exam workflows, other AP courses, and deeper learning progression remain unfinished. Goal remains active.
+
+### Expansion milestone 107 — Accurate lesson provenance and practice scope
+
+- Previous goal turn classified as progress: source-purpose and implementation lessons were tested and pushed as 2daf4f0. Reviewing the lesson/practice connection exposed a frontend label that incorrectly described every example as fictional, including attributed historical examples.
+- Added explicit fictional/historical example metadata, preserving fictional defaults for existing English lessons and marking all three history examples historical. Frontend renders the corresponding label and uses a neutral instructional label for older payloads lacking metadata. Content remains escaped React text.
+- Corrected practice copy to describe a related topic instead of claiming individual skill filtering. The current launcher selects by topic and format; exact skill-filtered practice remains future work. This corrects the representation of the existing behavior rather than claiming that behavior has been implemented.
+- Cross-area work was announced before proceeding. Backend lesson metadata/tests, frontend API type/component/tests, and CONTEXT.md changed. Read the installed Next.js use-client documentation before frontend edits. User AGENTS.md edits excluded.
+- Verification: all 393 backend tests and 104 frontend tests passed; frontend lint and production build passed under Node 24. Added rendering checks for historical, fictional, and absent metadata and backend assertions for actual lesson provenance. Scoped whitespace checks passed. Counts unchanged at 765 questions and 52 lessons.
+- Exact skill-filtered practice, full history lesson sequences, missing curriculum coverage, visual evidence, writing/exam integration, and remaining AP courses are unfinished. Goal remains active.

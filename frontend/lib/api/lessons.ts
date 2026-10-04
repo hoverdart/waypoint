@@ -7,6 +7,7 @@ export interface GuidedLesson {
   objective: string;
   explanation: string[];
   example: string;
+  example_kind?: "fictional" | "historical";
   walkthrough: string;
   prompt: string;
   options: string[];

@@ -24,6 +24,7 @@ def test_lessons_check_feedback_persistence_and_user_isolation(client, db_sessio
     lessons = client.get(path, headers=headers).json()
     assert len(lessons) == 3
     assert all(not row['completed'] and 'correct' not in row and 'feedback' not in row for row in lessons)
+    assert all(row['example_kind'] == 'fictional' for row in lessons)
     assert client.get(f"/subjects/{subject.id}").json()['units'][0]['lesson_count'] == 3
     for lesson in FOUNDATIONS:
         check = f"{path}/{lesson.slug}/check"
@@ -218,6 +219,7 @@ def test_history_lesson_targets_curriculum_and_persists_owned_progress(client, d
     row = client.get(path, headers=headers).json()[0]
     assert not {'correct', 'feedback', 'practice_tag'} & row.keys()
     assert row['skill'] == skill
+    assert row['example_kind'] == 'historical'
     assert not row['completed']
     topic = db_session.get(Topic, row['practice_topic_ids']['mcq'])
     assert topic.unit_id == unit.id and tag in topic.skill_tags

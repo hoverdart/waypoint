@@ -53,13 +53,13 @@ export function GuidedLessons({ unitId, onPractice, practiceBusy, practiceMode =
       <div className="my-6 space-y-4 text-sm leading-7">{lesson.explanation.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>
       <h4 className="text-sm font-semibold">See it in context</h4>
       <blockquote className="my-3 border-l border-blue pl-4 text-sm italic leading-7">{lesson.example}</blockquote>
-      <p className="text-xs text-muted-foreground">Original fictional example</p>
+      <p className="text-xs text-muted-foreground">{lesson.example_kind === "historical" ? "Historical example · source identified above" : lesson.example_kind === "fictional" ? "Original fictional example" : "Instructional example"}</p>
       <p className="my-4 text-sm leading-7">{lesson.walkthrough}</p>
       <fieldset disabled={busy} className="mt-6 space-y-3"><legend className="mb-3 text-sm font-semibold">Try it: {lesson.prompt}</legend>{lesson.options.map((option, index) => <label key={index} className="flex cursor-pointer gap-3 rounded-md border border-border bg-background p-3 text-sm leading-6"><input className="mt-1.5" type="radio" name={`lesson-${unitId}-${lesson.slug}`} checked={answer === index} onChange={() => { setAnswer(index); setFeedback(null); }} />{option}</label>)}</fieldset>
       <PillButton className="mt-4" size="sm" disabled={busy || answer === null} onClick={() => void check()}>{busy ? "Saving…" : "Check understanding"}</PillButton>
       {feedback && <div role="status" className="mt-4 text-sm leading-6"><p className="font-semibold">{feedback.correct ? "Lesson complete" : "Take another look"}</p><p>{feedback.feedback}</p></div>}
       <div className="mt-6 flex flex-wrap gap-3">{active < lessons.length - 1 && <PillButton size="sm" disabled={busy} onClick={() => move(active + 1)}>Next lesson</PillButton>}<PillButton size="sm" disabled={busy || practiceBusy || practiceTopicId === null} onClick={() => { if (practiceTopicId !== null) onPractice(practiceTopicId); }}>Apply it in practice</PillButton></div>
-      <p className="mt-3 text-xs text-muted-foreground">{practiceTopicId !== null ? `Practice will focus on skill ${lesson.skill} in your selected format.` : `No ${practiceMode === "mcq" ? "multiple-choice" : "free-response"} practice is available for this lesson yet. Choose another format or use the unit practice below.`}</p>
+      <p className="mt-3 text-xs text-muted-foreground">{practiceTopicId !== null ? "Practice will use a related topic in your selected format." : `No ${practiceMode === "mcq" ? "multiple-choice" : "free-response"} practice is available for this lesson yet. Choose another format or use the unit practice below.`}</p>
       <p className="mt-4 text-xs text-muted-foreground">A completed check records your lesson progress. Practice separately to develop and measure your skills.</p>
     </>}
     {error && <p role="alert" className="mt-4 text-sm text-destructive">{error}</p>}
