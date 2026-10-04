@@ -1,6 +1,6 @@
 # Guided learning
 
-Guided sequences are available inside AP English Language, Units 1–4. Open
+Guided sequences are available inside AP English Language, Units 1–5. Open
 a published unit on the course page and select **Open guided lessons**. Unit 1 has three
 original lessons on rhetorical context, claims and evidence, and evidence selection.
 Unit 2 has six distinct lessons on audience inference, audience-aware revision,
@@ -8,8 +8,10 @@ supporting claims, evidence limits, recognizing a thesis, and writing a defensib
 thesis. Unit 3 adds six lessons on assumptions, complementary evidence, lines of reasoning,
 commentary, and reading and writing with methods of development. Unit 4 adds six
 lessons on occasion, openings and conclusions, thesis structure, rhetorical analysis
-theses, definition, and combining development methods. Later units do not yet have
-guided sequences.
+theses, definition, and combining development methods. Unit 5 adds six lessons on
+qualified reasoning, specific commentary, paragraph relationships, transitions,
+diction/comparison, and purposeful style, using science, memoir, and arts examples.
+Later units do not yet have guided sequences.
 Each provides an explanation, fictional worked example, analysis, and a retryable
 three-option understanding check. Students may move freely between lessons and
 start the unit's practice using the course's selected format and session length.

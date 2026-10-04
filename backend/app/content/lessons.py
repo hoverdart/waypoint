@@ -349,9 +349,102 @@ PURPOSE_AND_STRUCTURE = (
     ),
 )
 
+COHERENCE_AND_STYLE = (
+    Lesson(
+        slug="follow-a-changing-explanation", title="Follow an explanation as it becomes more precise", skill="5.A",
+        objective="Explain how a qualification or alternative explanation changes an argument's reasoning.",
+        explanation=(
+            "An argument does not always move in a straight line from certainty to proof. A writer may introduce a plausible explanation, examine evidence that complicates it, and arrive at a more limited conclusion. Track changes in the claim instead of treating each sentence as equally certain.",
+            "Notice words that signal the writer's degree of confidence: suggests, is consistent with, establishes, or rules out. These expressions make different commitments. In science writing especially, evidence may support a hypothesis while leaving alternatives unresolved.",
+            "Ask what each qualification does. Does it narrow the population, identify a condition, or acknowledge another cause? A qualification can strengthen reasoning by making the conclusion fit the evidence. It does not necessarily mean the writer has abandoned the argument.",
+        ),
+        example="A fictional field report notes that more insects were counted near restored vegetation than near bare ground. It first considers whether the plants explain the difference, then observes that the vegetated plots were also closer to water. The report recommends comparing plots with similar water access.",
+        walkthrough="The observation supports investigating a relationship but does not isolate vegetation as the cause. The later detail introduces an alternative explanation, and the proposed comparison responds to that uncertainty. Describing the report as proving that restoration caused the increase would erase its reasoning.",
+        prompt="A review says a rehearsal method coincided with fewer mistakes, then notes that the musicians also received more practice time. What does the second detail do?",
+        options=("It proves the rehearsal method had no effect", "It introduces an alternative explanation that limits a causal conclusion", "It shows the initial observation was necessarily fabricated"),
+        feedback=("Another possible cause does not establish that the method had no effect at all.", "Yes. The additional practice could contribute to the change, so the method's independent effect remains uncertain.", "The two details can both be accurate. The issue is what caused the observed difference."),
+        correct=1,
+    ),
+    Lesson(
+        slug="explain-a-detail-in-context", title="Make commentary specific to the detail", skill="6.A",
+        objective="Develop commentary that explains a detail's significance in its particular context.",
+        explanation=(
+            "A useful commentary sentence should not fit almost any quotation. Identify what is distinctive about the detail: a contrast, a surprising description, a repeated idea, or a change in perspective. Then explain how it advances the interpretation you are developing.",
+            "In a memoir or reflective essay, distinguish the experience being recalled from the later perspective of the narrator. A detail may reveal what the narrator did not understand at the time. Support this interpretation through the language and sequence rather than inventing an emotion.",
+            "Move beyond paraphrase, but stay within the evidence. Commentary can explain why a small action complicates an earlier judgment. It should not turn one detail into an unsupported diagnosis of a person's entire character or a universal claim about human behavior.",
+        ),
+        example="In an original memoir passage, a narrator remembers dismissing a parent's habit of saving seed packets as clutter. Years later, the narrator reads planting dates penciled on each packet and describes them as 'a record of patient experiments.'",
+        walkthrough="The shift from clutter to a record changes the meaning of the same objects. The later narrator recognizes deliberate work that the younger self overlooked. The detail supports an interpretation of revised understanding, not a claim that the parent never made a mistake.",
+        prompt="A narrator once called a neighbor's careful repairs 'fussing' but later describes the repaired chair as 'steady after all these years.' Which commentary best explains the contrast?",
+        options=("The narrator uses words to describe a chair and a neighbor", "The chair proves that all old objects are better than new ones", "The chair's durability leads the narrator to reassess care previously dismissed as needless effort"),
+        feedback=("This identifies the subject without explaining the significance of the changed description.", "One chair cannot support that universal comparison, and the passage does not make it.", "Yes. The later observation gives the earlier judgment a different meaning and supports a change in perspective."),
+        correct=2,
+    ),
+    Lesson(
+        slug="read-paragraph-relationships", title="Read the relationship between paragraphs", skill="5.B",
+        objective="Explain how paragraph order creates coherence and advances an argument.",
+        explanation=(
+            "Coherence comes from meaningful connections among ideas, not just transition words. Ask what readers learn in one paragraph that prepares them for the next. A paragraph may supply background, illustrate a generalization, complicate a claim, or explain a consequence.",
+            "Track repeated key terms and changes in their meaning. A writer can begin with a familiar idea and refine it across paragraphs. If a new paragraph seems unrelated, look for the shared question before deciding whether it is a digression.",
+            "Evaluate order by purpose. A definition may need to precede a distinction; evidence may prepare readers for a qualified conclusion. More than one arrangement can work, but moving a paragraph can change what readers assume or understand at that point.",
+        ),
+        example="An arts review first describes the strict symmetry of an exhibition's entrance gallery. The next paragraph examines a later room where uneven spacing and interrupted patterns replace that symmetry. The review then interprets the contrast as a deliberate disruption of expectations.",
+        walkthrough="The first description establishes the pattern that the second complicates. Without that baseline, the later claim about disrupted expectations would be harder to follow. The sequence contributes to interpretation rather than simply listing rooms in no meaningful order.",
+        prompt="A science essay defines the difference between weather and climate before examining why a cold week does not settle a claim about long-term trends. What is the first paragraph's most direct function?",
+        options=("It supplies a distinction the subsequent evaluation depends on", "It conclusively establishes the cause of every temperature change", "It contradicts the possibility that a particular week can be cold"),
+        feedback=("Yes. The definition separates short-term conditions from the kind of pattern the next paragraph evaluates.", "Defining terms does not identify the cause of every observed change.", "The distinction allows short-term variation; it does not deny the week's conditions."),
+        correct=0,
+    ),
+    Lesson(
+        slug="write-meaningful-transitions", title="Write the connection, not just a transition word", skill="6.B",
+        objective="Choose transitions that accurately express relationships between ideas.",
+        explanation=(
+            "Before choosing a transition, identify the relationship: addition, contrast, concession, cause, consequence, example, or qualification. A word such as therefore makes a logical commitment. It cannot create a causal or inferential connection the surrounding sentences do not support.",
+            "Sometimes a short connecting sentence works better than a single word. Repeat the relevant idea in a precise way and explain how the next point changes or extends it. Avoid vague references such as this when several possible antecedents compete.",
+            "Read both sides of the transition after revising. A concession acknowledges a point before limiting its implications; a contrast identifies a difference. Do not use however automatically whenever a new paragraph begins or furthermore when the next point actually challenges the previous one.",
+        ),
+        example="Draft: 'The archive has digitized its photographs. Therefore, several descriptions still omit dates.' Revision: 'Digitization has made the photographs easier to locate. However, missing dates in several descriptions still limit researchers' ability to establish chronology.'",
+        walkthrough="The revision identifies a benefit and a remaining limitation. Therefore would incorrectly suggest that digitization explains the missing dates. The fuller connection also clarifies why the limitation matters, rather than merely announcing another fact.",
+        prompt="Choose the most accurate connection: 'The rehearsal recording preserves every note. ___ it cannot show the conductor's gestures, which shaped the performance.'",
+        options=("As a result,", "However,", "For the same reason,"),
+        feedback=("Preserving notes does not cause the absence of visual information; the second point limits what the recording captures.", "Yes. The second sentence qualifies the recording's usefulness by identifying a different kind of information it lacks.", "No shared cause has been established. The relationship is a contrast between what is preserved and what is missing."),
+        correct=1,
+    ),
+    Lesson(
+        slug="analyze-diction-and-comparison", title="Explain what diction and comparison contribute", skill="7.A",
+        objective="Connect word choice or comparison to tone, perspective, and purpose.",
+        explanation=(
+            "Words carry associations as well as literal meanings. Calling a revision meticulous, fussy, or painstaking can describe similar attention while suggesting different attitudes. Explain those associations in context rather than treating a word as having the same tone everywhere.",
+            "A comparison selects particular shared features. Ask which feature the writer invites readers to notice and why it matters to the argument. An analogy can clarify an unfamiliar process without proving that the two things are identical in every respect.",
+            "Name tone precisely when the evidence supports it, then explain how it contributes to the text. Do not assume that vivid language is automatically admiring or that plain language lacks rhetorical effect. A restrained description may serve a cautious or corrective purpose.",
+        ),
+        example="A fictional essay calls an early scientific model 'a useful map with unfinished edges.' The comparison preserves the model's practical value while acknowledging limits in what it represents.",
+        walkthrough="Useful resists dismissing the model as worthless; unfinished edges marks incomplete knowledge. The map comparison helps readers hold value and limitation together. It does not imply the model is a literal geographic map or that every unrepresented feature has equal importance.",
+        prompt="A critic describes a performance as 'precise, but never mechanical.' What does the qualification most directly contribute?",
+        options=("It retracts the description of the performance as precise", "It claims that the performers used no instruments or equipment", "It distinguishes technical control from an absence of expression"),
+        feedback=("The critic retains the praise for precision while limiting a possible negative association.", "Mechanical describes a quality of performance here, not a literal inventory of equipment.", "Yes. The phrase suggests that accuracy and expressive vitality coexist in the performance."),
+        correct=2,
+    ),
+    Lesson(
+        slug="choose-style-for-purpose", title="Choose language that serves the purpose", skill="8.A",
+        objective="Revise diction and comparison for a precise rhetorical effect without distorting meaning.",
+        explanation=(
+            "Style is a set of choices about how meaning reaches readers. Start with the intended effect: clarify a distinction, convey urgency, acknowledge uncertainty, or invite reflection. More elaborate language is not automatically more effective.",
+            "Test connotations against the evidence. Calling a tentative finding a breakthrough can imply certainty or significance the source does not establish. A metaphor can help explain a process, but you should retain the limits that prevent readers from taking the comparison too far.",
+            "Revise for both audience and accuracy. A public explanation may replace unnecessary jargon with a concrete description, while a specialist audience may need the technical term. Aim for the language that makes the relevant meaning clear, not simply the shortest or most dramatic sentence.",
+        ),
+        example="A draft museum label says, 'This revolutionary artifact single-handedly transformed domestic existence.' A revision says, 'This tool shortened one repeated household task, although access varied by region and income.'",
+        walkthrough="The revision replaces sweeping praise with an interpretable claim and a relevant limitation. It may need additional explanation of the task, but it gives readers a clearer basis for understanding the object's significance without attributing all social change to one object.",
+        prompt="A field team has observed a pattern in a small preliminary sample. Which phrasing best fits a careful public report?",
+        options=("The early observations suggest a pattern that a larger sample could help test", "The observations settle the question forever", "The small sample makes every observation meaningless"),
+        feedback=("Yes. This states the provisional value of the observations and identifies what further work could contribute.", "A preliminary sample cannot justify that degree of finality.", "Limited evidence can still guide investigation; acknowledging its scope does not require treating it as worthless."),
+        correct=0,
+    ),
+)
+
 
 def lessons_for(code: str, unit_order: int) -> tuple[Lesson, ...]:
     if code != "english-language":
         return ()
     return {1: FOUNDATIONS, 2: AUDIENCE_AND_THESIS, 3: REASONING_AND_DEVELOPMENT,
-            4: PURPOSE_AND_STRUCTURE}.get(unit_order, ())
+            4: PURPOSE_AND_STRUCTURE, 5: COHERENCE_AND_STYLE}.get(unit_order, ())

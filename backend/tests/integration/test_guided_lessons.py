@@ -1,6 +1,6 @@
 import pytest
 from sqlmodel import select
-from app.content.lessons import FOUNDATIONS, AUDIENCE_AND_THESIS, PURPOSE_AND_STRUCTURE, lessons_for
+from app.content.lessons import FOUNDATIONS, AUDIENCE_AND_THESIS, PURPOSE_AND_STRUCTURE, COHERENCE_AND_STYLE, lessons_for
 from app.models.lesson import LessonCompletion
 from tests.conftest import auth_header
 from tests.factories import make_subject_with_units_topics, make_user
@@ -41,7 +41,7 @@ def test_lessons_check_feedback_persistence_and_user_isolation(client, db_sessio
 
 def test_lessons_validate_scope_revision_and_payload(client, db_session):
     subject, unit, unavailable, headers, _ = setup(db_session)
-    unavailable.display_order = 5
+    unavailable.display_order = 6
     db_session.add(unavailable)
     db_session.commit()
     path = f"/units/{unit.id}/lessons"
@@ -65,6 +65,7 @@ def test_lessons_validate_scope_revision_and_payload(client, db_session):
 @pytest.mark.parametrize('unit_order,sequence,skills', [
     (2, AUDIENCE_AND_THESIS, ['1.B', '2.B', '3.A', '4.A', '3.B', '4.B']),
     (4, PURPOSE_AND_STRUCTURE, ['1.A', '2.A', '3.B', '4.B', '5.C', '6.C']),
+    (5, COHERENCE_AND_STYLE, ['5.A', '6.A', '5.B', '6.B', '7.A', '8.A']),
 ])
 def test_published_sequences_persist_all_checks(client, db_session, unit_order, sequence, skills):
     subject, first, second, headers, other_headers = setup(db_session)
@@ -89,7 +90,7 @@ def test_published_sequences_persist_all_checks(client, db_session, unit_order, 
     assert not any(lesson['completed'] for lesson in client.get(path, headers=other_headers).json())
     assert not any(lesson['completed'] for lesson in client.get(f"/units/{first.id}/lessons", headers=headers).json())
     assert lessons_for('biology', 2) == ()
-    assert lessons_for('english-language', 5) == ()
+    assert lessons_for('english-language', 6) == ()
 
 
 def test_published_lesson_skills_match_seeded_unit_topics():
