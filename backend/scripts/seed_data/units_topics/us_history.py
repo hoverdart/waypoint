@@ -633,3 +633,9 @@ UNITS[8]['topics'][1]['skill_tags'] += ['ced:9.3']
 UNITS[8]['topics'][0]['skill_tags'] += ['ced:9.2']
 UNITS[8]['topics'][2]['skill_tags'] += ['ced:9.4']
 UNITS[8]['topics'][3]['skill_tags'] += ['ced:9.5']
+
+UNITS[7]['topics'].append({
+    'name': 'The Red Scare',
+    'description': 'Analyze domestic anticommunism, loyalty investigations, and conflicts over security and civil liberties.',
+    'skill_tags': ['contextualization', 'sourcing', 'argumentation', 'ced:8.3'], 'display_order': 7,
+})
