@@ -12,6 +12,7 @@ export interface GuidedLesson {
   options: string[];
   revision: number;
   completed: boolean;
+  practice_topic_ids: { mcq: number | null; frq: number | null };
 }
 
 export function getLessons(unitId: number, token: TokenSource) {

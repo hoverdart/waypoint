@@ -53,7 +53,7 @@ export function CourseStudy({ subject }: { subject: SubjectDetail }) {
             </summary>
             <div className="space-y-4 pt-4 sm:pl-10">
               <p className="text-sm leading-relaxed text-muted-foreground">{unit.description}</p>
-              {!!unit.lesson_count && <GuidedLessons unitId={unit.id} onPractice={() => void practice(unit.id)} practiceBusy={busy} />}
+              {!!unit.lesson_count && <GuidedLessons unitId={unit.id} onPractice={topicId => void practice(unit.id, topicId)} practiceBusy={busy} practiceMode={mode} />}
               <PillButton size="sm" disabled={busy} onClick={() => void practice(unit.id)}>Practice this unit</PillButton>
               <ul className="divide-y divide-border">
                 {unit.topics.map(topic => <li key={topic.id} className="flex items-center justify-between gap-4 py-4"><div><h3 className="text-sm font-medium">{topic.name}</h3><p className="mt-1 max-w-lg text-xs leading-relaxed text-muted-foreground">{topic.description}</p></div><button aria-label={`Practice ${topic.name}`} disabled={busy} onClick={() => void practice(unit.id, topic.id)} className="rounded-full border border-border p-2 text-blue hover:bg-blue-soft focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40"><ArrowUpRight className="size-4" /></button></li>)}

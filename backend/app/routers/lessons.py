@@ -10,7 +10,8 @@ from app.content.lessons import lessons_for
 from app.db.session import get_db
 from app.dependencies import get_current_user
 from app.models.lesson import LessonCompletion
-from app.models.subject import Subject, Unit
+from app.models.subject import Subject, Topic, Unit
+from app.models.question import Question
 from app.models.user import User
 
 router = APIRouter(tags=["lessons"])
@@ -36,8 +37,23 @@ def get_lessons(unit_id: int, db: Session = Depends(get_db), user: User = Depend
     completed = {(row.lesson_slug, row.revision) for row in db.exec(
         select(LessonCompletion).where(LessonCompletion.user_id == user.id, LessonCompletion.unit_id == unit_id)
     ).all()}
+    topics = db.exec(select(Topic).where(Topic.unit_id == unit_id).order_by(Topic.display_order, Topic.id)).all()
+    unit = db.get(Unit, unit_id)
+    available = set(db.exec(select(Question.topic_id, Question.type).where(
+        Question.unit_id == unit_id,
+        Question.subject_id == unit.subject_id,
+        Question.is_active == True,
+        Question.validation_status == "approved",
+    ).distinct()).all())
+
+    def practice_targets(skill):
+        matching = [topic for topic in topics if f"ap-skill:{skill}" in topic.skill_tags]
+        return {kind: next((topic.id for topic in matching if (topic.id, kind) in available), None)
+                for kind in ("mcq", "frq")}
+
     return [{**{key: value for key, value in asdict(lesson).items() if key not in ("correct", "feedback")},
-             "completed": (lesson.slug, lesson.revision) in completed} for lesson in lessons]
+             "completed": (lesson.slug, lesson.revision) in completed,
+             "practice_topic_ids": practice_targets(lesson.skill)} for lesson in lessons]
 
 
 @router.post("/units/{unit_id}/lessons/{slug}/check")

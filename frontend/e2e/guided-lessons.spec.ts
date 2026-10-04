@@ -39,7 +39,16 @@ test.describe("Guided learning", () => {
     await page.getByRole("button", { name: "Open guided lessons" }).click();
     await expect(page.getByText(/1 of 3 lessons completed/)).toBeVisible();
     await expect(page.getByRole("heading", { name: "Separate the claim from its support" })).toBeVisible();
+    await expect(page.getByText("Practice will focus on skill 3.A in your selected format.")).toBeVisible();
+    const started = page.waitForResponse(response => response.url().endsWith("/practice/start") && response.request().method() === "POST");
     await page.getByRole("button", { name: "Apply it in practice" }).click();
+    const startResponse = await started;
+    expect(startResponse.ok()).toBe(true);
+    const requestedTopic = startResponse.request().postDataJSON().topic_id;
+    expect(requestedTopic).toBeGreaterThan(0);
+    const session = await startResponse.json();
+    expect(session.questions.length).toBeGreaterThan(0);
+    expect(session.questions.every((question: { topic_id: number }) => question.topic_id === requestedTopic)).toBe(true);
     await expect(page).toHaveURL(/\/practice\/session\/\d+$/);
     expect(failures).toEqual([]);
   });

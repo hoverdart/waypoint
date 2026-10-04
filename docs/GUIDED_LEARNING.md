@@ -22,7 +22,11 @@ The 49 lessons provide a foundational sequence across all nine units; this is no
 comprehensive instruction or validation of student writing competence.
 Each provides an explanation, fictional worked example, analysis, and a retryable
 three-option understanding check. Students may move freely between lessons and
-start the unit's practice using the course's selected format and session length.
+start practice for the current lesson's skill using the course's selected format
+and session length. The backend offers a target only when an in-unit topic matches
+the skill and contains active, approved questions of that format. If no target is
+available, the lesson button explains the gap and stays disabled; students can
+change formats or use the separate unit-practice control.
 
 Correct checks save completion to the authenticated account. Reopening the sequence
 selects the first unfinished lesson. Completion does not award XP, update mastery,

@@ -137,3 +137,65 @@ def test_unit_three_reasoning_sequence_checks_and_versioned_progress(client, db_
     db_session.commit()
     current = client.get(path, headers=headers).json()
     assert sum(lesson['completed'] for lesson in current) == 5
+
+
+def test_lesson_practice_targets_require_matching_skill_unit_and_approved_questions(client, db_session):
+    from app.models.subject import Topic
+    from tests.factories import make_mcq_question
+    subject, first, second, headers, _ = setup(db_session)
+    topic = db_session.exec(select(Topic).where(Topic.unit_id == first.id)).first()
+    topic.skill_tags = ['ap-skill:1.A']
+    db_session.add(topic)
+    question, _ = make_mcq_question(db_session, subject.id, first.id, topic.id, validation_status='draft')
+    db_session.commit()
+    path = f'/units/{first.id}/lessons'
+    def target():
+        return client.get(path, headers=headers).json()[0]['practice_topic_ids']
+    assert target() == {'mcq': None, 'frq': None}
+    question.validation_status = 'approved'
+    db_session.add(question); db_session.commit()
+    assert target() == {'mcq': topic.id, 'frq': None}
+    assert all(row['practice_topic_ids'] == {'mcq': None, 'frq': None}
+               for row in client.get(path, headers=headers).json()[1:])
+    question.is_active = False
+    db_session.add(question); db_session.commit()
+    assert target() == {'mcq': None, 'frq': None}
+    question.is_active = True
+    question.unit_id = second.id
+    db_session.add(question); db_session.commit()
+    assert target() == {'mcq': None, 'frq': None}
+    question.unit_id = first.id
+    question.type = 'frq'
+    db_session.add(question); db_session.commit()
+    assert target() == {'mcq': None, 'frq': topic.id}
+
+
+def test_every_seeded_english_lesson_has_matching_mcq_practice(client, db_session):
+    from app.models.subject import Subject, Topic, Unit
+    from app.models.question import Question
+    from scripts.seed import seed_subject
+    from scripts.seed_data.subjects import SUBJECTS
+    seed_subject(db_session, next(row for row in SUBJECTS if row['ap_exam_code'] == 'english-language'))
+    user = make_user(db_session)
+    db_session.commit()
+    subject = db_session.exec(select(Subject).where(Subject.ap_exam_code == 'english-language')).one()
+    units = db_session.exec(select(Unit).where(Unit.subject_id == subject.id, Unit.is_active == True)).all()
+    count = 0
+    for unit in units:
+        response = client.get(f'/units/{unit.id}/lessons', headers=auth_header(user.auth_provider_id))
+        assert response.status_code == 200
+        for lesson in response.json():
+            count += 1
+            topic_id = lesson['practice_topic_ids']['mcq']
+            assert topic_id is not None
+            topic = db_session.get(Topic, topic_id)
+            assert topic.unit_id == unit.id
+            assert f"ap-skill:{lesson['skill']}" in topic.skill_tags
+            for kind, target in lesson['practice_topic_ids'].items():
+                if target is not None:
+                    assert db_session.exec(select(Question).where(
+                        Question.subject_id == subject.id, Question.unit_id == unit.id,
+                        Question.topic_id == target, Question.type == kind,
+                        Question.is_active == True, Question.validation_status == 'approved',
+                    )).first() is not None
+    assert count == 49
