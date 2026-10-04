@@ -547,3 +547,14 @@ UNITS[4]['topics'].append({
     'description': 'Compare changing institutions, legal protections, and political outcomes across the Civil War and Reconstruction.',
     'skill_tags': ['comparison', 'argumentation', 'ced:5.12'], 'display_order': 9,
 })
+
+_period_six_legacy_codes = {
+    'Industrialization and Big Business': ['6.5', '6.6'],
+    'Immigration and Urbanization': ['6.8'],
+    'Labor and the Rise of Unions': ['6.7'],
+    'The Western Frontier and Native American Displacement': ['6.2', '6.3'],
+}
+for _topic in UNITS[5]['topics']:
+    for _code in _period_six_legacy_codes.get(_topic['name'], []):
+        if f'ced:{_code}' not in _topic['skill_tags']:
+            _topic['skill_tags'].append(f'ced:{_code}')

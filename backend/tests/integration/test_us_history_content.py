@@ -820,3 +820,29 @@ def test_enforcement_set_validates_and_covers_all_period_five_codes_with_items()
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
     period = [q for q in ALL if q['unit_name'] == UNITS[4]['name']]
     assert {tag for q in period for tag in q['skill_tags'] if tag.startswith('ced:')} == {f'ced:5.{i}' for i in range(1, 13)}
+
+
+def test_period_six_legacy_mapping_restores_tags_without_replacing_topics(db_session):
+    from app.models.subject import Topic
+    expected = {
+        'Industrialization and Big Business': {'ced:6.5', 'ced:6.6'},
+        'Immigration and Urbanization': {'ced:6.8'},
+        'Labor and the Rise of Unions': {'ced:6.7'},
+        'The Western Frontier and Native American Displacement': {'ced:6.2', 'ced:6.3'},
+    }
+    subject = {'name': 'AP US History', 'ap_exam_code': 'us-history', 'display_order': 2}
+    seed_subject(db_session, subject)
+    topics = db_session.exec(select(Topic).where(Topic.name.in_(list(expected)))).all()
+    original = {t.name: t.id for t in topics}
+    assert len(original) == 4
+    for topic in topics:
+        topic.skill_tags = [tag for tag in topic.skill_tags if not tag.startswith('ced:')]
+        db_session.add(topic)
+    db_session.flush()
+    seed_subject(db_session, subject)
+    db_session.expire_all()
+    topics = db_session.exec(select(Topic).where(Topic.name.in_(list(expected)))).all()
+    assert {t.name: t.id for t in topics} == original
+    for topic in topics:
+        assert {tag for tag in topic.skill_tags if tag.startswith('ced:')} == expected[topic.name]
+        assert any(not tag.startswith('ced:') for tag in topic.skill_tags)

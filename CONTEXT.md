@@ -631,3 +631,11 @@
 - Every Period 5 code now has explicitly tagged questions. This milestone does not establish full content coverage: Reconstruction’s collapse, including the retreat from enforcement, still requires broader treatment. Updated the audit regression to report both Reconstruction sets and its untagged legacy item accurately.
 - All 319 backend tests pass, including a whole-Period-5 item-tag coverage check and whole-bank reseeding. U.S. History has 207 questions across 70 topics; total bank 647 questions across 346 topics.
 - Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md edits excluded. Later periods, earlier depth and source diversity, non-text stimuli, history FRQ/exam support, and other subjects are unfinished. Overall goal remains active.
+
+### Expansion milestone 64 — Period 6 foundation mapping
+
+- Previous goal turn classified as progress: Reconstruction enforcement questions were tested and pushed. Began Period 6 expansion by mapping its four legacy topics to relevant framework codes while preserving names, IDs, and non-CED skill tags.
+- Framework checked against https://apcentral.collegeboard.org/media/pdf/ap-us-history-course-at-a-glance.pdf. Live audit confirms only four existing Period 6 questions, all without explicit curriculum tags; topic mappings do not imply item-level coverage.
+- Missing topic mappings: 6.1 context, 6.4 New South, 6.9 responses to immigration, 6.10 middle class, 6.11 reform, 6.12 government controversies, 6.13 politics, and 6.14 continuity/change. Existing industrial, labor, migration, and western topics all require substantial depth.
+- Added a database regression verifying restored curriculum tags and stable topic IDs after reseeding. All 320 backend tests pass. Counts unchanged: 207 U.S. History questions / 647 overall.
+- Affected areas: backend curriculum/tests and context. Frontend unchanged; user AGENTS.md edits excluded. Period 6 expansion is next, with prior-period gaps, later periods, non-text stimuli, history FRQ/exam workflows, and remaining subjects still outstanding. Overall goal remains active.
