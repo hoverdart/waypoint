@@ -9,5 +9,6 @@ from .english_language.form_b_writing import QUESTIONS as WRITING_B
 from .english_language.form_b_essays import QUESTIONS as ESSAYS_B
 from .english_language.form_c_reading import QUESTIONS as READING_C
 from .english_language.form_c_writing import QUESTIONS as WRITING_C
+from .english_language.form_c_essays import QUESTIONS as ESSAYS_C
 
-QUESTIONS = READING_A + WRITING_A + ESSAYS_A + READING_B + WRITING_B + ESSAYS_B + READING_C + WRITING_C
+QUESTIONS = READING_A + WRITING_A + ESSAYS_A + READING_B + WRITING_B + ESSAYS_B + READING_C + WRITING_C + ESSAYS_C

@@ -78,7 +78,7 @@ def test_candidate_course_seeds_idempotently_and_supports_essay_review(client, d
     seed_subject(db_session, subject_data)
     assert {q.id for q in db_session.exec(select(Question)).all()} == ids
     assert {q.id for q in db_session.exec(select(QuestionOption)).all()} == option_ids
-    assert len(ids) == 141
+    assert len(ids) == 144
     subject = db_session.exec(select(Subject).where(Subject.ap_exam_code == 'english-language')).one()
     user = make_user(db_session)
     headers = auth_header(user.auth_provider_id)
@@ -194,3 +194,17 @@ def test_third_mcq_form_adds_distinct_passages_and_closes_uncovered_topic():
     assert after['topics_without_difficulty_variety'] < before['topics_without_difficulty_variety']
     # Breadth alone must not hide the remaining course-depth work.
     assert after['topics_below_three_questions'] > 0
+
+
+def test_third_essay_set_has_diverse_tasks_and_complete_models():
+    from scripts.seed_data.questions.english_language.form_c_essays import QUESTIONS, SOURCES
+    assert len(QUESTIONS) == 3
+    assert all(f'Source {letter} —' in SOURCES for letter in 'ABCDEF')
+    assert {t for q in QUESTIONS for t in q['skill_tags'] if t.startswith('format:')} == {
+        'format:synthesis', 'format:rhetorical-analysis', 'format:argument'}
+    for q in QUESTIONS:
+        assert len(q['correct_answer'].split()) >= 350
+        assert q['rubric_json']['scoring_method'] == 'self_review'
+        assert sum(row['points'] for row in q['rubric_json']['checklist']) == 6
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))

@@ -47,12 +47,12 @@ checks must never claim to provide it.
 - Three independent 45-question MCQ forms: each has three reading sets (24 questions)
   and two revision sets (21 questions), for 135 questions across fifteen original passages,
   levels 2–4, and individual rationales.
-- Six essays across two sets: synthesis (six sources per task, including data and a
+- Nine essays across three sets: synthesis (six sources per task, including data and a
   visual stimulus), rhetorical analysis, and argument; models and six-point rubric
   reflection. All three MCQ forms meet the published skill-category percentage ranges.
   Form C adds a public opening address, a nature essay, a fictional historical civic
   letter, and tool-lending and neighborhood heat-mapping revision drafts. All 49
-  unit/skill topics now have questions, but 19 still have fewer than three and ten
+  unit/skill topics now have questions, but 18 still have fewer than three and ten
   lack difficulty variety. Labels are author estimates, not calibrated difficulty.
 - Durable, owned rubric review implemented in backend and frontend. Mixed-session
   accuracy excludes self-review responses. Anonymous, foreign, unfinished, and invalid
@@ -60,14 +60,13 @@ checks must never claim to provide it.
   essay entry provides a word count and bounded, accessible text field. Diagnostics
   exclude self-review essays, and courses without official unit weights use an explicit
   equal-unit fallback for mastery and planning.
-- Section-aware Forms A/B now support server-enforced deadlines, saved drafts,
+- Section-aware Forms A/B/C now support server-enforced deadlines, saved drafts,
   revision conflict protection, history resume, locked sections, and final results
   with persistent essay self-review. Standard/1.5x/2x practice time and an explicitly
   untimed inter-section break are available. These are rehearsal tools, not official
   AP score predictions or an accommodation approval system.
 - Candidate course remains outside live enrollment until content depth is ready.
-  Next: Form C essays, Form D, further essay sets, and closure of topic coverage gaps.
-  Form C is not yet offered as a timed exam because its essay section is unfinished.
+  Next: Form D, further essay sets, and closure of topic coverage gaps.
 
 For candidate browser verification, point `DATABASE_URL` at a disposable database
 named `waypoint_test`, `waypoint_migration_test`, or `waypoint_exam_test`, run migrations

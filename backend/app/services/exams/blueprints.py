@@ -42,5 +42,6 @@ BLUEPRINTS = {
     form.form_id: form for form in (
         language_form('a', ('repair', 'forecast', 'translation', 'garden', 'archive')),
         language_form('b', ('museum', 'clock', 'birds', 'recipe', 'sleep')),
+        language_form('c', ('sky', 'marsh', 'library', 'tools', 'heat')),
     )
 }
