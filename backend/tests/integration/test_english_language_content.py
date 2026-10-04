@@ -78,7 +78,7 @@ def test_candidate_course_seeds_idempotently_and_supports_essay_review(client, d
     seed_subject(db_session, subject_data)
     assert {q.id for q in db_session.exec(select(Question)).all()} == ids
     assert {q.id for q in db_session.exec(select(QuestionOption)).all()} == option_ids
-    assert len(ids) == 144
+    assert len(ids) == 168
     subject = db_session.exec(select(Subject).where(Subject.ap_exam_code == 'english-language')).one()
     user = make_user(db_session)
     headers = auth_header(user.auth_provider_id)
@@ -208,3 +208,26 @@ def test_third_essay_set_has_diverse_tasks_and_complete_models():
         assert sum(row['points'] for row in q['rubric_json']['checklist']) == 6
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+
+
+def test_fourth_reading_set_targets_depth_without_reusing_stimuli():
+    from scripts.seed_data.questions.english_language.form_d_reading import QUESTIONS as added
+    from scripts.seed_data.questions.english_language_questions import QUESTIONS
+    from scripts.content_audit import audit_bank
+    existing = [q for q in QUESTIONS if q not in added]
+    assert len(added) == 24
+    groups = Counter(next(t for t in q['skill_tags'] if t.startswith('stimulus:')) for q in added)
+    assert sorted(groups.values()) == [8, 8, 8]
+    assert not set(groups) & {t for q in existing for t in q['skill_tags'] if t.startswith('stimulus:')}
+    assert len({q['prompt'] for q in QUESTIONS}) == len(QUESTIONS)
+    assert Counter(t[9] for q in added for t in q['skill_tags'] if t.startswith('ap-skill:')) == {'1': 5, '3': 7, '5': 6, '7': 6}
+    topics = {(u['name'], t['name']) for u in UNITS for t in u['topics']}
+    for q in added:
+        assert (q['unit_name'], q['topic_name']) in topics
+        assert len(q['prompt'].split()) > 300
+        assert len({e['explanation'] for e in q['explanations']}) == 4
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+    before, after = audit_bank(UNITS, existing), audit_bank(UNITS, QUESTIONS)
+    assert after['topics_below_three_questions'] < before['topics_below_three_questions']
+    assert after['topics_without_difficulty_variety'] < before['topics_without_difficulty_variety']
