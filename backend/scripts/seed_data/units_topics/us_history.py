@@ -380,3 +380,9 @@ UNITS[2]['topics'].append({
     'description': 'Analyze national belonging, regional attachments, and competing visions of the republic.',
     'skill_tags': ['sourcing', 'argumentation', 'ced:3.11'], 'display_order': 12,
 })
+
+UNITS[2]['topics'].append({
+    'name': 'Contextualizing Period 3',
+    'description': 'Situate the imperial crisis and early republic within changing Atlantic power relationships.',
+    'skill_tags': ['contextualization', 'causation', 'ced:3.1'], 'display_order': 13,
+})

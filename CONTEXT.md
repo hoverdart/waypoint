@@ -320,3 +320,10 @@
 - Verified Washington’s 1796 Farewell Address against the Senate Historical Office transcription at https://www.senate.gov/artandhistory/history/resources/pdf/Washingtons_Farewell_Address.pdf. Prompts identify its modernized spelling/punctuation. Questions cover claims, context, purpose, and counterevidence, without treating a persuasive appeal as proof of universal agreement.
 - U.S. History now has 86 questions across 51 topics; normal seed totals are 526 questions across 327 topics. The full course and wider AP expansion remain incomplete. Next: Period 3 contextualization and continuity/change, then full later-period mapping and broader source formats.
 - Affected areas: backend curriculum/content/tests and docs. All 264 backend tests pass; changed-file whitespace check passes. Frontend unchanged. No copyrighted AP questions imported; overall goal remains active.
+
+### Expansion milestone 21 — Imperial-crisis context
+
+- Previous goal turn classified as progress: national identity questions were tested and pushed. Added three original contextualization questions and CED 3.1 topic, with an explicitly labeled instructional summary covering imperial rivalry, postwar costs, and later disputes over authority.
+- Reference verified: https://history.state.gov/milestones/1750-1775/french-indian-war (retired historical series; used for established historical context). Questions reject reversed chronology and inevitability claims while distinguishing contributing conditions from automatic outcomes.
+- U.S. History now contains 89 questions across 52 topics; normal seed totals are 529 questions across 328 topics. Continuity/change and complete Period 3 alignment remain pending, as do later-period expansion and history FRQ workflows. Overall goal remains active.
+- Affected areas: backend content/curriculum/tests and docs. All 265 backend tests pass, including content validation and stable reseeding. Changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions copied.
