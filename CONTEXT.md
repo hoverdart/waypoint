@@ -432,3 +432,10 @@
 - Ran the audit against the current history bank: 133 questions, 60 topics, 37 topics below three questions and 37 lacking difficulty variety. Four legacy Period 4 topics still lack explicit CED mappings. These findings confirm the bank is not comprehensive and identify concrete work beyond aggregate counts.
 - Added fixture-based tests for ordering, absent metadata, unmapped questions, shared stimuli, and depth flags plus a live-bank consistency test. All 291 backend tests pass. Affected areas: backend audit tooling/tests and this context; no frontend or content-count changes.
 - Next: fill missing Period 4 framework areas and deepen legacy topics, then later periods and representative FRQ/exam support. Overall goal remains active.
+
+### Expansion milestone 37 — Louisiana Purchase and legacy-topic depth
+
+- Previous goal turn classified as progress: actionable topic auditing was tested and pushed. Added four original Louisiana Purchase questions to the existing Markets and Westward Expansion topic, preserving topic identities while reducing an actual depth gap.
+- Reference checked: https://history.state.gov/milestones/1801-1829/louisiana-purchase. The original instructional summary and questions connect Mississippi commerce, French imperial setbacks, and Jefferson’s constitutional concerns. Questions are tagged CED 4.2; the broad legacy topic still needs a complete multi-code mapping.
+- U.S. History now has 137 questions across 60 topics; normal seed totals are 577 questions across 336 topics. Audit confirms topics below three questions and lacking difficulty variety both decreased from 37 to 36. Remaining coverage and exam/FRQ work are extensive; overall goal remains active.
+- Affected areas: backend content/tests and docs. All 292 backend tests pass. Frontend unchanged; no copyrighted AP questions imported.

@@ -719,3 +719,5 @@ from .us_history.period_four_workers import QUESTIONS as PERIOD_FOUR_WORKERS
 QUESTIONS += PERIOD_FOUR_WORKERS
 from .us_history.period_four_context import QUESTIONS as PERIOD_FOUR_CONTEXT
 QUESTIONS += PERIOD_FOUR_CONTEXT
+from .us_history.period_four_louisiana import QUESTIONS as PERIOD_FOUR_LOUISIANA
+QUESTIONS += PERIOD_FOUR_LOUISIANA
