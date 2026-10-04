@@ -442,9 +442,103 @@ COHERENCE_AND_STYLE = (
     ),
 )
 
+SOURCES_AND_REFINEMENT = (
+    Lesson(
+        slug="evaluate-source-support", title="Evaluate what a source can support", skill="3.A",
+        objective="Assess a source's relevance and basis of knowledge without treating authority as automatic proof.",
+        explanation=(
+            "Identify the exact claim a source is being used to support. Expertise is relevant when it concerns that claim, and a source's method matters as much as its title. A firsthand account can establish an experience without establishing how common that experience is.",
+            "Consider when and why the source was produced, what evidence it uses, and whose perspective may be absent. An institutional interest gives you a reason to examine a claim carefully, not permission to dismiss every statement without evaluation. Likewise, agreement with your position does not make a source reliable.",
+            "Separate what the source reports from what the writer infers. A report about participants' preferences does not necessarily demonstrate improved outcomes. Preserve these distinctions when explaining the relationship between evidence and a claim.",
+        ),
+        example="A fictional software vendor reports that most surveyed customers liked a new writing tool. An essay uses the report to claim that the tool improves all students' analytical writing. The survey measures reported satisfaction among customers, not writing gains across students.",
+        walkthrough="The report may support a limited statement about the surveyed customers' views. The vendor's interest and sample selection deserve scrutiny, but the most direct problem is the mismatch between the measured outcome and the essay's claim. Independent assessment of writing would address a different question.",
+        prompt="A retired engineer describes the tools used in one workshop decades ago. Which claim is most directly supported by that account alone?",
+        options=("Every workshop in the country used identical tools", "The engineer recalls particular practices in that workshop during that period", "Those tools were more efficient than all modern alternatives"),
+        feedback=("One workshop's account does not establish nationwide uniformity.", "Yes. This claim preserves the account's setting, time, and status as recollection; corroboration could strengthen it.", "A comparison of efficiency requires evidence about performance and alternatives, not only a recollection of use."),
+        correct=1,
+    ),
+    Lesson(
+        slug="put-sources-in-conversation", title="Put sources in conversation", skill="4.A",
+        objective="Use relationships among sources to develop your own claim rather than summarize them separately.",
+        explanation=(
+            "Begin with the point your paragraph needs to establish. Then select evidence from sources that helps develop that point. Organizing every paragraph around a different source can produce a report on readings instead of an argument of your own.",
+            "Look for a precise relationship: one source may extend another, explain a mechanism behind a finding, challenge an assumption, or describe a different population. Apparent disagreement may result from different questions or measures. Explain that difference before declaring one source wrong.",
+            "Attribute evidence clearly and distinguish source claims from your interpretation. Do not blend different measures into a single unsupported conclusion. Your commentary should explain how the relationship affects the argument, including any limits it introduces.",
+        ),
+        example="One fictional transit report records shorter average travel times after a route change. A rider survey describes longer walks to several stops. An argument can use both to distinguish time spent traveling from access to the starting point, rather than treating the survey as a direct contradiction of the travel-time average.",
+        walkthrough="The sources measure different aspects of service. Together they can support evaluating both travel time and access. The writer must still examine how the average and survey were produced before generalizing about all riders.",
+        prompt="Source A reports high attendance at a free exhibit; Source B describes visitors who could not reach it during opening hours. Which synthesis best preserves both sources' contributions?",
+        options=("High attendance shows that scheduling creates no access barriers", "The accounts of excluded visitors prove the attendance count is false", "The exhibit attracted many visitors while its hours may still have excluded some interested people"),
+        feedback=("A large count does not establish that everyone interested could attend.", "The two findings can coexist. Visitors who could not attend are not part of the attendance count.", "Yes. This distinguishes observed participation from access and creates a basis for considering scheduling changes."),
+        correct=2,
+    ),
+    Lesson(
+        slug="find-the-thesis-in-a-complex-text", title="Find the position beneath competing perspectives", skill="3.B",
+        objective="Identify a writer's central position while preserving the conditions and distinctions that shape it.",
+        explanation=(
+            "A text can describe several positions before stating its own. Track attribution and evaluation: which views are assigned to others, which are qualified, and which conclusion the writer ultimately defends. Do not select a vivid sentence simply because it sounds decisive.",
+            "A nuanced thesis may distinguish circumstances rather than choose one universal rule. Preserve that distinction when summarizing it. Reducing a conditional position to a simple yes or no can misrepresent the argument and distort how its evidence works.",
+            "Test your reading against the whole text. The central position should account for the main reasons and qualifications. If your summary makes a major section seem inexplicable, revisit the thesis rather than assuming the section is irrelevant.",
+        ),
+        example="An essay describes the convenience of recorded lectures, acknowledges the value of live discussion, and concludes that recordings should supplement courses rather than replace every meeting. Its final section explains which activities depend on immediate exchange.",
+        walkthrough="The position combines support for recordings with a limit on replacement. The live-discussion section develops that limit. A summary saying the writer rejects recordings would ignore their stated benefit, while a summary endorsing complete replacement would erase the conclusion's condition.",
+        prompt="A critic praises digital restorations for revealing faded details but argues that exhibitions should also explain which colors were reconstructed. Which summary best captures the position?",
+        options=("Restoration can be valuable when viewers are informed about its interpretive choices", "Every reconstruction is deceptive and should be prohibited", "Restored colors should always be presented as certain historical facts"),
+        feedback=("Yes. This preserves both the benefit and the condition the critic develops.", "The critic's praise is inconsistent with an absolute rejection of restoration.", "The request for explanation acknowledges interpretive choices rather than treating every reconstruction as certain."),
+        correct=0,
+    ),
+    Lesson(
+        slug="revise-a-thesis-with-evidence", title="Let the evidence refine the thesis", skill="4.B",
+        objective="Revise a thesis when evidence reveals a meaningful limit or distinction.",
+        explanation=(
+            "A working thesis guides investigation, but it need not survive unchanged. If credible evidence complicates your position, identify exactly what needs revision: scope, cause, condition, or recommendation. Changing a claim to fit evidence is part of reasoning, not an admission that argument is impossible.",
+            "Avoid two extremes: ignoring inconvenient evidence and retreating to an empty statement that everything is complicated. A revised thesis should still take a position. Name the condition or distinction that explains why the evidence supports this particular conclusion.",
+            "After revising, check the body paragraphs. They may need new commentary or a different order to support the refined claim. A qualified thesis paired with paragraphs that still make universal claims creates an unresolved inconsistency.",
+        ),
+        example="A draft argues that every archive item should be digitized immediately. Evidence about fragile materials, limited staffing, and frequent requests leads to a revised thesis favoring phased digitization that prioritizes demand and preservation needs while maintaining access to uncopied materials.",
+        walkthrough="The revision keeps a commitment to digitization but develops criteria for its sequence and scope. It responds to practical evidence rather than adding a vague sometimes. The argument must now support those criteria and explain tradeoffs among them.",
+        prompt="A draft favors replacing every textbook with digital materials. Evidence shows benefits for search and updating but uneven device access. Which revision responds most directly?",
+        options=("Digital materials are interesting, and education has many challenges", "Expand digital materials where they improve use while retaining accessible alternatives until reliable access is provided", "Replace every textbook because contrary evidence should not change a thesis"),
+        feedback=("This avoids the actual decision rather than refining the position in light of the evidence.", "Yes. The claim retains the identified benefits while addressing a concrete condition that limits universal replacement.", "A defensible argument must respond to relevant evidence, not protect its first wording from revision."),
+        correct=1,
+    ),
+    Lesson(
+        slug="trace-a-shift-in-tone", title="Trace a shift in tone", skill="7.A",
+        objective="Explain how changes in diction or comparison develop a writer's attitude and purpose.",
+        explanation=(
+            "Tone can change within a text. Mark where the language shifts and identify the choices that establish the difference. A move from playful exaggeration to restrained description may change how readers understand an experience or judgment.",
+            "Use precise evidence before choosing a label. Look at verbs, comparisons, evaluative adjectives, and what the writer emphasizes. Two different topics do not automatically establish a tonal shift, and a single emotional word may not characterize the entire passage.",
+            "Explain the shift's function. It may complicate an earlier attitude, prepare readers for a serious claim, or distinguish remembered experience from later reflection. Avoid saying only that the shift keeps readers interested when the text supports a more specific account.",
+        ),
+        example="An original travel essay first calls the narrator's overpacked suitcase 'a small traveling kingdom.' After a porter struggles to lift it, the narrator describes its weight plainly and reflects on expecting others to manage the consequences of personal excess.",
+        walkthrough="The playful comparison initially treats overpacking as comic. The restrained description and reflection make its effect on another person harder to dismiss. The shift develops self-criticism; it does not require claiming that the narrator has rejected all travel or belongings.",
+        prompt="A memoir moves from joking about a relative's repetitive stories to carefully recalling one story's details after the relative's death. What interpretation is most supported?",
+        options=("The narrator's jokes prove the relative's stories never mattered", "The change establishes that the remembered details are historically infallible", "The more attentive language suggests a revised appreciation of stories once treated casually"),
+        feedback=("The later attention complicates the earlier casual attitude rather than confirming permanent indifference.", "A respectful tone does not guarantee factual accuracy in memory.", "Yes. The contrast in treatment supports a change in the narrator's valuation of those stories."),
+        correct=2,
+    ),
+    Lesson(
+        slug="revise-tone-without-losing-force", title="Revise tone without losing the argument", skill="8.A",
+        objective="Choose forceful, accurate language that addresses disagreement without misrepresenting it.",
+        explanation=(
+            "A strong position does not require attacking the intelligence or motives of everyone who disagrees. Identify the claim you dispute and the evidence that challenges it. Specific criticism gives readers something to evaluate; contempt can obscure the reasoning.",
+            "Match intensity to what the evidence establishes. Words such as disastrous, fraudulent, or inevitable make substantial claims. If the evidence shows a narrower concern, describe that concern precisely. Restraint can sharpen an argument by removing assertions the writer cannot defend.",
+            "Revision need not erase voice or urgency. Use concrete consequences, active verbs, and a clear recommendation. Acknowledge an opposing concern accurately, then explain why another consideration outweighs it or how the proposal addresses it.",
+        ),
+        example="Draft: 'Only people who hate readers would shorten library hours.' Revision: 'Reducing evening hours would remove the only available study period for some shift workers; the budget discussion should consider alternatives that preserve that access.'",
+        walkthrough="The revision replaces an invented motive with a consequence and a request. It remains critical of the proposed cut while allowing readers to assess the access concern. The claim about workers still needs supporting evidence; respectful language does not substitute for it.",
+        prompt="Which revision makes the most precise criticism of a report that draws a national conclusion from one town's data?",
+        options=("The national conclusion exceeds the geographic scope of the evidence presented", "The authors are obviously incapable of understanding any evidence", "The report should be ignored because all local data are useless"),
+        feedback=("Yes. This identifies the inferential problem without inventing motives or dismissing local evidence altogether.", "This personal attack does not explain the mismatch between the data and the conclusion.", "Local data can support local claims or further investigation. The problem is the unsupported national extension."),
+        correct=0,
+    ),
+)
+
 
 def lessons_for(code: str, unit_order: int) -> tuple[Lesson, ...]:
     if code != "english-language":
         return ()
     return {1: FOUNDATIONS, 2: AUDIENCE_AND_THESIS, 3: REASONING_AND_DEVELOPMENT,
-            4: PURPOSE_AND_STRUCTURE, 5: COHERENCE_AND_STYLE}.get(unit_order, ())
+            4: PURPOSE_AND_STRUCTURE, 5: COHERENCE_AND_STYLE,
+            6: SOURCES_AND_REFINEMENT}.get(unit_order, ())
