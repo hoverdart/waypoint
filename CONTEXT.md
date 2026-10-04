@@ -362,3 +362,10 @@
 - Added tests for deterministic distinct identifiers under a shared curriculum code, backward compatibility, invalid identifiers, and a bank-wide audit of item uniqueness and stimulus-group consistency. Foundation questions without source-set metadata remain explicitly outside that metadata audit.
 - Affected areas: backend content builder and tests. All 280 backend tests pass; changed-file whitespace check passes. No question-count changes (101 U.S. History / 541 total), frontend changes, or migrations.
 - This enables repeated topic coverage and independent forms; it does not itself create those forms. Next: deeper Period 4 content and varied stimuli using stable set identifiers. Overall expansion goal remains active.
+
+### Expansion milestone 27 — Seneca Falls and reform
+
+- Previous goal turn classified as progress: stable source-set identifiers and bank-wide metadata checks were tested and pushed. Added four original Declaration of Sentiments questions and An Age of Reform (CED 4.11), using the named seneca-falls source set.
+- Verified the public-domain excerpt against https://www.nps.gov/wori/learn/historyculture/declaration-of-sentiments.htm. Questions analyze founding-language adaptation, antebellum context, continuity/change, and evidence of actual legal outcomes. Every option includes its own rationale.
+- U.S. History now has 105 questions across 56 topics; normal seed totals are 545 questions across 332 topics. Other reform movements, broader Period 4 mapping, later periods, and history FRQ workflows remain outstanding; overall goal remains active.
+- Affected areas: backend content/curriculum/tests and docs. All 281 backend tests pass, including named-source validation and bank-wide identifier checks. Changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.

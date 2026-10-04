@@ -433,3 +433,9 @@ UNITS[3]['topics'].append({
     'description': 'Analyze diplomatic ambitions, European competition, and the limits of American power in the early nineteenth century.',
     'skill_tags': ['contextualization', 'sourcing', 'ced:4.4'], 'display_order': 5,
 })
+
+UNITS[3]['topics'].append({
+    'name': 'An Age of Reform',
+    'description': 'Analyze antebellum reform movements, their methods, and the relationship between rights claims and institutional change.',
+    'skill_tags': ['continuity-and-change', 'sourcing', 'ced:4.11'], 'display_order': 6,
+})
