@@ -582,3 +582,15 @@ UNITS[5]['topics'].extend([
      'description': 'Analyze political coalitions and competing proposals for addressing economic power and inequality.',
      'skill_tags': ['comparison', 'sourcing', 'ced:6.13'], 'display_order': 9},
 ])
+
+UNITS[5]['topics'].extend([
+    {'name': 'Contextualizing Period 6',
+     'description': 'Connect postwar development to earlier federal policy, expansion, and economic change.',
+     'skill_tags': ['contextualization', 'causation', 'ced:6.1'], 'display_order': 10},
+    {'name': 'Development of the Middle Class',
+     'description': 'Examine changing opportunities, cultural practices, and unequal access to consumption and leisure.',
+     'skill_tags': ['comparison', 'argumentation', 'ced:6.10'], 'display_order': 11},
+    {'name': 'Continuity and Change in Period 6',
+     'description': 'Evaluate uneven economic and social transformation using evidence across time and regions.',
+     'skill_tags': ['comparison', 'sourcing', 'ced:6.14'], 'display_order': 12},
+])

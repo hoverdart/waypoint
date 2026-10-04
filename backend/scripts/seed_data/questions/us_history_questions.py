@@ -769,3 +769,6 @@ from .us_history.period_six_railroads import QUESTIONS as PERIOD_SIX_RAILROADS
 QUESTIONS += PERIOD_SIX_RAILROADS
 from .us_history.period_six_reform_and_politics import QUESTIONS as PERIOD_SIX_REFORM_AND_POLITICS
 QUESTIONS += PERIOD_SIX_REFORM_AND_POLITICS
+
+from .us_history.period_six_context_and_change import QUESTIONS as PERIOD_SIX_CONTEXT_AND_CHANGE
+QUESTIONS += PERIOD_SIX_CONTEXT_AND_CHANGE
