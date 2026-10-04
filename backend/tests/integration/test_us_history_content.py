@@ -1,3 +1,7 @@
+import importlib
+
+import pytest
+
 from sqlmodel import select
 
 from app.models.subject import Unit
@@ -422,9 +426,10 @@ def test_revival_set_deepens_existing_topic_with_varied_difficulty():
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
 
 
-def test_revised_revival_distractors_reseed_in_place_with_matching_rationales(db_session):
+@pytest.mark.parametrize("module", ["period_four_revival", "period_five_citizenship"])
+def test_revised_distractors_reseed_in_place_with_matching_rationales(db_session, module):
     from app.models.question import Question, QuestionOption, QuestionExplanation
-    from scripts.seed_data.questions.us_history.period_four_revival import QUESTIONS
+    QUESTIONS = importlib.import_module(f"scripts.seed_data.questions.us_history.{module}").QUESTIONS
     subject = {'name': 'AP US History', 'ap_exam_code': 'us-history', 'display_order': 2}
     seed_subject(db_session, subject)
     expected = {q['prompt']: q for q in QUESTIONS}
