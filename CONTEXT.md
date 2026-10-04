@@ -607,3 +607,11 @@
 - Context checked against https://www.nps.gov/vick/planyourvisit/park-maps-and-brochure.htm and NPS Port Hudson materials. The original summary preserves the July 4 Vicksburg / July 9 Port Hudson sequence; questions analyze strategic geography, chronology, and logistical evidence without treating a single victory as the end of the war.
 - All 316 backend tests pass, including content validation, legacy-topic depth, and whole-bank reseeding. U.S. History has 198 questions across 70 topics; total bank 638 questions across 346 topics.
 - Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md changes excluded. Other campaigns, election/secession, Manifest Destiny, Reconstruction’s failure, later periods, non-text sources, history FRQ/exam workflows, and remaining subjects remain unfinished. Overall goal remains active.
+
+### Expansion milestone 61 — Oregon and routes to expansion
+
+- Previous goal turn classified as progress: Mississippi campaign questions were tested and pushed. Added three original Oregon settlement questions to Manifest Destiny and Continued Expansion, tagged CED 5.2.
+- Context checked against https://history.state.gov/milestones/1830-1860/oregon-territory. The summary specifies the mainland boundary, avoiding an inaccurate claim that every part of the boundary followed the parallel. Questions compare diplomacy and warfare and require evidence before inferring Native representation from a bilateral settlement.
+- All nine stored Period 5 topics now meet basic thresholds of three questions and two difficulty levels. New tests check these thresholds and content validation; all 317 backend tests pass. These structural thresholds do not establish comprehensive coverage of all mapped codes.
+- U.S. History has 201 questions across 70 topics; total bank 641 questions across 346 topics. Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md changes excluded.
+- Election/secession and Reconstruction’s failure still lack dedicated tagged source sets. Other perspectives, later periods, non-text sources, history FRQ/exam workflows, and remaining subjects are unfinished. Overall goal remains active.

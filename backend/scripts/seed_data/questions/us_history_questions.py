@@ -757,3 +757,5 @@ from .us_history.period_five_comparison import QUESTIONS as PERIOD_FIVE_COMPARIS
 QUESTIONS += PERIOD_FIVE_COMPARISON
 from .us_history.period_five_vicksburg import QUESTIONS as PERIOD_FIVE_VICKSBURG
 QUESTIONS += PERIOD_FIVE_VICKSBURG
+from .us_history.period_five_oregon import QUESTIONS as PERIOD_FIVE_OREGON
+QUESTIONS += PERIOD_FIVE_OREGON
