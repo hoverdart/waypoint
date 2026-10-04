@@ -612,3 +612,5 @@ UNITS[6]['topics'].append({
     'description': 'Analyze conflicts over national identity, immigration, religion, race, and social change in the 1920s.',
     'skill_tags': ['contextualization', 'argumentation', 'ced:7.8'], 'display_order': 6,
 })
+
+UNITS[7]['topics'][0]['skill_tags'] += ['ced:8.2']
