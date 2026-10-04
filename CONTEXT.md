@@ -355,3 +355,10 @@
 - Verified the public-domain excerpt against https://www.archives.gov/milestone-documents/monroe-doctrine. The prompt marks its omission explicitly; questions distinguish public policy, contemporary context, sourcing, and capacity to enforce a policy.
 - U.S. History now has 101 questions across 55 topics; normal seed totals are 541 questions across 331 topics. Period 4 mapping, broader evidence formats, later periods, and history FRQ workflows remain outstanding. Overall goal remains active.
 - Affected areas: backend content/curriculum/tests and docs. All 269 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.
+
+### Expansion milestone 26 — Independent history source-set identities
+
+- Previous goal turn classified as progress: Period 4 diplomacy questions were tested and pushed. Fixed a content-builder limitation: a second source set for the same curriculum code previously reused stimulus and item identifiers. Added optional validated `set_id` slugs while preserving identifiers when omitted for all existing content.
+- Added tests for deterministic distinct identifiers under a shared curriculum code, backward compatibility, invalid identifiers, and a bank-wide audit of item uniqueness and stimulus-group consistency. Foundation questions without source-set metadata remain explicitly outside that metadata audit.
+- Affected areas: backend content builder and tests. All 280 backend tests pass; changed-file whitespace check passes. No question-count changes (101 U.S. History / 541 total), frontend changes, or migrations.
+- This enables repeated topic coverage and independent forms; it does not itself create those forms. Next: deeper Period 4 content and varied stimuli using stable set identifiers. Overall expansion goal remains active.
