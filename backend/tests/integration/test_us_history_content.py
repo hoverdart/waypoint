@@ -47,7 +47,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 240
+    assert len(questions) == 249
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -932,10 +932,10 @@ def test_period_six_context_sets_validate_and_complete_topic_mapping():
             validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
                 **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
     assert {tag for topic in UNITS[5]['topics'] for tag in topic['skill_tags'] if tag.startswith('ced:')} == {f'ced:6.{i}' for i in range(1, 15)}
-    # Mapping is not item coverage: industrial/migration topics remain shallow.
+    # Every mapped code now has tagged items, without implying comprehensive depth.
     period = [q for q in ALL if q['unit_name'] == UNITS[5]['name']]
     tagged = {tag for q in period for tag in q['skill_tags'] if tag.startswith('ced:')}
-    assert {'ced:6.5', 'ced:6.6', 'ced:6.8'}.isdisjoint(tagged)
+    assert tagged == {f'ced:6.{i}' for i in range(1, 15)}
 
 
 def test_western_sets_cover_economic_and_social_codes_without_replacing_legacy_items():
@@ -957,3 +957,23 @@ def test_western_sets_cover_economic_and_social_codes_without_replacing_legacy_i
     assert topic['questions'] == 7
     assert topic['question_curriculum_counts'] == {'6.2': 3, '6.3': 3}
     assert topic['questions_without_curriculum_codes'] == 1
+
+
+def test_industry_and_migration_sets_validate_with_period_six_minimum_depth():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.content_audit import audit_bank
+    from scripts.seed_data.questions.us_history.period_six_industry_and_migration import QUESTIONS
+    from scripts.seed_data.questions.us_history_questions import QUESTIONS as ALL
+    assert len(QUESTIONS) == 9
+    for code in ['6.5', '6.6', '6.8']:
+        rows = [q for q in QUESTIONS if f'ced:{code}' in q['skill_tags']]
+        assert len(rows) == 3
+        assert {q['difficulty'] for q in rows} == {2, 3, 4}
+        for q in rows:
+            validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+                **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+    topics = [t for t in audit_bank(UNITS, ALL)['topic_details'] if t['unit'] == UNITS[5]['name']]
+    assert len(topics) == 12
+    assert all(t['questions'] >= 3 and len(t['difficulty_levels']) >= 2 for t in topics)
+    assert all(not t['curriculum_codes_without_tagged_questions'] for t in topics)

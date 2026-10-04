@@ -1,6 +1,6 @@
 # U.S. History expansion
 
-Status: in progress. The live bank currently contains 240 questions, including 203 new source-based items;
+Status: in progress. The live bank currently contains 249 questions, including 212 new source-based items;
 it is not a comprehensive AP U.S. History preparation bank.
 
 ## Verified format for May 2027

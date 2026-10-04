@@ -774,3 +774,5 @@ from .us_history.period_six_context_and_change import QUESTIONS as PERIOD_SIX_CO
 QUESTIONS += PERIOD_SIX_CONTEXT_AND_CHANGE
 from .us_history.period_six_west import QUESTIONS as PERIOD_SIX_WEST
 QUESTIONS += PERIOD_SIX_WEST
+from .us_history.period_six_industry_and_migration import QUESTIONS as PERIOD_SIX_INDUSTRY_AND_MIGRATION
+QUESTIONS += PERIOD_SIX_INDUSTRY_AND_MIGRATION
