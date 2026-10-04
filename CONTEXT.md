@@ -541,3 +541,10 @@
 - Text and context checked against https://www.archives.gov/milestone-documents/emancipation-proclamation. Items distinguish wartime authority, geographic scope, Black military service, and local implementation. The set avoids treating the proclamation as immediate nationwide abolition or an automatic end to military discrimination.
 - All 306 backend tests pass, including curriculum mapping, new-question validation, and whole-bank idempotent reseeding. U.S. History has 177 questions across 67 topics; overall bank has 617 questions across 343 topics.
 - Affected areas: backend content/curriculum/tests and docs. Frontend unchanged; user AGENTS.md edits excluded. Wartime economic policy and civil-liberties debates still need coverage, alongside missing Period 5 areas, later periods, non-text stimuli, history FRQ/exam workflows, and other courses. Overall goal remains active.
+
+### Expansion milestone 52 — Reconstruction citizenship
+
+- Previous goal turn classified as progress: emancipation and wartime authority questions were tested and pushed. Added three original Fourteenth Amendment questions to the existing Reconstruction topic (CED 5.10), increasing that topic from one to four questions.
+- Public-domain constitutional wording checked against https://www.archives.gov/founding-docs/amendments-11-27. The excerpt retains the jurisdiction qualification; questions address formerly enslaved people’s status, constitutional constraints on states, and evidence of implementation rather than assuming guarantees immediately ended discrimination.
+- All 307 backend tests pass, including new-item validation, topic-depth assertions, and whole-bank reseeding. U.S. History has 180 questions across 67 topics; overall bank has 620 questions across 343 topics.
+- Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md edits excluded. Reconstruction’s political, economic, and violent conflicts need additional coverage. Missing Period 5 areas, later periods, source diversity, history FRQ/exam support, and other courses remain outstanding. Overall goal remains active.
