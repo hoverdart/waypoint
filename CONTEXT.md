@@ -439,3 +439,10 @@
 - Reference checked: https://history.state.gov/milestones/1801-1829/louisiana-purchase. The original instructional summary and questions connect Mississippi commerce, French imperial setbacks, and Jefferson’s constitutional concerns. Questions are tagged CED 4.2; the broad legacy topic still needs a complete multi-code mapping.
 - U.S. History now has 137 questions across 60 topics; normal seed totals are 577 questions across 336 topics. Audit confirms topics below three questions and lacking difficulty variety both decreased from 37 to 36. Remaining coverage and exam/FRQ work are extensive; overall goal remains active.
 - Affected areas: backend content/tests and docs. All 292 backend tests pass. Frontend unchanged; no copyrighted AP questions imported.
+
+### Expansion milestone 38 — Regional interests and Missouri
+
+- Previous goal turn classified as progress: Louisiana Purchase questions were tested and pushed. Added four original Missouri Compromise questions and Politics and Regional Interests (CED 4.3).
+- Verified the settlement’s scope against https://www.archives.gov/milestone-documents/missouri-compromise. The original summary avoids claiming simultaneous admission dates and identifies the Missouri exception to the territorial restriction. Questions analyze Senate balance, expansion, and the limits of sectional compromise.
+- U.S. History now has 141 questions across 61 topics; normal seed totals are 581 questions across 337 topics. Further Period 4 mapping/depth, non-text evidence, later periods, and representative FRQ/exam workflows remain outstanding. Overall goal remains active.
+- Affected areas: backend content/curriculum/tests and docs. All 293 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.

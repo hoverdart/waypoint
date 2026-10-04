@@ -463,3 +463,9 @@ UNITS[3]['topics'].append({
     'description': 'Situate nineteenth-century political and social change within the institutions and conflicts inherited from the founding era.',
     'skill_tags': ['contextualization', 'argumentation', 'ced:4.1'], 'display_order': 10,
 })
+
+UNITS[3]['topics'].append({
+    'name': 'Politics and Regional Interests',
+    'description': 'Explain sectional interests, economic policy disputes, and compromises over slavery and representation.',
+    'skill_tags': ['causation', 'argumentation', 'ced:4.3'], 'display_order': 11,
+})
