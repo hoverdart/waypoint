@@ -84,3 +84,23 @@ transportation, and workplace evidence still need additional sets.
 Four Sarah Bagley source questions begin Market Revolution: Society and Culture
 (4.6), examining workers’ dignity, corporate discipline, and women’s wage work.
 Migration, class formation, and broader social changes still need additional sets.
+
+## MCQ form inventory audit (2026-10-04)
+
+The content audit now includes `mcq_form_inventory` for U.S. History. It checks
+four independent 55-question forms against the configured period weight ranges,
+rounding minimum counts up and maximum counts down. Only approved MCQs with
+unique trimmed prompts and recognized periods count; ambiguous duplicate prompts
+are excluded. This is a necessary inventory check, not a form assembler.
+
+Current shortages against the four-form period minima are Period 2: **1**,
+Period 8: **21**, and Period 9: **8**. Although the whole history bank has 285
+questions, period caps leave only 214 usable MCQs toward the 220-question target.
+The six-question aggregate shortfall must not obscure the larger per-period
+shortages: adding six questions alone would not meet the period minima.
+
+Next inventory priorities are substantive Period 8 and 9 expansion and the
+Period 2 minimum, alongside the remaining Period 7 topic gaps. Even passing this
+check will not establish stimulus-group integrity, skill balance, source variety,
+difficulty calibration, factual review, or FRQ readiness. Those remain separate
+gates before publishing representative exam forms.

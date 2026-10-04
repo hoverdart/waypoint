@@ -69,6 +69,9 @@ def report():
             units = importlib.import_module(f'scripts.seed_data.{unit_module}').UNITS
             questions = importlib.import_module(f'scripts.seed_data.{question_module}').QUESTIONS
             row.update(status='live_expanded_bank' if code == 'english-language' else 'live_bank_requires_depth_review', coverage=audit_bank(units, questions))
+            if code == 'us-history':
+                from scripts.history_readiness import history_mcq_inventory
+                row['mcq_form_inventory'] = history_mcq_inventory(units, questions)
         rows.append(row)
     return rows
 
