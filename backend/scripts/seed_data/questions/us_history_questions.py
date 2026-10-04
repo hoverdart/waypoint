@@ -707,3 +707,5 @@ from .us_history.period_four_reform import QUESTIONS as PERIOD_FOUR_REFORM
 QUESTIONS += PERIOD_FOUR_REFORM
 from .us_history.period_four_removal import QUESTIONS as PERIOD_FOUR_REMOVAL
 QUESTIONS += PERIOD_FOUR_REMOVAL
+from .us_history.period_four_cherokee import QUESTIONS as PERIOD_FOUR_CHEROKEE
+QUESTIONS += PERIOD_FOUR_CHEROKEE

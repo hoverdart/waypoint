@@ -376,3 +376,10 @@
 - Verified Jackson’s December 1830 message at https://www.archives.gov/milestone-documents/jacksons-message-to-congress-on-indian-removal. The short public-domain excerpt remains explicitly attributed; questions critically evaluate its justification, plantation expansion, and omitted consequences for Native people. Complementary Native-authored sources remain needed.
 - U.S. History now has 109 questions across 57 topics; normal seed totals are 549 questions across 333 topics. Period 4 mapping/depth, varied evidence, later periods, and history FRQ support remain outstanding. Overall goal remains active.
 - Affected areas: backend content/curriculum/tests and docs. All 282 backend tests pass, including bank-wide source identity checks. Changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.
+
+### Expansion milestone 29 — Cherokee opposition and consent
+
+- Previous goal turn classified as progress: removal-policy questions were tested and pushed. Added four original questions using the 1836 Cherokee petition opposing the Treaty of New Echota, complementing the presidential source within CED 4.8.
+- Verified the public-domain transcription and provenance at https://docsteach.org/document/cherokee-petition-protest-new-echota-treaty/ (National Archives Identifier 2127291). Questions examine representative authority, the Senate audience, comparison with Jackson’s justification, and limits on generalizing a petition to an entire nation.
+- U.S. History now has 113 questions across 57 topics; normal seed totals are 553 questions across 333 topics. Remaining work includes broader Period 4 mapping/depth, non-text evidence, later periods, and history FRQ workflows. Overall goal remains active.
+- Affected areas: backend content/tests and docs. All 283 backend tests pass, including distinct identifiers for two sources under the same curriculum code and bank-wide metadata consistency. Changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.
