@@ -44,20 +44,19 @@ checks must never claim to provide it.
 ## Current English Language work
 
 - Nine-unit progression with 22 framework skill codes and 49 unit/skill topics.
-- Three independent 45-question MCQ forms: each has three reading sets (24 questions)
-  and two revision sets (21 questions), for 135 questions across fifteen original passages,
+- Four independent 45-question MCQ forms: each has three reading sets (24 questions)
+  and two revision sets (21 questions), for 180 questions across twenty original passages,
   levels 2–4, and individual rationales.
-- Form D's reading section adds 24 questions across three new passages: a theater
-  memoir, a seed-saving reflection, and civic testimony. Current candidate totals
-  are 159 MCQ, nine essays, and 18 independent MCQ stimuli. Its writing and essay
-  sections are unfinished, so Form D is not yet available as a timed rehearsal.
+- Form D combines a theater memoir, a seed-saving reflection, civic testimony,
+  and music-rehearsal and trail-description revision drafts. Its essay section
+  is unfinished, so Form D is not yet available as a timed rehearsal.
 - Nine essays across three sets: synthesis (six sources per task, including data and a
   visual stimulus), rhetorical analysis, and argument; models and six-point rubric
-  reflection. All three MCQ forms meet the published skill-category percentage ranges.
+  reflection. All four MCQ forms meet the published skill-category percentage ranges.
   Form C adds a public opening address, a nature essay, a fictional historical civic
   letter, and tool-lending and neighborhood heat-mapping revision drafts. All 49
-  unit/skill topics now have questions, but 11 still have fewer than three and eight
-  lack difficulty variety. Labels are author estimates, not calibrated difficulty.
+  unit/skill topics now have questions; one still has fewer than three. Every topic
+  has difficulty variety. Labels are author estimates, not calibrated difficulty.
 - Durable, owned rubric review implemented in backend and frontend. Mixed-session
   accuracy excludes self-review responses. Anonymous, foreign, unfinished, and invalid
   review requests are rejected. Pre-submission guidance identifies the scoring method;

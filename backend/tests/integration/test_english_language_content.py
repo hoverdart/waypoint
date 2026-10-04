@@ -78,7 +78,7 @@ def test_candidate_course_seeds_idempotently_and_supports_essay_review(client, d
     seed_subject(db_session, subject_data)
     assert {q.id for q in db_session.exec(select(Question)).all()} == ids
     assert {q.id for q in db_session.exec(select(QuestionOption)).all()} == option_ids
-    assert len(ids) == 168
+    assert len(ids) == 189
     subject = db_session.exec(select(Subject).where(Subject.ap_exam_code == 'english-language')).one()
     user = make_user(db_session)
     headers = auth_header(user.auth_provider_id)
@@ -128,11 +128,11 @@ def test_second_essay_set_is_distinct_and_uses_valid_six_point_rubrics():
 
 
 def test_mock_form_skill_category_weights_match_the_published_ranges():
-    from scripts.seed_data.questions.english_language import form_a_reading, form_a_writing, form_b_reading, form_b_writing, form_c_reading, form_c_writing
+    from scripts.seed_data.questions.english_language import form_a_reading, form_a_writing, form_b_reading, form_b_writing, form_c_reading, form_c_writing, form_d_reading, form_d_writing
     # Official MCQ category ranges, not fabricated weights for spiraling units.
     ranges = {'1': (11, 14), '2': (11, 14), '3': (13, 16), '4': (11, 14),
               '5': (13, 16), '6': (11, 14), '7': (11, 14), '8': (11, 14)}
-    for reading, writing in ((form_a_reading, form_a_writing), (form_b_reading, form_b_writing), (form_c_reading, form_c_writing)):
+    for reading, writing in ((form_a_reading, form_a_writing), (form_b_reading, form_b_writing), (form_c_reading, form_c_writing), (form_d_reading, form_d_writing)):
         questions = reading.QUESTIONS + writing.QUESTIONS
         counts = Counter(tag[len('ap-skill:')] for q in questions for tag in q['skill_tags'] if tag.startswith('ap-skill:'))
         assert len(questions) == 45
@@ -231,3 +231,30 @@ def test_fourth_reading_set_targets_depth_without_reusing_stimuli():
     before, after = audit_bank(UNITS, existing), audit_bank(UNITS, QUESTIONS)
     assert after['topics_below_three_questions'] < before['topics_below_three_questions']
     assert after['topics_without_difficulty_variety'] < before['topics_without_difficulty_variety']
+
+
+def test_fourth_writing_set_completes_independent_mcq_forms_and_composition_depth():
+    from scripts.seed_data.questions.english_language.form_d_writing import QUESTIONS as added
+    from scripts.seed_data.questions.english_language_questions import QUESTIONS
+    from scripts.content_audit import audit_bank
+    existing = [q for q in QUESTIONS if q not in added]
+    assert len(added) == 21
+    groups = Counter(next(t for t in q['skill_tags'] if t.startswith('stimulus:')) for q in added)
+    assert sorted(groups.values()) == [10, 11]
+    assert not set(groups) & {t for q in existing for t in q['skill_tags'] if t.startswith('stimulus:')}
+    assert len({q['prompt'] for q in QUESTIONS}) == len(QUESTIONS)
+    topics = {(u['name'], t['name']) for u in UNITS for t in u['topics']}
+    for q in added:
+        assert (q['unit_name'], q['topic_name']) in topics
+        assert len(q['prompt'].split()) > 300
+        assert len({e['explanation'] for e in q['explanations']}) == 4
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+    coverage = audit_bank(UNITS, QUESTIONS)
+    assert coverage['mcq'] == 180 and coverage['independent_stimuli'] == 20
+    assert coverage['topics_without_difficulty_variety'] == 0
+    assert coverage['topics_below_three_questions'] == 1
+    for unit in UNITS:
+        for topic in unit['topics']:
+            if topic['name'][0] in '2468':
+                assert sum(q['unit_name'] == unit['name'] and q['topic_name'] == topic['name'] for q in QUESTIONS) >= 3
