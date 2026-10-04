@@ -555,3 +555,11 @@
 - Replaced nine wrong options and their rationales across three questions. Alternatives now distinguish citizenship from land redistribution, officeholding restrictions and war debt; distinguish national constitutional limits from state discretion; and compare implementation records with evidence of adoption or public reception. Rechecked amendment sections against https://www.archives.gov/founding-docs/amendments-11-27.
 - Prompts, keys, and item identifiers remain unchanged. Extended the existing reseeding regression to cover this set as well as revival questions, checking stable question/option IDs and matching rationales. All 308 backend tests pass; changed-file whitespace checks pass.
 - Counts unchanged at 180 U.S. History questions / 620 overall. Affected areas: backend content/tests and context. Frontend unchanged; user AGENTS.md changes excluded. This focused review does not establish bank-wide editorial quality or calibrated difficulty; further content and exam work remains extensive. Overall goal remains active.
+
+### Expansion milestone 54 — Question-level curriculum audit
+
+- Previous goal turn classified as progress: Reconstruction distractors were improved, tested, and pushed. Enhanced the existing coverage audit to separate topic scope from explicitly tagged question coverage.
+- Each topic now reports question counts by curriculum code (deduplicated per item), mapped codes with no tagged questions, question codes outside its mapping, and questions without curriculum tags. Missing tags are reported as metadata gaps, not assumed absence of substantive coverage.
+- Fixture tests exercise broad mappings, duplicate tags, missing tags, and out-of-mapping codes. A live Reconstruction check confirms three questions tagged 5.10, no explicitly tagged 5.11 questions, and one untagged legacy item. The current history bank has no question codes outside their topic mappings.
+- All 310 backend tests pass. Counts unchanged: 180 U.S. History questions / 620 overall. Affected areas: backend audit tooling/tests and context; frontend unchanged. User AGENTS.md edits excluded.
+- This exposes incomplete coverage hidden by broad topic mappings and will guide further Period 5 additions and legacy-item review. Overall goal remains active, with extensive source diversity, later-period, exam/FRQ, and remaining-course work outstanding.

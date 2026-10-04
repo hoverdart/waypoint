@@ -22,9 +22,19 @@ def audit_bank(units, questions):
         for topic in sorted(unit['topics'], key=lambda t: t.get('display_order', 0)):
             key = (unit['name'], topic['name'])
             entries = [q for q in questions if (q['unit_name'], q['topic_name']) == key]
+            curriculum_codes = {tag.removeprefix('ced:') for tag in topic.get('skill_tags', []) if tag.startswith('ced:')}
+            question_codes = Counter(code for q in entries for code in {
+                tag.removeprefix('ced:') for tag in q.get('skill_tags', []) if tag.startswith('ced:')
+            })
             topic_details.append({
                 'unit': key[0], 'topic': key[1],
-                'curriculum_codes': sorted(t.removeprefix('ced:') for t in topic.get('skill_tags', []) if t.startswith('ced:')),
+                'curriculum_codes': sorted(curriculum_codes),
+                'question_curriculum_counts': dict(sorted(question_codes.items())),
+                'curriculum_codes_without_tagged_questions': sorted(curriculum_codes - question_codes.keys()),
+                'question_codes_outside_topic_mapping': sorted(question_codes.keys() - curriculum_codes),
+                'questions_without_curriculum_codes': sum(
+                    not any(tag.startswith('ced:') for tag in q.get('skill_tags', [])) for q in entries
+                ),
                 'questions': len(entries),
                 'difficulty_levels': sorted(by_topic_difficulty[key]),
                 'stimulus_groups': len({t for q in entries for t in q.get('skill_tags', []) if t.startswith('stimulus:')}),
