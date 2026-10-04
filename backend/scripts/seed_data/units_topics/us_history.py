@@ -600,3 +600,9 @@ UNITS[6]['topics'][0]['skill_tags'] += ['ced:7.4']
 UNITS[6]['topics'][1]['skill_tags'] += ['ced:7.2', 'ced:7.3', 'ced:7.5', 'ced:7.6']
 UNITS[6]['topics'][2]['skill_tags'] += ['ced:7.9', 'ced:7.10']
 UNITS[6]['topics'][3]['skill_tags'] += ['ced:7.12', 'ced:7.13', 'ced:7.14']
+
+UNITS[6]['topics'].append({
+    'name': 'Interwar Foreign Policy',
+    'description': 'Examine diplomatic engagement, security commitments, and limits of peacekeeping between the world wars.',
+    'skill_tags': ['causation', 'comparison', 'ced:7.11'], 'display_order': 5,
+})
