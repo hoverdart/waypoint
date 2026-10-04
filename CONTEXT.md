@@ -1054,3 +1054,11 @@
 - Backend content/curriculum/tests and delivery/history documentation changed; frontend unchanged. Full backend suite passed all 401 tests; final topic-metadata verification recorded below. New tests check valid content, mapping, and distinct source-group identities. User AGENTS.md edits excluded.
 - Native activism remains incomplete beyond this case; Chicano and gay-rights movements, other history coverage gaps, non-text sources, writing/exam workflows, other AP subjects and deeper learning progression remain unfinished. Goal remains active.
 - Final verification: all 88 focused seed/history content tests passed after topic skill metadata was updated; scoped whitespace checks passed.
+
+### Expansion milestone 116 — Farmworker organizing and coalition evidence
+
+- Previous goal turn classified as progress: Native activism content was tested and pushed as e6f7d14. Added three original Delano grape-strike questions within the expanding-rights topic, bringing 8.11 to nine questions across three distinct cases.
+- Verified the historical case through National Park Service accounts. The stimulus identifies predominantly Filipino AWOC workers initiating the 1965 strike and NFWA members joining. Questions distinguish strike/boycott mechanisms, explain coalition leverage, and assess evidence against a single-community narrative. The campaign is not described as an immediate universal settlement.
+- History now has 344 questions across 85 topics; overall bank 784 across 361 topics. Period 8 has 43 approved unique MCQs; capped history inventory remains 256. Backend content/tests and delivery/history documentation changed; frontend unchanged.
+- Verification: all 402 backend tests passed, including new content validation and distinct item IDs, whole-bank reseeding and history draft assembly checks. Scoped whitespace checks passed. User AGENTS.md edits excluded.
+- This labor case does not complete Chicano movement coverage; school walkouts, electoral activism and other experiences still need coverage. Other rights movements, remaining history gaps, non-text evidence, writing/exam workflows, other AP courses and deeper learning progression remain unfinished. Goal remains active.

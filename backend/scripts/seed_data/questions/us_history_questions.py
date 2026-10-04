@@ -851,3 +851,6 @@ QUESTIONS += PERIOD_EIGHT_TITLE_IX
 
 from .us_history.period_eight_alcatraz import QUESTIONS as PERIOD_EIGHT_ALCATRAZ
 QUESTIONS += PERIOD_EIGHT_ALCATRAZ
+
+from .us_history.period_eight_delano import QUESTIONS as PERIOD_EIGHT_DELANO
+QUESTIONS += PERIOD_EIGHT_DELANO
