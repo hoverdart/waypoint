@@ -1,6 +1,6 @@
 # U.S. History expansion
 
-Status: in progress. The live bank currently contains 97 questions, including 60 new source-based items;
+Status: in progress. The live bank currently contains 101 questions, including 64 new source-based items;
 it is not a comprehensive AP U.S. History preparation bank.
 
 ## Verified format for May 2027
@@ -64,3 +64,7 @@ Period 3 now follows the framework sequence and maps all 13 topic codes. Its 15
 stored topics include two retained foundation topics that overlap expanded areas;
 these preserve existing question assignments and learner records. This mapping
 is not a claim of comprehensive content depth or representative exam coverage.
+
+Period 4 expansion has begun with four Monroe Doctrine source questions and the
+America on the World Stage topic (4.4). Other Period 4 framework areas still need
+mapping and expansion; this first set does not cover the full diplomacy topic.

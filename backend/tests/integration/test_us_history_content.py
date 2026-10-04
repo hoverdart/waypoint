@@ -43,7 +43,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 97
+    assert len(questions) == 101
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -231,3 +231,20 @@ def test_period_three_sequence_maps_all_codes_and_reseeds_without_replacing_topi
     assert {t.name: t.id for t in restored} == ids
     assert all(any(tag.startswith('ced:') for tag in t.skill_tags) for t in restored)
     assert {q.id: q.topic_id for q in db_session.exec(select(Question)).all()} == question_topics
+
+
+def test_period_four_diplomacy_validates_and_identifies_excerpt_omission():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.seed_data.questions.us_history.period_four_diplomacy import QUESTIONS
+    assert len(QUESTIONS) == 4
+    assert {q['correct_answer'] for q in QUESTIONS} == set('ABCD')
+    assert {q['difficulty'] for q in QUESTIONS} == {2, 3, 4}
+    for q in QUESTIONS:
+        assert q['unit_name'] == UNITS[3]['name']
+        assert q['topic_name'] in {t['name'] for t in UNITS[3]['topics']}
+        assert 'ced:4.4' in q['skill_tags']
+        assert 'Ellipsis indicates omitted words.' in q['prompt']
+        assert 'Source reference: https://www.archives.gov/' in q['prompt']
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))

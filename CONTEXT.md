@@ -348,3 +348,10 @@
 - Reordered topics without changing their names or seed identities. Retained the two overlapping foundation topics alongside related expanded topics; the combined Articles/Constitution topic has explicit 3.7–3.9 mappings. Existing questions retain their topic assignments.
 - New integration regression simulates stale ordering and missing tags, then verifies reseeding repairs metadata while preserving every topic ID and question-to-topic association. All 268 backend tests pass; changed-file whitespace check passes.
 - Affected areas: backend curriculum/tests and documentation. Counts remain 97 U.S. History questions and 537 total. Topic-code mapping does not establish content depth; later-period expansion, diverse evidence, and history FRQ workflows remain outstanding. Overall goal remains active.
+
+### Expansion milestone 25 — Period 4 diplomacy
+
+- Previous goal turn classified as progress: Period 3 sequencing and stable-identity regression were tested and pushed. Began Period 4 with four original Monroe Doctrine questions and America on the World Stage (CED 4.4).
+- Verified the public-domain excerpt against https://www.archives.gov/milestone-documents/monroe-doctrine. The prompt marks its omission explicitly; questions distinguish public policy, contemporary context, sourcing, and capacity to enforce a policy.
+- U.S. History now has 101 questions across 55 topics; normal seed totals are 541 questions across 331 topics. Period 4 mapping, broader evidence formats, later periods, and history FRQ workflows remain outstanding. Overall goal remains active.
+- Affected areas: backend content/curriculum/tests and docs. All 269 backend tests pass; changed-file whitespace check passes. Frontend unchanged; no copyrighted AP questions imported.

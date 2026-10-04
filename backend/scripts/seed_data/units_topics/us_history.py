@@ -427,3 +427,9 @@ for _order, (_name, _codes) in enumerate(_period_three_sequence, start=1):
         *_topic['skill_tags'], *(f'ced:{code}' for code in _codes),
     ]))
     UNITS[2]['topics'].append(_topic)
+
+UNITS[3]['topics'].append({
+    'name': 'America on the World Stage',
+    'description': 'Analyze diplomatic ambitions, European competition, and the limits of American power in the early nineteenth century.',
+    'skill_tags': ['contextualization', 'sourcing', 'ced:4.4'], 'display_order': 5,
+})

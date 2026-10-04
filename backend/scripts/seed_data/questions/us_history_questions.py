@@ -701,3 +701,5 @@ from .us_history.period_three_continuity import QUESTIONS as PERIOD_THREE_CONTIN
 QUESTIONS += PERIOD_THREE_CONTINUITY
 from .us_history.period_three_war import QUESTIONS as PERIOD_THREE_WAR
 QUESTIONS += PERIOD_THREE_WAR
+from .us_history.period_four_diplomacy import QUESTIONS as PERIOD_FOUR_DIPLOMACY
+QUESTIONS += PERIOD_FOUR_DIPLOMACY
