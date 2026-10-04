@@ -570,3 +570,11 @@
 - Context checked against https://www.archives.gov/milestone-documents/compromise-of-1850. The original summary and questions distinguish ending the District’s slave trade from abolishing slavery, examine enforcement conflict in free states, and explain how immediate legislative agreement could coexist with unresolved sectional disagreement.
 - All 311 backend tests pass, including new-content validation, existing-topic depth, and whole-bank reseeding. U.S. History now has 183 questions across 67 topics; total bank 623 questions across 343 topics.
 - Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md edits excluded. Broader CED 5.6 failure-of-compromise events still require explicit coverage, alongside missing Period 5 areas, later periods, source diversity, history FRQ/exam workflows, and remaining subjects. Overall goal remains active.
+
+### Expansion milestone 56 — Kansas-Nebraska and failed compromise
+
+- Previous goal turn classified as progress: Compromise of 1850 questions were tested and pushed. Added three original Kansas-Nebraska questions, explicitly tagged CED 5.6, in the existing broad sectional-conflict topic.
+- Context checked against https://www.senate.gov/artandhistory/history/minute/Kansas_Nebraska_Act.htm. Items distinguish geographic restriction from popular sovereignty, examine competition for territorial political control, and evaluate evidence for partisan realignment.
+- The topic now has seven questions: three explicitly tagged 5.4, three tagged 5.6, and one legacy item without a curriculum tag. New tests verify this distinction through the audit rather than inferring coverage from topic scope.
+- All 312 backend tests pass. U.S. History has 186 questions across 67 topics; overall bank has 626 questions across 343 topics. Affected areas: backend content/tests and docs. Frontend unchanged; user AGENTS.md edits excluded.
+- Other failure-of-compromise events and perspectives remain to be covered. Missing Period 5 areas, later periods, non-text sources, history FRQ/exam support, and remaining courses are still outstanding; overall goal remains active.

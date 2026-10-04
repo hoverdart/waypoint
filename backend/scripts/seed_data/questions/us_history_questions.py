@@ -747,3 +747,5 @@ from .us_history.period_five_citizenship import QUESTIONS as PERIOD_FIVE_CITIZEN
 QUESTIONS += PERIOD_FIVE_CITIZENSHIP
 from .us_history.period_five_compromise import QUESTIONS as PERIOD_FIVE_COMPROMISE
 QUESTIONS += PERIOD_FIVE_COMPROMISE
+from .us_history.period_five_kansas import QUESTIONS as PERIOD_FIVE_KANSAS
+QUESTIONS += PERIOD_FIVE_KANSAS

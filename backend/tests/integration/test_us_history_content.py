@@ -47,7 +47,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 183
+    assert len(questions) == 186
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -682,10 +682,27 @@ def test_compromise_set_validates_and_deepens_existing_topic():
     from scripts.seed_data.questions.us_history_questions import QUESTIONS as ALL
     topic = 'The Compromise of 1850 and Escalating Sectional Conflict'
     assert len(QUESTIONS) == 3
-    assert len([q for q in ALL if q['topic_name'] == topic]) == 4
+    assert len([q for q in ALL if q['topic_name'] == topic]) == 7
     assert {q['difficulty'] for q in QUESTIONS} == {2, 3, 4}
     for q in QUESTIONS:
         assert q['topic_name'] == topic
         assert 'ced:5.4' in q['skill_tags']
         validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
             **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+
+
+def test_kansas_set_validates_and_adds_failure_of_compromise_coverage():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.content_audit import audit_bank
+    from scripts.seed_data.questions.us_history.period_five_kansas import QUESTIONS
+    from scripts.seed_data.questions.us_history_questions import QUESTIONS as ALL
+    assert len(QUESTIONS) == 3
+    assert {q['difficulty'] for q in QUESTIONS} == {2, 3, 4}
+    for q in QUESTIONS:
+        assert 'ced:5.6' in q['skill_tags']
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
+    topic = next(t for t in audit_bank(UNITS, ALL)['topic_details'] if t['topic'] == QUESTIONS[0]['topic_name'])
+    assert topic['question_curriculum_counts'] == {'5.4': 3, '5.6': 3}
+    assert not topic['curriculum_codes_without_tagged_questions']
