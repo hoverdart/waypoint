@@ -729,3 +729,5 @@ from .us_history.period_four_culture import QUESTIONS as PERIOD_FOUR_CULTURE
 QUESTIONS += PERIOD_FOUR_CULTURE
 from .us_history.period_four_democracy import QUESTIONS as PERIOD_FOUR_DEMOCRACY
 QUESTIONS += PERIOD_FOUR_DEMOCRACY
+from .us_history.period_four_black_institutions import QUESTIONS as PERIOD_FOUR_BLACK_INSTITUTIONS
+QUESTIONS += PERIOD_FOUR_BLACK_INSTITUTIONS

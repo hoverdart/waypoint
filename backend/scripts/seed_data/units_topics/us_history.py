@@ -481,3 +481,9 @@ UNITS[3]['topics'].append({
     'description': 'Analyze changes in voting qualifications and the racial, gender, and economic limits of political participation.',
     'skill_tags': ['contextualization', 'argumentation', 'ced:4.7'], 'display_order': 13,
 })
+
+UNITS[3]['topics'].append({
+    'name': 'African Americans in the Early Republic',
+    'description': 'Examine free and enslaved Black experiences, institution building, community autonomy, and resistance to racial oppression.',
+    'skill_tags': ['comparison', 'argumentation', 'ced:4.12'], 'display_order': 14,
+})
