@@ -47,7 +47,7 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 207
+    assert len(questions) == 213
 
 
 def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
@@ -846,3 +846,26 @@ def test_period_six_legacy_mapping_restores_tags_without_replacing_topics(db_ses
     for topic in topics:
         assert {tag for tag in topic.skill_tags if tag.startswith('ced:')} == expected[topic.name]
         assert any(not tag.startswith('ced:') for tag in topic.skill_tags)
+
+
+def test_period_six_south_and_exclusion_items_map_and_validate():
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.content_audit import audit_bank
+    from scripts.seed_data.questions.us_history.period_six_south_and_exclusion import QUESTIONS
+    from scripts.seed_data.questions.us_history_questions import QUESTIONS as ALL
+    assert len(QUESTIONS) == 6
+    expected = {'The New South': '6.4', 'Responses to Immigration': '6.9'}
+    report = audit_bank(UNITS, ALL)
+    for name, code in expected.items():
+        rows = [q for q in QUESTIONS if q['topic_name'] == name]
+        assert len(rows) == 3
+        assert {q['difficulty'] for q in rows} == {2, 3, 4}
+        topic = next(t for t in report['topic_details'] if t['topic'] == name)
+        assert topic['question_curriculum_counts'] == {code: 3}
+        assert not topic['curriculum_codes_without_tagged_questions']
+        for q in rows:
+            assert q['unit_name'] == 'Period 6: 1865-1898'
+            assert f'ced:{code}' in q['skill_tags']
+            validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+                **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))

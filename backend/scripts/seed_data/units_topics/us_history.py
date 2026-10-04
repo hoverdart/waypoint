@@ -558,3 +558,12 @@ for _topic in UNITS[5]['topics']:
     for _code in _period_six_legacy_codes.get(_topic['name'], []):
         if f'ced:{_code}' not in _topic['skill_tags']:
             _topic['skill_tags'].append(f'ced:{_code}')
+
+UNITS[5]['topics'].extend([
+    {'name': 'The New South',
+     'description': 'Examine postwar economic change alongside unequal landownership, agricultural dependency, and racial coercion.',
+     'skill_tags': ['comparison', 'causation', 'ced:6.4'], 'display_order': 5},
+    {'name': 'Responses to Immigration',
+     'description': 'Analyze exclusion, nativism, and the relationship between federal law and immigrant experiences.',
+     'skill_tags': ['contextualization', 'sourcing', 'ced:6.9'], 'display_order': 6},
+])
