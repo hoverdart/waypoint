@@ -649,5 +649,5 @@ UNITS[7]['topics'].append({
 UNITS[7]['topics'].append({
     'name': 'The Civil Rights Movement Expands',
     'description': 'Examine expanding movements for equality and the relationship between activism, law, institutions, and lived experience.',
-    'skill_tags': ['contextualization', 'comparison', 'claims-evidence', 'ced:8.11'], 'display_order': 9,
+    'skill_tags': ['contextualization', 'comparison', 'claims-evidence', 'causation', 'argumentation', 'ced:8.11'], 'display_order': 9,
 })

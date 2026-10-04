@@ -1045,3 +1045,12 @@
 - History now has 338 questions across 85 topics; overall bank 778 across 361 topics. Period 8 has 37 approved unique MCQs; direct recomputation gives capped history inventory of 256. Existing topic identities preserved.
 - Backend curriculum/content/tests and delivery/history documentation changed; frontend unchanged. Verification: all 400 backend tests passed, including new topic mapping and content validation, whole-bank reseeding and exam assembly gates. Scoped whitespace checks passed. User AGENTS.md edits excluded.
 - This first set does not complete 8.11. Women's movement strategies, Chicano activism, Native rights and gay-rights organizing need depth, alongside remaining history gaps, visual sources, writing/exam workflows, other AP subjects and learning progression. Goal remains active.
+
+### Expansion milestone 115 — Native activism and Alcatraz
+
+- Previous goal turn classified as progress: expanding-rights/Title IX content was tested and pushed as b2fb1cc. Added three original questions on the 1969–1971 Indians of All Tribes occupation of Alcatraz within topic 8.11.
+- Verified the historical case through National Park Service accounts. Questions distinguish collective land/treaty and cultural-institution claims, explain protest visibility as a mechanism, and separate the immediate end of occupation from wider mobilization. They do not conflate Indians of All Tribes with every Native organization or attribute all subsequent policy change to one protest.
+- History now has 341 questions across 85 topics; overall bank 781 across 361 topics. Period 8 has 40 approved unique MCQs; its period cap prevents these additions from increasing capped inventory beyond 256. Topic 8.11 now has six questions from distinct source groups, with associated reasoning tags expanded.
+- Backend content/curriculum/tests and delivery/history documentation changed; frontend unchanged. Full backend suite passed all 401 tests; final topic-metadata verification recorded below. New tests check valid content, mapping, and distinct source-group identities. User AGENTS.md edits excluded.
+- Native activism remains incomplete beyond this case; Chicano and gay-rights movements, other history coverage gaps, non-text sources, writing/exam workflows, other AP subjects and deeper learning progression remain unfinished. Goal remains active.
+- Final verification: all 88 focused seed/history content tests passed after topic skill metadata was updated; scoped whitespace checks passed.

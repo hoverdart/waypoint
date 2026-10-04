@@ -1,6 +1,6 @@
 # U.S. History expansion
 
-Status: in progress. The live bank currently contains 338 questions, including 301 new source-based items;
+Status: in progress. The live bank currently contains 341 questions, including 304 new source-based items;
 it is not a comprehensive AP U.S. History preparation bank.
 
 ## Verified format for May 2027
@@ -94,7 +94,7 @@ unique trimmed prompts and recognized periods count; ambiguous duplicate prompts
 are excluded. This is a necessary inventory check, not a form assembler.
 
 All nine periods now meet the necessary raw inventory minima for four forms.
-The history bank has 338 questions, with 256 approved unique MCQs usable after
+The history bank has 341 questions, with 256 approved unique MCQs usable after
 period caps against the 220-question target. This does not mean four valid forms
 have been assembled: stimulus groups, skills, sources, and difficulty still need
 to be balanced within each form.
@@ -225,3 +225,10 @@ and evidence needed to distinguish enactment from immediate universal equality.
 Reference: [National Archives](https://www.archives.gov/news/articles/title-ix).
 Other women's movement strategies and debates, Chicano activism, Native rights,
 and gay-rights organizing still need substantive coverage in this topic.
+
+Topic 8.11 also includes three original questions on the Indians of All Tribes
+occupation of Alcatraz (1969–1971), using [National Park Service accounts](https://www.nps.gov/alca/occupations.htm).
+They distinguish collective treaty/land claims from individual access, explain
+how protest visibility can build political pressure, and weigh immediate site
+outcomes against broader mobilization. This does not cover all Native movements
+or establish the occupation as the sole cause of later policy changes.

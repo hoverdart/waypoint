@@ -848,3 +848,6 @@ QUESTIONS += PERIOD_EIGHT_CUBA
 
 from .us_history.period_eight_title_ix import QUESTIONS as PERIOD_EIGHT_TITLE_IX
 QUESTIONS += PERIOD_EIGHT_TITLE_IX
+
+from .us_history.period_eight_alcatraz import QUESTIONS as PERIOD_EIGHT_ALCATRAZ
+QUESTIONS += PERIOD_EIGHT_ALCATRAZ
