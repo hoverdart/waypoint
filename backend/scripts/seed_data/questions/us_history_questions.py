@@ -683,3 +683,5 @@ QUESTIONS.extend(ADDITIONAL_QUESTIONS)
 
 from .us_history.period_one_expansion import QUESTIONS as PERIOD_ONE_EXPANSION
 QUESTIONS += PERIOD_ONE_EXPANSION
+from .us_history.period_two_expansion import QUESTIONS as PERIOD_TWO_EXPANSION
+QUESTIONS += PERIOD_TWO_EXPANSION

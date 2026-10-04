@@ -326,3 +326,21 @@ for _order, (_code, _name, _description, _skill) in enumerate(_period_one_sequen
     _topic['display_order'] = _order
     _topic['skill_tags'] = list(dict.fromkeys([*_topic.get('skill_tags', []), _skill, f'ced:{_code}']))
     UNITS[0]['topics'].append(_topic)
+
+_period_two_existing = {topic['name']: topic for topic in UNITS[1]['topics']}
+_period_two_sequence = [
+    ('Contextualizing Period 2', 'Place colonial development within Atlantic migration, imperial goals, and Indigenous societies.', 'contextualization'),
+    ('Europe and the Colonies: Political and Economic Rivalries', None, 'comparison'),
+    ('The English Colonies: Regional Development', None, 'comparison'),
+    ('Transatlantic Trade and the Expansion of Slavery', None, 'causation'),
+    ('Interactions Between American Indians and Europeans', None, 'sourcing'),
+    ('Slavery in the British Colonies', 'Analyze racialized hereditary slavery, colonial law, and enslaved people’s experiences and resistance.', 'causation'),
+    ('Colonial Society and Culture', 'Examine religious change, intellectual exchange, and social institutions in the colonies.', 'contextualization'),
+    ('Comparison in Period 2', 'Compare colonial institutions using specific evidence and qualified claims.', 'comparison'),
+]
+UNITS[1]['topics'] = []
+for _order, (_name, _description, _skill) in enumerate(_period_two_sequence, start=1):
+    _topic = dict(_period_two_existing.get(_name, {'name': _name, 'description': _description}))
+    _topic['display_order'] = _order
+    _topic['skill_tags'] = list(dict.fromkeys([*_topic.get('skill_tags', []), _skill, f'ced:2.{_order}']))
+    UNITS[1]['topics'].append(_topic)

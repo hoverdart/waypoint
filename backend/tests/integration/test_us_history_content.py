@@ -43,4 +43,22 @@ def test_period_one_additions_cover_missing_framework_topics_and_preserve_ids(db
     seed_subject(db_session, data)
     assert {t.name: t.id for t in db_session.exec(select(Topic)).all()} == topics
     assert {q.id for q in db_session.exec(select(Question)).all()} == questions
-    assert len(questions) == 46
+    assert len(questions) == 58
+
+
+def test_period_two_maps_all_topics_and_distinguishes_primary_evidence():
+    from collections import Counter
+    from app.schemas.admin import AdminQuestionCreate
+    from app.services.admin.question_validation import validate_question_content
+    from scripts.seed_data.questions.us_history.period_two_expansion import QUESTIONS
+    assert len(UNITS[1]['topics']) == 8
+    assert {t for topic in UNITS[1]['topics'] for t in topic['skill_tags'] if t.startswith('ced:')} == {f'ced:2.{i}' for i in range(1, 9)}
+    assert len(QUESTIONS) == 12
+    assert set(Counter(q['topic_name'] for q in QUESTIONS).values()) == {3}
+    assert sum(q['prompt'].startswith('Primary excerpt:') for q in QUESTIONS) == 3
+    for q in QUESTIONS:
+        assert q['topic_name'] in {t['name'] for t in UNITS[1]['topics']}
+        assert q['unit_name'] == UNITS[1]['name']
+        assert 'Source reference: https://' in q['prompt']
+        validate_question_content(AdminQuestionCreate(subject_id=1, unit_id=1, topic_id=1,
+            **{k: v for k, v in q.items() if k not in ('unit_name', 'topic_name')}))
